@@ -244,12 +244,12 @@
 		}
 	}
 
-	&:has(button[aria-expanded="true"]) {
+	button[aria-expanded="true"] {
 		.dropdown-arrow {
 			transform: rotate(180deg);
 		}
 
-		.dropdown-menu {
+		& + .dropdown-menu {
 			opacity: 1;
 			pointer-events: auto;
 			transform: translateY(0);
