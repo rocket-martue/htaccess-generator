@@ -2,7 +2,7 @@
 
 WordPress 用 .htaccess のセキュリティ・パフォーマンス設定をブラウザで簡単に生成できる Web アプリ。
 
-**https://htaccess-genetator.pages.dev/**
+**https://htaccess-generator-b46.pages.dev/**
 
 ## 特徴
 

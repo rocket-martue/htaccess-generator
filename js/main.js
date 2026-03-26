@@ -7,35 +7,7 @@
 
 import { buildRoot, buildWpAdmin, buildUploads } from './generator.js';
 import { PRESETS, DEFAULT_SETTINGS } from './presets.js';
-
-// ─── テーマ ─────────────────────────────────────────────────────
-
-const THEME_STORAGE_KEY = 'htaccess-theme';
-const DARK_THEME = 'dark';
-
-const applyTheme = (isDark) => {
-	if (isDark) {
-		document.documentElement.setAttribute('data-theme', DARK_THEME);
-	} else {
-		document.documentElement.removeAttribute('data-theme');
-	}
-
-	const btn = document.querySelector('.theme-toggle-btn');
-	if (!btn) return;
-	btn.setAttribute('aria-label', isDark ? 'ライトモードに切り替え' : 'ダークモードに切り替え');
-	btn.setAttribute('aria-pressed', String(isDark));
-	const icon = btn.querySelector('.theme-toggle-icon');
-	const label = btn.querySelector('.theme-toggle-label');
-	if (icon) icon.textContent = isDark ? '☀️' : '🌙';
-	if (label) label.textContent = isDark ? 'ライト' : 'ダーク';
-};
-
-const initTheme = () => {
-	const stored = localStorage.getItem(THEME_STORAGE_KEY);
-	// デフォルトはライトテーマ
-	const isDark = stored === DARK_THEME;
-	applyTheme(isDark);
-};
+import { initTheme, setupThemeToggle } from './theme.js';
 
 // ─── DOM 参照 ─────────────────────────────────────────────────────
 
@@ -440,11 +412,7 @@ const initEvents = () => {
 	elDownloadBtn?.addEventListener('click', handleDownload);
 
 	// テーマ切り替え
-	document.querySelector('.theme-toggle-btn')?.addEventListener('click', () => {
-		const isDark = document.documentElement.getAttribute('data-theme') !== DARK_THEME;
-		localStorage.setItem(THEME_STORAGE_KEY, isDark ? DARK_THEME : 'light');
-		applyTheme(isDark);
-	});
+	setupThemeToggle();
 };
 
 // ─── 起動 ─────────────────────────────────────────────────────

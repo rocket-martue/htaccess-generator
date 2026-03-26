@@ -27,7 +27,7 @@
 				<h1><a href="../">.htaccess Generator</a></h1>
 				<p>.htaccess ディレクティブ・フラグ解説ガイド</p>
 				<div class="header-actions">
-					<a href="../" class="header-link">← ジェネレーター</a>
+					<a href="../" class="header-link"><span aria-hidden="true">←</span> ジェネレーター</a>
 					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
@@ -586,39 +586,10 @@ RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
 
 		</div>
 
-		<script>
-			// テーマ切り替え（スタンドアロン）
-			const btn = document.querySelector('.theme-toggle-btn');
-			if (btn) {
-				const icon = btn.querySelector('.theme-toggle-icon');
-				const label = btn.querySelector('.theme-toggle-label');
-				const saved = localStorage.getItem('htaccess-theme');
-				if (saved === 'dark') {
-					document.documentElement.setAttribute('data-theme', 'dark');
-					icon.textContent = '☀️';
-					label.textContent = 'ライト';
-					btn.setAttribute('aria-pressed', 'true');
-					btn.setAttribute('aria-label', 'ライトモードに切り替え');
-				}
-				btn.addEventListener('click', () => {
-					const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-					if (isDark) {
-						document.documentElement.removeAttribute('data-theme');
-						icon.textContent = '🌙';
-						label.textContent = 'ダーク';
-						btn.setAttribute('aria-pressed', 'false');
-						btn.setAttribute('aria-label', 'ダークモードに切り替え');
-						localStorage.setItem('htaccess-theme', 'light');
-					} else {
-						document.documentElement.setAttribute('data-theme', 'dark');
-						icon.textContent = '☀️';
-						label.textContent = 'ライト';
-						btn.setAttribute('aria-pressed', 'true');
-						btn.setAttribute('aria-label', 'ライトモードに切り替え');
-						localStorage.setItem('htaccess-theme', 'dark');
-					}
-				});
-			}
+		<script type="module">
+			import { initTheme, setupThemeToggle } from '../js/theme.js';
+			initTheme();
+			setupThemeToggle();
 		</script>
 	</body>
 
