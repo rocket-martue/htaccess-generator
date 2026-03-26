@@ -428,12 +428,21 @@ const initEvents = () => {
 		dropdown.addEventListener('mouseleave', () => {
 			if (!dropdown.contains(document.activeElement)) setExpanded(false);
 		});
-		dropdown.addEventListener('focusin', () => setExpanded(true));
+		let escapingByKey = false;
+		dropdown.addEventListener('focusin', () => {
+			if (!escapingByKey) setExpanded(true);
+		});
 		dropdown.addEventListener('focusout', (e) => {
 			if (!dropdown.contains(e.relatedTarget)) setExpanded(false);
 		});
 		document.addEventListener('keydown', (e) => {
-			if (e.key === 'Escape') setExpanded(false);
+			if (e.key === 'Escape' && dropdownBtn.getAttribute('aria-expanded') === 'true') {
+				e.preventDefault();
+				escapingByKey = true;
+				setExpanded(false);
+				dropdownBtn.focus();
+				escapingByKey = false;
+			}
 		});
 	}
 };
