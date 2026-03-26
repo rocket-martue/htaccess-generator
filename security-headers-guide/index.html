@@ -17,7 +17,18 @@
 		<meta name="twitter:description" content="WordPress 環境で使用するセキュリティレスポンスヘッダーの役割・防御対象・設定値の意味を解説するガイド">
 
 		<title>セキュリティヘッダー解説ガイド | .htaccess Generator</title>
-		<script>if (localStorage.getItem('htaccess-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
+		<script>
+			(function () {
+				try {
+					var theme = localStorage.getItem('htaccess-theme');
+					if (theme === 'dark') {
+						document.documentElement.setAttribute('data-theme', 'dark');
+					}
+				} catch (e) {
+					// localStorage is unavailable or access is blocked; safely ignore.
+				}
+			})();
+		</script>
 		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
 
