@@ -17,7 +17,15 @@
 		<meta name="twitter:description" content=".htaccess の設定ミスで 500 エラーが発生した場合の FTP リカバリ手順とトラブルシューティングを解説するガイド">
 
 		<title>リカバリ方法解説ガイド | .htaccess Generator</title>
-		<script>if (localStorage.getItem('htaccess-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
+		<script>
+			try {
+				if (window.localStorage && localStorage.getItem('htaccess-theme') === 'dark') {
+					document.documentElement.setAttribute('data-theme', 'dark');
+				}
+			} catch (e) {
+				// localStorage が無効な環境ではテーマ初期化をスキップ
+			}
+		</script>
 		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
 
