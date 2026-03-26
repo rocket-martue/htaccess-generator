@@ -433,7 +433,10 @@ const initEvents = () => {
 			if (!dropdown.contains(e.relatedTarget)) setExpanded(false);
 		});
 		document.addEventListener('keydown', (e) => {
-			if (e.key === 'Escape') setExpanded(false);
+			if (e.key === 'Escape') {
+				setExpanded(false);
+				dropdownBtn.blur();
+			}
 		});
 	}
 };
