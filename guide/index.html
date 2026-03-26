@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="WordPress 環境で使用する .htaccess の主要ディレクティブとフラグについてまとめた解説ガイド">
+		<!-- OGP -->
+		<meta property="og:type" content="article">
+		<meta property="og:title" content=".htaccess ディレクティブ・フラグ解説ガイド">
+		<meta property="og:description" content="WordPress 環境で使用する .htaccess の主要ディレクティブとフラグについてまとめた解説ガイド">
+		<meta property="og:locale" content="ja_JP">
+		<meta property="og:site_name" content=".htaccess Generator">
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content=".htaccess ディレクティブ・フラグ解説ガイド">
+		<meta name="twitter:description" content="WordPress 環境で使用する .htaccess の主要ディレクティブとフラグについてまとめた解説ガイド">
+
+		<title>.htaccess ディレクティブ・フラグ解説ガイド | .htaccess Generator</title>
+		<link rel="stylesheet" href="../css/style.css">
+	</head>
+
+	<body>
+		<div class="app-wrapper">
+
+			<header class="app-header">
+				<h1><a href="../">.htaccess Generator</a></h1>
+				<p>.htaccess ディレクティブ・フラグ解説ガイド</p>
+				<div class="header-actions">
+					<a href="../" class="header-link">← ジェネレーター</a>
+					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
+						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+						<span class="theme-toggle-label">ダーク</span>
+					</button>
+				</div>
+			</header>
+
+			<main>
+				<article class="card article">
+
+					<!-- HTTPS リダイレクトルールの仕組み -->
+					<section>
+						<h2>HTTPS リダイレクトルールの仕組み</h2>
+
+						<pre class="article-code"><code>RewriteCond %{HTTPS} !=on [NC]
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></pre>
+
+						<h3>各行の役割</h3>
+
+						<p><strong>1行目: <code>RewriteCond %{HTTPS} !=on [NC]</code></strong></p>
+						<p>現在のアクセスがHTTPS接続でないことを確認する条件。直接サーバーにHTTPSで接続している場合はこの条件に合致せず、リダイレクトは発生しない。</p>
+
+						<p><strong>2行目: <code>RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]</code></strong></p>
+						<p>リバースプロキシやCDN（Cloudflare、AWS ALBなど）を経由しているケースに対応するための条件。</p>
+						<p>以下のような構成の場合：</p>
+						<pre class="article-code"><code>ユーザー →(HTTPS)→ CDN/プロキシ →(HTTP)→ サーバー</code></pre>
+						<p>サーバーから見るとHTTPアクセスに見えるが、実際にはユーザーはHTTPSでアクセスしている。プロキシが付与する <code>X-Forwarded-Proto</code>
+							ヘッダーで元のプロトコルを判定する。</p>
+						<blockquote>
+							<p>この行がないと、プロキシ経由のHTTPSアクセスで<strong>無限リダイレクトループ</strong>が発生する。</p>
+						</blockquote>
+
+						<p><strong>3行目:
+								<code>RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></strong>
+						</p>
+						<p>上記2つの条件が両方とも真の場合（= 本当にHTTPアクセスの場合）のみ、HTTPSのURLへ301リダイレクトを実行する。</p>
+					</section>
+
+					<hr class="divider">
+
+					<!-- RewriteCond（条件ディレクティブ） -->
+					<section>
+						<h2>RewriteCond（条件ディレクティブ）</h2>
+						<p>「次の <code>RewriteRule</code> を実行するかどうか」を判定する条件文。プログラミングにおける <code>if</code> 文に相当する。</p>
+
+						<h3>構文</h3>
+						<pre class="article-code"><code>RewriteCond %{テスト文字列} パターン [フラグ]</code></pre>
+
+						<h3>主要なテスト文字列（サーバー変数）</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>変数</th>
+										<th>内容</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>%{HTTPS}</code></td>
+										<td>HTTPS接続なら <code>on</code></td>
+									</tr>
+									<tr>
+										<td><code>%{HTTP_USER_AGENT}</code></td>
+										<td>ブラウザやbotのUA文字列</td>
+									</tr>
+									<tr>
+										<td><code>%{REQUEST_URI}</code></td>
+										<td>リクエストされたパス（例: <code>/wp-admin/</code>）</td>
+									</tr>
+									<tr>
+										<td><code>%{REQUEST_FILENAME}</code></td>
+										<td>サーバー上の実ファイルパス</td>
+									</tr>
+									<tr>
+										<td><code>%{QUERY_STRING}</code></td>
+										<td><code>?</code> 以降のクエリ文字列</td>
+									</tr>
+									<tr>
+										<td><code>%{THE_REQUEST}</code></td>
+										<td>生のHTTPリクエスト行（例: <code>GET /path HTTP/1.1</code>）</td>
+									</tr>
+									<tr>
+										<td><code>%{HTTP:ヘッダー名}</code></td>
+										<td>任意のHTTPヘッダーの値</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3>パターンの記述方法</h3>
+						<pre class="article-code"><code># 正規表現マッチ
+RewriteCond %{HTTP_USER_AGENT} (wget|curl|nikto) [NC]
+
+# 否定マッチ（!をつける）
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+
+# ファイルが実在するか
+RewriteCond %{REQUEST_FILENAME} -f
+
+# ディレクトリが実在するか
+RewriteCond %{REQUEST_FILENAME} -d</code></pre>
+
+						<h3>テスト演算子（-f, -d など）</h3>
+						<p>パターン部分には正規表現だけでなく、ファイルシステムの状態をチェックする<strong>特殊なテスト演算子</strong>が使用できる。</p>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>演算子</th>
+										<th>意味</th>
+										<th>チェック内容</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>-f</code></td>
+										<td>is <strong>F</strong>ile</td>
+										<td>通常のファイルが存在するか</td>
+									</tr>
+									<tr>
+										<td><code>-d</code></td>
+										<td>is <strong>D</strong>irectory</td>
+										<td>ディレクトリが存在するか</td>
+									</tr>
+									<tr>
+										<td><code>-s</code></td>
+										<td>is file with <strong>S</strong>ize</td>
+										<td>ファイルが存在し、かつサイズが0でないか</td>
+									</tr>
+									<tr>
+										<td><code>-l</code></td>
+										<td>is symbolic <strong>L</strong>ink</td>
+										<td>シンボリックリンクが存在するか</td>
+									</tr>
+									<tr>
+										<td><code>-F</code></td>
+										<td>is existing <strong>F</strong>ile (via subrequest)</td>
+										<td>Apacheにサブリクエストを投げて存在確認（負荷が高い）</td>
+									</tr>
+									<tr>
+										<td><code>-U</code></td>
+										<td>is existing <strong>U</strong>RL (via subrequest)</td>
+										<td>URLとしてアクセス可能か（負荷が高い）</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<blockquote>
+							<p>実務で頻出するのは <code>-f</code> と <code>-d</code> の2つ。</p>
+						</blockquote>
+
+						<h4>WordPress での使用例</h4>
+						<pre class="article-code"><code>RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]</code></pre>
+						<p>この記述は「リクエストされたパスに実際のファイルまたはディレクトリが存在する場合、URLの書き換えをせずそのまま返す」という意味。</p>
+						<p>画像・CSS・JSなどの実ファイルをWordPressのリライトエンジン（<code>index.php</code>）を経由させず直接配信するために必要な処理。この条件がないと
+							<code>/wp-content/uploads/photo.jpg</code> のような実在ファイルへのアクセスもすべて <code>index.php</code>
+							に転送されてしまい、画像やCSSが表示されなくなる。
+						</p>
+
+						<h3>複数条件の組み合わせ</h3>
+						<p><code>RewriteCond</code> を複数行並べるとデフォルトで <strong>AND条件</strong> になる。</p>
+						<pre class="article-code"><code># 条件A AND 条件B → 両方満たしたときだけRewriteRuleが発動
+RewriteCond %{HTTPS} !=on [NC]
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></pre>
+
+						<p>OR条件にしたい場合は <code>[OR]</code> フラグを使用する。</p>
+						<pre class="article-code"><code># ファイルが存在する OR ディレクトリが存在する
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]</code></pre>
+						<blockquote>
+							<p><strong>重要:</strong> <code>RewriteCond</code> は直後の <code>RewriteRule</code> にのみ適用される。</p>
+						</blockquote>
+					</section>
+
+					<hr class="divider">
+
+					<!-- RewriteRule（書き換えルール） -->
+					<section>
+						<h2>RewriteRule（書き換えルール）</h2>
+						<p>実際にURLを書き換えたりリダイレクトしたりする本体。</p>
+
+						<h3>構文</h3>
+						<pre class="article-code"><code>RewriteRule パターン 置換先 [フラグ]</code></pre>
+
+						<h3>パターンと置換先</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>要素</th>
+										<th>説明</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>^(.*)$</code></td>
+										<td>任意のURLにマッチ（<code>()</code> でキャプチャ）</td>
+									</tr>
+									<tr>
+										<td><code>$1</code></td>
+										<td>キャプチャした内容を置換先で参照</td>
+									</tr>
+									<tr>
+										<td><code>%{HTTP_HOST}</code></td>
+										<td>ホスト名（例: <code>example.com</code>）</td>
+									</tr>
+									<tr>
+										<td><code>%{REQUEST_URI}</code></td>
+										<td>リクエストパス</td>
+									</tr>
+									<tr>
+										<td><code>-</code></td>
+										<td>URLの書き換えをしない（ブロック用途）</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3>使用例</h3>
+						<pre class="article-code"><code># HTTPSリダイレクト
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# URLは書き換えず403 Forbiddenを返す（ボットブロック）
+RewriteRule .* - [F,L]
+
+# 410 Goneを返す（不正なクエリ文字列対策）
+RewriteRule ^ - [R=410,L]</code></pre>
+					</section>
+
+					<hr class="divider">
+
+					<!-- IfModule（モジュール存在チェック） -->
+					<section>
+						<h2>IfModule（モジュール存在チェック）</h2>
+						<p>指定したApacheモジュールが有効な場合にのみ、中のディレクティブを実行する。</p>
+
+						<h3>構文</h3>
+						<pre class="article-code"><code>&lt;IfModule モジュール名&gt;
+    # モジュールが有効なときだけ実行される
+&lt;/IfModule&gt;</code></pre>
+
+						<h3>必要な理由</h3>
+						<p>存在しないモジュールのディレクティブを記述すると <strong>Apacheが起動エラー（500）</strong> になる。<code>IfModule</code>
+							で囲むことで、モジュールがない環境でも安全にスキップされる。</p>
+
+						<h3>主要なモジュール</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>モジュール</th>
+										<th>役割</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>mod_rewrite.c</code></td>
+										<td>URLの書き換え・リダイレクト</td>
+									</tr>
+									<tr>
+										<td><code>mod_deflate.c</code></td>
+										<td>Gzip圧縮</td>
+									</tr>
+									<tr>
+										<td><code>mod_expires.c</code></td>
+										<td>ブラウザキャッシュの有効期限設定</td>
+									</tr>
+									<tr>
+										<td><code>mod_headers.c</code></td>
+										<td>HTTPヘッダーの追加・変更</td>
+									</tr>
+									<tr>
+										<td><code>mod_authz_core.c</code></td>
+										<td>アクセス制御（Apache 2.4+）</td>
+									</tr>
+									<tr>
+										<td><code>mime_module</code></td>
+										<td>MIMEタイプの追加</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3>否定（Apache 2.2 / 2.4 互換パターン）</h3>
+						<pre class="article-code"><code>&lt;IfModule mod_authz_core.c&gt;
+    # Apache 2.4+ の書き方
+    Require all denied
+&lt;/IfModule&gt;
+&lt;IfModule !mod_authz_core.c&gt;
+    # Apache 2.2 以前の書き方（フォールバック）
+    Order deny,allow
+    Deny from all
+&lt;/IfModule&gt;</code></pre>
+						<blockquote>
+							<p><strong>補足:</strong> XServerはApache 2.4系のため、実質的には <code>mod_authz_core.c</code> 側のみ使用される。
+							</p>
+						</blockquote>
+					</section>
+
+					<hr class="divider">
+
+					<!-- モジュールの有効化スイッチ -->
+					<section>
+						<h2>モジュールの有効化スイッチ</h2>
+						<p>一部のモジュールは <code>IfModule</code>
+							で囲むだけでなく、機能を有効化する<strong>スイッチ（ディレクティブ）</strong>が必要になる。スイッチがないと、その後に書いた設定がすべて無視される。</p>
+
+						<h3>スイッチが必要なモジュール</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>モジュール</th>
+										<th>スイッチ</th>
+										<th>役割</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>mod_rewrite.c</code></td>
+										<td><code>RewriteEngine On</code></td>
+										<td>URL書き換え機能を有効化</td>
+									</tr>
+									<tr>
+										<td><code>mod_expires.c</code></td>
+										<td><code>ExpiresActive On</code></td>
+										<td>キャッシュ有効期限機能を有効化</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<pre class="article-code"><code># mod_rewrite の場合
+&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On        ← スイッチON
+    RewriteCond %{HTTPS} !=on [NC]
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+&lt;/IfModule&gt;
+
+# mod_expires の場合
+&lt;IfModule mod_expires.c&gt;
+    ExpiresActive On        ← スイッチON
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 month"
+&lt;/IfModule&gt;</code></pre>
+
+						<h3>スイッチが不要なモジュール</h3>
+						<p><code>mod_deflate</code>、<code>mod_headers</code> などはスイッチ不要で、<code>IfModule</code>
+							の中にいきなり設定を記述できる。すべてのモジュールにスイッチがあるわけではなく、モジュールごとの仕様による。</p>
+
+						<h3>基本パターン</h3>
+						<pre class="article-code"><code>IfModule でモジュールの存在確認 → スイッチON → 設定記述</code></pre>
+						<p>この3ステップがセットになっているのが <code>.htaccess</code> のお決まりの構文。</p>
+						<blockquote>
+							<p><strong>補足:</strong> <code>RewriteEngine Off</code>
+								のように明示的に無効化することも可能。デバッグ時にリライトルールを一括で停止したい場合に使える。</p>
+							<p><strong>補足:</strong> <code>&lt;IfModule mod_rewrite.c&gt;</code> ブロックが複数ある場合は、各ブロックでそれぞれ
+								<code>RewriteEngine On</code> を記述する。ブロックごとに独立しているため、改めてONにする必要がある。
+							</p>
+						</blockquote>
+					</section>
+
+					<hr class="divider">
+
+					<!-- RewriteCondのフラグ -->
+					<section>
+						<h2>RewriteCond のフラグ</h2>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>フラグ</th>
+										<th>名称</th>
+										<th>説明</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>[NC]</code></td>
+										<td>No Case</td>
+										<td>大文字小文字を区別しない</td>
+									</tr>
+									<tr>
+										<td><code>[OR]</code></td>
+										<td>OR条件</td>
+										<td>デフォルトのAND条件をORに変更する</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</section>
+
+					<hr class="divider">
+
+					<!-- RewriteRuleのフラグ -->
+					<section>
+						<h2>RewriteRule のフラグ</h2>
+
+						<h3>使用頻度の高いフラグ</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>フラグ</th>
+										<th>名称</th>
+										<th>説明</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>[L]</code></td>
+										<td>Last</td>
+										<td>このルールで処理を終了し、以降のルールを評価しない</td>
+									</tr>
+									<tr>
+										<td><code>[R=コード]</code></td>
+										<td>Redirect</td>
+										<td>指定したHTTPステータスコードでリダイレクト（例: <code>R=301</code>, <code>R=410</code>）</td>
+									</tr>
+									<tr>
+										<td><code>[F]</code></td>
+										<td>Forbidden</td>
+										<td>403 Forbiddenを返す</td>
+									</tr>
+									<tr>
+										<td><code>[NE]</code></td>
+										<td>No Escape</td>
+										<td>置換先URLをエンコードしない（二重エンコード防止）</td>
+									</tr>
+									<tr>
+										<td><code>[T=型]</code></td>
+										<td>Type</td>
+										<td>MIMEタイプを強制指定する（例: <code>T=image/webp</code>）</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3>その他のフラグ</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>フラグ</th>
+										<th>名称</th>
+										<th>説明</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>[QSA]</code></td>
+										<td>Query String Append</td>
+										<td>リダイレクト先に元のクエリ文字列を引き継ぐ</td>
+									</tr>
+									<tr>
+										<td><code>[QSD]</code></td>
+										<td>Query String Discard</td>
+										<td>クエリ文字列を破棄する</td>
+									</tr>
+									<tr>
+										<td><code>[P]</code></td>
+										<td>Proxy</td>
+										<td>リダイレクトではなくプロキシとして転送</td>
+									</tr>
+									<tr>
+										<td><code>[G]</code></td>
+										<td>Gone</td>
+										<td>410 Goneを返す（<code>[R=410]</code> のショートハンド）</td>
+									</tr>
+									<tr>
+										<td><code>[CO]</code></td>
+										<td>Cookie</td>
+										<td>Cookieをセットする</td>
+									</tr>
+									<tr>
+										<td><code>[E]</code></td>
+										<td>Environment</td>
+										<td>環境変数をセットする</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3>フラグの組み合わせ</h3>
+						<p>フラグはカンマ区切りで複数指定できる。</p>
+						<pre class="article-code"><code># 301リダイレクト + 処理終了 + エンコードしない
+RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
+						<blockquote>
+							<p><code>[L]</code> は基本的にほぼ毎回付ける。付け忘れると後続ルールが意図せず適用される原因になる。</p>
+						</blockquote>
+					</section>
+
+					<hr class="divider">
+
+					<!-- 3つのディレクティブの関係性 -->
+					<section>
+						<h2>3つのディレクティブの関係性</h2>
+						<pre class="article-code"><code>IfModule      → 「このモジュールは使える？」
+ └ RewriteCond  → 「この条件に合致する？」
+   └ RewriteRule  → 「条件を満たしたのでこう処理する」</code></pre>
+					</section>
+
+					<hr class="divider">
+
+					<!-- 参考: HTTPステータスコード -->
+					<section>
+						<h2>参考: HTTP ステータスコード（.htaccess で使用するもの）</h2>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>コード</th>
+										<th>意味</th>
+										<th>用途</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>301</td>
+										<td>Moved Permanently</td>
+										<td>恒久的なリダイレクト（HTTPS強制、URL正規化）</td>
+									</tr>
+									<tr>
+										<td>302</td>
+										<td>Found</td>
+										<td>一時的なリダイレクト</td>
+									</tr>
+									<tr>
+										<td>403</td>
+										<td>Forbidden</td>
+										<td>アクセス拒否（ボットブロック、ファイル保護）</td>
+									</tr>
+									<tr>
+										<td>410</td>
+										<td>Gone</td>
+										<td>リソースが完全に削除済み（不正リクエスト対策）</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</section>
+
+					<!-- ジェネレーターへ戻る -->
+					<div class="article-back">
+						<a href="../" class="btn btn-secondary">← ジェネレーターに戻る</a>
+					</div>
+
+				</article>
+			</main>
+
+		</div>
+
+		<script>
+			// テーマ切り替え（スタンドアロン）
+			const btn = document.querySelector('.theme-toggle-btn');
+			const icon = btn.querySelector('.theme-toggle-icon');
+			const label = btn.querySelector('.theme-toggle-label');
+			const saved = localStorage.getItem('theme');
+			if (saved === 'dark') {
+				document.documentElement.setAttribute('data-theme', 'dark');
+				icon.textContent = '☀️';
+				label.textContent = 'ライト';
+				btn.setAttribute('aria-pressed', 'true');
+			}
+			btn.addEventListener('click', () => {
+				const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+				if (isDark) {
+					document.documentElement.removeAttribute('data-theme');
+					icon.textContent = '🌙';
+					label.textContent = 'ダーク';
+					btn.setAttribute('aria-pressed', 'false');
+					localStorage.setItem('theme', 'light');
+				} else {
+					document.documentElement.setAttribute('data-theme', 'dark');
+					icon.textContent = '☀️';
+					label.textContent = 'ライト';
+					btn.setAttribute('aria-pressed', 'true');
+					localStorage.setItem('theme', 'dark');
+				}
+			});
+		</script>
+	</body>
+
+</html>

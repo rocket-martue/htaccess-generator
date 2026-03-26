@@ -29,6 +29,15 @@
 	}
 }
 
+.header-actions {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+}
+
 // ── グリッドレイアウト ──
 
 .main-layout {
@@ -115,4 +124,47 @@
 	border: none;
 	border-top: 1px solid var(--border-color);
 	margin: 1em 0;
+}
+
+// ── ガイドリンク（ヘッダー内） ──
+
+.header-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	color: var(--text-secondary);
+	font-size: var(--font-size-sm);
+	font-weight: 500;
+	text-decoration: none;
+	padding: 0.4em 0.9em;
+	border-radius: var(--radius-lg);
+	background: rgba(255, 255, 255, 0.55);
+	border: 1px solid rgba(255, 255, 255, 0.7);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	box-shadow:
+		0 1.5px 0 rgba(255, 255, 255, 0.9) inset,
+		0 4px 12px rgba(0, 0, 0, 0.07);
+	transition: all var(--transition);
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.72);
+		color: var(--accent-solid);
+		transform: translateY(-1px);
+		box-shadow:
+			0 1.5px 0 rgba(255, 255, 255, 0.9) inset,
+			0 6px 16px rgba(0, 0, 0, 0.1);
+	}
+
+	[data-theme="dark"] & {
+		background: rgba(255, 255, 255, 0.08);
+		border-color: rgba(255, 255, 255, 0.12);
+		box-shadow:
+			0 1.5px 0 rgba(255, 255, 255, 0.1) inset,
+			0 4px 12px rgba(0, 0, 0, 0.3);
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.13);
+		}
+	}
 }
