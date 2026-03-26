@@ -23,7 +23,7 @@
 					document.documentElement.setAttribute('data-theme', 'dark');
 				}
 			} catch (e) {
-				// localStorage が無効な環境ではテーマ初期化をスキップ
+				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
 			}
 		</script>
 		<link rel="stylesheet" href="../assets/css/style.css">

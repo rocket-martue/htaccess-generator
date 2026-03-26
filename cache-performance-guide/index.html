@@ -20,18 +20,13 @@
 
 		<title>キャッシュ &amp; パフォーマンス解説ガイド | .htaccess Generator</title>
 		<script>
-			(function () {
-				try {
-					var storage = window.localStorage;
-					if (!storage) return;
-					var theme = storage.getItem('htaccess-theme');
-					if (theme === 'dark') {
-						document.documentElement.setAttribute('data-theme', 'dark');
-					}
-				} catch (e) {
-					// localStorage が無効な環境では何もしない（FOUC 回避のため例外は握りつぶす）
+			try {
+				if (window.localStorage && localStorage.getItem('htaccess-theme') === 'dark') {
+					document.documentElement.setAttribute('data-theme', 'dark');
 				}
-			})();
+			} catch (e) {
+				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
+			}
 		</script>
 		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>

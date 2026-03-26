@@ -20,15 +20,13 @@
 
 		<title>wp-admin / uploads 保護解説ガイド | .htaccess Generator</title>
 		<script>
-			(function () {
-				try {
-					if (localStorage.getItem('htaccess-theme') === 'dark') {
-						document.documentElement.setAttribute('data-theme', 'dark');
-					}
-				} catch (e) {
-					// localStorage が利用できない場合は何もしない
+			try {
+				if (window.localStorage && localStorage.getItem('htaccess-theme') === 'dark') {
+					document.documentElement.setAttribute('data-theme', 'dark');
 				}
-			})();
+			} catch (e) {
+				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
+			}
 		</script>
 		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
