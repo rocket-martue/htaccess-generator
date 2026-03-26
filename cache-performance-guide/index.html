@@ -19,7 +19,25 @@
 			content="WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド">
 
 		<title>キャッシュ &amp; パフォーマンス解説ガイド | .htaccess Generator</title>
-		<script>if (localStorage.getItem('htaccess-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
+		<script>
+			(function () {
+				try {
+					var storage = window.localStorage;
+					if (!storage) return;
+					var theme = storage.getItem('htaccess-theme');
+					if (
+						theme === 'dark' ||
+						(!theme &&
+							window.matchMedia &&
+							window.matchMedia('(prefers-color-scheme: dark)').matches)
+					) {
+						document.documentElement.setAttribute('data-theme', 'dark');
+					}
+				} catch (e) {
+					// localStorage が無効な環境では何もしない（FOUC 回避のため例外は握りつぶす）
+				}
+			})();
+		</script>
 		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
 
