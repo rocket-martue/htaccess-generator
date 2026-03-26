@@ -589,31 +589,36 @@ RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
 		<script>
 			// テーマ切り替え（スタンドアロン）
 			const btn = document.querySelector('.theme-toggle-btn');
-			const icon = btn.querySelector('.theme-toggle-icon');
-			const label = btn.querySelector('.theme-toggle-label');
-			const saved = localStorage.getItem('theme');
-			if (saved === 'dark') {
-				document.documentElement.setAttribute('data-theme', 'dark');
-				icon.textContent = '☀️';
-				label.textContent = 'ライト';
-				btn.setAttribute('aria-pressed', 'true');
-			}
-			btn.addEventListener('click', () => {
-				const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-				if (isDark) {
-					document.documentElement.removeAttribute('data-theme');
-					icon.textContent = '🌙';
-					label.textContent = 'ダーク';
-					btn.setAttribute('aria-pressed', 'false');
-					localStorage.setItem('theme', 'light');
-				} else {
+			if (btn) {
+				const icon = btn.querySelector('.theme-toggle-icon');
+				const label = btn.querySelector('.theme-toggle-label');
+				const saved = localStorage.getItem('htaccess-theme');
+				if (saved === 'dark') {
 					document.documentElement.setAttribute('data-theme', 'dark');
 					icon.textContent = '☀️';
 					label.textContent = 'ライト';
 					btn.setAttribute('aria-pressed', 'true');
-					localStorage.setItem('theme', 'dark');
+					btn.setAttribute('aria-label', 'ライトモードに切り替え');
 				}
-			});
+				btn.addEventListener('click', () => {
+					const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+					if (isDark) {
+						document.documentElement.removeAttribute('data-theme');
+						icon.textContent = '🌙';
+						label.textContent = 'ダーク';
+						btn.setAttribute('aria-pressed', 'false');
+						btn.setAttribute('aria-label', 'ダークモードに切り替え');
+						localStorage.setItem('htaccess-theme', 'light');
+					} else {
+						document.documentElement.setAttribute('data-theme', 'dark');
+						icon.textContent = '☀️';
+						label.textContent = 'ライト';
+						btn.setAttribute('aria-pressed', 'true');
+						btn.setAttribute('aria-label', 'ライトモードに切り替え');
+						localStorage.setItem('htaccess-theme', 'dark');
+					}
+				});
+			}
 		</script>
 	</body>
 

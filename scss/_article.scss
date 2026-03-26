@@ -3,7 +3,7 @@
 .article {
 	max-width: 45em;
 	margin: 0 auto;
-	padding-inline: 3em;
+	padding-inline: clamp(1.5em, 5vw, 3em);
 	font-size: var(--font-size-md);
 	line-height: 1.8;
 
@@ -147,14 +147,4 @@
 	padding-top: 1.5em;
 	border-top: 1px solid var(--border-color);
 	text-align: center;
-}
-
-// ── ヘッダーのリンクスタイル ──
-
-.app-header h1 a {
-	background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-	text-decoration: none;
 }

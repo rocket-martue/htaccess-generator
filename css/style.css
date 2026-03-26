@@ -236,6 +236,10 @@ hr {
   -webkit-box-shadow: 0 1.5px 0 rgba(255, 255, 255, 0.9) inset, 0 6px 16px rgba(0, 0, 0, 0.1);
           box-shadow: 0 1.5px 0 rgba(255, 255, 255, 0.9) inset, 0 6px 16px rgba(0, 0, 0, 0.1);
 }
+.header-link:focus-visible {
+  outline: 2px solid var(--accent-solid);
+  outline-offset: 2px;
+}
 [data-theme=dark] .header-link {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.12);
@@ -244,6 +248,14 @@ hr {
 }
 [data-theme=dark] .header-link:hover {
   background: rgba(255, 255, 255, 0.13);
+}
+
+.app-header h1 a {
+  background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
 }
 
 .toggle-row {
@@ -683,7 +695,7 @@ hr {
 .article {
   max-width: 45em;
   margin: 0 auto;
-  padding-inline: 3em;
+  padding-inline: clamp(1.5em, 5vw, 3em);
   font-size: var(--font-size-md);
   line-height: 1.8;
 }
@@ -805,12 +817,4 @@ hr {
   padding-top: 1.5em;
   border-top: 1px solid var(--border-color);
   text-align: center;
-}
-
-.app-header h1 a {
-  background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-decoration: none;
 }
