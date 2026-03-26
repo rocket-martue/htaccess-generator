@@ -17,7 +17,16 @@
 		<meta name="twitter:description" content="WordPress 用 .htaccess のセキュリティ・パフォーマンス設定をブラウザで簡単に生成できるツール">
 
 		<title>.htaccess Generator for WordPress</title>
-		<link rel="stylesheet" href="css/style.css">
+		<script>
+			try {
+				if (window.localStorage && localStorage.getItem('htaccess-theme') === 'dark') {
+					document.documentElement.setAttribute('data-theme', 'dark');
+				}
+			} catch (e) {
+				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
+			}
+		</script>
+		<link rel="stylesheet" href="assets/css/style.css">
 	</head>
 
 	<body>
@@ -27,7 +36,19 @@
 				<h1>.htaccess Generator</h1>
 				<p>WordPress 用 .htaccess のセキュリティ・パフォーマンス設定を簡単に生成</p>
 				<div class="header-actions">
-					<a href="guide/" class="header-link"><span aria-hidden="true">📖</span> ガイド</a>
+					<div class="header-nav-dropdown">
+						<button type="button" class="header-link" aria-haspopup="true" aria-expanded="false" aria-controls="guide-nav-menu">
+							<span aria-hidden="true">📖</span> ガイド <span class="dropdown-arrow"
+								aria-hidden="true">▾</span>
+						</button>
+						<ul class="dropdown-menu" id="guide-nav-menu" aria-hidden="true">
+							<li><a href="directives-guide/">ディレクティブ・フラグ解説</a></li>
+							<li><a href="security-headers-guide/">セキュリティヘッダー</a></li>
+							<li><a href="cache-performance-guide/">キャッシュ &amp; パフォーマンス</a></li>
+							<li><a href="wp-protection-guide/">wp-admin / uploads 保護</a></li>
+							<li><a href="recovery-guide/">リカバリ方法</a></li>
+						</ul>
+					</div>
 					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
@@ -312,13 +333,7 @@
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
-								<div class="toggle-row">
-									<label class="toggle-label" for="keepAlive">Keep-Alive 有効化</label>
-									<label class="toggle-switch">
-										<input type="checkbox" name="keepAlive" id="keepAlive">
-										<span class="toggle-track" aria-hidden="true"></span>
-									</label>
-								</div>
+	
 							</div>
 						</section>
 
@@ -419,7 +434,7 @@
 
 		</div>
 
-		<script type="module" src="js/main.js"></script>
+		<script type="module" src="assets/js/main.js"></script>
 	</body>
 
 </html>

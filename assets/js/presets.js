@@ -43,7 +43,6 @@ export const DEFAULT_SETTINGS = {
 		cacheControl: false,
 		etagDisable: false,
 		mimeType: false,
-		keepAlive: false,
 	},
 	headers: {
 		hstsEnabled: false,
@@ -109,7 +108,6 @@ export const PRESETS = [
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,
-				keepAlive: true,
 			},
 			headers: {
 				hstsEnabled: true,
@@ -171,7 +169,6 @@ export const PRESETS = [
 				cacheControl: false,
 				etagDisable: false,
 				mimeType: false,
-				keepAlive: false,
 			},
 			headers: {
 				hstsEnabled: true,
@@ -233,7 +230,6 @@ export const PRESETS = [
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,
-				keepAlive: true,
 			},
 			headers: {
 				hstsEnabled: true,
@@ -295,7 +291,6 @@ export const PRESETS = [
 				cacheControl: false,
 				etagDisable: false,
 				mimeType: false,
-				keepAlive: false,
 			},
 			headers: {
 				hstsEnabled: true,
@@ -357,7 +352,6 @@ export const PRESETS = [
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,
-				keepAlive: true,
 			},
 			headers: {
 				hstsEnabled: false,
@@ -419,7 +413,6 @@ export const PRESETS = [
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,
-				keepAlive: true,
 			},
 			headers: {
 				hstsEnabled: true,

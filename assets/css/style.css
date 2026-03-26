@@ -250,6 +250,82 @@ hr {
   background: rgba(255, 255, 255, 0.13);
 }
 
+.header-nav-dropdown {
+  position: relative;
+}
+.header-nav-dropdown .dropdown-arrow {
+  font-size: 0.75em;
+  margin-left: 0.1em;
+  display: inline-block;
+  -webkit-transition: -webkit-transform var(--transition);
+  transition: -webkit-transform var(--transition);
+  transition: transform var(--transition);
+  transition: transform var(--transition), -webkit-transform var(--transition);
+}
+.header-nav-dropdown .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0.5em 0.4em 0.4em;
+  min-width: 14em;
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(24px) saturate(1.8) brightness(1.05);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8) brightness(1.05);
+  -webkit-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transform: translateY(-4px);
+          transform: translateY(-4px);
+  -webkit-transition: opacity var(--transition), -webkit-transform var(--transition);
+  transition: opacity var(--transition), -webkit-transform var(--transition);
+  transition: opacity var(--transition), transform var(--transition);
+  transition: opacity var(--transition), transform var(--transition), -webkit-transform var(--transition);
+  z-index: 100;
+}
+[data-theme=dark] .header-nav-dropdown .dropdown-menu {
+  border-color: rgba(255, 255, 255, 0.12);
+  -webkit-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+.header-nav-dropdown .dropdown-menu a {
+  display: block;
+  padding: 0.45em 0.75em;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  -webkit-transition: background var(--transition), color var(--transition);
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+}
+.header-nav-dropdown .dropdown-menu a:hover {
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--accent-solid);
+}
+.header-nav-dropdown .dropdown-menu a:focus-visible {
+  outline: 2px solid var(--accent-solid);
+  outline-offset: -2px;
+}
+[data-theme=dark] .header-nav-dropdown .dropdown-menu a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.header-nav-dropdown:hover .dropdown-arrow, .header-nav-dropdown:focus-within .dropdown-arrow {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+.header-nav-dropdown:hover .dropdown-menu, .header-nav-dropdown:focus-within .dropdown-menu {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
 .app-header h1 a {
   background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
   -webkit-background-clip: text;

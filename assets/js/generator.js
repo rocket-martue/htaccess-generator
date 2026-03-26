@@ -352,14 +352,6 @@ const buildCacheSection = (cache) => {
 		lines.push('');
 	}
 
-	// Keep-Alive
-	if (cache.keepAlive) {
-		lines.push('# Keep-Alive を有効化');
-		lines.push('<IfModule mod_headers.c>');
-		lines.push('\tHeader set Connection keep-alive');
-		lines.push('</IfModule>');
-		lines.push('');
-	}
 
 	return lines;
 };

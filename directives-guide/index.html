@@ -17,7 +17,16 @@
 		<meta name="twitter:description" content="WordPress 環境で使用する .htaccess の主要ディレクティブとフラグについてまとめた解説ガイド">
 
 		<title>.htaccess ディレクティブ・フラグ解説ガイド | .htaccess Generator</title>
-		<link rel="stylesheet" href="../css/style.css">
+		<script>
+			try {
+				if (window.localStorage && localStorage.getItem('htaccess-theme') === 'dark') {
+					document.documentElement.setAttribute('data-theme', 'dark');
+				}
+			} catch (e) {
+				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
+			}
+		</script>
+		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
 
 	<body>
@@ -586,7 +595,7 @@ RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
 
 		</div>
 
-		<script type="module" src="../js/guide.js"></script>
+		<script type="module" src="../assets/js/guide.js"></script>
 	</body>
 
 </html>

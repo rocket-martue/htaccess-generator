@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド">
+		<!-- OGP -->
+		<meta property="og:type" content="article">
+		<meta property="og:title" content="キャッシュ &amp; パフォーマンス解説ガイド">
+		<meta property="og:description"
+			content="WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド">
+		<meta property="og:locale" content="ja_JP">
+		<meta property="og:site_name" content=".htaccess Generator">
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="キャッシュ &amp; パフォーマンス解説ガイド">
+		<meta name="twitter:description"
+			content="WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド">
+
+		<title>キャッシュ &amp; パフォーマンス解説ガイド | .htaccess Generator</title>
+		<script>
+			try {
+				if (window.localStorage && localStorage.getItem('htaccess-theme') === 'dark') {
+					document.documentElement.setAttribute('data-theme', 'dark');
+				}
+			} catch (e) {
+				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
+			}
+		</script>
+		<link rel="stylesheet" href="../assets/css/style.css">
+	</head>
+
+	<body>
+		<div class="app-wrapper">
+
+			<header class="app-header">
+				<h1><a href="../">.htaccess Generator</a></h1>
+				<p>キャッシュ &amp; パフォーマンス解説ガイド</p>
+				<div class="header-actions">
+					<a href="../" class="header-link"><span aria-hidden="true">←</span> ジェネレーター</a>
+					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
+						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+						<span class="theme-toggle-label">ダーク</span>
+					</button>
+				</div>
+			</header>
+
+			<main>
+				<article class="card article">
+
+					<!-- なぜセキュリティとキャッシュをセットで管理するのか -->
+					<section>
+						<h2>なぜセキュリティ設定とキャッシュをセットで管理するのか</h2>
+
+						<p>HTTPS 化とキャッシュ設定はセットで行うのが効率的。どちらも <code>.htaccess</code> で管理できるため、一括設定することでメンテナンスコストを下げられる。
+						</p>
+						<p>また、セキュリティプラグイン（Wordfence
+							等）はリクエストごとにスキャン処理を行うため、サイトのパフォーマンスに影響する場合がある。キャッシュとパフォーマンス最適化によってその「重さ」を相殺できる。</p>
+					</section>
+
+					<hr class="divider">
+
+					<!-- Gzip 圧縮（mod_deflate） -->
+					<section>
+						<h2>Gzip 圧縮（<code>mod_deflate</code>）</h2>
+
+						<pre class="article-code"><code>&lt;IfModule mod_deflate.c&gt;
+    AddOutputFilterByType DEFLATE text/html text/plain text/css
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE application/xml text/xml image/svg+xml
+    AddOutputFilterByType DEFLATE font/woff font/woff2
+&lt;/IfModule&gt;</code></pre>
+
+						<h3>役割と効果</h3>
+						<p>テキストベースのファイル（HTML・CSS・JavaScript・JSON
+							など）をサーバー側で圧縮してからブラウザに送信する。同じコンテンツでもデータ量を大幅に削減でき、ページの読み込み速度が向上する。</p>
+
+						<h3>対象 MIME タイプの選び方</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>MIME タイプ</th>
+										<th>対応ファイル</th>
+										<th>圧縮効果</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>text/html</code></td>
+										<td>HTML ページ</td>
+										<td>高（テキストベース）</td>
+									</tr>
+									<tr>
+										<td><code>text/css</code></td>
+										<td>スタイルシート</td>
+										<td>高</td>
+									</tr>
+									<tr>
+										<td><code>application/javascript</code></td>
+										<td>JavaScript</td>
+										<td>高</td>
+									</tr>
+									<tr>
+										<td><code>application/json</code></td>
+										<td>JSON データ</td>
+										<td>高</td>
+									</tr>
+									<tr>
+										<td><code>image/svg+xml</code></td>
+										<td>SVG 画像</td>
+										<td>高（XML テキスト）</td>
+									</tr>
+									<tr>
+										<td><code>font/woff2</code></td>
+										<td>Web フォント</td>
+										<td>低（すでに圧縮済み）</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<blockquote>
+							<p>JPEG・PNG・WebP などの画像ファイルはすでに圧縮されているため、Gzip の対象にする必要はない。圧縮しても効果が薄く、CPU 負荷だけ増える。</p>
+						</blockquote>
+					</section>
+
+					<hr class="divider">
+
+					<!-- ブラウザキャッシュ（Cache-Control） -->
+					<section>
+						<h2>ブラウザキャッシュ（<code>Cache-Control</code>）</h2>
+
+						<pre class="article-code"><code>&lt;IfModule mod_headers.c&gt;
+    # 画像・フォント・アイコン（1年キャッシュ + immutable）
+    &lt;FilesMatch "\.(ico|jpg|jpeg|png|gif|webp|svg|woff|woff2|ttf)$"&gt;
+        Header always set Cache-Control "public, max-age=31536000, immutable"
+    &lt;/FilesMatch&gt;
+
+    # CSS・JavaScript（1年キャッシュ + immutable）
+    &lt;FilesMatch "\.(css|js)$"&gt;
+        Header always set Cache-Control "public, max-age=31536000, immutable"
+    &lt;/FilesMatch&gt;
+
+    # HTML・JSON・XML（キャッシュしない）
+    &lt;FilesMatch "\.(html|htm|json|xml)$"&gt;
+        Header always set Cache-Control "no-store, no-cache, must-revalidate"
+    &lt;/FilesMatch&gt;
+&lt;/IfModule&gt;</code></pre>
+
+						<h3>ファイル種類ごとのキャッシュ有効期限</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>ファイル種類</th>
+										<th>推奨設定</th>
+										<th>理由</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>画像・フォント・CSS・JS</td>
+										<td>1年（31536000秒）</td>
+										<td>更新頻度が低い静的ファイル</td>
+									</tr>
+									<tr>
+										<td>HTML・JSON・XML</td>
+										<td>キャッシュしない</td>
+										<td>WordPress が動的に生成するコンテンツ</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3><code>immutable</code> フラグの意味</h3>
+						<p><code>max-age</code> の期限内はサーバーへの再検証リクエスト（条件付き
+							GET）自体を省略する指示。ブラウザが「このファイルは期限内に変わらないと保証されている」とみなし、再アクセス時にサーバーへ問い合わせず即座にキャッシュを返す。</p>
+
+						<blockquote>
+							<p><code>immutable</code> を使う場合は、CSS・JS のファイル名にバージョン番号やハッシュを含める（キャッシュバスティング）ことが前提。WordPress
+								プラグイン・テーマは通常クエリ文字列（<code>?ver=6.0</code>）でバージョン管理しているため問題ない。</p>
+						</blockquote>
+
+						<h3>HTML / JSON / XML をキャッシュしない理由</h3>
+						<p>WordPress が生成する HTML
+							は投稿・コメント・プラグインの設定によって毎回変わりうる動的コンテンツ。これをキャッシュすると古いコンテンツが表示され続けるため、<code>no-store</code>
+							で完全にキャッシュを無効化する。</p>
+					</section>
+
+					<hr class="divider">
+
+					<!-- ETag の無効化 -->
+					<section>
+						<h2>ETag の無効化</h2>
+
+						<pre class="article-code"><code>FileETag None</code></pre>
+
+						<h3>役割とメリット</h3>
+						<p>ETag はファイルの変更を検出するための識別子。<code>Cache-Control</code> で有効期限を設定している場合、ETag による再検証は冗長になる。</p>
+
+						<p>ETag を無効化する主なメリットは以下の通り。</p>
+						<ul>
+							<li>冗長な <code>If-None-Match</code> リクエストがなくなりサーバー負荷が下がる</li>
+							<li>複数のウェブサーバーで構成される環境（ロードバランサー等）では、サーバーごとに ETag の値が異なるため正しく機能しないケースがある。これを回避できる</li>
+						</ul>
+					</section>
+
+					<hr class="divider">
+
+					<!-- MIME タイプの追加 -->
+					<section>
+						<h2>MIME タイプの追加（<code>mime_module</code>）</h2>
+
+						<pre class="article-code"><code>&lt;IfModule mime_module&gt;
+    AddType image/x-icon        .ico
+    AddType image/svg+xml       .svg
+    AddType font/woff            .woff
+    AddType font/woff2           .woff2
+    AddType application/font-ttf .ttf
+&lt;/IfModule&gt;</code></pre>
+
+						<h3>役割</h3>
+						<p>Apache がファイルの種類を正しく識別し、ブラウザに適切な <code>Content-Type</code> ヘッダーを返すための設定。MIME
+							タイプが正しくないと以下の問題が起きる。</p>
+
+						<ul>
+							<li>ブラウザがフォントファイルをテキストとして扱い、読み込みに失敗する</li>
+							<li>SVG が画像として表示されない</li>
+							<li>ブラウザが CORS エラーを起こす（特に Web フォント）</li>
+						</ul>
+
+						<p>古いバージョンの Apache では <code>.woff2</code> や <code>.webp</code> が未定義の場合があるため、明示的に追加しておくと安全。</p>
+					</section>
+
+					<hr class="divider">
+
+					<!-- Keep-Alive の有効化 -->
+					<section>
+						<h2>Keep-Alive について</h2>
+
+						<h3>役割</h3>
+						<p>HTTP の持続接続（Keep-Alive）は、1 回の TCP 接続で複数のリクエストを処理する機能。通常、ページを表示するには HTML・CSS・JS・画像など複数のファイルをそれぞれ個別の TCP
+							接続で取得する。Keep-Alive を使うと接続の確立・切断（TCP ハンドシェイク）のオーバーヘッドを削減してページの表示速度を向上させる。</p>
+
+						<h3>.htaccess では制御できない</h3>
+						<p>Keep-Alive の有効・無効は <strong>Apache のサーバー設定</strong>（<code>httpd.conf</code> や <code>apache2.conf</code>）で決まる。<code>Connection</code> はホップバイホップヘッダーであるため、<code>.htaccess</code> から <code>Header always set Connection "keep-alive"</code> を指定しても Keep-Alive を有効化する効果はない。</p>
+
+						<p>サーバー設定で制御する場合のディレクティブ例：</p>
+						<pre class="article-code"><code>KeepAlive On
+MaxKeepAliveRequests 100
+KeepAliveTimeout 5</code></pre>
+
+						<blockquote>
+							<p>レンタルサーバー（XServer 等）では Keep-Alive がデフォルトで有効になっている場合がほとんどのため、個別の設定は不要。</p>
+							<p>HTTP/2 以降では接続の多重化が標準機能として実装されているため、Keep-Alive の設定は主に HTTP/1.1 接続にのみ影響する。</p>
+						</blockquote>
+					</section>
+
+					<!-- 戻るリンク -->
+					<div class="article-back">
+						<a href="../" class="btn btn-secondary">← ジェネレーターに戻る</a>
+					</div>
+
+				</article>
+			</main>
+
+		</div>
+
+		<script type="module" src="../assets/js/guide.js"></script>
+	</body>
+
+</html>

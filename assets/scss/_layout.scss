@@ -174,6 +174,90 @@
 	}
 }
 
+// ── ガイドドロップダウンナビ ──
+
+.header-nav-dropdown {
+	position: relative;
+
+	.dropdown-arrow {
+		font-size: 0.75em;
+		margin-left: 0.1em;
+		display: inline-block;
+		transition: transform var(--transition);
+	}
+
+	.dropdown-menu {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		list-style: none;
+		margin: 0;
+		padding: 0.5em 0.4em 0.4em;
+		min-width: 14em;
+		background: var(--bg-card);
+		border: 1px solid rgba(255, 255, 255, 0.72);
+		border-radius: var(--radius-md);
+		backdrop-filter: blur(24px) saturate(1.8) brightness(1.05);
+		-webkit-backdrop-filter: blur(24px) saturate(1.8) brightness(1.05);
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+		opacity: 0;
+		pointer-events: none;
+		transform: translateY(-4px);
+		transition:
+			opacity var(--transition),
+			transform var(--transition);
+		z-index: 100;
+
+		[data-theme="dark"] & {
+			border-color: rgba(255, 255, 255, 0.12);
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+		}
+
+		a {
+			display: block;
+			padding: 0.45em 0.75em;
+			color: var(--text-secondary);
+			font-size: var(--font-size-sm);
+			font-weight: 500;
+			text-decoration: none;
+			border-radius: var(--radius-sm);
+			transition:
+				background var(--transition),
+				color var(--transition);
+			white-space: nowrap;
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.55);
+				color: var(--accent-solid);
+			}
+
+			&:focus-visible {
+				outline: 2px solid var(--accent-solid);
+				outline-offset: -2px;
+			}
+
+			[data-theme="dark"] & {
+				&:hover {
+					background: rgba(255, 255, 255, 0.1);
+				}
+			}
+		}
+	}
+
+	&:hover,
+	&:focus-within {
+		.dropdown-arrow {
+			transform: rotate(180deg);
+		}
+
+		.dropdown-menu {
+			opacity: 1;
+			pointer-events: auto;
+			transform: translateY(0);
+		}
+	}
+}
+
 // ── ヘッダー h1 リンク ──
 
 .app-header h1 a {
