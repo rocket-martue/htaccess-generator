@@ -434,8 +434,10 @@ const initEvents = () => {
 		});
 		document.addEventListener('keydown', (e) => {
 			if (e.key === 'Escape') {
+				if (dropdown.contains(document.activeElement)) {
+					document.activeElement.blur();
+				}
 				setExpanded(false);
-				dropdownBtn.blur();
 			}
 		});
 	}
