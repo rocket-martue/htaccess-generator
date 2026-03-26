@@ -282,10 +282,10 @@ hr {
 [data-theme=dark] .header-nav-dropdown .dropdown-menu a:hover {
   background: rgba(255, 255, 255, 0.1);
 }
-.header-nav-dropdown:hover .dropdown-arrow, .header-nav-dropdown:has(button[aria-expanded=true]) .dropdown-arrow {
+.header-nav-dropdown:has(button[aria-expanded=true]) .dropdown-arrow {
   transform: rotate(180deg);
 }
-.header-nav-dropdown:hover .dropdown-menu, .header-nav-dropdown:has(button[aria-expanded=true]) .dropdown-menu {
+.header-nav-dropdown:has(button[aria-expanded=true]) .dropdown-menu {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);

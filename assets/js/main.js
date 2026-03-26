@@ -436,7 +436,7 @@ const initEvents = () => {
 			if (!dropdown.contains(e.relatedTarget)) setExpanded(false);
 		});
 		document.addEventListener('keydown', (e) => {
-			if (e.key === 'Escape' && dropdown.contains(document.activeElement)) {
+			if (e.key === 'Escape' && dropdownBtn.getAttribute('aria-expanded') === 'true') {
 				e.preventDefault();
 				escapingByKey = true;
 				setExpanded(false);
