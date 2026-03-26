@@ -19,7 +19,17 @@
 			content="WordPress の wp-admin・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
 
 		<title>wp-admin / uploads 保護解説ガイド | .htaccess Generator</title>
-		<script>if (localStorage.getItem('htaccess-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
+		<script>
+			(function () {
+				try {
+					if (localStorage.getItem('htaccess-theme') === 'dark') {
+						document.documentElement.setAttribute('data-theme', 'dark');
+					}
+				} catch (e) {
+					// localStorage が利用できない場合は何もしない
+				}
+			})();
+		</script>
 		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
 
