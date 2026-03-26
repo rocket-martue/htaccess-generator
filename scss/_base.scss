@@ -1,0 +1,52 @@
+// _base.scss — Reset & body（Liquid Glass）
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: var(--bg-base);
+	background-image:
+		radial-gradient(
+			ellipse 100% 70% at 15% -5%,
+			rgba(90, 181, 255, 0.45) 0%,
+			rgba(168, 216, 255, 0.3) 25%,
+			transparent 70%
+		),
+		radial-gradient(
+			ellipse 70% 60% at 95% 110%,
+			rgba(11, 232, 216, 0.35) 0%,
+			rgba(92, 200, 232, 0.2) 20%,
+			transparent 60%
+		),
+		radial-gradient(ellipse 80% 80% at 50% 50%, #d8eeff 0%, transparent 100%);
+	color: var(--text-primary);
+	font-family:
+		"Segoe UI",
+		system-ui,
+		-apple-system,
+		sans-serif;
+	font-size: 15px;
+	line-height: 1.6;
+	min-height: 100vh;
+
+	[data-theme="dark"] & {
+		background-image:
+			radial-gradient(ellipse 90% 70% at 10% -10%, rgba(0, 80, 180, 0.45) 0%, transparent 60%),
+			radial-gradient(ellipse 65% 55% at 95% 110%, rgba(0, 200, 220, 0.22) 0%, transparent 55%),
+			linear-gradient(160deg, #030c1e 0%, #041428 60%, #061a30 100%);
+	}
+}
+
+a {
+	color: var(--accent-solid);
+	text-decoration: none;
+}
+
+hr {
+	border: none;
+}

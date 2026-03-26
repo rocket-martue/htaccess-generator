@@ -1,0 +1,88 @@
+// _preset.scss — プリセットボタン（Liquid Glass）
+
+.preset-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-sm);
+}
+
+.preset-btn {
+	padding: 0.5em 1em;
+	border: 1px solid rgba(255, 255, 255, 0.28);
+	border-radius: var(--radius-lg);
+	background: rgba(255, 255, 255, 0.2);
+	color: var(--text-secondary);
+	font-size: var(--font-size-sm);
+	font-weight: 500;
+	cursor: pointer;
+	white-space: nowrap;
+	backdrop-filter: blur(12px) saturate(1.4);
+	-webkit-backdrop-filter: blur(12px) saturate(1.4);
+	box-shadow:
+		inset 0 1.5px 1.5px rgba(255, 255, 255, 0.6),
+		inset 0 -1px 1px rgba(0, 0, 0, 0.06),
+		0 4px 16px rgba(0, 0, 0, 0.08);
+	transition: all var(--transition);
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.32);
+		color: var(--text-primary);
+		transform: translateY(-1px);
+		box-shadow:
+			inset 0 1.5px 1.5px rgba(255, 255, 255, 0.7),
+			inset 0 -1px 1px rgba(0, 0, 0, 0.06),
+			0 6px 20px rgba(0, 0, 0, 0.12);
+	}
+
+	&:active {
+		transform: translateY(0);
+		box-shadow:
+			inset 0 2px 5px rgba(0, 0, 0, 0.12),
+			0 2px 8px rgba(0, 0, 0, 0.06);
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--accent-solid);
+		outline-offset: 2px;
+	}
+
+	&.active {
+		background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+		color: #fff;
+		border-color: transparent;
+		box-shadow:
+			0 4px 16px rgba(0, 119, 237, 0.3),
+			0 2px 8px rgba(0, 119, 237, 0.15);
+	}
+}
+
+[data-theme="dark"] {
+	.preset-btn {
+		background: rgba(255, 255, 255, 0.07);
+		border-color: rgba(255, 255, 255, 0.12);
+		box-shadow:
+			inset 0 1.5px 1.5px rgba(255, 255, 255, 0.1),
+			inset 0 -1px 1px rgba(0, 0, 0, 0.3),
+			0 4px 16px rgba(0, 0, 0, 0.3);
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.12);
+			box-shadow:
+				inset 0 1.5px 1.5px rgba(255, 255, 255, 0.14),
+				inset 0 -1px 1px rgba(0, 0, 0, 0.3),
+				0 6px 20px rgba(0, 0, 0, 0.4);
+		}
+
+		&:active {
+			box-shadow:
+				inset 0 2px 5px rgba(0, 0, 0, 0.4),
+				0 2px 8px rgba(0, 0, 0, 0.2);
+		}
+
+		&.active {
+			box-shadow:
+				0 4px 16px rgba(77, 184, 255, 0.25),
+				0 2px 8px rgba(77, 184, 255, 0.12);
+		}
+	}
+}

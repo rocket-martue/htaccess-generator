@@ -1,0 +1,86 @@
+// _variables.scss — CSS カスタムプロパティ（Liquid Glass デザイン）
+
+:root {
+	// ── 背景 ──
+	--bg-base: #cce4ff;
+	--bg-surface: rgba(255, 255, 255, 0.38);
+	--bg-card: rgba(255, 255, 255, 0.48);
+	--bg-input: rgba(210, 232, 255, 0.55);
+	--bg-code: rgba(10, 18, 40, 0.92);
+
+	// ── ボーダー ──
+	--border-color: rgba(0, 90, 200, 0.14);
+
+	// ── アクセント ──
+	--accent-from: #0077ed;
+	--accent-to: #00bcd8;
+	--accent-solid: #0070f5;
+
+	// ── テキスト ──
+	--text-primary: #09214a;
+	--text-secondary: #2d4a6e;
+	--text-muted: #4d6b8a;
+	--text-code: #e2e8f0;
+
+	// ── ステータス ──
+	--success: #1a9a50;
+	--caution: #c57600;
+	--danger: #d42a2a;
+
+	// ── 角丸 ──
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 3em;
+
+	// ── フォントサイズ（Fluid） ──
+	--font-size-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
+	--font-size-sm: clamp(0.78rem, 0.72rem + 0.3vw, 0.9rem);
+	--font-size-base: clamp(0.88rem, 0.82rem + 0.3vw, 1rem);
+	--font-size-md: clamp(1rem, 0.92rem + 0.4vw, 1.15rem);
+	--font-size-lg: clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
+	--font-size-xl: clamp(1.35rem, 1.2rem + 0.75vw, 1.65rem);
+	--font-size-2xl: clamp(1.6rem, 1.35rem + 1.25vw, 2.1rem);
+	--font-size-3xl: clamp(1.9rem, 1.55rem + 1.75vw, 2.6rem);
+	--font-size-6xl: clamp(2.2rem, 1.6rem + 3vw, 3.6rem);
+
+	// ── スペーシング（Fluid） ──
+	--space-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.4rem);
+	--space-sm: clamp(0.4rem, 0.35rem + 0.25vw, 0.55rem);
+	--space-md: clamp(0.75rem, 0.65rem + 0.5vw, 1rem);
+	--space-lg: clamp(1rem, 0.85rem + 0.75vw, 1.4rem);
+	--space-xl: clamp(1.5rem, 1.25rem + 1.25vw, 2.1rem);
+	--space-2xl: clamp(2rem, 1.6rem + 2vw, 3rem);
+
+	// ── トランジション ──
+	--transition: 150ms ease;
+
+	// ── レイアウト ──
+	--max-width: 1400px;
+}
+
+[data-theme="dark"] {
+	// ── 背景 ──
+	--bg-base: #030c1e;
+	--bg-surface: rgba(6, 22, 58, 0.88);
+	--bg-card: rgba(8, 28, 68, 0.92);
+	--bg-input: rgba(4, 14, 38, 0.92);
+	--bg-code: rgba(2, 8, 22, 0.95);
+
+	// ── ボーダー ──
+	--border-color: rgba(120, 180, 255, 0.18);
+
+	// ── アクセント ──
+	--accent-from: #4db8ff;
+	--accent-to: #22e8ff;
+	--accent-solid: #4db8ff;
+
+	// ── テキスト ──
+	--text-primary: #e8f4ff;
+	--text-secondary: #90bae0;
+	--text-muted: #688aad;
+
+	// ── ステータス ──
+	--success: #30d158;
+	--caution: #ffd60a;
+	--danger: #ff6b6b;
+}

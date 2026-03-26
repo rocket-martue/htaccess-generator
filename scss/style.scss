@@ -1,0 +1,14 @@
+// style.scss — .htaccess Generator メインエントリポイント
+//
+// Live Sass Compile の出力先: css/style.css
+// パーシャルの編集対象: scss/_*.scss
+// ─────────────────────────────────────────────────────────────
+
+@use "variables"; // CSS カスタムプロパティ (:root)
+@use "base"; // Reset & body
+@use "layout"; // app-wrapper, app-header, main-layout, card, divider
+@use "toggle"; // トグルスイッチ
+@use "preset"; // プリセットボタン
+@use "form"; // テキスト入力、テキストエリア
+@use "button"; // btn, btn-primary, btn-secondary, theme-toggle
+@use "preview"; // タブ、コード表示、アクションボタン
