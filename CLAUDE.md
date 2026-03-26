@@ -13,7 +13,6 @@ Cloudflare Pages でホスティング。ビルドなし、外部依存なし。
 
 ```
 /
-├── _headers                        ← Cloudflare Pages CSP 等のレスポンスヘッダー設定
 ├── index.html                      ← メインページ（ジェネレーター UI）
 ├── {guide-name}/index.html         ← ガイドページ（5ページ）
 ├── assets/
@@ -25,7 +24,7 @@ Cloudflare Pages でホスティング。ビルドなし、外部依存なし。
 │       ├── theme.js                ← テーマ切り替え共通モジュール
 │       ├── generator.js            ← .htaccess 生成ロジック（DOM 操作なし）
 │       └── presets.js              ← プリセット定義データ
-└── _headers                        ← CSP ハッシュ管理（後述）
+└── _headers                        ← Cloudflare Pages レスポンスヘッダー設定（CSP ハッシュ管理）
 ```
 
 ---
@@ -86,4 +85,4 @@ console.log('sha256-' + crypto.createHash('sha256').update(script, 'utf8').diges
 | Keep-Alive オプション | 削除済み | `.htaccess` では制御不可 |
 | `.htpasswd` 生成 | 非対応 | bcrypt は外部ライブラリ必須、SHA1 はセキュリティ不足 |
 | `# BEGIN WordPress` ブロック | 生成しない | WordPress が自動生成するため |
-| `style.css` の直接編集 | 禁止 | SCSS コンパイル済みファイルのため `scss/` を編集する |
+| `style.css` の直接編集 | 禁止 | SCSS コンパイル済みファイルのため `assets/scss/` を編集する |

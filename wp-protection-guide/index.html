@@ -91,7 +91,10 @@
 # upgrade.php はサーバー内部からのみ許可（WordPress 自動更新のため）
 &lt;Files upgrade.php&gt;
     &lt;IfModule mod_authz_core.c&gt;
-        Require ip 127.0.0.1 ::1
+        &lt;RequireAny&gt;
+            Require ip 127.0.0.1 ::1
+            Require valid-user
+        &lt;/RequireAny&gt;
     &lt;/IfModule&gt;
 &lt;/Files&gt;
 

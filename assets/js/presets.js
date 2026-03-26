@@ -108,7 +108,7 @@ export const PRESETS = [
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,
-					},
+			},
 			headers: {
 				hstsEnabled: true,
 				cspEnabled: true,
@@ -169,7 +169,7 @@ export const PRESETS = [
 				cacheControl: false,
 				etagDisable: false,
 				mimeType: false,
-					},
+			},
 			headers: {
 				hstsEnabled: true,
 				cspEnabled: true,
@@ -230,7 +230,7 @@ export const PRESETS = [
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,
-					},
+			},
 			headers: {
 				hstsEnabled: true,
 				cspEnabled: true,
@@ -291,7 +291,7 @@ export const PRESETS = [
 				cacheControl: false,
 				etagDisable: false,
 				mimeType: false,
-					},
+			},
 			headers: {
 				hstsEnabled: true,
 				cspEnabled: true,
@@ -352,7 +352,7 @@ export const PRESETS = [
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,
-					},
+			},
 			headers: {
 				hstsEnabled: false,
 				cspEnabled: false,
@@ -413,7 +413,7 @@ export const PRESETS = [
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,
-					},
+			},
 			headers: {
 				hstsEnabled: true,
 				cspEnabled: true,

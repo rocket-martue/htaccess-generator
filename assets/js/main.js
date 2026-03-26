@@ -425,7 +425,9 @@ const initEvents = () => {
 		};
 		setExpanded(false);
 		dropdown.addEventListener('mouseenter', () => setExpanded(true));
-		dropdown.addEventListener('mouseleave', () => setExpanded(false));
+		dropdown.addEventListener('mouseleave', () => {
+			if (!dropdown.contains(document.activeElement)) setExpanded(false);
+		});
 		dropdown.addEventListener('focusin', () => setExpanded(true));
 		dropdown.addEventListener('focusout', (e) => {
 			if (!dropdown.contains(e.relatedTarget)) setExpanded(false);
