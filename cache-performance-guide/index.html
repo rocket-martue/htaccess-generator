@@ -25,12 +25,7 @@
 					var storage = window.localStorage;
 					if (!storage) return;
 					var theme = storage.getItem('htaccess-theme');
-					if (
-						theme === 'dark' ||
-						(!theme &&
-							window.matchMedia &&
-							window.matchMedia('(prefers-color-scheme: dark)').matches)
-					) {
+					if (theme === 'dark') {
 						document.documentElement.setAttribute('data-theme', 'dark');
 					}
 				} catch (e) {
