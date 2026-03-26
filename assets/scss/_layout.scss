@@ -245,7 +245,7 @@
 	}
 
 	&:hover,
-	&:focus-within {
+	&:has(button[aria-expanded="true"]) {
 		.dropdown-arrow {
 			transform: rotate(180deg);
 		}

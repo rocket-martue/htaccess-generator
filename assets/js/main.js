@@ -428,16 +428,20 @@ const initEvents = () => {
 		dropdown.addEventListener('mouseleave', () => {
 			if (!dropdown.contains(document.activeElement)) setExpanded(false);
 		});
-		dropdown.addEventListener('focusin', () => setExpanded(true));
+		let escapingByKey = false;
+		dropdown.addEventListener('focusin', () => {
+			if (!escapingByKey) setExpanded(true);
+		});
 		dropdown.addEventListener('focusout', (e) => {
 			if (!dropdown.contains(e.relatedTarget)) setExpanded(false);
 		});
 		document.addEventListener('keydown', (e) => {
-			if (e.key === 'Escape') {
-				if (dropdown.contains(document.activeElement)) {
-					document.activeElement.blur();
-				}
+			if (e.key === 'Escape' && dropdown.contains(document.activeElement)) {
+				e.preventDefault();
+				escapingByKey = true;
 				setExpanded(false);
+				dropdownBtn.focus();
+				escapingByKey = false;
 			}
 		});
 	}
