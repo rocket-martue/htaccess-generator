@@ -47,7 +47,7 @@ const elExpires = document.querySelector('[name="expires"]');
 const elCacheControl = document.querySelector('[name="cacheControl"]');
 const elEtagDisable = document.querySelector('[name="etagDisable"]');
 const elMimeType = document.querySelector('[name="mimeType"]');
-const elKeepAlive = document.querySelector('[name="keepAlive"]');
+
 
 // Headers
 const elHstsEnabled = document.querySelector('[name="hstsEnabled"]');
@@ -127,7 +127,7 @@ const getCurrentSettings = () => ({
 		cacheControl: elCacheControl?.checked ?? false,
 		etagDisable: elEtagDisable?.checked ?? false,
 		mimeType: elMimeType?.checked ?? false,
-		keepAlive: elKeepAlive?.checked ?? false,
+
 	},
 	headers: {
 		hstsEnabled: elHstsEnabled?.checked ?? false,
@@ -260,7 +260,7 @@ const applySettingsToForm = (settings) => {
 	if (elCacheControl) elCacheControl.checked = settings.cache.cacheControl;
 	if (elEtagDisable) elEtagDisable.checked = settings.cache.etagDisable;
 	if (elMimeType) elMimeType.checked = settings.cache.mimeType;
-	if (elKeepAlive) elKeepAlive.checked = settings.cache.keepAlive;
+
 
 	// Headers
 	if (elHstsEnabled) elHstsEnabled.checked = settings.headers.hstsEnabled;
