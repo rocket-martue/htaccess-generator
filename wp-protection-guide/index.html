@@ -69,10 +69,15 @@
 
 # admin-ajax.php は除外（フロントエンドの Ajax に必要）
 &lt;Files admin-ajax.php&gt;
-    Satisfy Any
-    Order allow,deny
-    Allow from all
-    Deny from none
+    &lt;IfModule mod_authz_core.c&gt;
+        Require all granted
+    &lt;/IfModule&gt;
+    &lt;IfModule !mod_authz_core.c&gt;
+        Satisfy Any
+        Order allow,deny
+        Allow from all
+        Deny from none
+    &lt;/IfModule&gt;
 &lt;/Files&gt;
 
 # upgrade.php はサーバー内部からのみ許可（WordPress 自動更新のため）

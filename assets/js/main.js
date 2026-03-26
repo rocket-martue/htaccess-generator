@@ -413,6 +413,23 @@ const initEvents = () => {
 
 	// テーマ切り替え
 	setupThemeToggle();
+
+	// ドロップダウンナビ — aria-expanded 管理・Esc で閉じる
+	const dropdown = document.querySelector('.header-nav-dropdown');
+	const dropdownBtn = dropdown?.querySelector('button');
+	if (dropdown && dropdownBtn) {
+		const setExpanded = (val) => dropdownBtn.setAttribute('aria-expanded', String(val));
+		setExpanded(false);
+		dropdown.addEventListener('mouseenter', () => setExpanded(true));
+		dropdown.addEventListener('mouseleave', () => setExpanded(false));
+		dropdown.addEventListener('focusin', () => setExpanded(true));
+		dropdown.addEventListener('focusout', (e) => {
+			if (!dropdown.contains(e.relatedTarget)) setExpanded(false);
+		});
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') setExpanded(false);
+		});
+	}
 };
 
 // ─── 起動 ─────────────────────────────────────────────────────
