@@ -417,8 +417,12 @@ const initEvents = () => {
 	// ドロップダウンナビ — aria-expanded 管理・Esc で閉じる
 	const dropdown = document.querySelector('.header-nav-dropdown');
 	const dropdownBtn = dropdown?.querySelector('button');
+	const dropdownMenu = dropdown?.querySelector('.dropdown-menu');
 	if (dropdown && dropdownBtn) {
-		const setExpanded = (val) => dropdownBtn.setAttribute('aria-expanded', String(val));
+		const setExpanded = (val) => {
+			dropdownBtn.setAttribute('aria-expanded', String(val));
+			if (dropdownMenu) dropdownMenu.setAttribute('aria-hidden', String(!val));
+		};
 		setExpanded(false);
 		dropdown.addEventListener('mouseenter', () => setExpanded(true));
 		dropdown.addEventListener('mouseleave', () => setExpanded(false));
