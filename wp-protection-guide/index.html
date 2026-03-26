@@ -114,7 +114,7 @@ Require valid-user</code></pre>
 						<h3>upgrade.php のサーバー内部 IP 除外の理由</h3>
 						<p>WordPress の自動更新は内部でサーバー自身（<code>127.0.0.1</code> / <code>::1</code>）が
 							<code>upgrade.php</code> にアクセスする。Basic 認証がかかっていると自動更新が失敗するため、ループバック IP アドレスからのアクセスだけ Basic
-							認証なしで許可する。
+							認証なしで許可する。なお、上記の設定例は Apache 2.4 以降（<code>mod_authz_core</code>）を前提としており、Apache 2.2 を利用している場合は同等の許可設定を別途追加する必要がある。
 						</p>
 
 						<h3>Basic 認証の設定項目</h3>
