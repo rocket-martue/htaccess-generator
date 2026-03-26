@@ -238,20 +238,23 @@
 
 					<!-- Keep-Alive の有効化 -->
 					<section>
-						<h2>Keep-Alive の有効化</h2>
-
-						<pre class="article-code"><code>&lt;IfModule mod_headers.c&gt;
-    Header always set Connection "keep-alive"
-&lt;/IfModule&gt;</code></pre>
+						<h2>Keep-Alive について</h2>
 
 						<h3>役割</h3>
-						<p>HTTP の持続接続（Keep-Alive）を有効にする設定。通常、ページを表示するには HTML・CSS・JS・画像など複数のファイルをそれぞれ個別の TCP
-							接続で取得する。Keep-Alive は 1 回の TCP 接続で複数のリクエストを処理できるようにし、接続の確立・切断（TCP
-							ハンドシェイク）のオーバーヘッドを削減してページの表示速度を向上させる。</p>
+						<p>HTTP の持続接続（Keep-Alive）は、1 回の TCP 接続で複数のリクエストを処理する機能。通常、ページを表示するには HTML・CSS・JS・画像など複数のファイルをそれぞれ個別の TCP
+							接続で取得する。Keep-Alive を使うと接続の確立・切断（TCP ハンドシェイク）のオーバーヘッドを削減してページの表示速度を向上させる。</p>
+
+						<h3>.htaccess では制御できない</h3>
+						<p>Keep-Alive の有効・無効は <strong>Apache のサーバー設定</strong>（<code>httpd.conf</code> や <code>apache2.conf</code>）で決まる。<code>Connection</code> はホップバイホップヘッダーであるため、<code>.htaccess</code> から <code>Header always set Connection "keep-alive"</code> を指定しても Keep-Alive を有効化する効果はない。</p>
+
+						<p>サーバー設定で制御する場合のディレクティブ例：</p>
+						<pre class="article-code"><code>KeepAlive On
+MaxKeepAliveRequests 100
+KeepAliveTimeout 5</code></pre>
 
 						<blockquote>
-							<p>HTTP/2 以降では接続の多重化が標準機能として実装されているため、Keep-Alive 設定の効果は主に HTTP/1.1
-								接続に対して発揮される。最近のサーバーとブラウザの組み合わせでは HTTP/2 が使われることが多いが、設定しておいても問題はない。</p>
+							<p>レンタルサーバー（XServer 等）では Keep-Alive がデフォルトで有効になっている場合がほとんどのため、個別の設定は不要。</p>
+							<p>HTTP/2 以降では接続の多重化が標準機能として実装されているため、Keep-Alive の設定は主に HTTP/1.1 接続にのみ影響する。</p>
 						</blockquote>
 					</section>
 
