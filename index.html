@@ -247,6 +247,7 @@
 						<section class="card" aria-label="セキュリティヘッダー">
 							<h2 class="section-title">セキュリティレスポンスヘッダー</h2>
 							<div class="form-group">
+								<!-- HSTS -->
 								<div class="toggle-row">
 									<label class="toggle-label"
 										for="hstsEnabled">HSTS（Strict-Transport-Security）</label>
@@ -255,6 +256,18 @@
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
+								<div class="hsts-sub-fields sub-options" hidden>
+									<label class="sub-option-label">
+										<input type="checkbox" name="hstsIncludeSubDomains" id="hstsIncludeSubDomains" checked>
+										<span>includeSubDomains</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="hstsPreload" id="hstsPreload" checked>
+										<span>preload</span>
+									</label>
+								</div>
+
+								<!-- CSP -->
 								<div class="toggle-row">
 									<label class="toggle-label" for="cspEnabled">CSP（upgrade-insecure-requests）</label>
 									<label class="toggle-switch">
@@ -262,6 +275,8 @@
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
+
+								<!-- X-Content-Type-Options -->
 								<div class="toggle-row">
 									<label class="toggle-label" for="xContentType">X-Content-Type-Options:
 										nosniff</label>
@@ -270,13 +285,27 @@
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
+
+								<!-- X-Frame-Options -->
 								<div class="toggle-row">
-									<label class="toggle-label" for="xFrameOptions">X-Frame-Options: SAMEORIGIN</label>
+									<label class="toggle-label" for="xFrameOptions">X-Frame-Options</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="xFrameOptions" id="xFrameOptions">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
+								<div class="xfo-sub-fields sub-options" hidden>
+									<label class="sub-option-label">
+										<input type="radio" name="xFrameOptionsValue" value="SAMEORIGIN" checked>
+										<span>SAMEORIGIN（同一ドメインのみ許可）</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="radio" name="xFrameOptionsValue" value="DENY">
+										<span>DENY（すべて拒否）</span>
+									</label>
+								</div>
+
+								<!-- Referrer-Policy -->
 								<div class="toggle-row">
 									<label class="toggle-label" for="referrerPolicy">Referrer-Policy</label>
 									<label class="toggle-switch">
@@ -284,11 +313,78 @@
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
+								<div class="rp-sub-fields sub-options" hidden>
+									<label class="sub-option-label">
+										<input type="radio" name="referrerPolicyValue" value="no-referrer">
+										<span>no-referrer</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="radio" name="referrerPolicyValue" value="no-referrer-when-downgrade">
+										<span>no-referrer-when-downgrade</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="radio" name="referrerPolicyValue" value="origin">
+										<span>origin</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="radio" name="referrerPolicyValue" value="origin-when-cross-origin">
+										<span>origin-when-cross-origin</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="radio" name="referrerPolicyValue" value="same-origin">
+										<span>same-origin</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="radio" name="referrerPolicyValue" value="strict-origin">
+										<span>strict-origin</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="radio" name="referrerPolicyValue" value="strict-origin-when-cross-origin" checked>
+										<span>strict-origin-when-cross-origin（推奨）</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="radio" name="referrerPolicyValue" value="unsafe-url">
+										<span>unsafe-url（非推奨）</span>
+									</label>
+								</div>
+
+								<!-- Permissions-Policy -->
 								<div class="toggle-row">
 									<label class="toggle-label" for="permissionsPolicy">Permissions-Policy</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="permissionsPolicy" id="permissionsPolicy">
 										<span class="toggle-track" aria-hidden="true"></span>
+									</label>
+								</div>
+								<div class="pp-sub-fields sub-options" hidden>
+									<p class="sub-options-hint">チェック ON = 制限する / OFF = ポリシーから除外（許可）</p>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppCamera" id="ppCamera" checked>
+										<span>camera</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppMicrophone" id="ppMicrophone" checked>
+										<span>microphone</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppPayment" id="ppPayment" checked>
+										<span>payment</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppUsb" id="ppUsb" checked>
+										<span>usb</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppGyroscope" id="ppGyroscope" checked>
+										<span>gyroscope</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppMagnetometer" id="ppMagnetometer" checked>
+										<span>magnetometer</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppGeolocation" id="ppGeolocation" checked>
+										<span>geolocation</span>
 									</label>
 								</div>
 							</div>
