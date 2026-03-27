@@ -398,6 +398,16 @@ const updateConditionalFields = () => {
 	// Permissions-Policy サブオプション
 	if (elPpSubFields) {
 		elPpSubFields.hidden = !elPermissionsPolicy?.checked;
+
+		// サブ機能がすべて OFF ならメイントグルを自動で OFF に戻す
+		if (elPermissionsPolicy?.checked) {
+			const subCheckboxes = elPpSubFields.querySelectorAll('input[type="checkbox"]');
+			const hasAnyEnabled = Array.from(subCheckboxes).some((cb) => cb.checked);
+			if (!hasAnyEnabled) {
+				elPermissionsPolicy.checked = false;
+				elPpSubFields.hidden = true;
+			}
+		}
 	}
 };
 
