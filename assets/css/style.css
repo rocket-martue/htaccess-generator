@@ -612,6 +612,21 @@ hr {
   margin: 0 0 0.2em;
 }
 
+.sub-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sub-legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 .btn {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
