@@ -374,6 +374,20 @@ const initPresets = () => {
 		btn.addEventListener('click', () => applyPreset(preset.id));
 		elPresetGroup?.appendChild(btn);
 	});
+
+	// リセットボタン
+	const resetBtn = document.createElement('button');
+	resetBtn.type = 'button';
+	resetBtn.className = 'preset-btn preset-reset-btn';
+	resetBtn.textContent = 'リセット';
+	resetBtn.setAttribute('aria-label', 'すべての設定を初期状態に戻す');
+	resetBtn.addEventListener('click', () => {
+		applySettingsToForm(DEFAULT_SETTINGS);
+		elPresetGroup?.querySelectorAll('.preset-btn').forEach((btn) => {
+			btn.classList.remove('active');
+		});
+	});
+	elPresetGroup?.appendChild(resetBtn);
 };
 
 // ─── イベント登録 ─────────────────────────────────────────────────

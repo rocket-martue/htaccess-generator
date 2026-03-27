@@ -56,6 +56,17 @@
 	}
 }
 
+.preset-reset-btn {
+	background: rgba(0, 0, 0, 0.05);
+	border-color: rgba(0, 0, 0, 0.12);
+	color: var(--text-secondary);
+
+	&:hover {
+		background: rgba(0, 0, 0, 0.1);
+		color: var(--text-primary);
+	}
+}
+
 [data-theme="dark"] {
 	.preset-btn {
 		background: rgba(255, 255, 255, 0.07);
@@ -83,6 +94,15 @@
 			box-shadow:
 				0 4px 16px rgba(77, 184, 255, 0.25),
 				0 2px 8px rgba(77, 184, 255, 0.12);
+		}
+	}
+
+	.preset-reset-btn {
+		background: rgba(255, 255, 255, 0.04);
+		border-color: rgba(255, 255, 255, 0.08);
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.08);
 		}
 	}
 }
