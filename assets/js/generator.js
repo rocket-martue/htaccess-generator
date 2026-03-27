@@ -370,7 +370,7 @@ const buildHeadersSection = (headers) => {
 		if (headers.hstsIncludeSubDomains) {
 			hstsParts.push('includeSubDomains');
 		}
-		if (headers.hstsPreload) {
+		if (headers.hstsPreload && headers.hstsIncludeSubDomains) {
 			hstsParts.push('preload');
 		}
 		const hstsValue = hstsParts.join('; ');

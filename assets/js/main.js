@@ -376,6 +376,15 @@ const updateConditionalFields = () => {
 		elHstsSubFields.hidden = !elHstsEnabled?.checked;
 	}
 
+	// preload は includeSubDomains が ON の場合のみ有効
+	if (elHstsPreload) {
+		const includeSubEnabled = elHstsIncludeSubDomains?.checked ?? true;
+		elHstsPreload.disabled = !includeSubEnabled;
+		if (!includeSubEnabled) {
+			elHstsPreload.checked = false;
+		}
+	}
+
 	// X-Frame-Options サブオプション
 	if (elXfoSubFields) {
 		elXfoSubFields.hidden = !elXFrameOptions?.checked;
