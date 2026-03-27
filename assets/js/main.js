@@ -288,7 +288,8 @@ const applySettingsToForm = (settings) => {
 };
 
 const clearPresetActiveState = () => {
-	elPresetGroup?.querySelectorAll('.preset-btn').forEach((btn) => {
+	if (!elPresetGroup) return;
+	elPresetGroup.querySelectorAll('.preset-btn').forEach((btn) => {
 		btn.classList.remove('active');
 	});
 };
@@ -300,7 +301,8 @@ const applyPreset = (presetId) => {
 	applySettingsToForm(preset.settings);
 
 	// アクティブ状態
-	elPresetGroup?.querySelectorAll('.preset-btn').forEach((btn) => {
+	if (!elPresetGroup) return;
+	elPresetGroup.querySelectorAll('.preset-btn').forEach((btn) => {
 		btn.classList.toggle('active', btn.dataset.presetId === presetId);
 	});
 };
