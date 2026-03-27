@@ -287,6 +287,13 @@ const applySettingsToForm = (settings) => {
 	updatePreview();
 };
 
+const clearPresetActiveState = () => {
+	if (!elPresetGroup) return;
+	elPresetGroup.querySelectorAll('.preset-btn').forEach((btn) => {
+		btn.classList.remove('active');
+	});
+};
+
 const applyPreset = (presetId) => {
 	const preset = PRESETS.find((p) => p.id === presetId);
 	if (!preset) return;
@@ -294,7 +301,8 @@ const applyPreset = (presetId) => {
 	applySettingsToForm(preset.settings);
 
 	// アクティブ状態
-	elPresetGroup?.querySelectorAll('.preset-btn').forEach((btn) => {
+	if (!elPresetGroup) return;
+	elPresetGroup.querySelectorAll('.preset-btn').forEach((btn) => {
 		btn.classList.toggle('active', btn.dataset.presetId === presetId);
 	});
 };
@@ -374,6 +382,18 @@ const initPresets = () => {
 		btn.addEventListener('click', () => applyPreset(preset.id));
 		elPresetGroup?.appendChild(btn);
 	});
+
+	// リセットボタン
+	const resetBtn = document.createElement('button');
+	resetBtn.type = 'button';
+	resetBtn.className = 'preset-btn preset-reset-btn';
+	resetBtn.textContent = 'リセット';
+	resetBtn.setAttribute('aria-label', 'すべての設定を初期状態に戻す');
+	resetBtn.addEventListener('click', () => {
+		applySettingsToForm(DEFAULT_SETTINGS);
+		clearPresetActiveState();
+	});
+	elPresetGroup?.appendChild(resetBtn);
 };
 
 // ─── イベント登録 ─────────────────────────────────────────────────
@@ -385,10 +405,7 @@ const initEvents = () => {
 		cb.addEventListener('change', () => {
 			updateConditionalFields();
 			updatePreview();
-			// プリセットのアクティブ状態を解除
-			elPresetGroup?.querySelectorAll('.preset-btn').forEach((btn) => {
-				btn.classList.remove('active');
-			});
+			clearPresetActiveState();
 		});
 	});
 
