@@ -28,6 +28,16 @@ const BAD_QUERY_PARAMS = [
 	'w',
 ];
 
+/** X-Frame-Options の許可値 */
+const VALID_XFO_VALUES = ['SAMEORIGIN', 'DENY'];
+
+/** Referrer-Policy の許可値 */
+const VALID_RP_VALUES = [
+	'no-referrer', 'no-referrer-when-downgrade', 'origin',
+	'origin-when-cross-origin', 'same-origin', 'strict-origin',
+	'strict-origin-when-cross-origin', 'unsafe-url',
+];
+
 // ─── ヘルパー ─────────────────────────────────────────────────────
 
 /**
@@ -394,7 +404,9 @@ const buildHeadersSection = (headers) => {
 
 	// X-Frame-Options
 	if (headers.xFrameOptions) {
-		const xfoValue = headers.xFrameOptionsValue || 'SAMEORIGIN';
+		const xfoValue = VALID_XFO_VALUES.includes(headers.xFrameOptionsValue)
+			? headers.xFrameOptionsValue
+			: 'SAMEORIGIN';
 		directives.push('');
 		directives.push('\t# X-Frame-Options');
 		directives.push(`\tHeader always set X-Frame-Options "${xfoValue}"`);
@@ -402,7 +414,9 @@ const buildHeadersSection = (headers) => {
 
 	// Referrer-Policy
 	if (headers.referrerPolicy) {
-		const rpValue = headers.referrerPolicyValue || 'strict-origin-when-cross-origin';
+		const rpValue = VALID_RP_VALUES.includes(headers.referrerPolicyValue)
+			? headers.referrerPolicyValue
+			: 'strict-origin-when-cross-origin';
 		directives.push('');
 		directives.push('\t# Referrer-Policy');
 		directives.push(`\tHeader always set Referrer-Policy "${rpValue}"`);

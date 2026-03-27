@@ -373,7 +373,9 @@ const updateConditionalFields = () => {
 
 	// HSTS サブオプション
 	if (elHstsSubFields) {
-		elHstsSubFields.hidden = !elHstsEnabled?.checked;
+		const hstsVisible = elHstsEnabled?.checked ?? false;
+		elHstsSubFields.hidden = !hstsVisible;
+		elHstsEnabled?.setAttribute('aria-expanded', String(hstsVisible));
 	}
 
 	// preload は includeSubDomains が ON の場合のみ有効
@@ -387,27 +389,34 @@ const updateConditionalFields = () => {
 
 	// X-Frame-Options サブオプション
 	if (elXfoSubFields) {
-		elXfoSubFields.hidden = !elXFrameOptions?.checked;
+		const xfoVisible = elXFrameOptions?.checked ?? false;
+		elXfoSubFields.hidden = !xfoVisible;
+		elXFrameOptions?.setAttribute('aria-expanded', String(xfoVisible));
 	}
 
 	// Referrer-Policy サブオプション
 	if (elRpSubFields) {
-		elRpSubFields.hidden = !elReferrerPolicy?.checked;
+		const rpVisible = elReferrerPolicy?.checked ?? false;
+		elRpSubFields.hidden = !rpVisible;
+		elReferrerPolicy?.setAttribute('aria-expanded', String(rpVisible));
 	}
 
 	// Permissions-Policy サブオプション
 	if (elPpSubFields) {
-		elPpSubFields.hidden = !elPermissionsPolicy?.checked;
+		let ppVisible = elPermissionsPolicy?.checked ?? false;
 
 		// サブ機能がすべて OFF ならメイントグルを自動で OFF に戻す
-		if (elPermissionsPolicy?.checked) {
+		if (ppVisible) {
 			const subCheckboxes = elPpSubFields.querySelectorAll('input[type="checkbox"]');
 			const hasAnyEnabled = Array.from(subCheckboxes).some((cb) => cb.checked);
 			if (!hasAnyEnabled) {
 				elPermissionsPolicy.checked = false;
-				elPpSubFields.hidden = true;
+				ppVisible = false;
 			}
 		}
+
+		elPpSubFields.hidden = !ppVisible;
+		elPermissionsPolicy?.setAttribute('aria-expanded', String(ppVisible));
 	}
 };
 
@@ -494,9 +503,9 @@ const initEvents = () => {
 		});
 	});
 
-	// ラジオボタンの change イベントでプレビュー更新
-	const allRadios = document.querySelectorAll('input[type="radio"]');
-	allRadios.forEach((radio) => {
+	// ヘッダーサブオプションのラジオボタン change イベントでプレビュー更新
+	const headerRadios = document.querySelectorAll('[name="xFrameOptionsValue"], [name="referrerPolicyValue"]');
+	headerRadios.forEach((radio) => {
 		radio.addEventListener('change', () => {
 			updatePreview();
 			clearPresetActiveState();
