@@ -287,6 +287,12 @@ const applySettingsToForm = (settings) => {
 	updatePreview();
 };
 
+const clearPresetActiveState = () => {
+	elPresetGroup?.querySelectorAll('.preset-btn').forEach((btn) => {
+		btn.classList.remove('active');
+	});
+};
+
 const applyPreset = (presetId) => {
 	const preset = PRESETS.find((p) => p.id === presetId);
 	if (!preset) return;
@@ -383,9 +389,7 @@ const initPresets = () => {
 	resetBtn.setAttribute('aria-label', 'すべての設定を初期状態に戻す');
 	resetBtn.addEventListener('click', () => {
 		applySettingsToForm(DEFAULT_SETTINGS);
-		elPresetGroup?.querySelectorAll('.preset-btn').forEach((btn) => {
-			btn.classList.remove('active');
-		});
+		clearPresetActiveState();
 	});
 	elPresetGroup?.appendChild(resetBtn);
 };
@@ -399,10 +403,7 @@ const initEvents = () => {
 		cb.addEventListener('change', () => {
 			updateConditionalFields();
 			updatePreview();
-			// プリセットのアクティブ状態を解除
-			elPresetGroup?.querySelectorAll('.preset-btn').forEach((btn) => {
-				btn.classList.remove('active');
-			});
+			clearPresetActiveState();
 		});
 	});
 
