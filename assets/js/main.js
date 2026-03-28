@@ -25,11 +25,13 @@ const elWpLoginBasicAuth = document.querySelector('[name="wpLoginBasicAuth"]');
 const elLoginHtpasswdPath = document.querySelector('[name="loginHtpasswdPath"]');
 const elLoginBasicAuthUser = document.querySelector('[name="loginBasicAuthUser"]');
 const elLoginAuthFields = document.querySelector('.login-auth-fields');
+const elLoginHtpasswdHint = document.querySelector('#login-htpasswd-hint');
 
 // IP Block
 const elIpBlockEnabled = document.querySelector('[name="ipBlockEnabled"]');
 const elIpBlockList = document.querySelector('[name="ipBlockList"]');
 const elIpBlockFields = document.querySelector('.ip-block-fields');
+const elIpBlockHint = document.querySelector('#ip-block-hint');
 
 // Rewrite
 const elNormalizeSlashes = document.querySelector('[name="normalizeSlashes"]');
@@ -101,6 +103,7 @@ const elPpSubFields = document.querySelector('.pp-sub-fields');
 const elWpAdminBasicAuth = document.querySelector('[name="wpAdminBasicAuth"]');
 const elAdminHtpasswdPath = document.querySelector('[name="adminHtpasswdPath"]');
 const elAdminBasicAuthUser = document.querySelector('[name="adminBasicAuthUser"]');
+const elAdminHtpasswdHint = document.querySelector('#admin-htpasswd-hint');
 const elAjaxExclude = document.querySelector('[name="ajaxExclude"]');
 const elUpgradeIpExclude = document.querySelector('[name="upgradeIpExclude"]');
 const elServerIp = document.querySelector('[name="serverIp"]');
@@ -425,15 +428,24 @@ const updateConditionalFields = () => {
 	if (elLoginAuthFields) {
 		elLoginAuthFields.hidden = !elWpLoginBasicAuth?.checked;
 	}
+	if (elLoginHtpasswdHint) {
+		elLoginHtpasswdHint.hidden = !(elWpLoginBasicAuth?.checked && !elLoginHtpasswdPath?.value.trim());
+	}
 
 	// IP ブロックフィールド
 	if (elIpBlockFields) {
 		elIpBlockFields.hidden = !elIpBlockEnabled?.checked;
 	}
+	if (elIpBlockHint) {
+		elIpBlockHint.hidden = !(elIpBlockEnabled?.checked && !elIpBlockList?.value.trim());
+	}
 
 	// wp-admin フィールド
 	if (elWpAdminFields) {
 		elWpAdminFields.hidden = !elWpAdminBasicAuth?.checked;
+	}
+	if (elAdminHtpasswdHint) {
+		elAdminHtpasswdHint.hidden = !(elWpAdminBasicAuth?.checked && !elAdminHtpasswdPath?.value.trim());
 	}
 
 	// HSTS サブオプション
@@ -601,7 +613,11 @@ const initEvents = () => {
 	// テキスト入力の input イベントでプレビュー更新
 	const textInputs = document.querySelectorAll('input[type="text"], textarea');
 	textInputs.forEach((input) => {
-		input.addEventListener('input', updatePreview);
+		input.addEventListener('input', () => {
+			updateConditionalFields();
+			updatePreview();
+			clearPresetActiveState();
+		});
 	});
 
 	// タブ切り替え

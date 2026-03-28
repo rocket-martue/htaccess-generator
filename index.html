@@ -158,6 +158,9 @@
 											class="input-text" placeholder="/home/username/.htpasswd" autocomplete="off"
 											spellcheck="false">
 									</div>
+									<p class="sub-options-hint" id="login-htpasswd-hint" hidden>
+										.htpasswd のフルパスを入力すると反映されます
+									</p>
 								</div>
 							</div>
 						</section>
@@ -179,6 +182,9 @@
 										<textarea name="ipBlockList" id="ipBlockList" class="input-textarea" rows="4"
 											placeholder="192.0.2.1&#10;198.51.100.0/24" spellcheck="false"></textarea>
 									</div>
+									<p class="sub-options-hint" id="ip-block-hint" hidden>
+										ブロックする IP アドレスを入力してください
+									</p>
 								</div>
 							</div>
 						</section>
@@ -540,6 +546,9 @@
 											class="input-text" placeholder="/home/username/.htpasswd" autocomplete="off"
 											spellcheck="false">
 									</div>
+									<p class="sub-options-hint" id="admin-htpasswd-hint" hidden>
+										.htpasswd のフルパスを入力すると反映されます
+									</p>
 									<div class="toggle-row">
 										<label class="toggle-label" for="ajaxExclude">admin-ajax.php を除外</label>
 										<label class="toggle-switch">
