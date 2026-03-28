@@ -36,6 +36,24 @@ const elIpBlockHint = document.querySelector('#ip-block-hint');
 // Rewrite
 const elNormalizeSlashes = document.querySelector('[name="normalizeSlashes"]');
 const elBlockBadBots = document.querySelector('[name="blockBadBots"]');
+const elBadBotsSubFields = document.querySelector('#bad-bots-sub-fields');
+const elBbNikto          = document.querySelector('[name="bbNikto"]');
+const elBbSqlmap         = document.querySelector('[name="bbSqlmap"]');
+const elBbMasscan        = document.querySelector('[name="bbMasscan"]');
+const elBbNmap           = document.querySelector('[name="bbNmap"]');
+const elBbZgrab          = document.querySelector('[name="bbZgrab"]');
+const elBbWget           = document.querySelector('[name="bbWget"]');
+const elBbCurl           = document.querySelector('[name="bbCurl"]');
+const elBbHttpie         = document.querySelector('[name="bbHttpie"]');
+const elBbPythonRequests = document.querySelector('[name="bbPythonRequests"]');
+const elBbGoHttpClient   = document.querySelector('[name="bbGoHttpClient"]');
+const elBbLibwwwPerl     = document.querySelector('[name="bbLibwwwPerl"]');
+const elBbScrapy         = document.querySelector('[name="bbScrapy"]');
+const elBbJava           = document.querySelector('[name="bbJava"]');
+const elBbAhrefsbot      = document.querySelector('[name="bbAhrefsbot"]');
+const elBbSemrushbot     = document.querySelector('[name="bbSemrushbot"]');
+const elBbDotbot         = document.querySelector('[name="bbDotbot"]');
+const elBbMj12bot        = document.querySelector('[name="bbMj12bot"]');
 const elBlockBackdoors = document.querySelector('[name="blockBackdoors"]');
 const elBlockWpNesting = document.querySelector('[name="blockWpNesting"]');
 const elBlockWpIncludesDir = document.querySelector('[name="blockWpIncludesDir"]');
@@ -157,6 +175,23 @@ const getCurrentSettings = () => ({
 	rewrite: {
 		normalizeSlashes: elNormalizeSlashes?.checked ?? false,
 		blockBadBots: elBlockBadBots?.checked ?? false,
+		bbNikto: elBbNikto?.checked ?? true,
+		bbSqlmap: elBbSqlmap?.checked ?? true,
+		bbMasscan: elBbMasscan?.checked ?? true,
+		bbNmap: elBbNmap?.checked ?? true,
+		bbZgrab: elBbZgrab?.checked ?? true,
+		bbWget: elBbWget?.checked ?? true,
+		bbCurl: elBbCurl?.checked ?? true,
+		bbHttpie: elBbHttpie?.checked ?? true,
+		bbPythonRequests: elBbPythonRequests?.checked ?? true,
+		bbGoHttpClient: elBbGoHttpClient?.checked ?? true,
+		bbLibwwwPerl: elBbLibwwwPerl?.checked ?? true,
+		bbScrapy: elBbScrapy?.checked ?? true,
+		bbJava: elBbJava?.checked ?? true,
+		bbAhrefsbot: elBbAhrefsbot?.checked ?? true,
+		bbSemrushbot: elBbSemrushbot?.checked ?? true,
+		bbDotbot: elBbDotbot?.checked ?? true,
+		bbMj12bot: elBbMj12bot?.checked ?? true,
 		blockBackdoors: elBlockBackdoors?.checked ?? false,
 		blockWpNesting: elBlockWpNesting?.checked ?? false,
 		blockWpIncludesDir: elBlockWpIncludesDir?.checked ?? false,
@@ -327,6 +362,23 @@ const applySettingsToForm = (settings) => {
 	// Rewrite
 	if (elNormalizeSlashes) elNormalizeSlashes.checked = settings.rewrite.normalizeSlashes;
 	if (elBlockBadBots) elBlockBadBots.checked = settings.rewrite.blockBadBots;
+	if (elBbNikto) elBbNikto.checked = settings.rewrite.bbNikto;
+	if (elBbSqlmap) elBbSqlmap.checked = settings.rewrite.bbSqlmap;
+	if (elBbMasscan) elBbMasscan.checked = settings.rewrite.bbMasscan;
+	if (elBbNmap) elBbNmap.checked = settings.rewrite.bbNmap;
+	if (elBbZgrab) elBbZgrab.checked = settings.rewrite.bbZgrab;
+	if (elBbWget) elBbWget.checked = settings.rewrite.bbWget;
+	if (elBbCurl) elBbCurl.checked = settings.rewrite.bbCurl;
+	if (elBbHttpie) elBbHttpie.checked = settings.rewrite.bbHttpie;
+	if (elBbPythonRequests) elBbPythonRequests.checked = settings.rewrite.bbPythonRequests;
+	if (elBbGoHttpClient) elBbGoHttpClient.checked = settings.rewrite.bbGoHttpClient;
+	if (elBbLibwwwPerl) elBbLibwwwPerl.checked = settings.rewrite.bbLibwwwPerl;
+	if (elBbScrapy) elBbScrapy.checked = settings.rewrite.bbScrapy;
+	if (elBbJava) elBbJava.checked = settings.rewrite.bbJava;
+	if (elBbAhrefsbot) elBbAhrefsbot.checked = settings.rewrite.bbAhrefsbot;
+	if (elBbSemrushbot) elBbSemrushbot.checked = settings.rewrite.bbSemrushbot;
+	if (elBbDotbot) elBbDotbot.checked = settings.rewrite.bbDotbot;
+	if (elBbMj12bot) elBbMj12bot.checked = settings.rewrite.bbMj12bot;
 	if (elBlockBackdoors) elBlockBackdoors.checked = settings.rewrite.blockBackdoors;
 	if (elBlockWpNesting) elBlockWpNesting.checked = settings.rewrite.blockWpNesting;
 	if (elBlockWpIncludesDir) elBlockWpIncludesDir.checked = settings.rewrite.blockWpIncludesDir;
@@ -438,6 +490,13 @@ const updateConditionalFields = () => {
 	}
 	if (elIpBlockHint) {
 		elIpBlockHint.hidden = !(elIpBlockEnabled?.checked && !elIpBlockList?.value.trim());
+	}
+
+	// ボットブロック サブフィールド
+	if (elBadBotsSubFields) {
+		const badBotsVisible = elBlockBadBots?.checked ?? false;
+		elBadBotsSubFields.hidden = !badBotsVisible;
+		elBlockBadBots?.setAttribute('aria-expanded', String(badBotsVisible));
 	}
 
 	// wp-admin フィールド
@@ -579,6 +638,30 @@ const initEvents = () => {
 			updateConditionalFields();
 			updatePreview();
 			clearPresetActiveState();
+		});
+	});
+
+	// ボットブロック：サブ機能が全 OFF → メイントグルを自動で OFF に
+	// メイントグルを ON にしたとき → サブ機能を全 ON にリセット（詰み状態の回避）
+	const bbSubEls = [
+		elBbNikto, elBbSqlmap, elBbMasscan, elBbNmap, elBbZgrab,
+		elBbWget, elBbCurl, elBbHttpie, elBbPythonRequests, elBbGoHttpClient,
+		elBbLibwwwPerl, elBbScrapy, elBbJava,
+		elBbAhrefsbot, elBbSemrushbot, elBbDotbot, elBbMj12bot,
+	];
+	elBlockBadBots?.addEventListener('change', () => {
+		if (elBlockBadBots.checked) {
+			bbSubEls.forEach((el) => { if (el) el.checked = true; });
+			updatePreview();
+		}
+	});
+	bbSubEls.forEach((cb) => {
+		cb?.addEventListener('change', () => {
+			if (!bbSubEls.some((el) => el?.checked) && elBlockBadBots) {
+				elBlockBadBots.checked = false;
+				updateConditionalFields();
+				updatePreview();
+			}
 		});
 	});
 

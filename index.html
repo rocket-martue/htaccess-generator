@@ -203,8 +203,83 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="blockBadBots">悪意のあるボットをブロック</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="blockBadBots" id="blockBadBots">
+										<input type="checkbox" name="blockBadBots" id="blockBadBots"
+											aria-expanded="false" aria-controls="bad-bots-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
+									</label>
+								</div>
+								<div class="bad-bots-sub-fields sub-options" id="bad-bots-sub-fields" hidden>
+									<p class="sub-options-hint">チェック ON = ブロックする / OFF = 除外（許可）</p>
+									<p class="sub-option-group-label">攻撃ツール</p>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbNikto" id="bbNikto" checked>
+										<span>nikto</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbSqlmap" id="bbSqlmap" checked>
+										<span>sqlmap</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbMasscan" id="bbMasscan" checked>
+										<span>masscan</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbNmap" id="bbNmap" checked>
+										<span>nmap</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbZgrab" id="bbZgrab" checked>
+										<span>zgrab</span>
+									</label>
+									<p class="sub-option-group-label">汎用クライアント</p>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbWget" id="bbWget" checked>
+										<span>wget</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbCurl" id="bbCurl" checked>
+										<span>curl</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbHttpie" id="bbHttpie" checked>
+										<span>httpie</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbPythonRequests" id="bbPythonRequests" checked>
+										<span>python-requests</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbGoHttpClient" id="bbGoHttpClient" checked>
+										<span>go-http-client</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbLibwwwPerl" id="bbLibwwwPerl" checked>
+										<span>libwww-perl</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbScrapy" id="bbScrapy" checked>
+										<span>scrapy</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbJava" id="bbJava" checked>
+										<span>java/</span>
+									</label>
+									<p class="sub-option-group-label">SEO クローラー</p>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbAhrefsbot" id="bbAhrefsbot" checked>
+										<span>ahrefsbot</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbSemrushbot" id="bbSemrushbot" checked>
+										<span>semrushbot</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbDotbot" id="bbDotbot" checked>
+										<span>dotbot</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbMj12bot" id="bbMj12bot" checked>
+										<span>mj12bot</span>
 									</label>
 								</div>
 								<div class="toggle-row">

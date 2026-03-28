@@ -7,13 +7,13 @@
 
 // ─── 定数 ─────────────────────────────────────────────────────────
 
-/** 悪意のあるボット・スクリプトの UA リスト */
-const BAD_BOTS = [
-	'wget', 'curl', 'nikto', 'sqlmap', 'python-requests',
-	'go-http-client', 'libwww-perl', 'masscan', 'nmap',
-	'zgrab', 'httpie', 'scrapy', 'java/', 'ahrefsbot',
-	'semrushbot', 'dotbot', 'mj12bot',
-];
+/** 悪意のあるボット・スクリプトの UA マップ（設定キー → UA 文字列） */
+const BAD_BOT_MAP = {
+	bbNikto: 'nikto', bbSqlmap: 'sqlmap', bbMasscan: 'masscan', bbNmap: 'nmap', bbZgrab: 'zgrab',
+	bbWget: 'wget', bbCurl: 'curl', bbHttpie: 'httpie', bbPythonRequests: 'python-requests',
+	bbGoHttpClient: 'go-http-client', bbLibwwwPerl: 'libwww-perl', bbScrapy: 'scrapy', bbJava: 'java/',
+	bbAhrefsbot: 'ahrefsbot', bbSemrushbot: 'semrushbot', bbDotbot: 'dotbot', bbMj12bot: 'mj12bot',
+};
 
 /** 既知のバックドア / マルウェア探索パターン */
 const BACKDOOR_PATTERNS = [
@@ -198,10 +198,15 @@ const buildRewriteSection = (rewrite) => {
 
 	// 悪意のあるボットブロック
 	if (rewrite.blockBadBots) {
-		rules.push('');
-		rules.push('\t# 悪意のあるボット・スクリプトをブロック');
-		rules.push(`\tRewriteCond %{HTTP_USER_AGENT} (${BAD_BOTS.join('|')}) [NC]`);
-		rules.push('\tRewriteRule .* - [F,L]');
+		const activeBots = Object.entries(BAD_BOT_MAP)
+			.filter(([key]) => rewrite[key])
+			.map(([, ua]) => ua);
+		if (activeBots.length > 0) {
+			rules.push('');
+			rules.push('\t# 悪意のあるボット・スクリプトをブロック');
+			rules.push(`\tRewriteCond %{HTTP_USER_AGENT} (${activeBots.join('|')}) [NC]`);
+			rules.push('\tRewriteRule .* - [F,L]');
+		}
 	}
 
 	// バックドア探索ブロック
