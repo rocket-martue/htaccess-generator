@@ -493,7 +493,14 @@ const initEvents = () => {
 	});
 
 	// Permissions-Policy：サブ機能が全 OFF → メイントグルを自動で OFF に
+	// メイントグルを ON にしたとき → サブ機能を全 ON にリセット（詰み状態の回避）
 	const ppSubEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer, elPpGeolocation];
+	elPermissionsPolicy?.addEventListener('change', () => {
+		if (elPermissionsPolicy.checked) {
+			ppSubEls.forEach((el) => { if (el) el.checked = true; });
+			updatePreview();
+		}
+	});
 	ppSubEls.forEach((cb) => {
 		cb?.addEventListener('change', () => {
 			if (!ppSubEls.some((el) => el?.checked) && elPermissionsPolicy) {
