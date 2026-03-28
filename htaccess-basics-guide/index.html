@@ -210,6 +210,9 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 </IfModule>
 # END WordPress</code></pre>
+						<blockquote>
+							<p><strong>補足:</strong> <code>RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]</code> は WordPress 6.0 以降で追加された行。Apache が <code>Authorization</code> ヘッダーを破棄する問題に対処するためのもので、REST API や Application Passwords の動作に影響する。WordPress のバージョンによって自動生成されるブロックの内容が異なる場合がある。</p>
+						</blockquote>
 
 						<h3>カスタムルールを書く場所</h3>
 						<p><code># BEGIN WordPress</code> 〜 <code># END WordPress</code> の間は <strong>WordPress
@@ -224,13 +227,16 @@ RewriteRule . /index.php [L]
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 </IfModule>
 
+# ⚠️ プラグインが生成するブロックも触らない（Wordfence、EWWW 等）
+# ...
+
 # BEGIN WordPress
 # （WordPress 自動生成ブロック — 触らない）
 ...
 # END WordPress</code></pre>
 
 						<blockquote>
-							<p>Wordfence・EWWW Image Optimizer などのプラグインが生成するブロックも同様に触らない。</p>
+							<p>ルールの書き順は「カスタムルール → プラグイン生成ブロック → <code># BEGIN WordPress</code>」が一般的。プラグインが生成するブロック（Wordfence・EWWW Image Optimizer・Nginx Cache 等）も WordPress ブロックと同様に直接編集しない。</p>
 						</blockquote>
 					</section>
 
