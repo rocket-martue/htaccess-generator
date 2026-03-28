@@ -144,58 +144,77 @@
 					<section>
 						<h2>CSP（Content Security Policy）</h2>
 
-						<pre
-							class="article-code"><code>Header always set Content-Security-Policy "upgrade-insecure-requests;"</code></pre>
+						<pre class="article-code"><code>Header always set Content-Security-Policy \
+  "upgrade-insecure-requests; \
+   script-src 'self' 'unsafe-inline' 'unsafe-eval'; \
+   style-src 'self' 'unsafe-inline'; \
+   img-src 'self' data:; \
+   frame-src https://www.youtube.com https://www.google.com; \
+   frame-ancestors 'self'"</code></pre>
 
 						<h3><code>upgrade-insecure-requests</code> の役割</h3>
 						<p>ページ内の <code>http://</code> リソース（画像・CSS・JS など）を自動的に <code>https://</code> に変換する指示。Mixed
 							Content（HTTP と HTTPS が混在するページ）を自動修正するために使う。</p>
+						<p>ジェネレーターでは CSP を有効にすると <code>upgrade-insecure-requests</code> は常に出力される（削除不可）。その上で各ディレクティブを個別に ON/OFF できる。</p>
 
-						<h3>ソースディレクティブの概要</h3>
-						<p>CSP はリソースの読み込み元を制限するディレクティブを持つ。WordPress サイトに本格的な CSP を導入する場合は以下に注意が必要。</p>
-
+						<h3>ジェネレーターで設定できるディレクティブ</h3>
 						<div class="table-wrap">
 							<table>
 								<thead>
 									<tr>
 										<th>ディレクティブ</th>
 										<th>制限対象</th>
+										<th>デフォルト値</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 										<td><code>default-src</code></td>
 										<td>他のディレクティブのフォールバック（指定がない場合に適用）</td>
+										<td><code>'self'</code></td>
 									</tr>
 									<tr>
 										<td><code>script-src</code></td>
-										<td>JavaScript の読み込み元</td>
+										<td>JavaScript の読み込み元。<code>'unsafe-inline'</code> / <code>'unsafe-eval'</code> を個別に追加可能</td>
+										<td><code>'self'</code></td>
 									</tr>
 									<tr>
 										<td><code>style-src</code></td>
-										<td>CSS の読み込み元</td>
+										<td>CSS の読み込み元。<code>'unsafe-inline'</code> を追加可能</td>
+										<td><code>'self'</code></td>
 									</tr>
 									<tr>
 										<td><code>img-src</code></td>
 										<td>画像の読み込み元</td>
+										<td><code>'self' data:</code></td>
 									</tr>
 									<tr>
 										<td><code>font-src</code></td>
 										<td>フォントの読み込み元</td>
+										<td><code>'self'</code></td>
 									</tr>
 									<tr>
 										<td><code>connect-src</code></td>
 										<td>Ajax / Fetch / WebSocket の接続先</td>
+										<td><code>'self'</code></td>
+									</tr>
+									<tr>
+										<td><code>frame-src</code></td>
+										<td>iframe で読み込める外部 URL。YouTube / Google Maps のショートカットあり</td>
+										<td><code>'none'</code></td>
+									</tr>
+									<tr>
+										<td><code>frame-ancestors</code></td>
+										<td>このページを iframe に埋め込める親 URL（X-Frame-Options の上位互換）</td>
+										<td><code>'self'</code></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 
 						<h3>WordPress 固有の注意点</h3>
-						<p>WordPress はコアと多くのプラグインがインラインスクリプト・<code>eval()</code> を使用するため、<code>script-src</code> に
-							<code>'unsafe-inline'</code> や <code>'unsafe-eval'</code> が必要になるケースが多い。CSP を強化する場合は nonce
-							ベースの実装が推奨されるが、多くのプラグインとの互換性を維持するのは難しい。
-						</p>
+						<p>WordPress はコアと多くのプラグインがインラインスクリプトを使用するため、<code>script-src</code> に <code>'unsafe-inline'</code> が必要になるケースが多い。さらに Gutenberg ブロックエディターは <code>eval()</code> を使うため <code>'unsafe-eval'</code> も必要になる場合がある。同様にインラインスタイルを多用するプラグインでは <code>style-src 'unsafe-inline'</code> も必要になる。</p>
+						<p>CSP を厳格化（unsafe-* を除去）したい場合は nonce ベースの実装が推奨されるが、多くのプラグインとの互換性を維持するのは難しいため、段階的な導入が現実的。</p>
 
 						<h3>img-src と OG image の落とし穴</h3>
 						<p><code>img-src</code> を明示すると <code>default-src</code> のフォールバックが効かなくなる。以下のミスに注意する。</p>
@@ -453,7 +472,7 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
 
 						<pre class="article-code"><code>&lt;IfModule mod_headers.c&gt;
     Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" "expr=%{HTTPS} == 'on' || %{HTTP:X-Forwarded-Proto} == 'https'"
-    Header always set Content-Security-Policy "upgrade-insecure-requests;"
+    Header always set Content-Security-Policy "upgrade-insecure-requests; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com https://www.google.com; frame-ancestors 'self'"
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"

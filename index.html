@@ -269,11 +269,83 @@
 
 								<!-- CSP -->
 								<div class="toggle-row">
-									<label class="toggle-label" for="cspEnabled">CSP（upgrade-insecure-requests）</label>
+									<label class="toggle-label" for="cspEnabled">CSP（Content-Security-Policy）</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="cspEnabled" id="cspEnabled">
+										<input type="checkbox" name="cspEnabled" id="cspEnabled" aria-expanded="false" aria-controls="csp-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
+								</div>
+								<div class="csp-sub-fields sub-options" id="csp-sub-fields" hidden>
+									<p class="sub-options-hint">upgrade-insecure-requests は常に含まれます</p>
+									<!-- default-src -->
+									<div class="csp-directive-row">
+										<label class="sub-option-label">
+											<input type="checkbox" name="cspDefaultSrcEnabled" id="cspDefaultSrcEnabled">
+											<code>default-src</code>
+										</label>
+										<input type="text" class="input-text" name="cspDefaultSrcValue" placeholder="'self'">
+									</div>
+									<!-- script-src -->
+									<div class="csp-directive-row">
+										<label class="sub-option-label">
+											<input type="checkbox" name="cspScriptSrcEnabled" id="cspScriptSrcEnabled">
+											<code>script-src</code>
+										</label>
+										<input type="text" class="input-text" name="cspScriptSrcValue" placeholder="'self'">
+										<label class="sub-option-label"><input type="checkbox" name="cspScriptUnsafeInline" id="cspScriptUnsafeInline"> <code>'unsafe-inline'</code></label>
+										<label class="sub-option-label"><input type="checkbox" name="cspScriptUnsafeEval" id="cspScriptUnsafeEval"> <code>'unsafe-eval'</code></label>
+									</div>
+									<!-- style-src -->
+									<div class="csp-directive-row">
+										<label class="sub-option-label">
+											<input type="checkbox" name="cspStyleSrcEnabled" id="cspStyleSrcEnabled">
+											<code>style-src</code>
+										</label>
+										<input type="text" class="input-text" name="cspStyleSrcValue" placeholder="'self'">
+										<label class="sub-option-label"><input type="checkbox" name="cspStyleUnsafeInline" id="cspStyleUnsafeInline"> <code>'unsafe-inline'</code></label>
+									</div>
+									<!-- img-src -->
+									<div class="csp-directive-row">
+										<label class="sub-option-label">
+											<input type="checkbox" name="cspImgSrcEnabled" id="cspImgSrcEnabled">
+											<code>img-src</code>
+										</label>
+										<input type="text" class="input-text" name="cspImgSrcValue" placeholder="'self' data:">
+									</div>
+									<!-- font-src -->
+									<div class="csp-directive-row">
+										<label class="sub-option-label">
+											<input type="checkbox" name="cspFontSrcEnabled" id="cspFontSrcEnabled">
+											<code>font-src</code>
+										</label>
+										<input type="text" class="input-text" name="cspFontSrcValue" placeholder="'self'">
+									</div>
+									<!-- connect-src -->
+									<div class="csp-directive-row">
+										<label class="sub-option-label">
+											<input type="checkbox" name="cspConnectSrcEnabled" id="cspConnectSrcEnabled">
+											<code>connect-src</code>
+										</label>
+										<input type="text" class="input-text" name="cspConnectSrcValue" placeholder="'self'">
+									</div>
+									<!-- frame-src -->
+									<div class="csp-directive-row">
+										<label class="sub-option-label">
+											<input type="checkbox" name="cspFrameSrcEnabled" id="cspFrameSrcEnabled">
+											<code>frame-src</code>
+										</label>
+										<input type="text" class="input-text" name="cspFrameSrcValue" placeholder="'none'">
+										<label class="sub-option-label"><input type="checkbox" name="cspFrameSrcYoutube" id="cspFrameSrcYoutube" disabled> YouTube</label>
+										<label class="sub-option-label"><input type="checkbox" name="cspFrameSrcGoogleMaps" id="cspFrameSrcGoogleMaps" disabled> Google Maps</label>
+									</div>
+									<!-- frame-ancestors -->
+									<div class="csp-directive-row">
+										<label class="sub-option-label">
+											<input type="checkbox" name="cspFrameAncestorsEnabled" id="cspFrameAncestorsEnabled">
+											<code>frame-ancestors</code>
+										</label>
+										<input type="text" class="input-text" name="cspFrameAncestorsValue" placeholder="'self'">
+									</div>
 								</div>
 
 								<!-- X-Content-Type-Options -->
