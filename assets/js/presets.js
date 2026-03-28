@@ -44,6 +44,8 @@ export const DEFAULT_SETTINGS = {
 	cache: {
 		gzip: false,
 		expires: false,
+		expiresScript: '1 year', expiresImage: '1 month', expiresIcon: '1 year',
+		expiresVideo: '1 month', expiresFont: '1 year', expiresFeed: '1 hour', expiresDefault: '1 month',
 		cacheControl: false,
 		etagDisable: false,
 		mimeType: false,
@@ -150,6 +152,8 @@ export const PRESETS = [
 			cache: {
 				gzip: true,
 				expires: true,
+				expiresScript: '1 year', expiresImage: '1 month', expiresIcon: '1 year',
+				expiresVideo: '1 month', expiresFont: '1 year', expiresFeed: '1 hour', expiresDefault: '1 month',
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,
@@ -247,6 +251,8 @@ export const PRESETS = [
 			cache: {
 				gzip: false,
 				expires: false,
+				expiresScript: '1 year', expiresImage: '1 month', expiresIcon: '1 year',
+				expiresVideo: '1 month', expiresFont: '1 year', expiresFeed: '1 hour', expiresDefault: '1 month',
 				cacheControl: false,
 				etagDisable: false,
 				mimeType: false,
@@ -344,6 +350,8 @@ export const PRESETS = [
 			cache: {
 				gzip: true,
 				expires: true,
+				expiresScript: '1 year', expiresImage: '1 month', expiresIcon: '1 year',
+				expiresVideo: '1 month', expiresFont: '1 year', expiresFeed: '1 hour', expiresDefault: '1 month',
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,
@@ -441,6 +449,8 @@ export const PRESETS = [
 			cache: {
 				gzip: false,
 				expires: false,
+				expiresScript: '1 year', expiresImage: '1 month', expiresIcon: '1 year',
+				expiresVideo: '1 month', expiresFont: '1 year', expiresFeed: '1 hour', expiresDefault: '1 month',
 				cacheControl: false,
 				etagDisable: false,
 				mimeType: false,
@@ -538,6 +548,8 @@ export const PRESETS = [
 			cache: {
 				gzip: true,
 				expires: true,
+				expiresScript: '1 year', expiresImage: '1 month', expiresIcon: '1 year',
+				expiresVideo: '1 month', expiresFont: '1 year', expiresFeed: '1 hour', expiresDefault: '1 month',
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,
@@ -635,6 +647,8 @@ export const PRESETS = [
 			cache: {
 				gzip: true,
 				expires: true,
+				expiresScript: '1 year', expiresImage: '1 month', expiresIcon: '1 year',
+				expiresVideo: '1 month', expiresFont: '1 year', expiresFeed: '1 hour', expiresDefault: '1 month',
 				cacheControl: true,
 				etagDisable: true,
 				mimeType: true,

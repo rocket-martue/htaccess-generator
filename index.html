@@ -568,9 +568,89 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="expires">ブラウザキャッシュ（Expires）</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="expires" id="expires">
+										<input type="checkbox" name="expires" id="expires"
+											aria-expanded="false" aria-controls="expires-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
+								</div>
+								<div class="expires-sub-fields sub-options" id="expires-sub-fields" hidden>
+									<div class="cache-expiry-row">
+										<label class="sub-option-label" for="expiresScript">CSS / JS</label>
+										<select name="expiresScript" id="expiresScript" class="input-select">
+											<option value="1 hour">1時間</option>
+											<option value="1 day">1日</option>
+											<option value="1 week">1週間</option>
+											<option value="1 month">1ヶ月</option>
+											<option value="3 months">3ヶ月</option>
+											<option value="1 year" selected>1年</option>
+										</select>
+									</div>
+									<div class="cache-expiry-row">
+										<label class="sub-option-label" for="expiresImage">画像</label>
+										<select name="expiresImage" id="expiresImage" class="input-select">
+											<option value="1 hour">1時間</option>
+											<option value="1 day">1日</option>
+											<option value="1 week">1週間</option>
+											<option value="1 month" selected>1ヶ月</option>
+											<option value="3 months">3ヶ月</option>
+											<option value="1 year">1年</option>
+										</select>
+									</div>
+									<div class="cache-expiry-row">
+										<label class="sub-option-label" for="expiresIcon">アイコン</label>
+										<select name="expiresIcon" id="expiresIcon" class="input-select">
+											<option value="1 hour">1時間</option>
+											<option value="1 day">1日</option>
+											<option value="1 week">1週間</option>
+											<option value="1 month">1ヶ月</option>
+											<option value="3 months">3ヶ月</option>
+											<option value="1 year" selected>1年</option>
+										</select>
+									</div>
+									<div class="cache-expiry-row">
+										<label class="sub-option-label" for="expiresVideo">動画</label>
+										<select name="expiresVideo" id="expiresVideo" class="input-select">
+											<option value="1 hour">1時間</option>
+											<option value="1 day">1日</option>
+											<option value="1 week">1週間</option>
+											<option value="1 month" selected>1ヶ月</option>
+											<option value="3 months">3ヶ月</option>
+											<option value="1 year">1年</option>
+										</select>
+									</div>
+									<div class="cache-expiry-row">
+										<label class="sub-option-label" for="expiresFont">フォント</label>
+										<select name="expiresFont" id="expiresFont" class="input-select">
+											<option value="1 hour">1時間</option>
+											<option value="1 day">1日</option>
+											<option value="1 week">1週間</option>
+											<option value="1 month">1ヶ月</option>
+											<option value="3 months">3ヶ月</option>
+											<option value="1 year" selected>1年</option>
+										</select>
+									</div>
+									<div class="cache-expiry-row">
+										<label class="sub-option-label" for="expiresFeed">フィード</label>
+										<select name="expiresFeed" id="expiresFeed" class="input-select">
+											<option value="1 hour" selected>1時間</option>
+											<option value="1 day">1日</option>
+											<option value="1 week">1週間</option>
+											<option value="1 month">1ヶ月</option>
+											<option value="3 months">3ヶ月</option>
+											<option value="1 year">1年</option>
+										</select>
+									</div>
+									<div class="cache-expiry-row">
+										<label class="sub-option-label" for="expiresDefault">その他（デフォルト）</label>
+										<select name="expiresDefault" id="expiresDefault" class="input-select">
+											<option value="1 hour">1時間</option>
+											<option value="1 day">1日</option>
+											<option value="1 week">1週間</option>
+											<option value="1 month" selected>1ヶ月</option>
+											<option value="3 months">3ヶ月</option>
+											<option value="1 year">1年</option>
+										</select>
+									</div>
 								</div>
 								<div class="toggle-row">
 									<label class="toggle-label" for="cacheControl">Cache-Control ヘッダー</label>
