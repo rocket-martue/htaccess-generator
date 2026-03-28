@@ -392,7 +392,53 @@ const buildHeadersSection = (headers) => {
 	if (headers.cspEnabled) {
 		directives.push('');
 		directives.push('\t# CSP');
-		directives.push('\tHeader always set Content-Security-Policy "upgrade-insecure-requests;"');
+
+		const cspParts = ['upgrade-insecure-requests'];
+
+		const sanitize = (v) => v.replace(/"/g, '');
+
+		const buildSrc = (enabled, value, extras = []) => {
+			if (!enabled) return null;
+			const base = sanitize(value).trim() || null;
+			const parts = base ? [base] : [];
+			parts.push(...extras.filter(Boolean));
+			return parts.length > 0 ? parts.join(' ') : null;
+		};
+
+		const defaultSrc = buildSrc(headers.cspDefaultSrcEnabled, headers.cspDefaultSrcValue || "'self'");
+		if (defaultSrc) cspParts.push(`default-src ${defaultSrc}`);
+
+		const scriptExtras = [
+			headers.cspScriptUnsafeInline ? "'unsafe-inline'" : null,
+			headers.cspScriptUnsafeEval ? "'unsafe-eval'" : null,
+		];
+		const scriptSrc = buildSrc(headers.cspScriptSrcEnabled, headers.cspScriptSrcValue || "'self'", scriptExtras);
+		if (scriptSrc) cspParts.push(`script-src ${scriptSrc}`);
+
+		const styleExtras = [headers.cspStyleUnsafeInline ? "'unsafe-inline'" : null];
+		const styleSrc = buildSrc(headers.cspStyleSrcEnabled, headers.cspStyleSrcValue || "'self'", styleExtras);
+		if (styleSrc) cspParts.push(`style-src ${styleSrc}`);
+
+		const imgSrc = buildSrc(headers.cspImgSrcEnabled, headers.cspImgSrcValue || "'self' data:");
+		if (imgSrc) cspParts.push(`img-src ${imgSrc}`);
+
+		const fontSrc = buildSrc(headers.cspFontSrcEnabled, headers.cspFontSrcValue || "'self'");
+		if (fontSrc) cspParts.push(`font-src ${fontSrc}`);
+
+		const connectSrc = buildSrc(headers.cspConnectSrcEnabled, headers.cspConnectSrcValue || "'self'");
+		if (connectSrc) cspParts.push(`connect-src ${connectSrc}`);
+
+		const frameSrcExtras = [
+			headers.cspFrameSrcYoutube ? 'https://www.youtube.com' : null,
+			headers.cspFrameSrcGoogleMaps ? 'https://www.google.com' : null,
+		];
+		const frameSrc = buildSrc(headers.cspFrameSrcEnabled, headers.cspFrameSrcValue || "'none'", frameSrcExtras);
+		if (frameSrc) cspParts.push(`frame-src ${frameSrc}`);
+
+		const frameAncestors = buildSrc(headers.cspFrameAncestorsEnabled, headers.cspFrameAncestorsValue || "'self'");
+		if (frameAncestors) cspParts.push(`frame-ancestors ${frameAncestors}`);
+
+		directives.push(`\tHeader always set Content-Security-Policy "${cspParts.join('; ')}"`);
 	}
 
 	// X-Content-Type-Options

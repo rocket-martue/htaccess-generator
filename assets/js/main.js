@@ -56,6 +56,29 @@ const elHstsPreload = document.querySelector('[name="hstsPreload"]');
 const elHstsSubFields = document.querySelector('.hsts-sub-fields');
 
 const elCspEnabled = document.querySelector('[name="cspEnabled"]');
+const elCspSubFields = document.querySelector('.csp-sub-fields');
+const elCspDefaultSrcEnabled = document.querySelector('[name="cspDefaultSrcEnabled"]');
+const elCspDefaultSrcValue = document.querySelector('[name="cspDefaultSrcValue"]');
+const elCspScriptSrcEnabled = document.querySelector('[name="cspScriptSrcEnabled"]');
+const elCspScriptSrcValue = document.querySelector('[name="cspScriptSrcValue"]');
+const elCspScriptUnsafeInline = document.querySelector('[name="cspScriptUnsafeInline"]');
+const elCspScriptUnsafeEval = document.querySelector('[name="cspScriptUnsafeEval"]');
+const elCspStyleSrcEnabled = document.querySelector('[name="cspStyleSrcEnabled"]');
+const elCspStyleSrcValue = document.querySelector('[name="cspStyleSrcValue"]');
+const elCspStyleUnsafeInline = document.querySelector('[name="cspStyleUnsafeInline"]');
+const elCspImgSrcEnabled = document.querySelector('[name="cspImgSrcEnabled"]');
+const elCspImgSrcValue = document.querySelector('[name="cspImgSrcValue"]');
+const elCspFontSrcEnabled = document.querySelector('[name="cspFontSrcEnabled"]');
+const elCspFontSrcValue = document.querySelector('[name="cspFontSrcValue"]');
+const elCspConnectSrcEnabled = document.querySelector('[name="cspConnectSrcEnabled"]');
+const elCspConnectSrcValue = document.querySelector('[name="cspConnectSrcValue"]');
+const elCspFrameSrcEnabled = document.querySelector('[name="cspFrameSrcEnabled"]');
+const elCspFrameSrcValue = document.querySelector('[name="cspFrameSrcValue"]');
+const elCspFrameSrcYoutube = document.querySelector('[name="cspFrameSrcYoutube"]');
+const elCspFrameSrcGoogleMaps = document.querySelector('[name="cspFrameSrcGoogleMaps"]');
+const elCspFrameAncestorsEnabled = document.querySelector('[name="cspFrameAncestorsEnabled"]');
+const elCspFrameAncestorsValue = document.querySelector('[name="cspFrameAncestorsValue"]');
+
 const elXContentType = document.querySelector('[name="xContentType"]');
 
 const elXFrameOptions = document.querySelector('[name="xFrameOptions"]');
@@ -152,6 +175,27 @@ const getCurrentSettings = () => ({
 		hstsPreload: elHstsPreload?.checked ?? true,
 
 		cspEnabled: elCspEnabled?.checked ?? false,
+		cspDefaultSrcEnabled: elCspDefaultSrcEnabled?.checked ?? false,
+		cspDefaultSrcValue: elCspDefaultSrcValue?.value.trim() ?? '',
+		cspScriptSrcEnabled: elCspScriptSrcEnabled?.checked ?? false,
+		cspScriptSrcValue: elCspScriptSrcValue?.value.trim() ?? '',
+		cspScriptUnsafeInline: elCspScriptUnsafeInline?.checked ?? false,
+		cspScriptUnsafeEval: elCspScriptUnsafeEval?.checked ?? false,
+		cspStyleSrcEnabled: elCspStyleSrcEnabled?.checked ?? false,
+		cspStyleSrcValue: elCspStyleSrcValue?.value.trim() ?? '',
+		cspStyleUnsafeInline: elCspStyleUnsafeInline?.checked ?? false,
+		cspImgSrcEnabled: elCspImgSrcEnabled?.checked ?? false,
+		cspImgSrcValue: elCspImgSrcValue?.value.trim() ?? '',
+		cspFontSrcEnabled: elCspFontSrcEnabled?.checked ?? false,
+		cspFontSrcValue: elCspFontSrcValue?.value.trim() ?? '',
+		cspConnectSrcEnabled: elCspConnectSrcEnabled?.checked ?? false,
+		cspConnectSrcValue: elCspConnectSrcValue?.value.trim() ?? '',
+		cspFrameSrcEnabled: elCspFrameSrcEnabled?.checked ?? false,
+		cspFrameSrcValue: elCspFrameSrcValue?.value.trim() ?? '',
+		cspFrameSrcYoutube: elCspFrameSrcYoutube?.checked ?? false,
+		cspFrameSrcGoogleMaps: elCspFrameSrcGoogleMaps?.checked ?? false,
+		cspFrameAncestorsEnabled: elCspFrameAncestorsEnabled?.checked ?? false,
+		cspFrameAncestorsValue: elCspFrameAncestorsValue?.value.trim() ?? '',
 
 		xContentType: elXContentType?.checked ?? false,
 
@@ -300,6 +344,27 @@ const applySettingsToForm = (settings) => {
 	if (elHstsIncludeSubDomains) elHstsIncludeSubDomains.checked = settings.headers.hstsIncludeSubDomains;
 	if (elHstsPreload) elHstsPreload.checked = settings.headers.hstsPreload;
 	if (elCspEnabled) elCspEnabled.checked = settings.headers.cspEnabled;
+	if (elCspDefaultSrcEnabled) elCspDefaultSrcEnabled.checked = settings.headers.cspDefaultSrcEnabled;
+	if (elCspDefaultSrcValue) elCspDefaultSrcValue.value = settings.headers.cspDefaultSrcValue;
+	if (elCspScriptSrcEnabled) elCspScriptSrcEnabled.checked = settings.headers.cspScriptSrcEnabled;
+	if (elCspScriptSrcValue) elCspScriptSrcValue.value = settings.headers.cspScriptSrcValue;
+	if (elCspScriptUnsafeInline) elCspScriptUnsafeInline.checked = settings.headers.cspScriptUnsafeInline;
+	if (elCspScriptUnsafeEval) elCspScriptUnsafeEval.checked = settings.headers.cspScriptUnsafeEval;
+	if (elCspStyleSrcEnabled) elCspStyleSrcEnabled.checked = settings.headers.cspStyleSrcEnabled;
+	if (elCspStyleSrcValue) elCspStyleSrcValue.value = settings.headers.cspStyleSrcValue;
+	if (elCspStyleUnsafeInline) elCspStyleUnsafeInline.checked = settings.headers.cspStyleUnsafeInline;
+	if (elCspImgSrcEnabled) elCspImgSrcEnabled.checked = settings.headers.cspImgSrcEnabled;
+	if (elCspImgSrcValue) elCspImgSrcValue.value = settings.headers.cspImgSrcValue;
+	if (elCspFontSrcEnabled) elCspFontSrcEnabled.checked = settings.headers.cspFontSrcEnabled;
+	if (elCspFontSrcValue) elCspFontSrcValue.value = settings.headers.cspFontSrcValue;
+	if (elCspConnectSrcEnabled) elCspConnectSrcEnabled.checked = settings.headers.cspConnectSrcEnabled;
+	if (elCspConnectSrcValue) elCspConnectSrcValue.value = settings.headers.cspConnectSrcValue;
+	if (elCspFrameSrcEnabled) elCspFrameSrcEnabled.checked = settings.headers.cspFrameSrcEnabled;
+	if (elCspFrameSrcValue) elCspFrameSrcValue.value = settings.headers.cspFrameSrcValue;
+	if (elCspFrameSrcYoutube) elCspFrameSrcYoutube.checked = settings.headers.cspFrameSrcYoutube;
+	if (elCspFrameSrcGoogleMaps) elCspFrameSrcGoogleMaps.checked = settings.headers.cspFrameSrcGoogleMaps;
+	if (elCspFrameAncestorsEnabled) elCspFrameAncestorsEnabled.checked = settings.headers.cspFrameAncestorsEnabled;
+	if (elCspFrameAncestorsValue) elCspFrameAncestorsValue.value = settings.headers.cspFrameAncestorsValue;
 	if (elXContentType) elXContentType.checked = settings.headers.xContentType;
 	if (elXFrameOptions) elXFrameOptions.checked = settings.headers.xFrameOptions;
 	const xfoRadio = document.querySelector(`[name="xFrameOptionsValue"][value="${settings.headers.xFrameOptionsValue}"]`);
@@ -386,6 +451,19 @@ const updateConditionalFields = () => {
 			elHstsPreload.checked = false;
 		}
 	}
+
+	// CSP サブオプション
+	if (elCspSubFields) {
+		const cspVisible = elCspEnabled?.checked ?? false;
+		elCspSubFields.hidden = !cspVisible;
+		elCspEnabled?.setAttribute('aria-expanded', String(cspVisible));
+	}
+
+	// frame-src の YouTube / Google Maps は cspFrameSrcEnabled が ON のときのみ有効
+	const frameSrcExtraEls = [elCspFrameSrcYoutube, elCspFrameSrcGoogleMaps];
+	frameSrcExtraEls.forEach((el) => {
+		if (el) el.disabled = !(elCspFrameSrcEnabled?.checked ?? false);
+	});
 
 	// X-Frame-Options サブオプション
 	if (elXfoSubFields) {
