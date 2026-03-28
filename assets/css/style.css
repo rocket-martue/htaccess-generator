@@ -570,6 +570,66 @@ hr {
   min-height: 80px;
 }
 
+.sub-options {
+  padding: 0.4em 0 0.2em 1.2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.15em;
+}
+.sub-options[hidden] {
+  display: none !important;
+}
+
+.sub-option-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.5em;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.2em 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.sub-option-label input[type=checkbox],
+.sub-option-label input[type=radio] {
+  accent-color: var(--accent-solid);
+  margin: 0;
+  cursor: pointer;
+}
+
+.sub-options-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin: 0 0 0.2em;
+}
+
+.sub-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sub-legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 .btn {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;

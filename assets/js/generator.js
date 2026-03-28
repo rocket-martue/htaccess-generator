@@ -28,6 +28,16 @@ const BAD_QUERY_PARAMS = [
 	'w',
 ];
 
+/** X-Frame-Options の許可値 */
+const VALID_XFO_VALUES = ['SAMEORIGIN', 'DENY'];
+
+/** Referrer-Policy の許可値 */
+const VALID_RP_VALUES = [
+	'no-referrer', 'no-referrer-when-downgrade', 'origin',
+	'origin-when-cross-origin', 'same-origin', 'strict-origin',
+	'strict-origin-when-cross-origin', 'unsafe-url',
+];
+
 // ─── ヘルパー ─────────────────────────────────────────────────────
 
 /**
@@ -366,7 +376,14 @@ const buildHeadersSection = (headers) => {
 
 	// HSTS
 	if (headers.hstsEnabled) {
-		const hstsValue = 'max-age=63072000; includeSubDomains; preload';
+		const hstsParts = ['max-age=63072000'];
+		if (headers.hstsIncludeSubDomains) {
+			hstsParts.push('includeSubDomains');
+		}
+		if (headers.hstsPreload && headers.hstsIncludeSubDomains) {
+			hstsParts.push('preload');
+		}
+		const hstsValue = hstsParts.join('; ');
 		directives.push('\t# HSTS（HTTPS 接続時のみ送信）');
 		directives.push(`\tHeader always set Strict-Transport-Security "${hstsValue}" "expr=%{HTTPS} == 'on' || %{HTTP:X-Forwarded-Proto} == 'https'"`);
 	}
@@ -387,23 +404,40 @@ const buildHeadersSection = (headers) => {
 
 	// X-Frame-Options
 	if (headers.xFrameOptions) {
+		const xfoValue = VALID_XFO_VALUES.includes(headers.xFrameOptionsValue)
+			? headers.xFrameOptionsValue
+			: 'SAMEORIGIN';
 		directives.push('');
 		directives.push('\t# X-Frame-Options');
-		directives.push('\tHeader always set X-Frame-Options "SAMEORIGIN"');
+		directives.push(`\tHeader always set X-Frame-Options "${xfoValue}"`);
 	}
 
 	// Referrer-Policy
 	if (headers.referrerPolicy) {
+		const rpValue = VALID_RP_VALUES.includes(headers.referrerPolicyValue)
+			? headers.referrerPolicyValue
+			: 'strict-origin-when-cross-origin';
 		directives.push('');
 		directives.push('\t# Referrer-Policy');
-		directives.push('\tHeader always set Referrer-Policy "strict-origin-when-cross-origin"');
+		directives.push(`\tHeader always set Referrer-Policy "${rpValue}"`);
 	}
 
 	// Permissions-Policy
 	if (headers.permissionsPolicy) {
-		directives.push('');
-		directives.push('\t# Permissions-Policy');
-		directives.push('\tHeader always set Permissions-Policy "camera=(), microphone=(), payment=(), usb=(), gyroscope=(), magnetometer=(), geolocation=()"');
+		const ppFeatures = [];
+		if (headers.ppCamera) ppFeatures.push('camera=()');
+		if (headers.ppMicrophone) ppFeatures.push('microphone=()');
+		if (headers.ppPayment) ppFeatures.push('payment=()');
+		if (headers.ppUsb) ppFeatures.push('usb=()');
+		if (headers.ppGyroscope) ppFeatures.push('gyroscope=()');
+		if (headers.ppMagnetometer) ppFeatures.push('magnetometer=()');
+		if (headers.ppGeolocation) ppFeatures.push('geolocation=()');
+
+		if (ppFeatures.length > 0) {
+			directives.push('');
+			directives.push('\t# Permissions-Policy');
+			directives.push(`\tHeader always set Permissions-Policy "${ppFeatures.join(', ')}"`);
+		}
 	}
 
 	if (directives.length === 0) {

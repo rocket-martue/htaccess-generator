@@ -134,6 +134,8 @@
 							<p><code>includeSubDomains</code> を有効にする前に、すべてのサブドメインが HTTPS
 								に対応していることを確認する。対応していないサブドメインにアクセスできなくなる。</p>
 						</blockquote>
+
+						<p>ジェネレーターでは <code>includeSubDomains</code> と <code>preload</code> をそれぞれ個別に ON/OFF できる。サブドメインが HTTPS 非対応の場合は <code>includeSubDomains</code> を外す、プリロードリスト登録が不要なら <code>preload</code> を外す、といった調整が可能。</p>
 					</section>
 
 					<hr class="divider">
@@ -270,6 +272,8 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
 								</tbody>
 							</table>
 						</div>
+
+						<p>ジェネレーターでは <code>SAMEORIGIN</code>（デフォルト）と <code>DENY</code> を選択できる。自サイトで iframe 埋め込みが不要なら <code>DENY</code> を選ぶとより厳格になる。</p>
 					</section>
 
 					<hr class="divider">
@@ -285,7 +289,54 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
 						<p>リンクを踏んで他サイトに移動したとき、ブラウザが <code>Referer</code> ヘッダーにどれだけの情報を含めるかを制御するヘッダー。URL
 							には管理画面のパスや個人情報を含む場合があり、外部サイトへの漏洩を防ぐ。</p>
 
-						<h3><code>strict-origin-when-cross-origin</code> の動作</h3>
+						<h3>選択可能なポリシー一覧</h3>
+						<p>ジェネレーターでは以下の 8 つのポリシーから選択できる。デフォルトは <code>strict-origin-when-cross-origin</code>（推奨）。</p>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>ポリシー</th>
+										<th>動作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>no-referrer</code></td>
+										<td>リファラーを一切送信しない</td>
+									</tr>
+									<tr>
+										<td><code>no-referrer-when-downgrade</code></td>
+										<td>HTTPS→HTTP ダウングレード時のみ非送信。それ以外はフル URL を送信</td>
+									</tr>
+									<tr>
+										<td><code>origin</code></td>
+										<td>常にオリジン（ドメイン）のみ送信</td>
+									</tr>
+									<tr>
+										<td><code>origin-when-cross-origin</code></td>
+										<td>同一オリジンはフル URL、クロスオリジンはオリジンのみ</td>
+									</tr>
+									<tr>
+										<td><code>same-origin</code></td>
+										<td>同一オリジンのみフル URL を送信。クロスオリジンは非送信</td>
+									</tr>
+									<tr>
+										<td><code>strict-origin</code></td>
+										<td>オリジンのみ送信。ダウングレード時は非送信</td>
+									</tr>
+									<tr>
+										<td><code>strict-origin-when-cross-origin</code></td>
+										<td>同一オリジンはフル URL、クロスオリジンはオリジンのみ、ダウングレード時は非送信（<strong>推奨</strong>）</td>
+									</tr>
+									<tr>
+										<td><code>unsafe-url</code></td>
+										<td>常にフル URL を送信（<strong>非推奨</strong> — パス情報が外部に漏洩する）</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3><code>strict-origin-when-cross-origin</code> の動作詳細</h3>
 						<div class="table-wrap">
 							<table>
 								<thead>
@@ -319,13 +370,68 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
 						<h2>Permissions-Policy</h2>
 
 						<pre class="article-code"><code>Header always set Permissions-Policy \
-  "camera=(), microphone=(), payment=(), usb=()"</code></pre>
+  "camera=(), microphone=(), payment=(), usb=(), gyroscope=(), magnetometer=(), geolocation=()"</code></pre>
 
 						<h3>役割</h3>
 						<p>ブラウザが持つ強力な API（カメラ・マイク・決済など）の使用を制限するヘッダー。WordPress サイトで通常使用しないデバイス API を無効化することで、マルウェアや XSS
 							攻撃が不正にこれらの API を呼び出すことを防ぐ。</p>
 
 						<p>空の括弧 <code>()</code> はそのディレクティブを完全に無効化することを意味する（すべてのオリジンからの使用を禁止）。</p>
+
+						<h3>制御可能な機能一覧</h3>
+						<p>ジェネレーターでは以下の機能を個別に ON/OFF できる。チェック ON で制限（<code>feature=()</code> を出力）、OFF でポリシーから除外（ブラウザデフォルトで許可）。</p>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>機能</th>
+										<th>説明</th>
+										<th>OFF にするケース</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>camera</code></td>
+										<td>カメラ API</td>
+										<td>ビデオ通話・QR コードリーダー等を使う場合</td>
+									</tr>
+									<tr>
+										<td><code>microphone</code></td>
+										<td>マイク API</td>
+										<td>音声入力・通話機能を使う場合</td>
+									</tr>
+									<tr>
+										<td><code>payment</code></td>
+										<td>Payment Request API</td>
+										<td>Web Payment を使う EC サイト</td>
+									</tr>
+									<tr>
+										<td><code>usb</code></td>
+										<td>WebUSB API</td>
+										<td>USB デバイスとの通信が必要な場合</td>
+									</tr>
+									<tr>
+										<td><code>gyroscope</code></td>
+										<td>ジャイロスコープ API</td>
+										<td>デバイスの回転検知が必要な場合</td>
+									</tr>
+									<tr>
+										<td><code>magnetometer</code></td>
+										<td>磁力センサー API</td>
+										<td>コンパス機能が必要な場合</td>
+									</tr>
+									<tr>
+										<td><code>geolocation</code></td>
+										<td>位置情報 API</td>
+										<td>Google マップ等の地図表示・現在地取得を使う場合</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<blockquote>
+							<p>Google マップの埋め込みを使うサイトでは <code>geolocation</code> を OFF にする（ポリシーから除外）ことで、ユーザーの現在地取得が正常に動作する。</p>
+						</blockquote>
 					</section>
 
 					<hr class="divider">
@@ -351,7 +457,7 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
-    Header always set Permissions-Policy "camera=(), microphone=(), payment=(), usb=()"
+    Header always set Permissions-Policy "camera=(), microphone=(), payment=(), usb=(), gyroscope=(), magnetometer=(), geolocation=()"
 &lt;/IfModule&gt;</code></pre>
 					</section>
 

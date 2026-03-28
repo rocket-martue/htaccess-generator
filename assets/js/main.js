@@ -51,11 +51,28 @@ const elMimeType = document.querySelector('[name="mimeType"]');
 
 // Headers
 const elHstsEnabled = document.querySelector('[name="hstsEnabled"]');
+const elHstsIncludeSubDomains = document.querySelector('[name="hstsIncludeSubDomains"]');
+const elHstsPreload = document.querySelector('[name="hstsPreload"]');
+const elHstsSubFields = document.querySelector('.hsts-sub-fields');
+
 const elCspEnabled = document.querySelector('[name="cspEnabled"]');
 const elXContentType = document.querySelector('[name="xContentType"]');
+
 const elXFrameOptions = document.querySelector('[name="xFrameOptions"]');
+const elXfoSubFields = document.querySelector('.xfo-sub-fields');
+
 const elReferrerPolicy = document.querySelector('[name="referrerPolicy"]');
+const elRpSubFields = document.querySelector('.rp-sub-fields');
+
 const elPermissionsPolicy = document.querySelector('[name="permissionsPolicy"]');
+const elPpCamera = document.querySelector('[name="ppCamera"]');
+const elPpMicrophone = document.querySelector('[name="ppMicrophone"]');
+const elPpPayment = document.querySelector('[name="ppPayment"]');
+const elPpUsb = document.querySelector('[name="ppUsb"]');
+const elPpGyroscope = document.querySelector('[name="ppGyroscope"]');
+const elPpMagnetometer = document.querySelector('[name="ppMagnetometer"]');
+const elPpGeolocation = document.querySelector('[name="ppGeolocation"]');
+const elPpSubFields = document.querySelector('.pp-sub-fields');
 
 // wp-admin
 const elWpAdminBasicAuth = document.querySelector('[name="wpAdminBasicAuth"]');
@@ -131,11 +148,27 @@ const getCurrentSettings = () => ({
 	},
 	headers: {
 		hstsEnabled: elHstsEnabled?.checked ?? false,
+		hstsIncludeSubDomains: elHstsIncludeSubDomains?.checked ?? true,
+		hstsPreload: elHstsPreload?.checked ?? true,
+
 		cspEnabled: elCspEnabled?.checked ?? false,
+
 		xContentType: elXContentType?.checked ?? false,
+
 		xFrameOptions: elXFrameOptions?.checked ?? false,
+		xFrameOptionsValue: document.querySelector('[name="xFrameOptionsValue"]:checked')?.value ?? 'SAMEORIGIN',
+
 		referrerPolicy: elReferrerPolicy?.checked ?? false,
+		referrerPolicyValue: document.querySelector('[name="referrerPolicyValue"]:checked')?.value ?? 'strict-origin-when-cross-origin',
+
 		permissionsPolicy: elPermissionsPolicy?.checked ?? false,
+		ppCamera: elPpCamera?.checked ?? true,
+		ppMicrophone: elPpMicrophone?.checked ?? true,
+		ppPayment: elPpPayment?.checked ?? true,
+		ppUsb: elPpUsb?.checked ?? true,
+		ppGyroscope: elPpGyroscope?.checked ?? true,
+		ppMagnetometer: elPpMagnetometer?.checked ?? true,
+		ppGeolocation: elPpGeolocation?.checked ?? true,
 	},
 	wpAdmin: {
 		basicAuth: elWpAdminBasicAuth?.checked ?? false,
@@ -264,11 +297,24 @@ const applySettingsToForm = (settings) => {
 
 	// Headers
 	if (elHstsEnabled) elHstsEnabled.checked = settings.headers.hstsEnabled;
+	if (elHstsIncludeSubDomains) elHstsIncludeSubDomains.checked = settings.headers.hstsIncludeSubDomains;
+	if (elHstsPreload) elHstsPreload.checked = settings.headers.hstsPreload;
 	if (elCspEnabled) elCspEnabled.checked = settings.headers.cspEnabled;
 	if (elXContentType) elXContentType.checked = settings.headers.xContentType;
 	if (elXFrameOptions) elXFrameOptions.checked = settings.headers.xFrameOptions;
+	const xfoRadio = document.querySelector(`[name="xFrameOptionsValue"][value="${settings.headers.xFrameOptionsValue}"]`);
+	if (xfoRadio) xfoRadio.checked = true;
 	if (elReferrerPolicy) elReferrerPolicy.checked = settings.headers.referrerPolicy;
+	const rpRadio = document.querySelector(`[name="referrerPolicyValue"][value="${settings.headers.referrerPolicyValue}"]`);
+	if (rpRadio) rpRadio.checked = true;
 	if (elPermissionsPolicy) elPermissionsPolicy.checked = settings.headers.permissionsPolicy;
+	if (elPpCamera) elPpCamera.checked = settings.headers.ppCamera;
+	if (elPpMicrophone) elPpMicrophone.checked = settings.headers.ppMicrophone;
+	if (elPpPayment) elPpPayment.checked = settings.headers.ppPayment;
+	if (elPpUsb) elPpUsb.checked = settings.headers.ppUsb;
+	if (elPpGyroscope) elPpGyroscope.checked = settings.headers.ppGyroscope;
+	if (elPpMagnetometer) elPpMagnetometer.checked = settings.headers.ppMagnetometer;
+	if (elPpGeolocation) elPpGeolocation.checked = settings.headers.ppGeolocation;
 
 	// wp-admin
 	if (elWpAdminBasicAuth) elWpAdminBasicAuth.checked = settings.wpAdmin.basicAuth;
@@ -323,6 +369,43 @@ const updateConditionalFields = () => {
 	// wp-admin フィールド
 	if (elWpAdminFields) {
 		elWpAdminFields.hidden = !elWpAdminBasicAuth?.checked;
+	}
+
+	// HSTS サブオプション
+	if (elHstsSubFields) {
+		const hstsVisible = elHstsEnabled?.checked ?? false;
+		elHstsSubFields.hidden = !hstsVisible;
+		elHstsEnabled?.setAttribute('aria-expanded', String(hstsVisible));
+	}
+
+	// preload は includeSubDomains が ON の場合のみ有効
+	if (elHstsPreload) {
+		const includeSubEnabled = elHstsIncludeSubDomains?.checked ?? true;
+		elHstsPreload.disabled = !includeSubEnabled;
+		if (!includeSubEnabled) {
+			elHstsPreload.checked = false;
+		}
+	}
+
+	// X-Frame-Options サブオプション
+	if (elXfoSubFields) {
+		const xfoVisible = elXFrameOptions?.checked ?? false;
+		elXfoSubFields.hidden = !xfoVisible;
+		elXFrameOptions?.setAttribute('aria-expanded', String(xfoVisible));
+	}
+
+	// Referrer-Policy サブオプション
+	if (elRpSubFields) {
+		const rpVisible = elReferrerPolicy?.checked ?? false;
+		elRpSubFields.hidden = !rpVisible;
+		elReferrerPolicy?.setAttribute('aria-expanded', String(rpVisible));
+	}
+
+	// Permissions-Policy サブオプション
+	if (elPpSubFields) {
+		const ppVisible = elPermissionsPolicy?.checked ?? false;
+		elPpSubFields.hidden = !ppVisible;
+		elPermissionsPolicy?.setAttribute('aria-expanded', String(ppVisible));
 	}
 };
 
@@ -404,6 +487,34 @@ const initEvents = () => {
 	allCheckboxes.forEach((cb) => {
 		cb.addEventListener('change', () => {
 			updateConditionalFields();
+			updatePreview();
+			clearPresetActiveState();
+		});
+	});
+
+	// Permissions-Policy：サブ機能が全 OFF → メイントグルを自動で OFF に
+	// メイントグルを ON にしたとき → サブ機能を全 ON にリセット（詰み状態の回避）
+	const ppSubEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer, elPpGeolocation];
+	elPermissionsPolicy?.addEventListener('change', () => {
+		if (elPermissionsPolicy.checked) {
+			ppSubEls.forEach((el) => { if (el) el.checked = true; });
+			updatePreview();
+		}
+	});
+	ppSubEls.forEach((cb) => {
+		cb?.addEventListener('change', () => {
+			if (!ppSubEls.some((el) => el?.checked) && elPermissionsPolicy) {
+				elPermissionsPolicy.checked = false;
+				updateConditionalFields();
+				updatePreview();
+			}
+		});
+	});
+
+	// ヘッダーサブオプションのラジオボタン change イベントでプレビュー更新
+	const headerRadios = document.querySelectorAll('[name="xFrameOptionsValue"], [name="referrerPolicyValue"]');
+	headerRadios.forEach((radio) => {
+		radio.addEventListener('change', () => {
 			updatePreview();
 			clearPresetActiveState();
 		});
