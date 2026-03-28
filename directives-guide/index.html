@@ -195,7 +195,7 @@ RewriteCond %{REQUEST_FILENAME} -d</code></pre>
 							</table>
 						</div>
 						<blockquote>
-							<p>実務で頻出するのは <code>-f</code> と <code>-d</code> の2つ。</p>
+							<p>実務で頻出するのは <code>-f</code> と <code>-d</code> の2つ。先頭に <code>!</code> を付けると否定になる（例: <code>!-f</code> = ファイルが存在しない、<code>!-d</code> = ディレクトリが存在しない）。WordPress の <code>.htaccess</code> では <code>!-f</code> と <code>!-d</code> の組み合わせが頻出する。</p>
 						</blockquote>
 
 						<h4>WordPress での使用例</h4>
@@ -463,12 +463,12 @@ RewriteRule ^ - [R=410,L]</code></pre>
 									<tr>
 										<td><code>[L]</code></td>
 										<td>Last</td>
-										<td>このルールで処理を終了し、以降のルールを評価しない</td>
+										<td>現在のリライトパスを終了し、以降のルールを評価しない。ただし URI が書き換わった場合、Apache は内部的に <code>.htaccess</code> を再評価する。<code>[R]</code> 付き（外部リダイレクト）の場合はクライアントへレスポンスを返して処理が完結するため、この再評価は発生しない</td>
 									</tr>
 									<tr>
 										<td><code>[R=コード]</code></td>
 										<td>Redirect</td>
-										<td>指定したHTTPステータスコードでリダイレクト（例: <code>R=301</code>, <code>R=410</code>）</td>
+										<td>指定したHTTPステータスコードでリダイレクト（例: <code>R=301</code>, <code>R=410</code>）。コードを省略した <code>[R]</code> のみの場合はデフォルトで 302 になる</td>
 									</tr>
 									<tr>
 										<td><code>[F]</code></td>
@@ -582,6 +582,11 @@ RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
 										<td>403</td>
 										<td>Forbidden</td>
 										<td>アクセス拒否（ボットブロック、ファイル保護）</td>
+									</tr>
+									<tr>
+										<td>404</td>
+										<td>Not Found</td>
+										<td>リソースが存在しない（<code>ErrorDocument 404</code> でカスタムエラーページを指定）</td>
 									</tr>
 									<tr>
 										<td>410</td>
