@@ -403,18 +403,7 @@ const updateConditionalFields = () => {
 
 	// Permissions-Policy サブオプション
 	if (elPpSubFields) {
-		let ppVisible = elPermissionsPolicy?.checked ?? false;
-
-		// サブ機能がすべて OFF ならメイントグルを自動で OFF に戻す
-		if (ppVisible) {
-			const subCheckboxes = elPpSubFields.querySelectorAll('input[type="checkbox"]');
-			const hasAnyEnabled = Array.from(subCheckboxes).some((cb) => cb.checked);
-			if (!hasAnyEnabled) {
-				elPermissionsPolicy.checked = false;
-				ppVisible = false;
-			}
-		}
-
+		const ppVisible = elPermissionsPolicy?.checked ?? false;
 		elPpSubFields.hidden = !ppVisible;
 		elPermissionsPolicy?.setAttribute('aria-expanded', String(ppVisible));
 	}
@@ -500,6 +489,18 @@ const initEvents = () => {
 			updateConditionalFields();
 			updatePreview();
 			clearPresetActiveState();
+		});
+	});
+
+	// Permissions-Policy：サブ機能が全 OFF → メイントグルを自動で OFF に
+	const ppSubEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer, elPpGeolocation];
+	ppSubEls.forEach((cb) => {
+		cb?.addEventListener('change', () => {
+			if (!ppSubEls.some((el) => el?.checked) && elPermissionsPolicy) {
+				elPermissionsPolicy.checked = false;
+				updateConditionalFields();
+				updatePreview();
+			}
 		});
 	});
 

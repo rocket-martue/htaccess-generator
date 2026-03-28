@@ -581,6 +581,9 @@ hr {
           flex-direction: column;
   gap: 0.15em;
 }
+.sub-options[hidden] {
+  display: none !important;
+}
 
 .sub-option-label {
   display: -webkit-box;
