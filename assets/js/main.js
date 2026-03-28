@@ -64,14 +64,7 @@ const elBlockBadQuery = document.querySelector('[name="blockBadQuery"]');
 // Cache
 const elGzip = document.querySelector('[name="gzip"]');
 const elExpires = document.querySelector('[name="expires"]');
-const elExpiresSubFields   = document.querySelector('#expires-sub-fields');
-const elExpiresScript      = document.querySelector('[name="expiresScript"]');
-const elExpiresImage       = document.querySelector('[name="expiresImage"]');
-const elExpiresIcon        = document.querySelector('[name="expiresIcon"]');
-const elExpiresVideo       = document.querySelector('[name="expiresVideo"]');
-const elExpiresFont        = document.querySelector('[name="expiresFont"]');
-const elExpiresFeed        = document.querySelector('[name="expiresFeed"]');
-const elExpiresDefault     = document.querySelector('[name="expiresDefault"]');
+const elExpiresSubFields = document.querySelector('#expires-sub-fields');
 const elCacheControl = document.querySelector('[name="cacheControl"]');
 const elEtagDisable = document.querySelector('[name="etagDisable"]');
 const elMimeType = document.querySelector('[name="mimeType"]');
@@ -210,13 +203,13 @@ const getCurrentSettings = () => ({
 	cache: {
 		gzip: elGzip?.checked ?? false,
 		expires: elExpires?.checked ?? false,
-		expiresScript: elExpiresScript?.value ?? '1 year',
-		expiresImage: elExpiresImage?.value ?? '1 month',
-		expiresIcon: elExpiresIcon?.value ?? '1 year',
-		expiresVideo: elExpiresVideo?.value ?? '1 month',
-		expiresFont: elExpiresFont?.value ?? '1 year',
-		expiresFeed: elExpiresFeed?.value ?? '1 hour',
-		expiresDefault: elExpiresDefault?.value ?? '1 month',
+		expiresScript: document.querySelector('[name="expiresScript"]:checked')?.value ?? '1 year',
+		expiresImage: document.querySelector('[name="expiresImage"]:checked')?.value ?? '1 month',
+		expiresIcon: document.querySelector('[name="expiresIcon"]:checked')?.value ?? '1 year',
+		expiresVideo: document.querySelector('[name="expiresVideo"]:checked')?.value ?? '1 month',
+		expiresFont: document.querySelector('[name="expiresFont"]:checked')?.value ?? '1 year',
+		expiresFeed: document.querySelector('[name="expiresFeed"]:checked')?.value ?? '1 hour',
+		expiresDefault: document.querySelector('[name="expiresDefault"]:checked')?.value ?? '1 month',
 		cacheControl: elCacheControl?.checked ?? false,
 		etagDisable: elEtagDisable?.checked ?? false,
 		mimeType: elMimeType?.checked ?? false,
@@ -404,13 +397,10 @@ const applySettingsToForm = (settings) => {
 	// Cache
 	if (elGzip) elGzip.checked = settings.cache.gzip;
 	if (elExpires) elExpires.checked = settings.cache.expires;
-	if (elExpiresScript) elExpiresScript.value = settings.cache.expiresScript;
-	if (elExpiresImage) elExpiresImage.value = settings.cache.expiresImage;
-	if (elExpiresIcon) elExpiresIcon.value = settings.cache.expiresIcon;
-	if (elExpiresVideo) elExpiresVideo.value = settings.cache.expiresVideo;
-	if (elExpiresFont) elExpiresFont.value = settings.cache.expiresFont;
-	if (elExpiresFeed) elExpiresFeed.value = settings.cache.expiresFeed;
-	if (elExpiresDefault) elExpiresDefault.value = settings.cache.expiresDefault;
+	['expiresScript', 'expiresImage', 'expiresIcon', 'expiresVideo', 'expiresFont', 'expiresFeed', 'expiresDefault'].forEach((key) => {
+		const el = document.querySelector(`[name="${key}"][value="${settings.cache[key]}"]`);
+		if (el) el.checked = true;
+	});
 	if (elCacheControl) elCacheControl.checked = settings.cache.cacheControl;
 	if (elEtagDisable) elEtagDisable.checked = settings.cache.etagDisable;
 	if (elMimeType) elMimeType.checked = settings.cache.mimeType;
@@ -713,10 +703,10 @@ const initEvents = () => {
 		});
 	});
 
-	// Expires セレクトボックスの change イベントでプレビュー更新
-	const expiresSelects = [elExpiresScript, elExpiresImage, elExpiresIcon, elExpiresVideo, elExpiresFont, elExpiresFeed, elExpiresDefault];
-	expiresSelects.forEach((sel) => {
-		sel?.addEventListener('change', () => {
+	// Expires ラジオボタンの change イベントでプレビュー更新
+	const expiresRadios = document.querySelectorAll('[name="expiresScript"], [name="expiresImage"], [name="expiresIcon"], [name="expiresVideo"], [name="expiresFont"], [name="expiresFeed"], [name="expiresDefault"]');
+	expiresRadios.forEach((radio) => {
+		radio.addEventListener('change', () => {
 			updatePreview();
 			clearPresetActiveState();
 		});

@@ -575,81 +575,88 @@
 								</div>
 								<div class="expires-sub-fields sub-options" id="expires-sub-fields" hidden>
 									<div class="cache-expiry-row">
-										<label class="sub-option-label" for="expiresScript">CSS / JS</label>
-										<select name="expiresScript" id="expiresScript" class="input-select">
-											<option value="1 hour">1時間</option>
-											<option value="1 day">1日</option>
-											<option value="1 week">1週間</option>
-											<option value="1 month">1ヶ月</option>
-											<option value="3 months">3ヶ月</option>
-											<option value="1 year" selected>1年</option>
-										</select>
+										<span class="cache-expiry-label">CSS / JS</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">CSS / JS のキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 year" checked><span>1年</span></label>
+										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<label class="sub-option-label" for="expiresImage">画像</label>
-										<select name="expiresImage" id="expiresImage" class="input-select">
-											<option value="1 hour">1時間</option>
-											<option value="1 day">1日</option>
-											<option value="1 week">1週間</option>
-											<option value="1 month" selected>1ヶ月</option>
-											<option value="3 months">3ヶ月</option>
-											<option value="1 year">1年</option>
-										</select>
+										<span class="cache-expiry-label">画像</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">画像のキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 month" checked><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 year"><span>1年</span></label>
+										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<label class="sub-option-label" for="expiresIcon">アイコン</label>
-										<select name="expiresIcon" id="expiresIcon" class="input-select">
-											<option value="1 hour">1時間</option>
-											<option value="1 day">1日</option>
-											<option value="1 week">1週間</option>
-											<option value="1 month">1ヶ月</option>
-											<option value="3 months">3ヶ月</option>
-											<option value="1 year" selected>1年</option>
-										</select>
+										<span class="cache-expiry-label">アイコン</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">アイコンのキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 year" checked><span>1年</span></label>
+										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<label class="sub-option-label" for="expiresVideo">動画</label>
-										<select name="expiresVideo" id="expiresVideo" class="input-select">
-											<option value="1 hour">1時間</option>
-											<option value="1 day">1日</option>
-											<option value="1 week">1週間</option>
-											<option value="1 month" selected>1ヶ月</option>
-											<option value="3 months">3ヶ月</option>
-											<option value="1 year">1年</option>
-										</select>
+										<span class="cache-expiry-label">動画</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">動画のキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 month" checked><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 year"><span>1年</span></label>
+										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<label class="sub-option-label" for="expiresFont">フォント</label>
-										<select name="expiresFont" id="expiresFont" class="input-select">
-											<option value="1 hour">1時間</option>
-											<option value="1 day">1日</option>
-											<option value="1 week">1週間</option>
-											<option value="1 month">1ヶ月</option>
-											<option value="3 months">3ヶ月</option>
-											<option value="1 year" selected>1年</option>
-										</select>
+										<span class="cache-expiry-label">フォント</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">フォントのキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 year" checked><span>1年</span></label>
+										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<label class="sub-option-label" for="expiresFeed">フィード</label>
-										<select name="expiresFeed" id="expiresFeed" class="input-select">
-											<option value="1 hour" selected>1時間</option>
-											<option value="1 day">1日</option>
-											<option value="1 week">1週間</option>
-											<option value="1 month">1ヶ月</option>
-											<option value="3 months">3ヶ月</option>
-											<option value="1 year">1年</option>
-										</select>
+										<span class="cache-expiry-label">フィード</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">フィードのキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 hour" checked><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 year"><span>1年</span></label>
+										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<label class="sub-option-label" for="expiresDefault">その他（デフォルト）</label>
-										<select name="expiresDefault" id="expiresDefault" class="input-select">
-											<option value="1 hour">1時間</option>
-											<option value="1 day">1日</option>
-											<option value="1 week">1週間</option>
-											<option value="1 month" selected>1ヶ月</option>
-											<option value="3 months">3ヶ月</option>
-											<option value="1 year">1年</option>
-										</select>
+										<span class="cache-expiry-label">その他（デフォルト）</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">その他（デフォルト）のキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 month" checked><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 year"><span>1年</span></label>
+										</fieldset>
 									</div>
 								</div>
 								<div class="toggle-row">
