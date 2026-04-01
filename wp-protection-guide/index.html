@@ -181,7 +181,7 @@ htpasswd /home/username/.htpasswd ユーザー名</code></pre>
 							内、<code>mod_rewrite</code> ブロック内に記述する。</p>
 
 						<pre class="article-code"><code># wp-admin/includes/ への直接アクセスをブロック
-RewriteCond %{REQUEST_URI} ^/wp-admin/includes/ [NC]
+RewriteCond %{REQUEST_URI} ^/wp-admin/includes(?:/|$) [NC]
 RewriteRule .* - [F,L]
 
 # wp-includes/*.php への直接アクセスをブロック

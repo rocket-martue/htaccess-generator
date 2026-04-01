@@ -246,7 +246,7 @@ const buildRewriteSection = (rewrite) => {
 	if (rewrite.blockWpIncludesDir) {
 		rules.push('');
 		rules.push('\t# wp-admin/includes/ への直接アクセスをブロック');
-		rules.push('\tRewriteCond %{REQUEST_URI} ^/wp-admin/includes/ [NC]');
+		rules.push('	RewriteCond %{REQUEST_URI} ^/wp-admin/includes(?:/|$) [NC]');
 		rules.push('\tRewriteRule .* - [F,L]');
 		rules.push('');
 		rules.push('\t# wp-includes/*.php への直接アクセスをブロック');

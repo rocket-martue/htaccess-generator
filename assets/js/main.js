@@ -694,7 +694,7 @@ const initEvents = () => {
 	// ※ ppGeolocation は <select> のため checkbox 群とは別に処理する
 	const ppCheckboxEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer];
 	const isPpAnyEnabled = () =>
-		ppCheckboxEls.some((el) => el?.checked) || (elPpGeolocation?.value !== 'off');
+		ppCheckboxEls.some((el) => el?.checked) || ((elPpGeolocation?.value ?? 'off') !== 'off');
 	elPermissionsPolicy?.addEventListener('change', () => {
 		if (elPermissionsPolicy.checked) {
 			ppCheckboxEls.forEach((el) => { if (el) el.checked = true; });
