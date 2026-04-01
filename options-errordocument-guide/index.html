@@ -249,7 +249,7 @@ ErrorDocument 500 /error/500.html</code></pre>
 							でアクセスされるため、相対パスは正しく解決されないことがある）。</p>
 
 						<h3>メンテナンスページの実装</h3>
-						<p>サイト全体をメンテナンス中にするには、<code>RewriteRule</code> で全リクエストをメンテナンスページへ転送しつつ、503 ステータスを返す。</p>
+						<p>サイト全体をメンテナンス中にするには、<code>RewriteRule</code> で 503 ステータスを返し、<code>ErrorDocument 503</code> でメンテナンスページを返す。</p>
 						<pre class="article-code"><code>&lt;IfModule mod_rewrite.c&gt;
     RewriteEngine On
     # メンテナンスページ自身はリダイレクトしない
