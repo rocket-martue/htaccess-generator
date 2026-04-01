@@ -7,13 +7,13 @@
 
 // ─── 定数 ─────────────────────────────────────────────────────────
 
-/** 悪意のあるボット・スクリプトの UA リスト */
-const BAD_BOTS = [
-	'wget', 'curl', 'nikto', 'sqlmap', 'python-requests',
-	'go-http-client', 'libwww-perl', 'masscan', 'nmap',
-	'zgrab', 'httpie', 'scrapy', 'java/', 'ahrefsbot',
-	'semrushbot', 'dotbot', 'mj12bot',
-];
+/** 悪意のあるボット・スクリプトの UA マップ（設定キー → UA 文字列） */
+const BAD_BOT_MAP = {
+	bbNikto: 'nikto', bbSqlmap: 'sqlmap', bbMasscan: 'masscan', bbNmap: 'nmap', bbZgrab: 'zgrab',
+	bbWget: 'wget', bbCurl: 'curl', bbHttpie: 'httpie', bbPythonRequests: 'python-requests',
+	bbGoHttpClient: 'go-http-client', bbLibwwwPerl: 'libwww-perl', bbScrapy: 'scrapy', bbJava: 'java/',
+	bbAhrefsbot: 'ahrefsbot', bbSemrushbot: 'semrushbot', bbDotbot: 'dotbot', bbMj12bot: 'mj12bot',
+};
 
 /** 既知のバックドア / マルウェア探索パターン */
 const BACKDOOR_PATTERNS = [
@@ -38,7 +38,17 @@ const VALID_RP_VALUES = [
 	'strict-origin-when-cross-origin', 'unsafe-url',
 ];
 
+/** ExpiresByType の許可値 */
+const VALID_EXPIRES_VALUES = ['1 hour', '1 day', '1 week', '1 month', '3 months', '1 year'];
+
 // ─── ヘルパー ─────────────────────────────────────────────────────
+
+/**
+ * Expires 値をホワイトリストで検証し、不正値は '1 month' にフォールバックする
+ * @param {string} val
+ * @returns {string}
+ */
+const resolveExpires = (val) => VALID_EXPIRES_VALUES.includes(val) ? val : '1 month';
 
 /**
  * ファイルアクセス拒否ブロックを生成する（Apache 2.2/2.4 両対応）
@@ -198,10 +208,15 @@ const buildRewriteSection = (rewrite) => {
 
 	// 悪意のあるボットブロック
 	if (rewrite.blockBadBots) {
-		rules.push('');
-		rules.push('\t# 悪意のあるボット・スクリプトをブロック');
-		rules.push(`\tRewriteCond %{HTTP_USER_AGENT} (${BAD_BOTS.join('|')}) [NC]`);
-		rules.push('\tRewriteRule .* - [F,L]');
+		const activeBots = Object.entries(BAD_BOT_MAP)
+			.filter(([key]) => rewrite[key])
+			.map(([, ua]) => ua);
+		if (activeBots.length > 0) {
+			rules.push('');
+			rules.push('\t# 悪意のあるボット・スクリプトをブロック');
+			rules.push(`\tRewriteCond %{HTTP_USER_AGENT} (${activeBots.join('|')}) [NC]`);
+			rules.push('\tRewriteRule .* - [F,L]');
+		}
 	}
 
 	// バックドア探索ブロック
@@ -289,31 +304,38 @@ const buildCacheSection = (cache) => {
 
 	// ブラウザキャッシュ（Expires）
 	if (cache.expires) {
+		const script  = resolveExpires(cache.expiresScript);
+		const image   = resolveExpires(cache.expiresImage);
+		const icon    = resolveExpires(cache.expiresIcon);
+		const video   = resolveExpires(cache.expiresVideo);
+		const font    = resolveExpires(cache.expiresFont);
+		const feed    = resolveExpires(cache.expiresFeed);
+		const def     = resolveExpires(cache.expiresDefault);
 		lines.push('# ブラウザキャッシュ設定');
 		lines.push('<IfModule mod_expires.c>');
 		lines.push('\tExpiresActive On');
-		lines.push('\tExpiresDefault "access plus 1 month"');
-		lines.push('\tExpiresByType text/css "access plus 1 year"');
-		lines.push('\tExpiresByType application/javascript "access plus 1 year"');
-		lines.push('\tExpiresByType application/x-javascript "access plus 1 year"');
-		lines.push('\tExpiresByType text/javascript "access plus 1 year"');
-		lines.push('\tExpiresByType image/jpeg "access plus 1 month"');
-		lines.push('\tExpiresByType image/png "access plus 1 month"');
-		lines.push('\tExpiresByType image/gif "access plus 1 month"');
-		lines.push('\tExpiresByType image/webp "access plus 1 month"');
-		lines.push('\tExpiresByType image/svg+xml "access plus 1 month"');
-		lines.push('\tExpiresByType image/x-icon "access plus 1 year"');
-		lines.push('\tExpiresByType image/vnd.microsoft.icon "access plus 1 year"');
-		lines.push('\tExpiresByType video/mp4 "access plus 1 month"');
-		lines.push('\tExpiresByType video/webm "access plus 1 month"');
-		lines.push('\tExpiresByType video/ogg "access plus 1 month"');
-		lines.push('\tExpiresByType font/woff "access plus 1 year"');
-		lines.push('\tExpiresByType font/woff2 "access plus 1 year"');
-		lines.push('\tExpiresByType font/ttf "access plus 1 year"');
-		lines.push('\tExpiresByType font/otf "access plus 1 year"');
-		lines.push('\tExpiresByType application/atom+xml "access plus 1 hour"');
-		lines.push('\tExpiresByType application/rdf+xml "access plus 1 hour"');
-		lines.push('\tExpiresByType application/rss+xml "access plus 1 hour"');
+		lines.push(`\tExpiresDefault "access plus ${def}"`);
+		lines.push(`\tExpiresByType text/css "access plus ${script}"`);
+		lines.push(`\tExpiresByType application/javascript "access plus ${script}"`);
+		lines.push(`\tExpiresByType application/x-javascript "access plus ${script}"`);
+		lines.push(`\tExpiresByType text/javascript "access plus ${script}"`);
+		lines.push(`\tExpiresByType image/jpeg "access plus ${image}"`);
+		lines.push(`\tExpiresByType image/png "access plus ${image}"`);
+		lines.push(`\tExpiresByType image/gif "access plus ${image}"`);
+		lines.push(`\tExpiresByType image/webp "access plus ${image}"`);
+		lines.push(`\tExpiresByType image/svg+xml "access plus ${image}"`);
+		lines.push(`\tExpiresByType image/x-icon "access plus ${icon}"`);
+		lines.push(`\tExpiresByType image/vnd.microsoft.icon "access plus ${icon}"`);
+		lines.push(`\tExpiresByType video/mp4 "access plus ${video}"`);
+		lines.push(`\tExpiresByType video/webm "access plus ${video}"`);
+		lines.push(`\tExpiresByType video/ogg "access plus ${video}"`);
+		lines.push(`\tExpiresByType font/woff "access plus ${font}"`);
+		lines.push(`\tExpiresByType font/woff2 "access plus ${font}"`);
+		lines.push(`\tExpiresByType font/ttf "access plus ${font}"`);
+		lines.push(`\tExpiresByType font/otf "access plus ${font}"`);
+		lines.push(`\tExpiresByType application/atom+xml "access plus ${feed}"`);
+		lines.push(`\tExpiresByType application/rdf+xml "access plus ${feed}"`);
+		lines.push(`\tExpiresByType application/rss+xml "access plus ${feed}"`);
 		lines.push('\tExpiresByType application/json "access plus 0 seconds"');
 		lines.push('\tExpiresByType application/ld+json "access plus 0 seconds"');
 		lines.push('\tExpiresByType application/xml "access plus 0 seconds"');

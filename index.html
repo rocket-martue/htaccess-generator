@@ -96,6 +96,11 @@
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
+								<p class="sub-options-hint">
+									⚠️ 一部のレンタルサーバーでは Options の変更が禁止されており、
+									上記の Options 設定を有効にすると 500 エラーが発生する場合があります。
+									その場合は Options 設定を無効にしてください。
+								</p>
 								<div class="toggle-row">
 									<label class="toggle-label" for="errorDocument">ErrorDocument 軽量化（403 / 404）</label>
 									<label class="toggle-switch">
@@ -162,6 +167,9 @@
 											class="input-text" placeholder="/home/username/.htpasswd" autocomplete="off"
 											spellcheck="false">
 									</div>
+									<p class="sub-options-hint" id="login-htpasswd-hint" hidden aria-live="polite">
+										.htpasswd のフルパスを入力すると反映されます
+									</p>
 								</div>
 							</div>
 						</section>
@@ -183,6 +191,9 @@
 										<textarea name="ipBlockList" id="ipBlockList" class="input-textarea" rows="4"
 											placeholder="192.0.2.1&#10;198.51.100.0/24" spellcheck="false"></textarea>
 									</div>
+									<p class="sub-options-hint" id="ip-block-hint" hidden aria-live="polite">
+										ブロックする IP アドレスを入力してください
+									</p>
 								</div>
 							</div>
 						</section>
@@ -201,8 +212,83 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="blockBadBots">悪意のあるボットをブロック</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="blockBadBots" id="blockBadBots">
+										<input type="checkbox" name="blockBadBots" id="blockBadBots"
+											aria-expanded="false" aria-controls="bad-bots-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
+									</label>
+								</div>
+								<div class="bad-bots-sub-fields sub-options" id="bad-bots-sub-fields" hidden>
+									<p class="sub-options-hint">チェック ON = ブロックする / OFF = 除外（許可）</p>
+									<p class="sub-option-group-label">攻撃ツール</p>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbNikto" id="bbNikto" checked>
+										<span>nikto</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbSqlmap" id="bbSqlmap" checked>
+										<span>sqlmap</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbMasscan" id="bbMasscan" checked>
+										<span>masscan</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbNmap" id="bbNmap" checked>
+										<span>nmap</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbZgrab" id="bbZgrab" checked>
+										<span>zgrab</span>
+									</label>
+									<p class="sub-option-group-label">汎用クライアント</p>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbWget" id="bbWget" checked>
+										<span>wget</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbCurl" id="bbCurl" checked>
+										<span>curl</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbHttpie" id="bbHttpie" checked>
+										<span>httpie</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbPythonRequests" id="bbPythonRequests" checked>
+										<span>python-requests</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbGoHttpClient" id="bbGoHttpClient" checked>
+										<span>go-http-client</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbLibwwwPerl" id="bbLibwwwPerl" checked>
+										<span>libwww-perl</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbScrapy" id="bbScrapy" checked>
+										<span>scrapy</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbJava" id="bbJava" checked>
+										<span>java/</span>
+									</label>
+									<p class="sub-option-group-label">SEO クローラー</p>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbAhrefsbot" id="bbAhrefsbot">
+										<span>ahrefsbot</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbSemrushbot" id="bbSemrushbot">
+										<span>semrushbot</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbDotbot" id="bbDotbot">
+										<span>dotbot</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="bbMj12bot" id="bbMj12bot">
+										<span>mj12bot</span>
 									</label>
 								</div>
 								<div class="toggle-row">
@@ -491,9 +577,96 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="expires">ブラウザキャッシュ（Expires）</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="expires" id="expires">
+										<input type="checkbox" name="expires" id="expires"
+											aria-expanded="false" aria-controls="expires-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
+								</div>
+								<div class="expires-sub-fields sub-options" id="expires-sub-fields" hidden>
+									<div class="cache-expiry-row">
+										<span class="cache-expiry-label">CSS / JS</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">CSS / JS のキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 year" checked><span>1年</span></label>
+										</fieldset>
+									</div>
+									<div class="cache-expiry-row">
+										<span class="cache-expiry-label">画像</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">画像のキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 month" checked><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 year"><span>1年</span></label>
+										</fieldset>
+									</div>
+									<div class="cache-expiry-row">
+										<span class="cache-expiry-label">アイコン</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">アイコンのキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 year" checked><span>1年</span></label>
+										</fieldset>
+									</div>
+									<div class="cache-expiry-row">
+										<span class="cache-expiry-label">動画</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">動画のキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 month" checked><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 year"><span>1年</span></label>
+										</fieldset>
+									</div>
+									<div class="cache-expiry-row">
+										<span class="cache-expiry-label">フォント</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">フォントのキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 year" checked><span>1年</span></label>
+										</fieldset>
+									</div>
+									<div class="cache-expiry-row">
+										<span class="cache-expiry-label">フィード</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">フィードのキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 hour" checked><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 year"><span>1年</span></label>
+										</fieldset>
+									</div>
+									<div class="cache-expiry-row">
+										<span class="cache-expiry-label">その他（デフォルト）</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">その他（デフォルト）のキャッシュ有効期限</legend>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 month" checked><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 year"><span>1年</span></label>
+										</fieldset>
+									</div>
 								</div>
 								<div class="toggle-row">
 									<label class="toggle-label" for="cacheControl">Cache-Control ヘッダー</label>
@@ -544,6 +717,9 @@
 											class="input-text" placeholder="/home/username/.htpasswd" autocomplete="off"
 											spellcheck="false">
 									</div>
+									<p class="sub-options-hint" id="admin-htpasswd-hint" hidden aria-live="polite">
+										.htpasswd のフルパスを入力すると反映されます
+									</p>
 									<div class="toggle-row">
 										<label class="toggle-label" for="ajaxExclude">admin-ajax.php を除外</label>
 										<label class="toggle-switch">

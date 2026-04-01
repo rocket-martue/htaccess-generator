@@ -25,15 +25,35 @@ const elWpLoginBasicAuth = document.querySelector('[name="wpLoginBasicAuth"]');
 const elLoginHtpasswdPath = document.querySelector('[name="loginHtpasswdPath"]');
 const elLoginBasicAuthUser = document.querySelector('[name="loginBasicAuthUser"]');
 const elLoginAuthFields = document.querySelector('.login-auth-fields');
+const elLoginHtpasswdHint = document.querySelector('#login-htpasswd-hint');
 
 // IP Block
 const elIpBlockEnabled = document.querySelector('[name="ipBlockEnabled"]');
 const elIpBlockList = document.querySelector('[name="ipBlockList"]');
 const elIpBlockFields = document.querySelector('.ip-block-fields');
+const elIpBlockHint = document.querySelector('#ip-block-hint');
 
 // Rewrite
 const elNormalizeSlashes = document.querySelector('[name="normalizeSlashes"]');
 const elBlockBadBots = document.querySelector('[name="blockBadBots"]');
+const elBadBotsSubFields = document.querySelector('#bad-bots-sub-fields');
+const elBbNikto          = document.querySelector('[name="bbNikto"]');
+const elBbSqlmap         = document.querySelector('[name="bbSqlmap"]');
+const elBbMasscan        = document.querySelector('[name="bbMasscan"]');
+const elBbNmap           = document.querySelector('[name="bbNmap"]');
+const elBbZgrab          = document.querySelector('[name="bbZgrab"]');
+const elBbWget           = document.querySelector('[name="bbWget"]');
+const elBbCurl           = document.querySelector('[name="bbCurl"]');
+const elBbHttpie         = document.querySelector('[name="bbHttpie"]');
+const elBbPythonRequests = document.querySelector('[name="bbPythonRequests"]');
+const elBbGoHttpClient   = document.querySelector('[name="bbGoHttpClient"]');
+const elBbLibwwwPerl     = document.querySelector('[name="bbLibwwwPerl"]');
+const elBbScrapy         = document.querySelector('[name="bbScrapy"]');
+const elBbJava           = document.querySelector('[name="bbJava"]');
+const elBbAhrefsbot      = document.querySelector('[name="bbAhrefsbot"]');
+const elBbSemrushbot     = document.querySelector('[name="bbSemrushbot"]');
+const elBbDotbot         = document.querySelector('[name="bbDotbot"]');
+const elBbMj12bot        = document.querySelector('[name="bbMj12bot"]');
 const elBlockBackdoors = document.querySelector('[name="blockBackdoors"]');
 const elBlockWpNesting = document.querySelector('[name="blockWpNesting"]');
 const elBlockWpIncludesDir = document.querySelector('[name="blockWpIncludesDir"]');
@@ -44,6 +64,7 @@ const elBlockBadQuery = document.querySelector('[name="blockBadQuery"]');
 // Cache
 const elGzip = document.querySelector('[name="gzip"]');
 const elExpires = document.querySelector('[name="expires"]');
+const elExpiresSubFields = document.querySelector('#expires-sub-fields');
 const elCacheControl = document.querySelector('[name="cacheControl"]');
 const elEtagDisable = document.querySelector('[name="etagDisable"]');
 const elMimeType = document.querySelector('[name="mimeType"]');
@@ -101,6 +122,7 @@ const elPpSubFields = document.querySelector('.pp-sub-fields');
 const elWpAdminBasicAuth = document.querySelector('[name="wpAdminBasicAuth"]');
 const elAdminHtpasswdPath = document.querySelector('[name="adminHtpasswdPath"]');
 const elAdminBasicAuthUser = document.querySelector('[name="adminBasicAuthUser"]');
+const elAdminHtpasswdHint = document.querySelector('#admin-htpasswd-hint');
 const elAjaxExclude = document.querySelector('[name="ajaxExclude"]');
 const elUpgradeIpExclude = document.querySelector('[name="upgradeIpExclude"]');
 const elServerIp = document.querySelector('[name="serverIp"]');
@@ -154,6 +176,23 @@ const getCurrentSettings = () => ({
 	rewrite: {
 		normalizeSlashes: elNormalizeSlashes?.checked ?? false,
 		blockBadBots: elBlockBadBots?.checked ?? false,
+		bbNikto: elBbNikto?.checked ?? true,
+		bbSqlmap: elBbSqlmap?.checked ?? true,
+		bbMasscan: elBbMasscan?.checked ?? true,
+		bbNmap: elBbNmap?.checked ?? true,
+		bbZgrab: elBbZgrab?.checked ?? true,
+		bbWget: elBbWget?.checked ?? true,
+		bbCurl: elBbCurl?.checked ?? true,
+		bbHttpie: elBbHttpie?.checked ?? true,
+		bbPythonRequests: elBbPythonRequests?.checked ?? true,
+		bbGoHttpClient: elBbGoHttpClient?.checked ?? true,
+		bbLibwwwPerl: elBbLibwwwPerl?.checked ?? true,
+		bbScrapy: elBbScrapy?.checked ?? true,
+		bbJava: elBbJava?.checked ?? true,
+		bbAhrefsbot: elBbAhrefsbot?.checked ?? false,
+		bbSemrushbot: elBbSemrushbot?.checked ?? false,
+		bbDotbot: elBbDotbot?.checked ?? false,
+		bbMj12bot: elBbMj12bot?.checked ?? false,
 		blockBackdoors: elBlockBackdoors?.checked ?? false,
 		blockWpNesting: elBlockWpNesting?.checked ?? false,
 		blockWpIncludesDir: elBlockWpIncludesDir?.checked ?? false,
@@ -164,6 +203,13 @@ const getCurrentSettings = () => ({
 	cache: {
 		gzip: elGzip?.checked ?? false,
 		expires: elExpires?.checked ?? false,
+		expiresScript: document.querySelector('[name="expiresScript"]:checked')?.value ?? '1 year',
+		expiresImage: document.querySelector('[name="expiresImage"]:checked')?.value ?? '1 month',
+		expiresIcon: document.querySelector('[name="expiresIcon"]:checked')?.value ?? '1 year',
+		expiresVideo: document.querySelector('[name="expiresVideo"]:checked')?.value ?? '1 month',
+		expiresFont: document.querySelector('[name="expiresFont"]:checked')?.value ?? '1 year',
+		expiresFeed: document.querySelector('[name="expiresFeed"]:checked')?.value ?? '1 hour',
+		expiresDefault: document.querySelector('[name="expiresDefault"]:checked')?.value ?? '1 month',
 		cacheControl: elCacheControl?.checked ?? false,
 		etagDisable: elEtagDisable?.checked ?? false,
 		mimeType: elMimeType?.checked ?? false,
@@ -324,6 +370,23 @@ const applySettingsToForm = (settings) => {
 	// Rewrite
 	if (elNormalizeSlashes) elNormalizeSlashes.checked = settings.rewrite.normalizeSlashes;
 	if (elBlockBadBots) elBlockBadBots.checked = settings.rewrite.blockBadBots;
+	if (elBbNikto) elBbNikto.checked = settings.rewrite.bbNikto;
+	if (elBbSqlmap) elBbSqlmap.checked = settings.rewrite.bbSqlmap;
+	if (elBbMasscan) elBbMasscan.checked = settings.rewrite.bbMasscan;
+	if (elBbNmap) elBbNmap.checked = settings.rewrite.bbNmap;
+	if (elBbZgrab) elBbZgrab.checked = settings.rewrite.bbZgrab;
+	if (elBbWget) elBbWget.checked = settings.rewrite.bbWget;
+	if (elBbCurl) elBbCurl.checked = settings.rewrite.bbCurl;
+	if (elBbHttpie) elBbHttpie.checked = settings.rewrite.bbHttpie;
+	if (elBbPythonRequests) elBbPythonRequests.checked = settings.rewrite.bbPythonRequests;
+	if (elBbGoHttpClient) elBbGoHttpClient.checked = settings.rewrite.bbGoHttpClient;
+	if (elBbLibwwwPerl) elBbLibwwwPerl.checked = settings.rewrite.bbLibwwwPerl;
+	if (elBbScrapy) elBbScrapy.checked = settings.rewrite.bbScrapy;
+	if (elBbJava) elBbJava.checked = settings.rewrite.bbJava;
+	if (elBbAhrefsbot) elBbAhrefsbot.checked = settings.rewrite.bbAhrefsbot;
+	if (elBbSemrushbot) elBbSemrushbot.checked = settings.rewrite.bbSemrushbot;
+	if (elBbDotbot) elBbDotbot.checked = settings.rewrite.bbDotbot;
+	if (elBbMj12bot) elBbMj12bot.checked = settings.rewrite.bbMj12bot;
 	if (elBlockBackdoors) elBlockBackdoors.checked = settings.rewrite.blockBackdoors;
 	if (elBlockWpNesting) elBlockWpNesting.checked = settings.rewrite.blockWpNesting;
 	if (elBlockWpIncludesDir) elBlockWpIncludesDir.checked = settings.rewrite.blockWpIncludesDir;
@@ -334,6 +397,10 @@ const applySettingsToForm = (settings) => {
 	// Cache
 	if (elGzip) elGzip.checked = settings.cache.gzip;
 	if (elExpires) elExpires.checked = settings.cache.expires;
+	['expiresScript', 'expiresImage', 'expiresIcon', 'expiresVideo', 'expiresFont', 'expiresFeed', 'expiresDefault'].forEach((key) => {
+		const el = document.querySelector(`[name="${key}"][value="${settings.cache[key]}"]`);
+		if (el) el.checked = true;
+	});
 	if (elCacheControl) elCacheControl.checked = settings.cache.cacheControl;
 	if (elEtagDisable) elEtagDisable.checked = settings.cache.etagDisable;
 	if (elMimeType) elMimeType.checked = settings.cache.mimeType;
@@ -425,15 +492,38 @@ const updateConditionalFields = () => {
 	if (elLoginAuthFields) {
 		elLoginAuthFields.hidden = !elWpLoginBasicAuth?.checked;
 	}
+	if (elLoginHtpasswdHint) {
+		elLoginHtpasswdHint.hidden = !(elWpLoginBasicAuth?.checked && !elLoginHtpasswdPath?.value?.trim());
+	}
 
 	// IP ブロックフィールド
 	if (elIpBlockFields) {
 		elIpBlockFields.hidden = !elIpBlockEnabled?.checked;
 	}
+	if (elIpBlockHint) {
+		elIpBlockHint.hidden = !(elIpBlockEnabled?.checked && !elIpBlockList?.value?.trim());
+	}
+
+	// ボットブロック サブフィールド
+	if (elBadBotsSubFields) {
+		const badBotsVisible = elBlockBadBots?.checked ?? false;
+		elBadBotsSubFields.hidden = !badBotsVisible;
+		elBlockBadBots?.setAttribute('aria-expanded', String(badBotsVisible));
+	}
+
+	// Expires サブフィールド
+	if (elExpiresSubFields) {
+		const expiresVisible = elExpires?.checked ?? false;
+		elExpiresSubFields.hidden = !expiresVisible;
+		elExpires?.setAttribute('aria-expanded', String(expiresVisible));
+	}
 
 	// wp-admin フィールド
 	if (elWpAdminFields) {
 		elWpAdminFields.hidden = !elWpAdminBasicAuth?.checked;
+	}
+	if (elAdminHtpasswdHint) {
+		elAdminHtpasswdHint.hidden = !(elWpAdminBasicAuth?.checked && !elAdminHtpasswdPath?.value?.trim());
 	}
 
 	// HSTS サブオプション
@@ -570,6 +660,32 @@ const initEvents = () => {
 		});
 	});
 
+	// ボットブロック：サブ機能が全 OFF → メイントグルを自動で OFF に
+	// メイントグルを ON にしたとき → サブ機能を全 ON にリセット（詰み状態の回避）
+	const bbSubEls = [
+		elBbNikto, elBbSqlmap, elBbMasscan, elBbNmap, elBbZgrab,
+		elBbWget, elBbCurl, elBbHttpie, elBbPythonRequests, elBbGoHttpClient,
+		elBbLibwwwPerl, elBbScrapy, elBbJava,
+		elBbAhrefsbot, elBbSemrushbot, elBbDotbot, elBbMj12bot,
+	];
+	elBlockBadBots?.addEventListener('change', () => {
+		if (elBlockBadBots.checked) {
+			bbSubEls.forEach((el) => {
+				if (el) el.checked = DEFAULT_SETTINGS.rewrite[el.name] ?? true;
+			});
+			updatePreview();
+		}
+	});
+	bbSubEls.forEach((cb) => {
+		cb?.addEventListener('change', () => {
+			if (!bbSubEls.some((el) => el?.checked) && elBlockBadBots) {
+				elBlockBadBots.checked = false;
+				updateConditionalFields();
+				updatePreview();
+			}
+		});
+	});
+
 	// Permissions-Policy：サブ機能が全 OFF → メイントグルを自動で OFF に
 	// メイントグルを ON にしたとき → サブ機能を全 ON にリセット（詰み状態の回避）
 	const ppSubEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer, elPpGeolocation];
@@ -589,6 +705,15 @@ const initEvents = () => {
 		});
 	});
 
+	// Expires ラジオボタンの change イベントでプレビュー更新
+	const expiresRadios = document.querySelectorAll('[name="expiresScript"], [name="expiresImage"], [name="expiresIcon"], [name="expiresVideo"], [name="expiresFont"], [name="expiresFeed"], [name="expiresDefault"]');
+	expiresRadios.forEach((radio) => {
+		radio.addEventListener('change', () => {
+			updatePreview();
+			clearPresetActiveState();
+		});
+	});
+
 	// ヘッダーサブオプションのラジオボタン change イベントでプレビュー更新
 	const headerRadios = document.querySelectorAll('[name="xFrameOptionsValue"], [name="referrerPolicyValue"]');
 	headerRadios.forEach((radio) => {
@@ -601,7 +726,11 @@ const initEvents = () => {
 	// テキスト入力の input イベントでプレビュー更新
 	const textInputs = document.querySelectorAll('input[type="text"], textarea');
 	textInputs.forEach((input) => {
-		input.addEventListener('input', updatePreview);
+		input.addEventListener('input', () => {
+			updateConditionalFields();
+			updatePreview();
+			clearPresetActiveState();
+		});
 	});
 
 	// タブ切り替え
