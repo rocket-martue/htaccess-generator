@@ -791,7 +791,7 @@ export const PRESETS = [
 				hstsPreload: true,
 				cspEnabled: true,
 				cspDefaultSrcEnabled: true,
-				cspDefaultSrcValue: "'self'",
+				cspDefaultSrcValue: "'self' https:",
 				cspScriptSrcEnabled: true,
 				cspScriptSrcValue: "'self'",
 				cspScriptUnsafeInline: false,
