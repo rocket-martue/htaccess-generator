@@ -96,7 +96,7 @@
 									<tr>
 										<td><code>MultiViews</code></td>
 										<td>拡張子なしでアクセスされたとき、最適なファイルを自動選択する</td>
-										<td>コンテントネゴシエーション（言語・形式の自動振り分け）</td>
+										<td>コンテンツネゴシエーション（言語・形式の自動振り分け）</td>
 									</tr>
 									<tr>
 										<td><code>ExecCGI</code></td>
@@ -142,11 +142,11 @@ Options -Indexes +FollowSymLinks</code></pre>
 						<h3>ディレクトリ一覧の無効化</h3>
 						<p><code>index.html</code> や <code>index.php</code>
 							が存在しないディレクトリにアクセスされると、デフォルトでファイルの一覧が表示されてしまう。これを防ぐには <code>-Indexes</code> を使う。</p>
-						<pre class="article-code"><code><IfModule mod_autoindex.c>
+						<pre class="article-code"><code>&lt;IfModule mod_autoindex.c&gt;
     Options -Indexes
-</IfModule></code></pre>
+&lt;/IfModule&gt;</code></pre>
 						<blockquote>
-							<p>ディレクトリ一覧の公開はファイル構成の露出やサーバー探索（ディレクトリトラバーサル）のリスクになる。本番環境では必ず無効にすること。</p>
+							<p>ディレクトリ一覧の公開はファイル構成の露出や攻撃者による探索（列挙）のリスクになる。本番環境では必ず無効にすること。</p>
 						</blockquote>
 					</section>
 
@@ -182,7 +182,7 @@ Options -Indexes +FollowSymLinks</code></pre>
 									</tr>
 									<tr>
 										<td>テキスト</td>
-										<td><code>"Not Found"</code></td>
+										<td><code>&quot;Not Found&quot;</code></td>
 										<td>指定した文字列をそのまま返す（引用符必須）</td>
 									</tr>
 								</tbody>
@@ -248,34 +248,36 @@ ErrorDocument 500 /error/500.html</code></pre>
 
 						<h3>メンテナンスページの実装</h3>
 						<p>サイト全体をメンテナンス中にするには、<code>RewriteRule</code> で全リクエストをメンテナンスページへ転送しつつ、503 ステータスを返す。</p>
-						<pre class="article-code"><code><IfModule mod_rewrite.c>
+						<pre class="article-code"><code>&lt;IfModule mod_rewrite.c&gt;
     RewriteEngine On
     # メンテナンスページ自身はリダイレクトしない
     RewriteCond %{REQUEST_URI} !/maintenance.html$
     # 画像・CSS・JS は除外する
     RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|gif|ico|svg)$ [NC]
     RewriteRule ^(.*)$ - [R=503,L]
-</IfModule>
+&lt;/IfModule&gt;
 
 # 503 ステータスを返す（SEOクローラーに一時的な停止と伝える）
 ErrorDocument 503 /maintenance.html</code></pre>
 						<blockquote>
 							<p>メンテナンス中は <code>503</code>
 								を返すことで、検索エンジンのクローラーに「一時停止中」と伝えられる。リダイレクト（<code>R=302</code>）では最終応答が <code>200 OK</code>
-								になってしまい SEO に悪影響をする。代わりに <code>R=503,L</code> で直接 <code>503</code>
+								になってしまい SEO に悪影響を与える。代わりに <code>R=503,L</code> で直接 <code>503</code>
 								ステータスを返し、<code>ErrorDocument</code> で対応するページを指定する。必要に応じて <code>Retry-After</code>
 								ヘッダーで再試行時期を指示することも推奨される。</p>
-							<h3>WordPress での注意点</h3>
-							<p>WordPress 環境では、<code>404</code> は WordPress 本体が処理するため <code>ErrorDocument 404</code>
-								の設定は通常効かない。WordPress のリライトルールにより、存在しないパスでも <code>index.php</code> に転送されて WordPress 側で
-								404 テンプレートが返される仕組みになっている。</p>
-							<pre class="article-code"><code># WordPress の .htaccess（WP が自動生成する部分）
+						</blockquote>
+
+						<h3>WordPress での注意点</h3>
+						<p>WordPress 環境では、<code>404</code> は WordPress 本体が処理するため <code>ErrorDocument 404</code>
+							の設定は通常効かない。WordPress のリライトルールにより、存在しないパスでも <code>index.php</code> に転送されて WordPress 側で
+							404 テンプレートが返される仕組みになっている。</p>
+						<pre class="article-code"><code># WordPress の .htaccess（WP が自動生成する部分）
 # RewriteRule ^(.*)$ index.php [L]
 # ↑ 全リクエストを index.php に渡すため Apache の ErrorDocument 404 は使われない</code></pre>
-							<p>WordPress の 404 ページをカスタマイズしたい場合は、テーマの <code>404.php</code> を編集する。</p>
-							<p><code>403</code> や <code>500</code> は Apache 側で処理されるため、<code>ErrorDocument</code>
-								が有効に機能する。</p>
-					</section>
+						<p>WordPress の 404 ページをカスタマイズしたい場合は、テーマの <code>404.php</code> を編集する。</p>
+						<p><code>403</code> や <code>500</code> は Apache 側で処理されるため、<code>ErrorDocument</code>
+							が有効に機能する。</p>
+						</section>
 
 					<!-- ジェネレーターへ戻る -->
 					<div class="article-back">
