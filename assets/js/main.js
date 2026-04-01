@@ -670,7 +670,9 @@ const initEvents = () => {
 	];
 	elBlockBadBots?.addEventListener('change', () => {
 		if (elBlockBadBots.checked) {
-			bbSubEls.forEach((el) => { if (el) el.checked = true; });
+			bbSubEls.forEach((el) => {
+				if (el) el.checked = DEFAULT_SETTINGS.rewrite[el.name] ?? true;
+			});
 			updatePreview();
 		}
 	});
