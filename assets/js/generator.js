@@ -235,12 +235,15 @@ const buildRewriteSection = (rewrite) => {
 		rules.push('\tRewriteRule .* - [F,L]');
 	}
 
-	// wp-includes ディレクトリブラウズブロック
+	// wp-admin/includes・wp-includes PHP 直接アクセスブロック
 	if (rewrite.blockWpIncludesDir) {
 		rules.push('');
-		rules.push('\t# wp-includes/ ディレクトリの直接ブラウズをブロック');
-		rules.push('\tRewriteCond %{REQUEST_URI} ^/wp-includes/ [NC]');
-		rules.push('\tRewriteCond %{REQUEST_FILENAME} -d');
+		rules.push('\t# wp-admin/includes/ への直接アクセスをブロック');
+		rules.push('\tRewriteCond %{REQUEST_URI} ^/wp-admin/includes/ [NC]');
+		rules.push('\tRewriteRule .* - [F,L]');
+		rules.push('');
+		rules.push('\t# wp-includes/*.php への直接アクセスをブロック');
+		rules.push('\tRewriteCond %{REQUEST_URI} ^/wp-includes/[^/]+\\.php$ [NC]');
 		rules.push('\tRewriteRule .* - [F,L]');
 	}
 
@@ -292,7 +295,6 @@ const buildCacheSection = (cache) => {
 	if (cache.gzip) {
 		lines.push('# Gzip 圧縮');
 		lines.push('<IfModule mod_deflate.c>');
-		lines.push('\tSetOutputFilter DEFLATE');
 		lines.push('\tAddOutputFilterByType DEFLATE text/html text/plain text/xml text/css');
 		lines.push('\tAddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json');
 		lines.push('\tAddOutputFilterByType DEFLATE application/xml application/xhtml+xml application/rss+xml');
@@ -454,7 +456,9 @@ const buildHeadersSection = (headers) => {
 			headers.cspFrameSrcYoutube ? 'https://www.youtube.com' : null,
 			headers.cspFrameSrcGoogleMaps ? 'https://www.google.com' : null,
 		];
-		const frameSrc = buildSrc(headers.cspFrameSrcEnabled, headers.cspFrameSrcValue || "'none'", frameSrcExtras);
+		const hasFrameExtras = frameSrcExtras.some(Boolean);
+		const frameSrcBase = headers.cspFrameSrcValue || "'none'";
+		const frameSrc = buildSrc(headers.cspFrameSrcEnabled, (frameSrcBase === "'none'" && hasFrameExtras) ? '' : frameSrcBase, frameSrcExtras);
 		if (frameSrc) cspParts.push(`frame-src ${frameSrc}`);
 
 		const frameAncestors = buildSrc(headers.cspFrameAncestorsEnabled, headers.cspFrameAncestorsValue || "'self'");
