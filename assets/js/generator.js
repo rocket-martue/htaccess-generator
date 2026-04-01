@@ -429,7 +429,7 @@ const buildHeadersSection = (headers) => {
 			return parts.length > 0 ? parts.join(' ') : null;
 		};
 
-		const defaultSrc = buildSrc(headers.cspDefaultSrcEnabled, headers.cspDefaultSrcValue || "'self'");
+		const defaultSrc = buildSrc(headers.cspDefaultSrcEnabled, headers.cspDefaultSrcValue || "'self' https:");
 		if (defaultSrc) cspParts.push(`default-src ${defaultSrc}`);
 
 		const scriptExtras = [
@@ -464,7 +464,19 @@ const buildHeadersSection = (headers) => {
 		const frameAncestors = buildSrc(headers.cspFrameAncestorsEnabled, headers.cspFrameAncestorsValue || "'self'");
 		if (frameAncestors) cspParts.push(`frame-ancestors ${frameAncestors}`);
 
-		directives.push(`\tHeader always set Content-Security-Policy "${cspParts.join('; ')}"`);
+		const cspValue = cspParts.join('; ');
+
+		if (headers.cspAdminSplit) {
+			const adminCsp = 'upgrade-insecure-requests; default-src \'self\' https:; script-src \'self\' \'unsafe-inline\' \'unsafe-eval\'; style-src \'self\' \'unsafe-inline\'; img-src \'self\' data: https:; font-src \'self\' data:; connect-src \'self\'; frame-ancestors \'self\'';
+			directives.push(`\t<If "%{REQUEST_URI} !~ m#^/wp-admin/#">`);
+			directives.push(`\t\tHeader always set Content-Security-Policy "${cspValue}"`);
+			directives.push('\t</If>');
+			directives.push(`\t<If "%{REQUEST_URI} =~ m#^/wp-admin/#">`);
+			directives.push(`\t\tHeader always set Content-Security-Policy "${adminCsp}"`);
+			directives.push('\t</If>');
+		} else {
+			directives.push(`\tHeader always set Content-Security-Policy "${cspValue}"`);
+		}
 	}
 
 	// X-Content-Type-Options
@@ -503,7 +515,11 @@ const buildHeadersSection = (headers) => {
 		if (headers.ppUsb) ppFeatures.push('usb=()');
 		if (headers.ppGyroscope) ppFeatures.push('gyroscope=()');
 		if (headers.ppMagnetometer) ppFeatures.push('magnetometer=()');
-		if (headers.ppGeolocation) ppFeatures.push('geolocation=()');
+		if (headers.ppGeolocation === 'deny' || headers.ppGeolocation === true) {
+			ppFeatures.push('geolocation=()');
+		} else if (headers.ppGeolocation === 'google-maps') {
+			ppFeatures.push('geolocation=(self "https://www.google.com")');
+		}
 
 		if (ppFeatures.length > 0) {
 			directives.push('');

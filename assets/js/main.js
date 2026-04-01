@@ -99,6 +99,7 @@ const elCspFrameSrcYoutube = document.querySelector('[name="cspFrameSrcYoutube"]
 const elCspFrameSrcGoogleMaps = document.querySelector('[name="cspFrameSrcGoogleMaps"]');
 const elCspFrameAncestorsEnabled = document.querySelector('[name="cspFrameAncestorsEnabled"]');
 const elCspFrameAncestorsValue = document.querySelector('[name="cspFrameAncestorsValue"]');
+const elCspAdminSplit = document.querySelector('[name="cspAdminSplit"]');
 
 const elXContentType = document.querySelector('[name="xContentType"]');
 
@@ -242,6 +243,7 @@ const getCurrentSettings = () => ({
 		cspFrameSrcGoogleMaps: elCspFrameSrcGoogleMaps?.checked ?? false,
 		cspFrameAncestorsEnabled: elCspFrameAncestorsEnabled?.checked ?? false,
 		cspFrameAncestorsValue: elCspFrameAncestorsValue?.value.trim() ?? '',
+		cspAdminSplit: elCspAdminSplit?.checked ?? false,
 
 		xContentType: elXContentType?.checked ?? false,
 
@@ -258,7 +260,7 @@ const getCurrentSettings = () => ({
 		ppUsb: elPpUsb?.checked ?? true,
 		ppGyroscope: elPpGyroscope?.checked ?? true,
 		ppMagnetometer: elPpMagnetometer?.checked ?? true,
-		ppGeolocation: elPpGeolocation?.checked ?? true,
+		ppGeolocation: elPpGeolocation?.value ?? 'deny',
 	},
 	wpAdmin: {
 		basicAuth: elWpAdminBasicAuth?.checked ?? false,
@@ -432,6 +434,7 @@ const applySettingsToForm = (settings) => {
 	if (elCspFrameSrcGoogleMaps) elCspFrameSrcGoogleMaps.checked = settings.headers.cspFrameSrcGoogleMaps;
 	if (elCspFrameAncestorsEnabled) elCspFrameAncestorsEnabled.checked = settings.headers.cspFrameAncestorsEnabled;
 	if (elCspFrameAncestorsValue) elCspFrameAncestorsValue.value = settings.headers.cspFrameAncestorsValue;
+	if (elCspAdminSplit) elCspAdminSplit.checked = settings.headers.cspAdminSplit;
 	if (elXContentType) elXContentType.checked = settings.headers.xContentType;
 	if (elXFrameOptions) elXFrameOptions.checked = settings.headers.xFrameOptions;
 	const xfoRadio = document.querySelector(`[name="xFrameOptionsValue"][value="${settings.headers.xFrameOptionsValue}"]`);
@@ -446,7 +449,7 @@ const applySettingsToForm = (settings) => {
 	if (elPpUsb) elPpUsb.checked = settings.headers.ppUsb;
 	if (elPpGyroscope) elPpGyroscope.checked = settings.headers.ppGyroscope;
 	if (elPpMagnetometer) elPpMagnetometer.checked = settings.headers.ppMagnetometer;
-	if (elPpGeolocation) elPpGeolocation.checked = settings.headers.ppGeolocation;
+	if (elPpGeolocation) elPpGeolocation.value = settings.headers.ppGeolocation;
 
 	// wp-admin
 	if (elWpAdminBasicAuth) elWpAdminBasicAuth.checked = settings.wpAdmin.basicAuth;

@@ -378,7 +378,7 @@
 											<input type="checkbox" name="cspDefaultSrcEnabled" id="cspDefaultSrcEnabled">
 											<code>default-src</code>
 										</label>
-										<input type="text" class="input-text" name="cspDefaultSrcValue" placeholder="'self'">
+										<input type="text" class="input-text" name="cspDefaultSrcValue" placeholder="'self' https:">
 									</div>
 									<!-- script-src -->
 									<div class="csp-directive-row">
@@ -440,6 +440,13 @@
 											<code>frame-ancestors</code>
 										</label>
 										<input type="text" class="input-text" name="cspFrameAncestorsValue" placeholder="'self'">
+									</div>
+									<!-- wp-admin 分岐 -->
+									<div class="csp-directive-row">
+										<label class="sub-option-label">
+											<input type="checkbox" name="cspAdminSplit" id="cspAdminSplit">
+											管理画面用 CSP を分岐（<code>unsafe-eval</code> 許可）
+										</label>
 									</div>
 								</div>
 
@@ -555,10 +562,14 @@
 										<input type="checkbox" name="ppMagnetometer" id="ppMagnetometer" checked>
 										<span>magnetometer</span>
 									</label>
-									<label class="sub-option-label">
-										<input type="checkbox" name="ppGeolocation" id="ppGeolocation" checked>
+									<div class="sub-option-select-row">
 										<span>geolocation</span>
-									</label>
+										<select name="ppGeolocation" id="ppGeolocation" class="input-select">
+											<option value="deny" selected>完全無効化</option>
+											<option value="google-maps">Google マップ許可</option>
+											<option value="off">ポリシーから除外</option>
+										</select>
+									</div>
 								</div>
 							</div>
 						</section>
