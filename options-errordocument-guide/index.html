@@ -9,7 +9,8 @@
 		<meta property="og:type" content="article">
 		<meta property="og:title" content="Options &amp; ErrorDocument ガイド">
 		<meta property="og:description" content="Options ディレクティブと ErrorDocument ディレクティブの動作原理・設定方法・注意点をわかりやすく解説したガイド">
-		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta property="og:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/options-errordocument-guide/">
@@ -19,7 +20,8 @@
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:title" content="Options &amp; ErrorDocument ガイド">
 		<meta name="twitter:description" content="Options ディレクティブと ErrorDocument ディレクティブの動作原理・設定方法・注意点をわかりやすく解説したガイド">
-		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta name="twitter:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 
 		<title>Options &amp; ErrorDocument ガイド | .htaccess Generator</title>
 		<script>
@@ -33,7 +35,8 @@
 		</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
 		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
 
@@ -115,25 +118,30 @@
 						</div>
 
 						<h3>継承と <code>+</code> / <code>-</code> 記法</h3>
-						<p><code>Options</code> は親ディレクトリから子ディレクトリへ継承される。<code>+</code> / <code>-</code> なしで指定すると継承をリセットして完全に上書きする。</p>
-						<pre class="article-code"><code># 悪い例：上位の設定を完全に消して Indexes だけ無効にする
-# FollowSymLinks も消えるため mod_rewrite が動作しなくなる
-Options -Indexes
+						<p><code>Options</code> は親ディレクトリから子ディレクトリへ継承される。<code>+</code> / <code>-</code>
+							なしで指定すると継承をリセットして完全に上書きする。</p>
+						<pre class="article-code"><code># 悪い例：上位の設定をリセットして Indexes だけを有効にしてしまう
+# FollowSymLinks など他のオプションも消えるため mod_rewrite が動作しなくなる
+Options Indexes
 
 # 良い例：現在の設定を維持したまま Indexes だけ無効にする
-Options -Indexes +FollowSymLinks</code></pre>
+Options -Indexes</code></pre>
 						<blockquote>
-							<p><strong>注意:</strong> <code>+</code> / <code>-</code> と記号なしのオプションを同じ行に混在させることはできない。<code>Options +FollowSymLinks -Indexes</code> のように統一して書くこと。</p>
+							<p><strong>注意:</strong> 記号なしの <code>Options Indexes</code>
+								のような書き方は、その行で指定したものだけにオプションをリセットしてしまう。一方、<code>Options -Indexes</code> のように
+								<code>+</code> / <code>-</code> を付けた指定は「現在の設定」を基準に相対的に変更する動作になることを理解して使うこと。</p>
 						</blockquote>
 
 						<h3>WordPress での使い方</h3>
-						<p>WordPress が動作するには <code>mod_rewrite</code> モジュールが必要で、<code>FollowSymLinks</code>（または <code>SymLinksIfOwnerMatch</code>）が有効になっていることが前提となる。</p>
+						<p>WordPress が動作するには <code>mod_rewrite</code> モジュールが必要で、<code>FollowSymLinks</code>（または
+							<code>SymLinksIfOwnerMatch</code>）が有効になっていることが前提となる。</p>
 						<pre class="article-code"><code># WordPress の .htaccess での典型的な記述
 Options -Indexes +FollowSymLinks</code></pre>
 						<p>多くのレンタルサーバーではデフォルトで <code>FollowSymLinks</code> が有効になっているが、明示的に記述しておくと環境依存によるトラブルを防げる。</p>
 
 						<h3>ディレクトリ一覧の無効化</h3>
-						<p><code>index.html</code> や <code>index.php</code> が存在しないディレクトリにアクセスされると、デフォルトでファイルの一覧が表示されてしまう。これを防ぐには <code>-Indexes</code> を使う。</p>
+						<p><code>index.html</code> や <code>index.php</code>
+							が存在しないディレクトリにアクセスされると、デフォルトでファイルの一覧が表示されてしまう。これを防ぐには <code>-Indexes</code> を使う。</p>
 						<pre class="article-code"><code><IfModule mod_autoindex.c>
     Options -Indexes
 </IfModule></code></pre>
@@ -181,7 +189,8 @@ Options -Indexes +FollowSymLinks</code></pre>
 							</table>
 						</div>
 						<blockquote>
-							<p>ローカルパスは <strong>ルートからの絶対パス</strong>（<code>/</code> 始まり）で指定する。相対パスは使えない。</p>
+							<p>ローカルパスは <strong>ルートからの絶対パス</strong>（<code>/</code>
+								始まり）で指定するのが基本。相対パスも指定自体は可能だが、エラー発生場所によって解決先が変わりやすく<strong>推奨されない</strong>。</p>
 						</blockquote>
 
 						<h3>主なエラーコードと用途</h3>
@@ -234,7 +243,8 @@ Options -Indexes +FollowSymLinks</code></pre>
 ErrorDocument 403 /error/403.html
 ErrorDocument 404 /error/404.html
 ErrorDocument 500 /error/500.html</code></pre>
-						<p>エラーページのファイルは通常の HTML ファイル。CSS や画像を参照するときは <strong>ルートからの絶対パス</strong> で指定する（エラーページは任意の URL でアクセスされるため、相対パスは正しく解決されないことがある）。</p>
+						<p>エラーページのファイルは通常の HTML ファイル。CSS や画像を参照するときは <strong>ルートからの絶対パス</strong> で指定する（エラーページは任意の URL
+							でアクセスされるため、相対パスは正しく解決されないことがある）。</p>
 
 						<h3>メンテナンスページの実装</h3>
 						<p>サイト全体をメンテナンス中にするには、<code>RewriteRule</code> で全リクエストをメンテナンスページへ転送しつつ、503 ステータスを返す。</p>
@@ -244,22 +254,27 @@ ErrorDocument 500 /error/500.html</code></pre>
     RewriteCond %{REQUEST_URI} !/maintenance.html$
     # 画像・CSS・JS は除外する
     RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|gif|ico|svg)$ [NC]
-    RewriteRule ^(.*)$ /maintenance.html [R=302,L]
+    RewriteRule ^(.*)$ - [R=503,L]
 </IfModule>
 
 # 503 ステータスを返す（SEOクローラーに一時的な停止と伝える）
 ErrorDocument 503 /maintenance.html</code></pre>
 						<blockquote>
-							<p>メンテナンス中は <code>503</code> を返すことで、検索エンジンのクローラーに「一時停止中」と伝えられる。<code>302</code> リダイレクトだけでは <code>200 OK</code> になるため、SEO 的に問題になることがある。</p>
-						</blockquote>
-
-						<h3>WordPress での注意点</h3>
-						<p>WordPress 環境では、<code>404</code> は WordPress 本体が処理するため <code>ErrorDocument 404</code> の設定は通常効かない。WordPress のリライトルールにより、存在しないパスでも <code>index.php</code> に転送されて WordPress 側で 404 テンプレートが返される仕組みになっている。</p>
-						<pre class="article-code"><code># WordPress の .htaccess（WP が自動生成する部分）
+							<p>メンテナンス中は <code>503</code>
+								を返すことで、検索エンジンのクローラーに「一時停止中」と伝えられる。リダイレクト（<code>R=302</code>）では最終応答が <code>200 OK</code>
+								になってしまい SEO に悪影響をする。代わりに <code>R=503,L</code> で直接 <code>503</code>
+								ステータスを返し、<code>ErrorDocument</code> で対応するページを指定する。必要に応じて <code>Retry-After</code>
+								ヘッダーで再試行時期を指示することも推奨される。</p>
+							<h3>WordPress での注意点</h3>
+							<p>WordPress 環境では、<code>404</code> は WordPress 本体が処理するため <code>ErrorDocument 404</code>
+								の設定は通常効かない。WordPress のリライトルールにより、存在しないパスでも <code>index.php</code> に転送されて WordPress 側で
+								404 テンプレートが返される仕組みになっている。</p>
+							<pre class="article-code"><code># WordPress の .htaccess（WP が自動生成する部分）
 # RewriteRule ^(.*)$ index.php [L]
 # ↑ 全リクエストを index.php に渡すため Apache の ErrorDocument 404 は使われない</code></pre>
-						<p>WordPress の 404 ページをカスタマイズしたい場合は、テーマの <code>404.php</code> を編集する。</p>
-						<p><code>403</code> や <code>500</code> は Apache 側で処理されるため、<code>ErrorDocument</code> が有効に機能する。</p>
+							<p>WordPress の 404 ページをカスタマイズしたい場合は、テーマの <code>404.php</code> を編集する。</p>
+							<p><code>403</code> や <code>500</code> は Apache 側で処理されるため、<code>ErrorDocument</code>
+								が有効に機能する。</p>
 					</section>
 
 					<!-- ジェネレーターへ戻る -->

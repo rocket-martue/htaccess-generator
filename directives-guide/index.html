@@ -9,7 +9,8 @@
 		<meta property="og:type" content="article">
 		<meta property="og:title" content=".htaccess ディレクティブ・フラグ解説ガイド">
 		<meta property="og:description" content="WordPress 環境で使用する .htaccess の主要ディレクティブとフラグについてまとめた解説ガイド">
-		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta property="og:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/directives-guide/">
@@ -19,7 +20,8 @@
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:title" content=".htaccess ディレクティブ・フラグ解説ガイド">
 		<meta name="twitter:description" content="WordPress 環境で使用する .htaccess の主要ディレクティブとフラグについてまとめた解説ガイド">
-		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta name="twitter:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 
 		<title>.htaccess ディレクティブ・フラグ解説ガイド | .htaccess Generator</title>
 		<script>
@@ -33,7 +35,8 @@
 		</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
 		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
 
@@ -137,7 +140,8 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></pre>
 						</div>
 
 						<h4><code>%{THE_REQUEST}</code> を使う理由と活用パターン</h4>
-						<p><code>%{THE_REQUEST}</code> と <code>%{REQUEST_URI}</code> は似ているが、<strong>Apache による URL 正規化の前後</strong>という決定的な違いがある。</p>
+						<p><code>%{THE_REQUEST}</code> と <code>%{REQUEST_URI}</code> は似ているが、<strong>Apache による URL
+								正規化の前後</strong>という決定的な違いがある。</p>
 						<div class="table-wrap">
 							<table>
 								<thead>
@@ -161,19 +165,22 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></pre>
 								</tbody>
 							</table>
 						</div>
-						<p><strong>ダブルスラッシュの検出</strong>には <code>%{THE_REQUEST}</code> が必須。<code>%{REQUEST_URI}</code> では <code>//</code> がすでに <code>/</code> に圧縮されており、条件が一致しない。</p>
+						<p><strong>ダブルスラッシュの検出</strong>には <code>%{THE_REQUEST}</code> が必須。<code>%{REQUEST_URI}</code> では
+							<code>//</code> がすでに <code>/</code> に圧縮されており、条件が一致しない。</p>
 						<pre class="article-code"><code># ダブルスラッシュを含む URL を 301 リダイレクトで正規化
-# %{REQUEST_URI} では // が消えるため %{THE_REQUEST} を使う
-RewriteCond %{THE_REQUEST} \s[^\s]*// [NC]
-RewriteRule ^(.*)$ /$1 [R=301,L]</code></pre>
-						<p><code>\s[^\s]*//</code> パターンの内訳：</p>
+# %{REQUEST_URI} はすでに正規化されているため、検出には %{THE_REQUEST} を使う
+RewriteCond %{THE_REQUEST} \s[^\s?]*// [NC]
+RewriteRule ^(.*)$ %{REQUEST_URI} [R=301,L]</code></pre>
+						<p><code>\s[^\s?]*//</code> パターンの内訳：</p>
 						<ul>
 							<li><code>\s</code> — メソッドと URL の間の空白（<code>GET&nbsp;</code> の直後）</li>
-							<li><code>[^\s]*</code> — 空白以外の任意の文字列（URL パス部分）</li>
+							<li><code>[^\s?]*</code> — 空白と <code>?</code> 以外の任意の文字列（URL パス部分のみ）</li>
 							<li><code>//</code> — 検出対象のダブルスラッシュ</li>
 						</ul>
 						<blockquote>
-							<p><code>RewriteRule</code> のパターンは正規化後の <code>REQUEST_URI</code> に対して適用される。そのため <code>^(.*)$</code> で取得できる <code>$1</code> はすでに正規化済みのパスになっており、<code>/$1</code> へリダイレクトすることで自然に <code>//</code> を除去できる。</p>
+							<p><code>RewriteRule</code> のパターンは正規化後の <code>REQUEST_URI</code>
+								に対して適用される。<code>%{THE_REQUEST}</code> で元のリクエスト行にだけダブルスラッシュが含まれているかを判定し、リダイレクト先には正規化済みの
+								<code>%{REQUEST_URI}</code> をそのまま指定することで、サブディレクトリ環境でも安全に <code>//</code> を除去できる。</p>
 						</blockquote>
 
 						<h3>パターンの記述方法</h3>
@@ -235,7 +242,9 @@ RewriteCond %{REQUEST_FILENAME} -d</code></pre>
 							</table>
 						</div>
 						<blockquote>
-							<p>実務で頻出するのは <code>-f</code> と <code>-d</code> の2つ。先頭に <code>!</code> を付けると否定になる（例: <code>!-f</code> = ファイルが存在しない、<code>!-d</code> = ディレクトリが存在しない）。WordPress の <code>.htaccess</code> では <code>!-f</code> と <code>!-d</code> の組み合わせが頻出する。</p>
+							<p>実務で頻出するのは <code>-f</code> と <code>-d</code> の2つ。先頭に <code>!</code> を付けると否定になる（例:
+								<code>!-f</code> = ファイルが存在しない、<code>!-d</code> = ディレクトリが存在しない）。WordPress の
+								<code>.htaccess</code> では <code>!-f</code> と <code>!-d</code> の組み合わせが頻出する。</p>
 						</blockquote>
 
 						<h4>WordPress での使用例</h4>
@@ -503,12 +512,15 @@ RewriteRule ^ - [R=410,L]</code></pre>
 									<tr>
 										<td><code>[L]</code></td>
 										<td>Last</td>
-										<td>現在のリライトパスを終了し、以降のルールを評価しない。ただし URI が書き換わった場合、Apache は内部的に <code>.htaccess</code> を再評価する。<code>[R]</code> 付き（外部リダイレクト）の場合はクライアントへレスポンスを返して処理が完結するため、この再評価は発生しない</td>
+										<td>現在のリライトパスを終了し、以降のルールを評価しない。ただし URI が書き換わった場合、Apache は内部的に
+											<code>.htaccess</code> を再評価する。<code>[R]</code>
+											付き（外部リダイレクト）の場合はクライアントへレスポンスを返して処理が完結するため、この再評価は発生しない</td>
 									</tr>
 									<tr>
 										<td><code>[R=コード]</code></td>
 										<td>Redirect</td>
-										<td>指定したHTTPステータスコードでリダイレクト（例: <code>R=301</code>, <code>R=410</code>）。コードを省略した <code>[R]</code> のみの場合はデフォルトで 302 になる</td>
+										<td>指定したHTTPステータスコードでリダイレクト（例: <code>R=301</code>, <code>R=410</code>）。コードを省略した
+											<code>[R]</code> のみの場合はデフォルトで 302 になる</td>
 									</tr>
 									<tr>
 										<td><code>[F]</code></td>
