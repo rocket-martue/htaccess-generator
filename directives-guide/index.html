@@ -136,6 +136,46 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></pre>
 							</table>
 						</div>
 
+						<h4><code>%{THE_REQUEST}</code> を使う理由と活用パターン</h4>
+						<p><code>%{THE_REQUEST}</code> と <code>%{REQUEST_URI}</code> は似ているが、<strong>Apache による URL 正規化の前後</strong>という決定的な違いがある。</p>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>変数</th>
+										<th>値の例</th>
+										<th>特徴</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>%{REQUEST_URI}</code></td>
+										<td><code>/path/to/page</code></td>
+										<td>Apache が正規化した後のパス。<code>//</code> は <code>/</code> に圧縮される</td>
+									</tr>
+									<tr>
+										<td><code>%{THE_REQUEST}</code></td>
+										<td><code>GET /path//to/page HTTP/1.1</code></td>
+										<td>クライアントが送信した生のリクエスト行。正規化前の情報を保持する</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p><strong>ダブルスラッシュの検出</strong>には <code>%{THE_REQUEST}</code> が必須。<code>%{REQUEST_URI}</code> では <code>//</code> がすでに <code>/</code> に圧縮されており、条件が一致しない。</p>
+						<pre class="article-code"><code># ダブルスラッシュを含む URL を 301 リダイレクトで正規化
+# %{REQUEST_URI} では // が消えるため %{THE_REQUEST} を使う
+RewriteCond %{THE_REQUEST} \s[^\s]*// [NC]
+RewriteRule ^(.*)$ /$1 [R=301,L]</code></pre>
+						<p><code>\s[^\s]*//</code> パターンの内訳：</p>
+						<ul>
+							<li><code>\s</code> — メソッドと URL の間の空白（<code>GET&nbsp;</code> の直後）</li>
+							<li><code>[^\s]*</code> — 空白以外の任意の文字列（URL パス部分）</li>
+							<li><code>//</code> — 検出対象のダブルスラッシュ</li>
+						</ul>
+						<blockquote>
+							<p><code>RewriteRule</code> のパターンは正規化後の <code>REQUEST_URI</code> に対して適用される。そのため <code>^(.*)$</code> で取得できる <code>$1</code> はすでに正規化済みのパスになっており、<code>/$1</code> へリダイレクトすることで自然に <code>//</code> を除去できる。</p>
+						</blockquote>
+
 						<h3>パターンの記述方法</h3>
 						<pre class="article-code"><code># 正規表現マッチ
 RewriteCond %{HTTP_USER_AGENT} (wget|curl|nikto) [NC]
