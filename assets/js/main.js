@@ -37,23 +37,23 @@ const elIpBlockHint = document.querySelector('#ip-block-hint');
 const elNormalizeSlashes = document.querySelector('[name="normalizeSlashes"]');
 const elBlockBadBots = document.querySelector('[name="blockBadBots"]');
 const elBadBotsSubFields = document.querySelector('#bad-bots-sub-fields');
-const elBbNikto          = document.querySelector('[name="bbNikto"]');
-const elBbSqlmap         = document.querySelector('[name="bbSqlmap"]');
-const elBbMasscan        = document.querySelector('[name="bbMasscan"]');
-const elBbNmap           = document.querySelector('[name="bbNmap"]');
-const elBbZgrab          = document.querySelector('[name="bbZgrab"]');
-const elBbWget           = document.querySelector('[name="bbWget"]');
-const elBbCurl           = document.querySelector('[name="bbCurl"]');
-const elBbHttpie         = document.querySelector('[name="bbHttpie"]');
+const elBbNikto = document.querySelector('[name="bbNikto"]');
+const elBbSqlmap = document.querySelector('[name="bbSqlmap"]');
+const elBbMasscan = document.querySelector('[name="bbMasscan"]');
+const elBbNmap = document.querySelector('[name="bbNmap"]');
+const elBbZgrab = document.querySelector('[name="bbZgrab"]');
+const elBbWget = document.querySelector('[name="bbWget"]');
+const elBbCurl = document.querySelector('[name="bbCurl"]');
+const elBbHttpie = document.querySelector('[name="bbHttpie"]');
 const elBbPythonRequests = document.querySelector('[name="bbPythonRequests"]');
-const elBbGoHttpClient   = document.querySelector('[name="bbGoHttpClient"]');
-const elBbLibwwwPerl     = document.querySelector('[name="bbLibwwwPerl"]');
-const elBbScrapy         = document.querySelector('[name="bbScrapy"]');
-const elBbJava           = document.querySelector('[name="bbJava"]');
-const elBbAhrefsbot      = document.querySelector('[name="bbAhrefsbot"]');
-const elBbSemrushbot     = document.querySelector('[name="bbSemrushbot"]');
-const elBbDotbot         = document.querySelector('[name="bbDotbot"]');
-const elBbMj12bot        = document.querySelector('[name="bbMj12bot"]');
+const elBbGoHttpClient = document.querySelector('[name="bbGoHttpClient"]');
+const elBbLibwwwPerl = document.querySelector('[name="bbLibwwwPerl"]');
+const elBbScrapy = document.querySelector('[name="bbScrapy"]');
+const elBbJava = document.querySelector('[name="bbJava"]');
+const elBbAhrefsbot = document.querySelector('[name="bbAhrefsbot"]');
+const elBbSemrushbot = document.querySelector('[name="bbSemrushbot"]');
+const elBbDotbot = document.querySelector('[name="bbDotbot"]');
+const elBbMj12bot = document.querySelector('[name="bbMj12bot"]');
 const elBlockBackdoors = document.querySelector('[name="blockBackdoors"]');
 const elBlockWpNesting = document.querySelector('[name="blockWpNesting"]');
 const elBlockWpIncludesDir = document.querySelector('[name="blockWpIncludesDir"]');
@@ -99,6 +99,7 @@ const elCspFrameSrcYoutube = document.querySelector('[name="cspFrameSrcYoutube"]
 const elCspFrameSrcGoogleMaps = document.querySelector('[name="cspFrameSrcGoogleMaps"]');
 const elCspFrameAncestorsEnabled = document.querySelector('[name="cspFrameAncestorsEnabled"]');
 const elCspFrameAncestorsValue = document.querySelector('[name="cspFrameAncestorsValue"]');
+const elCspAdminSplit = document.querySelector('[name="cspAdminSplit"]');
 
 const elXContentType = document.querySelector('[name="xContentType"]');
 
@@ -242,6 +243,7 @@ const getCurrentSettings = () => ({
 		cspFrameSrcGoogleMaps: elCspFrameSrcGoogleMaps?.checked ?? false,
 		cspFrameAncestorsEnabled: elCspFrameAncestorsEnabled?.checked ?? false,
 		cspFrameAncestorsValue: elCspFrameAncestorsValue?.value.trim() ?? '',
+		cspAdminSplit: elCspAdminSplit?.checked ?? false,
 
 		xContentType: elXContentType?.checked ?? false,
 
@@ -258,7 +260,7 @@ const getCurrentSettings = () => ({
 		ppUsb: elPpUsb?.checked ?? true,
 		ppGyroscope: elPpGyroscope?.checked ?? true,
 		ppMagnetometer: elPpMagnetometer?.checked ?? true,
-		ppGeolocation: elPpGeolocation?.checked ?? true,
+		ppGeolocation: elPpGeolocation?.value ?? 'deny',
 	},
 	wpAdmin: {
 		basicAuth: elWpAdminBasicAuth?.checked ?? false,
@@ -432,6 +434,7 @@ const applySettingsToForm = (settings) => {
 	if (elCspFrameSrcGoogleMaps) elCspFrameSrcGoogleMaps.checked = settings.headers.cspFrameSrcGoogleMaps;
 	if (elCspFrameAncestorsEnabled) elCspFrameAncestorsEnabled.checked = settings.headers.cspFrameAncestorsEnabled;
 	if (elCspFrameAncestorsValue) elCspFrameAncestorsValue.value = settings.headers.cspFrameAncestorsValue;
+	if (elCspAdminSplit) elCspAdminSplit.checked = settings.headers.cspAdminSplit;
 	if (elXContentType) elXContentType.checked = settings.headers.xContentType;
 	if (elXFrameOptions) elXFrameOptions.checked = settings.headers.xFrameOptions;
 	const xfoRadio = document.querySelector(`[name="xFrameOptionsValue"][value="${settings.headers.xFrameOptionsValue}"]`);
@@ -446,7 +449,7 @@ const applySettingsToForm = (settings) => {
 	if (elPpUsb) elPpUsb.checked = settings.headers.ppUsb;
 	if (elPpGyroscope) elPpGyroscope.checked = settings.headers.ppGyroscope;
 	if (elPpMagnetometer) elPpMagnetometer.checked = settings.headers.ppMagnetometer;
-	if (elPpGeolocation) elPpGeolocation.checked = settings.headers.ppGeolocation;
+	if (elPpGeolocation) elPpGeolocation.value = settings.headers.ppGeolocation;
 
 	// wp-admin
 	if (elWpAdminBasicAuth) elWpAdminBasicAuth.checked = settings.wpAdmin.basicAuth;
@@ -688,21 +691,33 @@ const initEvents = () => {
 
 	// Permissions-Policy：サブ機能が全 OFF → メイントグルを自動で OFF に
 	// メイントグルを ON にしたとき → サブ機能を全 ON にリセット（詰み状態の回避）
-	const ppSubEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer, elPpGeolocation];
+	// ※ ppGeolocation は <select> のため checkbox 群とは別に処理する
+	const ppCheckboxEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer];
+	const isPpAnyEnabled = () =>
+		ppCheckboxEls.some((el) => el?.checked) || ((elPpGeolocation?.value ?? 'off') !== 'off');
 	elPermissionsPolicy?.addEventListener('change', () => {
 		if (elPermissionsPolicy.checked) {
-			ppSubEls.forEach((el) => { if (el) el.checked = true; });
+			ppCheckboxEls.forEach((el) => { if (el) el.checked = true; });
+			if (elPpGeolocation) elPpGeolocation.value = 'deny';
 			updatePreview();
 		}
 	});
-	ppSubEls.forEach((cb) => {
+	ppCheckboxEls.forEach((cb) => {
 		cb?.addEventListener('change', () => {
-			if (!ppSubEls.some((el) => el?.checked) && elPermissionsPolicy) {
+			if (!isPpAnyEnabled() && elPermissionsPolicy) {
 				elPermissionsPolicy.checked = false;
 				updateConditionalFields();
 				updatePreview();
 			}
 		});
+	});
+	elPpGeolocation?.addEventListener('change', () => {
+		if (!isPpAnyEnabled() && elPermissionsPolicy) {
+			elPermissionsPolicy.checked = false;
+			updateConditionalFields();
+		}
+		updatePreview();
+		clearPresetActiveState();
 	});
 
 	// Expires ラジオボタンの change イベントでプレビュー更新

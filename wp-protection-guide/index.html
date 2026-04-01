@@ -4,12 +4,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="WordPress の wp-admin・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
+		<meta name="description" content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
 		<!-- OGP -->
 		<meta property="og:type" content="article">
-		<meta property="og:title" content="wp-admin / uploads 保護解説ガイド">
+		<meta property="og:title" content="wp-admin / wp-includes / uploads 保護解説ガイド">
 		<meta property="og:description"
-			content="WordPress の wp-admin・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
+			content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
 		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
@@ -18,12 +18,12 @@
 		<meta property="og:site_name" content=".htaccess Generator">
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:title" content="wp-admin / uploads 保護解説ガイド">
+		<meta name="twitter:title" content="wp-admin / wp-includes / uploads 保護解説ガイド">
 		<meta name="twitter:description"
-			content="WordPress の wp-admin・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
+			content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
 		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 
-		<title>wp-admin / uploads 保護解説ガイド | .htaccess Generator</title>
+		<title>wp-admin / wp-includes / uploads 保護解説ガイド | .htaccess Generator</title>
 		<script>
 			try {
 				if (window.localStorage && localStorage.getItem('htaccess-theme') === 'dark') {
@@ -169,6 +169,39 @@ htpasswd /home/username/.htpasswd ユーザー名</code></pre>
 								ハッシュの生成には外部ライブラリが必要で、SHA1 はセキュリティ上不十分なため。<code>htpasswd</code>
 								コマンドを使って安全なパスワードファイルを作成すること。</p>
 						</blockquote>
+					</section>
+
+					<hr class="divider">
+
+					<!-- wp-includes / wp-admin/includes 保護 -->
+					<section>
+						<h2>ルート .htaccess — wp-includes / wp-admin/includes の保護</h2>
+
+						<p>WordPress のコアファイルへの直接アクセスをブロックするルール。ルートの <code>.htaccess</code>
+							内、<code>mod_rewrite</code> ブロック内に記述する。</p>
+
+						<pre class="article-code"><code># wp-admin/includes/ への直接アクセスをブロック
+RewriteCond %{REQUEST_URI} ^/wp-admin/includes(?:/|$) [NC]
+RewriteRule .* - [F,L]
+
+# wp-includes/*.php への直接アクセスをブロック
+RewriteCond %{REQUEST_URI} ^/wp-includes/[^/]+\.php$ [NC]
+RewriteRule .* - [F,L]</code></pre>
+
+						<h3>wp-admin/includes/ を全ブロックする理由</h3>
+						<p><code>wp-admin/includes/</code> は管理画面の内部処理ファイルが格納されるディレクトリで、ブラウザから直接アクセスする必要がない。すべてのリクエストをブロックする。</p>
+
+						<h3>wp-includes/*.php のみブロックする理由</h3>
+						<p><code>wp-includes/</code> には CSS・JS・画像などフロントエンドで必要なアセットも含まれるため、ディレクトリ全体をブロックするとサイトが壊れる。PHP
+							ファイルのみをブロックし、アセットへのアクセスは許可する。</p>
+						<p>パターン <code>[^/]+\.php$</code>
+							はディレクトリ直下の PHP ファイルのみにマッチする。これにより
+							<code>wp-includes/js/tinymce/wp-tinymce.php</code>
+							などサブディレクトリ内の正当な PHP ファイルへのアクセスを妨げない。</p>
+
+						<h3>ディレクトリ一覧（<code>-d</code> 判定）との違い</h3>
+						<p>ディレクトリ一覧の表示は <code>Options -Indexes</code>
+							で既にカバーされる。このルールは PHP ファイルへの直接アクセスという、より実害の大きい攻撃パターンを防ぐ。</p>
 					</section>
 
 					<hr class="divider">

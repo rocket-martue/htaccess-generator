@@ -31,6 +31,13 @@ const BAD_QUERY_PARAMS = [
 /** X-Frame-Options の許可値 */
 const VALID_XFO_VALUES = ['SAMEORIGIN', 'DENY'];
 
+/**
+ * wp-admin 向け CSP（Gutenberg・管理画面プラグイン対応）
+ * 'unsafe-inline' / 'unsafe-eval' を必要とするためフロントエンド CSP とは別にハードコードで管理する。
+ * フロントエンド側の CSP を変更しても、こちらは意図的に固定値を維持する。
+ */
+const ADMIN_CSP = "upgrade-insecure-requests; default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'self'";
+
 /** Referrer-Policy の許可値 */
 const VALID_RP_VALUES = [
 	'no-referrer', 'no-referrer-when-downgrade', 'origin',
@@ -235,12 +242,15 @@ const buildRewriteSection = (rewrite) => {
 		rules.push('\tRewriteRule .* - [F,L]');
 	}
 
-	// wp-includes ディレクトリブラウズブロック
+	// wp-admin/includes・wp-includes PHP 直接アクセスブロック
 	if (rewrite.blockWpIncludesDir) {
 		rules.push('');
-		rules.push('\t# wp-includes/ ディレクトリの直接ブラウズをブロック');
-		rules.push('\tRewriteCond %{REQUEST_URI} ^/wp-includes/ [NC]');
-		rules.push('\tRewriteCond %{REQUEST_FILENAME} -d');
+		rules.push('\t# wp-admin/includes/ への直接アクセスをブロック');
+		rules.push('	RewriteCond %{REQUEST_URI} ^/wp-admin/includes(?:/|$) [NC]');
+		rules.push('\tRewriteRule .* - [F,L]');
+		rules.push('');
+		rules.push('\t# wp-includes/*.php への直接アクセスをブロック');
+		rules.push('\tRewriteCond %{REQUEST_URI} ^/wp-includes/[^/]+\\.php$ [NC]');
 		rules.push('\tRewriteRule .* - [F,L]');
 	}
 
@@ -292,7 +302,6 @@ const buildCacheSection = (cache) => {
 	if (cache.gzip) {
 		lines.push('# Gzip 圧縮');
 		lines.push('<IfModule mod_deflate.c>');
-		lines.push('\tSetOutputFilter DEFLATE');
 		lines.push('\tAddOutputFilterByType DEFLATE text/html text/plain text/xml text/css');
 		lines.push('\tAddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json');
 		lines.push('\tAddOutputFilterByType DEFLATE application/xml application/xhtml+xml application/rss+xml');
@@ -304,13 +313,13 @@ const buildCacheSection = (cache) => {
 
 	// ブラウザキャッシュ（Expires）
 	if (cache.expires) {
-		const script  = resolveExpires(cache.expiresScript);
-		const image   = resolveExpires(cache.expiresImage);
-		const icon    = resolveExpires(cache.expiresIcon);
-		const video   = resolveExpires(cache.expiresVideo);
-		const font    = resolveExpires(cache.expiresFont);
-		const feed    = resolveExpires(cache.expiresFeed);
-		const def     = resolveExpires(cache.expiresDefault);
+		const script = resolveExpires(cache.expiresScript);
+		const image = resolveExpires(cache.expiresImage);
+		const icon = resolveExpires(cache.expiresIcon);
+		const video = resolveExpires(cache.expiresVideo);
+		const font = resolveExpires(cache.expiresFont);
+		const feed = resolveExpires(cache.expiresFeed);
+		const def = resolveExpires(cache.expiresDefault);
 		lines.push('# ブラウザキャッシュ設定');
 		lines.push('<IfModule mod_expires.c>');
 		lines.push('\tExpiresActive On');
@@ -427,7 +436,7 @@ const buildHeadersSection = (headers) => {
 			return parts.length > 0 ? parts.join(' ') : null;
 		};
 
-		const defaultSrc = buildSrc(headers.cspDefaultSrcEnabled, headers.cspDefaultSrcValue || "'self'");
+		const defaultSrc = buildSrc(headers.cspDefaultSrcEnabled, headers.cspDefaultSrcValue || "'self' https:");
 		if (defaultSrc) cspParts.push(`default-src ${defaultSrc}`);
 
 		const scriptExtras = [
@@ -454,13 +463,26 @@ const buildHeadersSection = (headers) => {
 			headers.cspFrameSrcYoutube ? 'https://www.youtube.com' : null,
 			headers.cspFrameSrcGoogleMaps ? 'https://www.google.com' : null,
 		];
-		const frameSrc = buildSrc(headers.cspFrameSrcEnabled, headers.cspFrameSrcValue || "'none'", frameSrcExtras);
+		const hasFrameExtras = frameSrcExtras.some(Boolean);
+		const frameSrcBase = headers.cspFrameSrcValue || "'none'";
+		const frameSrc = buildSrc(headers.cspFrameSrcEnabled, (frameSrcBase === "'none'" && hasFrameExtras) ? "'self'" : frameSrcBase, frameSrcExtras);
 		if (frameSrc) cspParts.push(`frame-src ${frameSrc}`);
 
 		const frameAncestors = buildSrc(headers.cspFrameAncestorsEnabled, headers.cspFrameAncestorsValue || "'self'");
 		if (frameAncestors) cspParts.push(`frame-ancestors ${frameAncestors}`);
 
-		directives.push(`\tHeader always set Content-Security-Policy "${cspParts.join('; ')}"`);
+		const cspValue = cspParts.join('; ');
+
+		if (headers.cspAdminSplit) {
+			directives.push(`\t<If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
+			directives.push(`\t\tHeader always set Content-Security-Policy "${cspValue}"`);
+			directives.push('\t</If>');
+			directives.push(`\t<If "%{REQUEST_URI} =~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
+			directives.push(`\t\tHeader always set Content-Security-Policy "${ADMIN_CSP}"`);
+			directives.push('\t</If>');
+		} else {
+			directives.push(`\tHeader always set Content-Security-Policy "${cspValue}"`);
+		}
 	}
 
 	// X-Content-Type-Options
@@ -499,7 +521,12 @@ const buildHeadersSection = (headers) => {
 		if (headers.ppUsb) ppFeatures.push('usb=()');
 		if (headers.ppGyroscope) ppFeatures.push('gyroscope=()');
 		if (headers.ppMagnetometer) ppFeatures.push('magnetometer=()');
-		if (headers.ppGeolocation) ppFeatures.push('geolocation=()');
+		if (headers.ppGeolocation === 'deny' || headers.ppGeolocation === true) {
+			ppFeatures.push('geolocation=()');
+		} else if (headers.ppGeolocation === 'google-maps') {
+			// ダブルクォートを \" にエスケープして Apache 構文の衝突を回避する
+			ppFeatures.push('geolocation=(self \\"https://www.google.com\\")');
+		}
 
 		if (ppFeatures.length > 0) {
 			directives.push('');
