@@ -166,7 +166,8 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></pre>
 							</table>
 						</div>
 						<p><strong>ダブルスラッシュの検出</strong>には <code>%{THE_REQUEST}</code> が必須。<code>%{REQUEST_URI}</code> では
-							<code>//</code> がすでに <code>/</code> に圧縮されており、条件が一致しない。</p>
+							<code>//</code> がすでに <code>/</code> に圧縮されており、条件が一致しない。
+						</p>
 						<pre class="article-code"><code># ダブルスラッシュを含む URL を 301 リダイレクトで正規化
 # %{REQUEST_URI} はすでに正規化されているため、検出には %{THE_REQUEST} を使う
 RewriteCond %{THE_REQUEST} \s[^\s]*// [NC]
@@ -180,7 +181,9 @@ RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
 						<blockquote>
 							<p><code>RewriteRule</code> のパターンは正規化後の <code>REQUEST_URI</code>
 								に対して適用される。<code>%{THE_REQUEST}</code> で元のリクエスト行にダブルスラッシュが含まれているかを判定し、リダイレクト先には正規化済みの
-								<code>%{REQUEST_URI}</code> をそのまま指定する。<code>NE</code> フラグ（noescape）でリダイレクト先の特殊文字がエスケープされるのを防ぐ。これはジェネレーターの出力と同じパターンである。</p>
+								<code>%{REQUEST_URI}</code> をそのまま指定する。<code>NE</code>
+								フラグ（noescape）でリダイレクト先の特殊文字がエスケープされるのを防ぐ。これはジェネレーターの出力と同じパターンである。
+							</p>
 						</blockquote>
 
 						<h3>パターンの記述方法</h3>
@@ -244,7 +247,8 @@ RewriteCond %{REQUEST_FILENAME} -d</code></pre>
 						<blockquote>
 							<p>実務で頻出するのは <code>-f</code> と <code>-d</code> の2つ。先頭に <code>!</code> を付けると否定になる（例:
 								<code>!-f</code> = ファイルが存在しない、<code>!-d</code> = ディレクトリが存在しない）。WordPress の
-								<code>.htaccess</code> では <code>!-f</code> と <code>!-d</code> の組み合わせが頻出する。</p>
+								<code>.htaccess</code> では <code>!-f</code> と <code>!-d</code> の組み合わせが頻出する。
+							</p>
 						</blockquote>
 
 						<h4>WordPress での使用例</h4>
@@ -514,13 +518,15 @@ RewriteRule ^ - [R=410,L]</code></pre>
 										<td>Last</td>
 										<td>現在のリライトパスを終了し、以降のルールを評価しない。ただし URI が書き換わった場合、Apache は内部的に
 											<code>.htaccess</code> を再評価する。<code>[R]</code>
-											付き（外部リダイレクト）の場合はクライアントへレスポンスを返して処理が完結するため、この再評価は発生しない</td>
+											付き（外部リダイレクト）の場合はクライアントへレスポンスを返して処理が完結するため、この再評価は発生しない
+										</td>
 									</tr>
 									<tr>
 										<td><code>[R=コード]</code></td>
 										<td>Redirect</td>
 										<td>指定したHTTPステータスコードでリダイレクト（例: <code>R=301</code>, <code>R=410</code>）。コードを省略した
-											<code>[R]</code> のみの場合はデフォルトで 302 になる</td>
+											<code>[R]</code> のみの場合はデフォルトで 302 になる
+										</td>
 									</tr>
 									<tr>
 										<td><code>[F]</code></td>

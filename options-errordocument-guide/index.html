@@ -129,12 +129,14 @@ Options -Indexes</code></pre>
 						<blockquote>
 							<p><strong>注意:</strong> 記号なしの <code>Options Indexes</code>
 								のような書き方は、その行で指定したものだけにオプションをリセットしてしまう。一方、<code>Options -Indexes</code> のように
-								<code>+</code> / <code>-</code> を付けた指定は「現在の設定」を基準に相対的に変更する動作になることを理解して使うこと。</p>
+								<code>+</code> / <code>-</code> を付けた指定は「現在の設定」を基準に相対的に変更する動作になることを理解して使うこと。
+							</p>
 						</blockquote>
 
 						<h3>WordPress での使い方</h3>
 						<p>WordPress が動作するには <code>mod_rewrite</code> モジュールが必要で、<code>FollowSymLinks</code>（または
-							<code>SymLinksIfOwnerMatch</code>）が有効になっていることが前提となる。</p>
+							<code>SymLinksIfOwnerMatch</code>）が有効になっていることが前提となる。
+						</p>
 						<pre class="article-code"><code># WordPress の .htaccess での典型的な記述
 Options -Indexes +FollowSymLinks</code></pre>
 						<p>多くのレンタルサーバーではデフォルトで <code>FollowSymLinks</code> が有効になっているが、明示的に記述しておくと環境依存によるトラブルを防げる。</p>
@@ -277,7 +279,7 @@ ErrorDocument 503 /maintenance.html</code></pre>
 						<p>WordPress の 404 ページをカスタマイズしたい場合は、テーマの <code>404.php</code> を編集する。</p>
 						<p><code>403</code> や <code>500</code> は Apache 側で処理されるため、<code>ErrorDocument</code>
 							が有効に機能する。</p>
-						</section>
+					</section>
 
 					<!-- ジェネレーターへ戻る -->
 					<div class="article-back">
