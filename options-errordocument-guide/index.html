@@ -140,6 +140,9 @@ Options -Indexes</code></pre>
 						<pre class="article-code"><code># WordPress の .htaccess での典型的な記述
 Options -Indexes +FollowSymLinks</code></pre>
 						<p>多くのレンタルサーバーではデフォルトで <code>FollowSymLinks</code> が有効になっているが、明示的に記述しておくと環境依存によるトラブルを防げる。</p>
+						<blockquote>
+							<p><strong>注意:</strong> 一部のレンタルサーバー環境では、<code>.htaccess</code> から <code>Options</code> を変更すること自体が禁止されており、<code>Options</code> 行を記述すると 500 エラー（Internal Server Error）になる場合がある。そのような環境では、<code>Options</code> 行をコメントアウトまたは削除して運用すること。設定を追加した直後に 500 エラーになった場合は、まず <code>Options</code> 行を一時的に外して動作を確認すること。</p>
+						</blockquote>
 
 						<h3>ディレクトリ一覧の無効化</h3>
 						<p><code>index.html</code> や <code>index.php</code>
