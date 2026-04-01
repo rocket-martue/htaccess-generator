@@ -38,7 +38,17 @@ const VALID_RP_VALUES = [
 	'strict-origin-when-cross-origin', 'unsafe-url',
 ];
 
+/** ExpiresByType の許可値 */
+const VALID_EXPIRES_VALUES = ['1 hour', '1 day', '1 week', '1 month', '3 months', '1 year'];
+
 // ─── ヘルパー ─────────────────────────────────────────────────────
+
+/**
+ * Expires 値をホワイトリストで検証し、不正値は '1 month' にフォールバックする
+ * @param {string} val
+ * @returns {string}
+ */
+const resolveExpires = (val) => VALID_EXPIRES_VALUES.includes(val) ? val : '1 month';
 
 /**
  * ファイルアクセス拒否ブロックを生成する（Apache 2.2/2.4 両対応）
@@ -294,33 +304,31 @@ const buildCacheSection = (cache) => {
 
 	// ブラウザキャッシュ（Expires）
 	if (cache.expires) {
-		const VALID_EXPIRES_VALUES = ['1 hour', '1 day', '1 week', '1 month', '3 months', '1 year'];
-		const resolve = (val) => VALID_EXPIRES_VALUES.includes(val) ? val : '1 month';
 		lines.push('# ブラウザキャッシュ設定');
 		lines.push('<IfModule mod_expires.c>');
 		lines.push('\tExpiresActive On');
-		lines.push(`\tExpiresDefault "access plus ${resolve(cache.expiresDefault)}"`);
-		lines.push(`\tExpiresByType text/css "access plus ${resolve(cache.expiresScript)}"`);
-		lines.push(`\tExpiresByType application/javascript "access plus ${resolve(cache.expiresScript)}"`);
-		lines.push(`\tExpiresByType application/x-javascript "access plus ${resolve(cache.expiresScript)}"`);
-		lines.push(`\tExpiresByType text/javascript "access plus ${resolve(cache.expiresScript)}"`);
-		lines.push(`\tExpiresByType image/jpeg "access plus ${resolve(cache.expiresImage)}"`);
-		lines.push(`\tExpiresByType image/png "access plus ${resolve(cache.expiresImage)}"`);
-		lines.push(`\tExpiresByType image/gif "access plus ${resolve(cache.expiresImage)}"`);
-		lines.push(`\tExpiresByType image/webp "access plus ${resolve(cache.expiresImage)}"`);
-		lines.push(`\tExpiresByType image/svg+xml "access plus ${resolve(cache.expiresImage)}"`);
-		lines.push(`\tExpiresByType image/x-icon "access plus ${resolve(cache.expiresIcon)}"`);
-		lines.push(`\tExpiresByType image/vnd.microsoft.icon "access plus ${resolve(cache.expiresIcon)}"`);
-		lines.push(`\tExpiresByType video/mp4 "access plus ${resolve(cache.expiresVideo)}"`);
-		lines.push(`\tExpiresByType video/webm "access plus ${resolve(cache.expiresVideo)}"`);
-		lines.push(`\tExpiresByType video/ogg "access plus ${resolve(cache.expiresVideo)}"`);
-		lines.push(`\tExpiresByType font/woff "access plus ${resolve(cache.expiresFont)}"`);
-		lines.push(`\tExpiresByType font/woff2 "access plus ${resolve(cache.expiresFont)}"`);
-		lines.push(`\tExpiresByType font/ttf "access plus ${resolve(cache.expiresFont)}"`);
-		lines.push(`\tExpiresByType font/otf "access plus ${resolve(cache.expiresFont)}"`);
-		lines.push(`\tExpiresByType application/atom+xml "access plus ${resolve(cache.expiresFeed)}"`);
-		lines.push(`\tExpiresByType application/rdf+xml "access plus ${resolve(cache.expiresFeed)}"`);
-		lines.push(`\tExpiresByType application/rss+xml "access plus ${resolve(cache.expiresFeed)}"`);
+		lines.push(`\tExpiresDefault "access plus ${resolveExpires(cache.expiresDefault)}"`);
+		lines.push(`\tExpiresByType text/css "access plus ${resolveExpires(cache.expiresScript)}"`);
+		lines.push(`\tExpiresByType application/javascript "access plus ${resolveExpires(cache.expiresScript)}"`);
+		lines.push(`\tExpiresByType application/x-javascript "access plus ${resolveExpires(cache.expiresScript)}"`);
+		lines.push(`\tExpiresByType text/javascript "access plus ${resolveExpires(cache.expiresScript)}"`);
+		lines.push(`\tExpiresByType image/jpeg "access plus ${resolveExpires(cache.expiresImage)}"`);
+		lines.push(`\tExpiresByType image/png "access plus ${resolveExpires(cache.expiresImage)}"`);
+		lines.push(`\tExpiresByType image/gif "access plus ${resolveExpires(cache.expiresImage)}"`);
+		lines.push(`\tExpiresByType image/webp "access plus ${resolveExpires(cache.expiresImage)}"`);
+		lines.push(`\tExpiresByType image/svg+xml "access plus ${resolveExpires(cache.expiresImage)}"`);
+		lines.push(`\tExpiresByType image/x-icon "access plus ${resolveExpires(cache.expiresIcon)}"`);
+		lines.push(`\tExpiresByType image/vnd.microsoft.icon "access plus ${resolveExpires(cache.expiresIcon)}"`);
+		lines.push(`\tExpiresByType video/mp4 "access plus ${resolveExpires(cache.expiresVideo)}"`);
+		lines.push(`\tExpiresByType video/webm "access plus ${resolveExpires(cache.expiresVideo)}"`);
+		lines.push(`\tExpiresByType video/ogg "access plus ${resolveExpires(cache.expiresVideo)}"`);
+		lines.push(`\tExpiresByType font/woff "access plus ${resolveExpires(cache.expiresFont)}"`);
+		lines.push(`\tExpiresByType font/woff2 "access plus ${resolveExpires(cache.expiresFont)}"`);
+		lines.push(`\tExpiresByType font/ttf "access plus ${resolveExpires(cache.expiresFont)}"`);
+		lines.push(`\tExpiresByType font/otf "access plus ${resolveExpires(cache.expiresFont)}"`);
+		lines.push(`\tExpiresByType application/atom+xml "access plus ${resolveExpires(cache.expiresFeed)}"`);
+		lines.push(`\tExpiresByType application/rdf+xml "access plus ${resolveExpires(cache.expiresFeed)}"`);
+		lines.push(`\tExpiresByType application/rss+xml "access plus ${resolveExpires(cache.expiresFeed)}"`);
 		lines.push('\tExpiresByType application/json "access plus 0 seconds"');
 		lines.push('\tExpiresByType application/ld+json "access plus 0 seconds"');
 		lines.push('\tExpiresByType application/xml "access plus 0 seconds"');
