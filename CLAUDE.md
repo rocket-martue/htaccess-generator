@@ -14,7 +14,13 @@ Cloudflare Pages でホスティング。ビルドなし、外部依存なし。
 ```
 /
 ├── index.html                      ← メインページ（ジェネレーター UI）
-├── {guide-name}/index.html         ← ガイドページ（5ページ）
+├── htaccess-basics-guide/index.html        ← .htaccess 入門ガイド
+├── directives-guide/index.html             ← ディレクティブ解説ガイド
+├── options-errordocument-guide/index.html  ← Options & ErrorDocument 解説ガイド
+├── security-headers-guide/index.html       ← セキュリティヘッダー解説ガイド
+├── cache-performance-guide/index.html      ← キャッシュ＆パフォーマンス設定解説ガイド
+├── wp-protection-guide/index.html          ← WordPress 保護設定解説ガイド
+├── recovery-guide/index.html               ← 設定ミス時のリカバリー手順ガイド
 ├── assets/
 │   ├── css/style.css               ← SCSS コンパイル済み（直接編集しない）
 │   ├── scss/                       ← SCSS ソース（編集対象）

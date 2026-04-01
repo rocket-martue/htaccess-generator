@@ -209,7 +209,7 @@ const buildRewriteSection = (rewrite) => {
 	if (rewrite.normalizeSlashes) {
 		rules.push('');
 		rules.push('\t# スラッシュの重複（//）を正規化');
-		rules.push('\tRewriteCond %{THE_REQUEST} \\s[^\\s]*//');
+		rules.push('	RewriteCond %{THE_REQUEST} \\s[^\\s?]*//');
 		rules.push('\tRewriteRule ^ %{REQUEST_URI} [R=301,L,NE]');
 	}
 

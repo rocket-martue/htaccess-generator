@@ -170,12 +170,12 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></pre>
 						</p>
 						<pre class="article-code"><code># ダブルスラッシュを含む URL を 301 リダイレクトで正規化
 # %{REQUEST_URI} はすでに正規化されているため、検出には %{THE_REQUEST} を使う
-RewriteCond %{THE_REQUEST} \s[^\s]*//
+RewriteCond %{THE_REQUEST} \s[^\s?]*//
 RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
-						<p><code>\s[^\s]*//</code> パターンの内訳：</p>
+						<p><code>\s[^\s?]*//</code> パターンの内訳：</p>
 						<ul>
 							<li><code>\s</code> — メソッドと URL の間の空白（<code>GET&nbsp;</code> の直後）</li>
-							<li><code>[^\s]*</code> — 空白以外の任意の文字列（URL パス＋クエリをまとめて対象にする簡易パターン）</li>
+							<li><code>[^\s?]*</code> — 空白と <code>?</code>（クエリ文字列の開始）を除く任意の文字列（パス部分のみを対象にする）</li>
 							<li><code>//</code> — 検出対象のダブルスラッシュ</li>
 						</ul>
 						<blockquote>
