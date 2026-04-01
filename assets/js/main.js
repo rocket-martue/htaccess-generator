@@ -189,10 +189,10 @@ const getCurrentSettings = () => ({
 		bbLibwwwPerl: elBbLibwwwPerl?.checked ?? true,
 		bbScrapy: elBbScrapy?.checked ?? true,
 		bbJava: elBbJava?.checked ?? true,
-		bbAhrefsbot: elBbAhrefsbot?.checked ?? true,
-		bbSemrushbot: elBbSemrushbot?.checked ?? true,
-		bbDotbot: elBbDotbot?.checked ?? true,
-		bbMj12bot: elBbMj12bot?.checked ?? true,
+		bbAhrefsbot: elBbAhrefsbot?.checked ?? false,
+		bbSemrushbot: elBbSemrushbot?.checked ?? false,
+		bbDotbot: elBbDotbot?.checked ?? false,
+		bbMj12bot: elBbMj12bot?.checked ?? false,
 		blockBackdoors: elBlockBackdoors?.checked ?? false,
 		blockWpNesting: elBlockWpNesting?.checked ?? false,
 		blockWpIncludesDir: elBlockWpIncludesDir?.checked ?? false,
@@ -493,7 +493,7 @@ const updateConditionalFields = () => {
 		elLoginAuthFields.hidden = !elWpLoginBasicAuth?.checked;
 	}
 	if (elLoginHtpasswdHint) {
-		elLoginHtpasswdHint.hidden = !(elWpLoginBasicAuth?.checked && !elLoginHtpasswdPath?.value.trim());
+		elLoginHtpasswdHint.hidden = !(elWpLoginBasicAuth?.checked && !elLoginHtpasswdPath?.value?.trim());
 	}
 
 	// IP ブロックフィールド
@@ -501,7 +501,7 @@ const updateConditionalFields = () => {
 		elIpBlockFields.hidden = !elIpBlockEnabled?.checked;
 	}
 	if (elIpBlockHint) {
-		elIpBlockHint.hidden = !(elIpBlockEnabled?.checked && !elIpBlockList?.value.trim());
+		elIpBlockHint.hidden = !(elIpBlockEnabled?.checked && !elIpBlockList?.value?.trim());
 	}
 
 	// ボットブロック サブフィールド
@@ -523,7 +523,7 @@ const updateConditionalFields = () => {
 		elWpAdminFields.hidden = !elWpAdminBasicAuth?.checked;
 	}
 	if (elAdminHtpasswdHint) {
-		elAdminHtpasswdHint.hidden = !(elWpAdminBasicAuth?.checked && !elAdminHtpasswdPath?.value.trim());
+		elAdminHtpasswdHint.hidden = !(elWpAdminBasicAuth?.checked && !elAdminHtpasswdPath?.value?.trim());
 	}
 
 	// HSTS サブオプション
