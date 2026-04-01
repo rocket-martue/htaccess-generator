@@ -9,7 +9,8 @@
 		<meta property="og:type" content="website">
 		<meta property="og:title" content=".htaccess Generator for WordPress">
 		<meta property="og:description" content="WordPress 用 .htaccess のセキュリティ・パフォーマンス設定をブラウザで簡単に生成できるツール">
-		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta property="og:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/">
@@ -19,7 +20,8 @@
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:title" content=".htaccess Generator for WordPress">
 		<meta name="twitter:description" content="WordPress 用 .htaccess のセキュリティ・パフォーマンス設定をブラウザで簡単に生成できるツール">
-		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta name="twitter:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 
 		<title>.htaccess Generator for WordPress</title>
 		<script>
@@ -33,7 +35,8 @@
 		</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
 		<link rel="stylesheet" href="assets/css/style.css">
 	</head>
 
@@ -45,7 +48,8 @@
 				<p>WordPress 用 .htaccess のセキュリティ・パフォーマンス設定を簡単に生成</p>
 				<div class="header-actions">
 					<div class="header-nav-dropdown">
-						<button type="button" class="header-link" aria-haspopup="true" aria-expanded="false" aria-controls="guide-nav-menu">
+						<button type="button" class="header-link" aria-haspopup="true" aria-expanded="false"
+							aria-controls="guide-nav-menu">
 							<span aria-hidden="true">📖</span> ガイド <span class="dropdown-arrow"
 								aria-hidden="true">▾</span>
 						</button>
@@ -347,13 +351,15 @@
 									<label class="toggle-label"
 										for="hstsEnabled">HSTS（Strict-Transport-Security）</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="hstsEnabled" id="hstsEnabled" aria-expanded="false" aria-controls="hsts-sub-fields">
+										<input type="checkbox" name="hstsEnabled" id="hstsEnabled" aria-expanded="false"
+											aria-controls="hsts-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="hsts-sub-fields sub-options" id="hsts-sub-fields" hidden>
 									<label class="sub-option-label">
-										<input type="checkbox" name="hstsIncludeSubDomains" id="hstsIncludeSubDomains" checked>
+										<input type="checkbox" name="hstsIncludeSubDomains" id="hstsIncludeSubDomains"
+											checked>
 										<span>includeSubDomains</span>
 									</label>
 									<label class="sub-option-label">
@@ -366,7 +372,8 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="cspEnabled">CSP（Content-Security-Policy）</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="cspEnabled" id="cspEnabled" aria-expanded="false" aria-controls="csp-sub-fields">
+										<input type="checkbox" name="cspEnabled" id="cspEnabled" aria-expanded="false"
+											aria-controls="csp-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
@@ -375,10 +382,12 @@
 									<!-- default-src -->
 									<div class="csp-directive-row">
 										<label class="sub-option-label">
-											<input type="checkbox" name="cspDefaultSrcEnabled" id="cspDefaultSrcEnabled">
+											<input type="checkbox" name="cspDefaultSrcEnabled"
+												id="cspDefaultSrcEnabled">
 											<code>default-src</code>
 										</label>
-										<input type="text" class="input-text" name="cspDefaultSrcValue" placeholder="'self' https:">
+										<input type="text" class="input-text" name="cspDefaultSrcValue"
+											placeholder="'self' https:">
 									</div>
 									<!-- script-src -->
 									<div class="csp-directive-row">
@@ -386,9 +395,14 @@
 											<input type="checkbox" name="cspScriptSrcEnabled" id="cspScriptSrcEnabled">
 											<code>script-src</code>
 										</label>
-										<input type="text" class="input-text" name="cspScriptSrcValue" placeholder="'self'">
-										<label class="sub-option-label"><input type="checkbox" name="cspScriptUnsafeInline" id="cspScriptUnsafeInline"> <code>'unsafe-inline'</code></label>
-										<label class="sub-option-label"><input type="checkbox" name="cspScriptUnsafeEval" id="cspScriptUnsafeEval"> <code>'unsafe-eval'</code></label>
+										<input type="text" class="input-text" name="cspScriptSrcValue"
+											placeholder="'self'">
+										<label class="sub-option-label"><input type="checkbox"
+												name="cspScriptUnsafeInline" id="cspScriptUnsafeInline">
+											<code>'unsafe-inline'</code></label>
+										<label class="sub-option-label"><input type="checkbox"
+												name="cspScriptUnsafeEval" id="cspScriptUnsafeEval">
+											<code>'unsafe-eval'</code></label>
 									</div>
 									<!-- style-src -->
 									<div class="csp-directive-row">
@@ -396,8 +410,11 @@
 											<input type="checkbox" name="cspStyleSrcEnabled" id="cspStyleSrcEnabled">
 											<code>style-src</code>
 										</label>
-										<input type="text" class="input-text" name="cspStyleSrcValue" placeholder="'self'">
-										<label class="sub-option-label"><input type="checkbox" name="cspStyleUnsafeInline" id="cspStyleUnsafeInline"> <code>'unsafe-inline'</code></label>
+										<input type="text" class="input-text" name="cspStyleSrcValue"
+											placeholder="'self'">
+										<label class="sub-option-label"><input type="checkbox"
+												name="cspStyleUnsafeInline" id="cspStyleUnsafeInline">
+											<code>'unsafe-inline'</code></label>
 									</div>
 									<!-- img-src -->
 									<div class="csp-directive-row">
@@ -405,7 +422,8 @@
 											<input type="checkbox" name="cspImgSrcEnabled" id="cspImgSrcEnabled">
 											<code>img-src</code>
 										</label>
-										<input type="text" class="input-text" name="cspImgSrcValue" placeholder="'self' data:">
+										<input type="text" class="input-text" name="cspImgSrcValue"
+											placeholder="'self' data:">
 									</div>
 									<!-- font-src -->
 									<div class="csp-directive-row">
@@ -413,15 +431,18 @@
 											<input type="checkbox" name="cspFontSrcEnabled" id="cspFontSrcEnabled">
 											<code>font-src</code>
 										</label>
-										<input type="text" class="input-text" name="cspFontSrcValue" placeholder="'self'">
+										<input type="text" class="input-text" name="cspFontSrcValue"
+											placeholder="'self'">
 									</div>
 									<!-- connect-src -->
 									<div class="csp-directive-row">
 										<label class="sub-option-label">
-											<input type="checkbox" name="cspConnectSrcEnabled" id="cspConnectSrcEnabled">
+											<input type="checkbox" name="cspConnectSrcEnabled"
+												id="cspConnectSrcEnabled">
 											<code>connect-src</code>
 										</label>
-										<input type="text" class="input-text" name="cspConnectSrcValue" placeholder="'self'">
+										<input type="text" class="input-text" name="cspConnectSrcValue"
+											placeholder="'self'">
 									</div>
 									<!-- frame-src -->
 									<div class="csp-directive-row">
@@ -429,17 +450,23 @@
 											<input type="checkbox" name="cspFrameSrcEnabled" id="cspFrameSrcEnabled">
 											<code>frame-src</code>
 										</label>
-										<input type="text" class="input-text" name="cspFrameSrcValue" placeholder="'none'">
-										<label class="sub-option-label"><input type="checkbox" name="cspFrameSrcYoutube" id="cspFrameSrcYoutube" disabled> YouTube</label>
-										<label class="sub-option-label"><input type="checkbox" name="cspFrameSrcGoogleMaps" id="cspFrameSrcGoogleMaps" disabled> Google Maps</label>
+										<input type="text" class="input-text" name="cspFrameSrcValue"
+											placeholder="'none'">
+										<label class="sub-option-label"><input type="checkbox" name="cspFrameSrcYoutube"
+												id="cspFrameSrcYoutube" disabled> YouTube</label>
+										<label class="sub-option-label"><input type="checkbox"
+												name="cspFrameSrcGoogleMaps" id="cspFrameSrcGoogleMaps" disabled> Google
+											Maps</label>
 									</div>
 									<!-- frame-ancestors -->
 									<div class="csp-directive-row">
 										<label class="sub-option-label">
-											<input type="checkbox" name="cspFrameAncestorsEnabled" id="cspFrameAncestorsEnabled">
+											<input type="checkbox" name="cspFrameAncestorsEnabled"
+												id="cspFrameAncestorsEnabled">
 											<code>frame-ancestors</code>
 										</label>
-										<input type="text" class="input-text" name="cspFrameAncestorsValue" placeholder="'self'">
+										<input type="text" class="input-text" name="cspFrameAncestorsValue"
+											placeholder="'self'">
 									</div>
 									<!-- wp-admin 分岐 -->
 									<div class="csp-directive-row">
@@ -464,7 +491,8 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="xFrameOptions">X-Frame-Options</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="xFrameOptions" id="xFrameOptions" aria-expanded="false" aria-controls="xfo-sub-fields">
+										<input type="checkbox" name="xFrameOptions" id="xFrameOptions"
+											aria-expanded="false" aria-controls="xfo-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
@@ -486,7 +514,8 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="referrerPolicy">Referrer-Policy</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="referrerPolicy" id="referrerPolicy" aria-expanded="false" aria-controls="rp-sub-fields">
+										<input type="checkbox" name="referrerPolicy" id="referrerPolicy"
+											aria-expanded="false" aria-controls="rp-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
@@ -498,7 +527,8 @@
 											<span>no-referrer</span>
 										</label>
 										<label class="sub-option-label">
-											<input type="radio" name="referrerPolicyValue" value="no-referrer-when-downgrade">
+											<input type="radio" name="referrerPolicyValue"
+												value="no-referrer-when-downgrade">
 											<span>no-referrer-when-downgrade</span>
 										</label>
 										<label class="sub-option-label">
@@ -506,7 +536,8 @@
 											<span>origin</span>
 										</label>
 										<label class="sub-option-label">
-											<input type="radio" name="referrerPolicyValue" value="origin-when-cross-origin">
+											<input type="radio" name="referrerPolicyValue"
+												value="origin-when-cross-origin">
 											<span>origin-when-cross-origin</span>
 										</label>
 										<label class="sub-option-label">
@@ -518,7 +549,8 @@
 											<span>strict-origin</span>
 										</label>
 										<label class="sub-option-label">
-											<input type="radio" name="referrerPolicyValue" value="strict-origin-when-cross-origin" checked>
+											<input type="radio" name="referrerPolicyValue"
+												value="strict-origin-when-cross-origin" checked>
 											<span>strict-origin-when-cross-origin（推奨）</span>
 										</label>
 										<label class="sub-option-label">
@@ -532,7 +564,8 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="permissionsPolicy">Permissions-Policy</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="permissionsPolicy" id="permissionsPolicy" aria-expanded="false" aria-controls="pp-sub-fields">
+										<input type="checkbox" name="permissionsPolicy" id="permissionsPolicy"
+											aria-expanded="false" aria-controls="pp-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
@@ -563,7 +596,7 @@
 										<span>magnetometer</span>
 									</label>
 									<div class="sub-option-select-row">
-										<span>geolocation</span>
+										<label for="ppGeolocation">geolocation</label>
 										<select name="ppGeolocation" id="ppGeolocation" class="input-select">
 											<option value="deny" selected>完全無効化</option>
 											<option value="google-maps">Google マップ許可</option>
@@ -588,8 +621,8 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="expires">ブラウザキャッシュ（Expires）</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="expires" id="expires"
-											aria-expanded="false" aria-controls="expires-sub-fields">
+										<input type="checkbox" name="expires" id="expires" aria-expanded="false"
+											aria-controls="expires-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
@@ -598,84 +631,126 @@
 										<span class="cache-expiry-label">CSS / JS</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
 											<legend class="sub-legend">CSS / JS のキャッシュ有効期限</legend>
-											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 hour"><span>1時間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 day"><span>1日</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 week"><span>1週間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 month"><span>1ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresScript" value="3 months"><span>3ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresScript" value="1 year" checked><span>1年</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript"
+													value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript"
+													value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript"
+													value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript"
+													value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript"
+													value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresScript"
+													value="1 year" checked><span>1年</span></label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label">画像</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
 											<legend class="sub-legend">画像のキャッシュ有効期限</legend>
-											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 hour"><span>1時間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 day"><span>1日</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 week"><span>1週間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 month" checked><span>1ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresImage" value="3 months"><span>3ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresImage" value="1 year"><span>1年</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage"
+													value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage"
+													value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage"
+													value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage"
+													value="1 month" checked><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage"
+													value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresImage"
+													value="1 year"><span>1年</span></label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label">アイコン</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
 											<legend class="sub-legend">アイコンのキャッシュ有効期限</legend>
-											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 hour"><span>1時間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 day"><span>1日</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 week"><span>1週間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 month"><span>1ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="3 months"><span>3ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresIcon" value="1 year" checked><span>1年</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon"
+													value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon"
+													value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon"
+													value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon"
+													value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon"
+													value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresIcon"
+													value="1 year" checked><span>1年</span></label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label">動画</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
 											<legend class="sub-legend">動画のキャッシュ有効期限</legend>
-											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 hour"><span>1時間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 day"><span>1日</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 week"><span>1週間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 month" checked><span>1ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="3 months"><span>3ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresVideo" value="1 year"><span>1年</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo"
+													value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo"
+													value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo"
+													value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo"
+													value="1 month" checked><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo"
+													value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresVideo"
+													value="1 year"><span>1年</span></label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label">フォント</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
 											<legend class="sub-legend">フォントのキャッシュ有効期限</legend>
-											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 hour"><span>1時間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 day"><span>1日</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 week"><span>1週間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 month"><span>1ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresFont" value="3 months"><span>3ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresFont" value="1 year" checked><span>1年</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont"
+													value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont"
+													value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont"
+													value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont"
+													value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont"
+													value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFont"
+													value="1 year" checked><span>1年</span></label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label">フィード</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
 											<legend class="sub-legend">フィードのキャッシュ有効期限</legend>
-											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 hour" checked><span>1時間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 day"><span>1日</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 week"><span>1週間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 month"><span>1ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="3 months"><span>3ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresFeed" value="1 year"><span>1年</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed"
+													value="1 hour" checked><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed"
+													value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed"
+													value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed"
+													value="1 month"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed"
+													value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresFeed"
+													value="1 year"><span>1年</span></label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label">その他（デフォルト）</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
 											<legend class="sub-legend">その他（デフォルト）のキャッシュ有効期限</legend>
-											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 hour"><span>1時間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 day"><span>1日</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 week"><span>1週間</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 month" checked><span>1ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="3 months"><span>3ヶ月</span></label>
-											<label class="sub-option-label"><input type="radio" name="expiresDefault" value="1 year"><span>1年</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault"
+													value="1 hour"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault"
+													value="1 day"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault"
+													value="1 week"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault"
+													value="1 month" checked><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault"
+													value="3 months"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="expiresDefault"
+													value="1 year"><span>1年</span></label>
 										</fieldset>
 									</div>
 								</div>
@@ -700,7 +775,7 @@
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
-	
+
 							</div>
 						</section>
 

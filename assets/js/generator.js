@@ -31,6 +31,13 @@ const BAD_QUERY_PARAMS = [
 /** X-Frame-Options の許可値 */
 const VALID_XFO_VALUES = ['SAMEORIGIN', 'DENY'];
 
+/**
+ * wp-admin 向け CSP（Gutenberg・管理画面プラグイン対応）
+ * 'unsafe-inline' / 'unsafe-eval' を必要とするためフロントエンド CSP とは別にハードコードで管理する。
+ * フロントエンド側の CSP を変更しても、こちらは意図的に固定値を維持する。
+ */
+const ADMIN_CSP = "upgrade-insecure-requests; default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'self'";
+
 /** Referrer-Policy の許可値 */
 const VALID_RP_VALUES = [
 	'no-referrer', 'no-referrer-when-downgrade', 'origin',
@@ -306,13 +313,13 @@ const buildCacheSection = (cache) => {
 
 	// ブラウザキャッシュ（Expires）
 	if (cache.expires) {
-		const script  = resolveExpires(cache.expiresScript);
-		const image   = resolveExpires(cache.expiresImage);
-		const icon    = resolveExpires(cache.expiresIcon);
-		const video   = resolveExpires(cache.expiresVideo);
-		const font    = resolveExpires(cache.expiresFont);
-		const feed    = resolveExpires(cache.expiresFeed);
-		const def     = resolveExpires(cache.expiresDefault);
+		const script = resolveExpires(cache.expiresScript);
+		const image = resolveExpires(cache.expiresImage);
+		const icon = resolveExpires(cache.expiresIcon);
+		const video = resolveExpires(cache.expiresVideo);
+		const font = resolveExpires(cache.expiresFont);
+		const feed = resolveExpires(cache.expiresFeed);
+		const def = resolveExpires(cache.expiresDefault);
 		lines.push('# ブラウザキャッシュ設定');
 		lines.push('<IfModule mod_expires.c>');
 		lines.push('\tExpiresActive On');
@@ -458,7 +465,7 @@ const buildHeadersSection = (headers) => {
 		];
 		const hasFrameExtras = frameSrcExtras.some(Boolean);
 		const frameSrcBase = headers.cspFrameSrcValue || "'none'";
-		const frameSrc = buildSrc(headers.cspFrameSrcEnabled, (frameSrcBase === "'none'" && hasFrameExtras) ? '' : frameSrcBase, frameSrcExtras);
+		const frameSrc = buildSrc(headers.cspFrameSrcEnabled, (frameSrcBase === "'none'" && hasFrameExtras) ? "'self'" : frameSrcBase, frameSrcExtras);
 		if (frameSrc) cspParts.push(`frame-src ${frameSrc}`);
 
 		const frameAncestors = buildSrc(headers.cspFrameAncestorsEnabled, headers.cspFrameAncestorsValue || "'self'");
@@ -467,12 +474,11 @@ const buildHeadersSection = (headers) => {
 		const cspValue = cspParts.join('; ');
 
 		if (headers.cspAdminSplit) {
-			const adminCsp = 'upgrade-insecure-requests; default-src \'self\' https:; script-src \'self\' \'unsafe-inline\' \'unsafe-eval\'; style-src \'self\' \'unsafe-inline\'; img-src \'self\' data: https:; font-src \'self\' data:; connect-src \'self\'; frame-ancestors \'self\'';
-			directives.push(`\t<If "%{REQUEST_URI} !~ m#^/wp-admin/#">`);
+			directives.push(`\t<If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
 			directives.push(`\t\tHeader always set Content-Security-Policy "${cspValue}"`);
 			directives.push('\t</If>');
-			directives.push(`\t<If "%{REQUEST_URI} =~ m#^/wp-admin/#">`);
-			directives.push(`\t\tHeader always set Content-Security-Policy "${adminCsp}"`);
+			directives.push(`\t<If "%{REQUEST_URI} =~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
+			directives.push(`\t\tHeader always set Content-Security-Policy "${ADMIN_CSP}"`);
 			directives.push('\t</If>');
 		} else {
 			directives.push(`\tHeader always set Content-Security-Policy "${cspValue}"`);
@@ -518,7 +524,8 @@ const buildHeadersSection = (headers) => {
 		if (headers.ppGeolocation === 'deny' || headers.ppGeolocation === true) {
 			ppFeatures.push('geolocation=()');
 		} else if (headers.ppGeolocation === 'google-maps') {
-			ppFeatures.push('geolocation=(self "https://www.google.com")');
+			// ダブルクォートを \" にエスケープして Apache 構文の衝突を回避する
+			ppFeatures.push('geolocation=(self \\"https://www.google.com\\")');
 		}
 
 		if (ppFeatures.length > 0) {
