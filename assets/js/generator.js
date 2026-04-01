@@ -36,7 +36,7 @@ const VALID_XFO_VALUES = ['SAMEORIGIN', 'DENY'];
  * 'unsafe-inline' / 'unsafe-eval' を必要とするためフロントエンド CSP とは別にハードコードで管理する。
  * フロントエンド側の CSP を変更しても、こちらは意図的に固定値を維持する。
  */
-const ADMIN_CSP = "upgrade-insecure-requests; default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'self'";
+const ADMIN_CSP = "upgrade-insecure-requests; default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'self'";
 
 /** Referrer-Policy の許可値 */
 const VALID_RP_VALUES = [
