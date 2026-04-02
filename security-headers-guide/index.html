@@ -55,6 +55,73 @@
 			<main>
 				<article class="card article">
 
+					<!-- イントロダクション -->
+					<section>
+						<h2>セキュリティヘッダーとは</h2>
+
+						<p>セキュリティヘッダーは、サーバーがブラウザへのレスポンスに付与する HTTP ヘッダーのこと。ブラウザはこのヘッダーを読み取り、スクリプトの実行制限・通信の強制 HTTPS 化・iframe 埋め込みのブロックなど、様々なセキュリティ動作を自動的に行う。</p>
+						<p>アプリケーション側のコード（PHP・JavaScript）を変更せずに適用できるため、<code>.htaccess</code> によるサーバーレベルでの防御として広く使われる。</p>
+
+						<h3>設定するメリット</h3>
+						<ul>
+							<li><strong>コード変更不要で防御を追加できる</strong> — プラグインやテーマのコードに手を入れずに、サーバー設定だけで多くの攻撃を防げる。</li>
+							<li><strong>ブラウザの安全機能を確実に有効化できる</strong> — 現代のブラウザはセキュリティ機能を多数持っているが、ヘッダーが指示しないと自動で有効にならないものが多い。</li>
+							<li><strong>脆弱性スキャンの評価が上がる</strong> — セキュリティ診断ツール（例: Mozilla Observatory、Security Headers）でのスコアが向上し、サイトの信頼性をアピールできる。</li>
+							<li><strong>WordPress のプラグイン脆弱性の影響を局限できる</strong> — XSS 脆弱性を持つプラグインが攻撃されても、CSP や X-Content-Type-Options が第二の防御線として機能する。</li>
+						</ul>
+
+						<h3>注意点・デメリット</h3>
+						<ul>
+							<li><strong>設定ミスでサイトが壊れる可能性がある</strong> — 特に CSP は設定が厳しすぎると JavaScript・CSS・画像が読み込めなくなる。まず Report-Only モードでテストするのが安全。</li>
+							<li><strong>プラグインとの競合が起きる場合がある</strong> — WordPress プラグインがセキュリティヘッダーを独自に出力している場合、<code>.htaccess</code> と二重になる。プラグイン側の設定を無効化するか、どちらかに統一する。</li>
+							<li><strong>HSTS は一度設定すると取り消しが難しい</strong> — ブラウザにキャッシュされるため、HTTP 運用に戻したい場合は <code>max-age</code> を短くしてから段階的に解除する必要がある。</li>
+						</ul>
+
+						<h3>ジェネレーターで設定できるヘッダー一覧</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>ヘッダー名</th>
+										<th>主な防御対象</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>Strict-Transport-Security</code>（HSTS）</td>
+										<td>HTTP→HTTPS ダウングレード攻撃・中間者攻撃（MITM）</td>
+									</tr>
+									<tr>
+										<td><code>Content-Security-Policy</code>（CSP）</td>
+										<td>XSS・Mixed Content・クリックジャッキング</td>
+									</tr>
+									<tr>
+										<td><code>X-Content-Type-Options</code></td>
+										<td>MIME スニッフィングを悪用した XSS</td>
+									</tr>
+									<tr>
+										<td><code>X-Frame-Options</code></td>
+										<td>クリックジャッキング</td>
+									</tr>
+									<tr>
+										<td><code>Referrer-Policy</code></td>
+										<td>URL に含まれる機密情報の外部漏洩</td>
+									</tr>
+									<tr>
+										<td><code>Permissions-Policy</code></td>
+										<td>カメラ・マイク等のデバイス API の不正利用</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<blockquote>
+							<p>これらのヘッダーはすべて Apache の <code>mod_headers</code> モジュールで出力する。<code>&lt;IfModule mod_headers.c&gt;</code> でラップすることで、モジュールが無効な環境でも 500 エラーを防げる。</p>
+						</blockquote>
+					</section>
+
+					<hr class="divider">
+
 					<!-- Header set vs Header always set -->
 					<section>
 						<h2><code>Header set</code> vs <code>Header always set</code></h2>
@@ -236,6 +303,25 @@ img-src 'self' data:</code></pre>
 						<blockquote>
 							<p>OG image（SNS シェア時に使われるサムネイル画像）もブロック対象になる。<code>img-src</code> を書くなら必ず <code>'self'</code>
 								を含める。</p>
+						</blockquote>
+
+						<h3>管理画面用 CSP 分岐（WordPress）</h3>
+						<p>ジェネレーターの「管理画面用 CSP を分岐」オプションを有効にすると、フロントエンドと wp-admin / wp-login.php で異なる CSP を出力する。</p>
+
+						<pre class="article-code"><code># フロントエンド（wp-admin・wp-login.php 以外）
+&lt;If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\.php)#"&gt;
+    Header always set Content-Security-Policy "upgrade-insecure-requests; ..."
+&lt;/If&gt;
+
+# 管理画面・ログインページ
+&lt;If "%{REQUEST_URI} =~ m#^/wp-(admin(?:/|$)|login\.php)#"&gt;
+    Header always set Content-Security-Policy "upgrade-insecure-requests; default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'self'"
+&lt;/If&gt;</code></pre>
+
+						<p>管理画面側の CSP はハードコードの固定値で、<code>'unsafe-inline'</code> と <code>'unsafe-eval'</code> が許可されている。Gutenberg ブロックエディターやコアの管理画面は多数のインラインスクリプトと <code>eval()</code> を使うため、これらなしでは管理画面が動作しない。</p>
+
+						<blockquote>
+							<p>フロントエンド側の CSP を変更しても管理画面側の CSP は固定値のまま変わらない。管理画面の動作を最優先にしつつ、フロントエンドのみ CSP を厳格化するための設計。</p>
 						</blockquote>
 
 						<h3>Report-Only モード</h3>
@@ -456,8 +542,39 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
 							</table>
 						</div>
 
+						<h3><code>geolocation</code> の 3 段階設定</h3>
+						<p><code>geolocation</code> はジェネレーターで以下の 3 択から選択できる。</p>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>選択肢</th>
+										<th>生成される値</th>
+										<th>用途</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>完全無効化</td>
+										<td><code>geolocation=()</code></td>
+										<td>地図・現在地機能を一切使わないサイト（デフォルト）</td>
+									</tr>
+									<tr>
+										<td>Google マップ許可</td>
+										<td><code>geolocation=(self "https://www.google.com")</code></td>
+										<td>Google マップの「現在地を表示」機能を使うサイト</td>
+									</tr>
+									<tr>
+										<td>ポリシーから除外</td>
+										<td>（出力なし）</td>
+										<td>ブラウザデフォルトに委ねる場合</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
 						<blockquote>
-							<p>Google マップの埋め込みを使うサイトでは <code>geolocation</code> を OFF にする（ポリシーから除外）ことで、ユーザーの現在地取得が正常に動作する。</p>
+							<p>Google マップを埋め込んでいても「現在地を表示」ボタンを使わないサイトなら「完全無効化」のままで問題ない。「現在地を表示」が必要な場合のみ「Google マップ許可」を選ぶ。</p>
 						</blockquote>
 					</section>
 
