@@ -492,7 +492,7 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
 						<p>空の括弧 <code>()</code> はそのディレクティブを完全に無効化することを意味する（すべてのオリジンからの使用を禁止）。</p>
 
 						<h3>制御可能な機能一覧</h3>
-						<p>ジェネレーターでは以下の機能を個別に ON/OFF できる。チェック ON で制限（<code>feature=()</code> を出力）、OFF でポリシーから除外（ブラウザデフォルトで許可）。</p>
+						<p>ジェネレーターでは以下の機能を個別に ON/OFF できる。チェック ON で制限（<code>feature=()</code> を出力）、OFF でポリシーから除外（ブラウザデフォルトで許可）。なお <code>geolocation</code> のみ例外で、ON/OFF の 2 択ではなく「完全無効化 / Google マップ許可 / ポリシーから除外」の 3 段階で設定できる。</p>
 						<div class="table-wrap">
 							<table>
 								<thead>
@@ -561,7 +561,7 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
 									</tr>
 									<tr>
 										<td>Google マップ許可</td>
-										<td><code>geolocation=(self "https://www.google.com")</code></td>
+										<td><code>geolocation=(self \"https://www.google.com\")</code></td>
 										<td>Google マップの「現在地を表示」機能を使うサイト</td>
 									</tr>
 									<tr>
