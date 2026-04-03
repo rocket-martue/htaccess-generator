@@ -105,7 +105,19 @@ hr {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 0.2em;
+  line-height: 1;
+  margin-bottom: 0.5em;
+}
+.app-header h1 .h1-sub {
+  display: block;
+  font-size: 0.4em;
+  font-weight: 400;
+  background: linear-gradient(135deg, var(--accent-to), var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.1em;
+  margin-top: -0.05em;
 }
 .app-header p {
   color: var(--text-secondary);
