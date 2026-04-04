@@ -304,7 +304,7 @@ const updatePreview = () => {
 	renderCurrentTab();
 };
 
-const WP_ADMIN_PLACEHOLDER = '# ユーザー名と .htpasswd のフルパスを入力してください';
+const WP_ADMIN_PLACEHOLDER = '# .htpasswd のフルパスを入力してください';
 
 const renderCurrentTab = () => {
 	let lines;
