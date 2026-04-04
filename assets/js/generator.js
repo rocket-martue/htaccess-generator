@@ -155,8 +155,7 @@ const buildFileProtectionSection = (fileProtection) => {
 
 	// wp-login.php Basic 認証
 	if (fileProtection.wpLoginBasicAuth && fileProtection.htpasswdPath) {
-		lines.push('# wp-login.php を保護');
-		lines.push(`# htpasswd -c ${fileProtection.htpasswdPath} ${fileProtection.basicAuthUser || 'ユーザー名'}`);
+		lines.push('# wp-login.php に Basic 認証を設定');
 		lines.push('<Files wp-login.php>');
 		lines.push(`\tAuthUserFile "${fileProtection.htpasswdPath}"`);
 		lines.push('\tAuthName "Member Site"');
@@ -613,7 +612,7 @@ export const buildWpAdmin = (settings) => {
 	}
 
 	const lines = [];
-	lines.push(`# htpasswd -c ${admin.htpasswdPath} ${admin.basicAuthUser || 'ユーザー名'}`);
+	lines.push('# wp-admin に Basic 認証を設定');
 	lines.push(`AuthUserFile "${admin.htpasswdPath}"`);
 	lines.push('AuthName "Member Site"');
 	lines.push('AuthType BASIC');

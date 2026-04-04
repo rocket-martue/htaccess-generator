@@ -21,7 +21,6 @@ export const DEFAULT_SETTINGS = {
 		blockDangerousExt: false,
 		wpLoginBasicAuth: false,
 		htpasswdPath: '',
-		basicAuthUser: '',
 	},
 	ipBlock: {
 		enabled: false,
@@ -117,7 +116,6 @@ export const DEFAULT_SETTINGS = {
 	wpAdmin: {
 		basicAuth: false,
 		htpasswdPath: '',
-		basicAuthUser: '',
 		ajaxExclude: true,
 		upgradeIpExclude: false,
 		serverIp: '',
@@ -148,7 +146,6 @@ export const PRESETS = [
 				blockDangerousExt: true,
 				wpLoginBasicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -239,7 +236,6 @@ export const PRESETS = [
 			wpAdmin: {
 				basicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
 				serverIp: '',
@@ -266,7 +262,6 @@ export const PRESETS = [
 				blockDangerousExt: true,
 				wpLoginBasicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -357,7 +352,6 @@ export const PRESETS = [
 			wpAdmin: {
 				basicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
 				serverIp: '',
@@ -384,7 +378,6 @@ export const PRESETS = [
 				blockDangerousExt: false,
 				wpLoginBasicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -475,7 +468,6 @@ export const PRESETS = [
 			wpAdmin: {
 				basicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
 				serverIp: '',
@@ -502,7 +494,6 @@ export const PRESETS = [
 				blockDangerousExt: false,
 				wpLoginBasicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -593,7 +584,6 @@ export const PRESETS = [
 			wpAdmin: {
 				basicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
 				serverIp: '',
@@ -620,7 +610,6 @@ export const PRESETS = [
 				blockDangerousExt: false,
 				wpLoginBasicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -711,7 +700,6 @@ export const PRESETS = [
 			wpAdmin: {
 				basicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
 				serverIp: '',
@@ -738,7 +726,6 @@ export const PRESETS = [
 				blockDangerousExt: true,
 				wpLoginBasicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -829,7 +816,6 @@ export const PRESETS = [
 			wpAdmin: {
 				basicAuth: false,
 				htpasswdPath: '',
-				basicAuthUser: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
 				serverIp: '',
