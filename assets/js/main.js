@@ -23,7 +23,6 @@ const elProtectHtaccess = document.querySelector('[name="protectHtaccess"]');
 const elBlockDangerousExt = document.querySelector('[name="blockDangerousExt"]');
 const elWpLoginBasicAuth = document.querySelector('[name="wpLoginBasicAuth"]');
 const elLoginHtpasswdPath = document.querySelector('[name="loginHtpasswdPath"]');
-const elLoginBasicAuthUser = document.querySelector('[name="loginBasicAuthUser"]');
 const elLoginAuthFields = document.querySelector('.login-auth-fields');
 const elLoginHtpasswdHint = document.querySelector('#login-htpasswd-hint');
 
@@ -122,7 +121,6 @@ const elPpSubFields = document.querySelector('.pp-sub-fields');
 // wp-admin
 const elWpAdminBasicAuth = document.querySelector('[name="wpAdminBasicAuth"]');
 const elAdminHtpasswdPath = document.querySelector('[name="adminHtpasswdPath"]');
-const elAdminBasicAuthUser = document.querySelector('[name="adminBasicAuthUser"]');
 const elAdminHtpasswdHint = document.querySelector('#admin-htpasswd-hint');
 const elAjaxExclude = document.querySelector('[name="ajaxExclude"]');
 const elUpgradeIpExclude = document.querySelector('[name="upgradeIpExclude"]');
@@ -168,7 +166,6 @@ const getCurrentSettings = () => ({
 		blockDangerousExt: elBlockDangerousExt?.checked ?? false,
 		wpLoginBasicAuth: elWpLoginBasicAuth?.checked ?? false,
 		htpasswdPath: elLoginHtpasswdPath?.value.trim() ?? '',
-		basicAuthUser: elLoginBasicAuthUser?.value.trim() ?? '',
 	},
 	ipBlock: {
 		enabled: elIpBlockEnabled?.checked ?? false,
@@ -265,7 +262,6 @@ const getCurrentSettings = () => ({
 	wpAdmin: {
 		basicAuth: elWpAdminBasicAuth?.checked ?? false,
 		htpasswdPath: elAdminHtpasswdPath?.value.trim() ?? '',
-		basicAuthUser: elAdminBasicAuthUser?.value.trim() ?? '',
 		ajaxExclude: elAjaxExclude?.checked ?? true,
 		upgradeIpExclude: elUpgradeIpExclude?.checked ?? false,
 		serverIp: elServerIp?.value.trim() ?? '',
@@ -363,7 +359,6 @@ const applySettingsToForm = (settings) => {
 	if (elBlockDangerousExt) elBlockDangerousExt.checked = settings.fileProtection.blockDangerousExt;
 	if (elWpLoginBasicAuth) elWpLoginBasicAuth.checked = settings.fileProtection.wpLoginBasicAuth;
 	if (elLoginHtpasswdPath) elLoginHtpasswdPath.value = settings.fileProtection.htpasswdPath;
-	if (elLoginBasicAuthUser) elLoginBasicAuthUser.value = settings.fileProtection.basicAuthUser;
 
 	// IP Block
 	if (elIpBlockEnabled) elIpBlockEnabled.checked = settings.ipBlock.enabled;
@@ -454,7 +449,6 @@ const applySettingsToForm = (settings) => {
 	// wp-admin
 	if (elWpAdminBasicAuth) elWpAdminBasicAuth.checked = settings.wpAdmin.basicAuth;
 	if (elAdminHtpasswdPath) elAdminHtpasswdPath.value = settings.wpAdmin.htpasswdPath;
-	if (elAdminBasicAuthUser) elAdminBasicAuthUser.value = settings.wpAdmin.basicAuthUser;
 	if (elAjaxExclude) elAjaxExclude.checked = settings.wpAdmin.ajaxExclude;
 	if (elUpgradeIpExclude) elUpgradeIpExclude.checked = settings.wpAdmin.upgradeIpExclude;
 	if (elServerIp) elServerIp.value = settings.wpAdmin.serverIp;
