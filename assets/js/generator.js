@@ -449,7 +449,7 @@ const buildHeadersSection = (headers) => {
 		const styleSrc = buildSrc(headers.cspStyleSrcEnabled, headers.cspStyleSrcValue || "'self'", styleExtras);
 		if (styleSrc) cspParts.push(`style-src ${styleSrc}`);
 
-		const imgSrc = buildSrc(headers.cspImgSrcEnabled, headers.cspImgSrcValue || "'self' data:");
+		const imgSrc = buildSrc(headers.cspImgSrcEnabled, headers.cspImgSrcValue || "'self' data: https:");
 		if (imgSrc) cspParts.push(`img-src ${imgSrc}`);
 
 		const fontSrc = buildSrc(headers.cspFontSrcEnabled, headers.cspFontSrcValue || "'self'");
@@ -471,6 +471,10 @@ const buildHeadersSection = (headers) => {
 		if (frameAncestors) cspParts.push(`frame-ancestors ${frameAncestors}`);
 
 		const cspValue = cspParts.join('; ');
+
+		if (headers.cspScriptSrcEnabled && !headers.cspScriptUnsafeEval) {
+			directives.push("\t# ページビルダー等のプラグインで 'unsafe-eval' が必要な場合は、ツールの script-src \"unsafe-eval を許可\" オプションを有効化してください");
+		}
 
 		if (headers.cspAdminSplit) {
 			directives.push(`\t<If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
@@ -496,8 +500,11 @@ const buildHeadersSection = (headers) => {
 		const xfoValue = VALID_XFO_VALUES.includes(headers.xFrameOptionsValue)
 			? headers.xFrameOptionsValue
 			: 'SAMEORIGIN';
+		const xfoComment = (headers.cspEnabled && headers.cspFrameAncestorsEnabled)
+			? '\t# X-Frame-Options（CSP の frame-ancestors と併用 - CSP 非対応の古いブラウザ向け保険）'
+			: '\t# X-Frame-Options';
 		directives.push('');
-		directives.push('\t# X-Frame-Options');
+		directives.push(xfoComment);
 		directives.push(`\tHeader always set X-Frame-Options "${xfoValue}"`);
 	}
 
@@ -520,6 +527,7 @@ const buildHeadersSection = (headers) => {
 		if (headers.ppUsb) ppFeatures.push('usb=()');
 		if (headers.ppGyroscope) ppFeatures.push('gyroscope=()');
 		if (headers.ppMagnetometer) ppFeatures.push('magnetometer=()');
+		if (headers.ppAccelerometer) ppFeatures.push('accelerometer=()');
 		if (headers.ppGeolocation === 'deny' || headers.ppGeolocation === true) {
 			ppFeatures.push('geolocation=()');
 		} else if (headers.ppGeolocation === 'google-maps') {
