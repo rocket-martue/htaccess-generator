@@ -391,4 +391,13 @@
 		color: var(--text-muted);
 		font-size: var(--font-size-sm);
 	}
+
+	a {
+		color: var(--text-muted);
+		text-decoration: none;
+
+		&:hover {
+			color: var(--accent-solid);
+		}
+	}
 }

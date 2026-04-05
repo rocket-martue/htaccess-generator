@@ -496,6 +496,13 @@ hr {
   color: var(--text-muted);
   font-size: var(--font-size-sm);
 }
+.app-footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.app-footer a:hover {
+  color: var(--accent-solid);
+}
 
 .toggle-row {
   display: -webkit-box;
