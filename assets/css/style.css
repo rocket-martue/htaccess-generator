@@ -116,7 +116,7 @@ hr {
   text-align: center;
   margin-bottom: 1.25em;
 }
-@media (min-width: 601px) {
+@media (min-width: 981px) {
   .app-header {
     display: block;
     position: relative;
@@ -133,7 +133,7 @@ hr {
   line-height: 1;
   margin-bottom: 0.5em;
 }
-@media (min-width: 601px) {
+@media (min-width: 981px) {
   .app-header h1 {
     white-space: nowrap;
   }
@@ -161,7 +161,7 @@ hr {
   justify-content: center;
   margin-top: 0.75em;
 }
-@media (min-width: 601px) {
+@media (min-width: 981px) {
   .header-actions {
     position: absolute;
     top: 0;
