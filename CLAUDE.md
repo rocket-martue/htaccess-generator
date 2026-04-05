@@ -92,3 +92,13 @@ console.log('sha256-' + crypto.createHash('sha256').update(script, 'utf8').diges
 | `.htpasswd` 生成 | 非対応 | bcrypt は外部ライブラリ必須、SHA1 はセキュリティ不足 |
 | `# BEGIN WordPress` ブロック | 生成しない | WordPress が自動生成するため |
 | `style.css` の直接編集 | 禁止 | SCSS コンパイル済みファイルのため `assets/scss/` を編集する |
+| `# BEGIN/END HtaccessGenerator` マーカー | ルート .htaccess のみ出力 | WordPress の BEGIN/END ブロックと共存できるよう範囲を明示するため |
+| CSP Report-Only 時の `upgrade-insecure-requests` | 除外 | アクション指示のため Report-Only ヘッダーに含めても無視される。ADMIN_CSP も同様に除外する |
+
+---
+
+## 実装後チェックリスト
+
+機能追加・変更を行ったあとは以下を確認すること。
+
+- [ ] `README.md` の「生成可能な設定」に変更内容が反映されているか
