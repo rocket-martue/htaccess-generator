@@ -423,7 +423,8 @@ const buildHeadersSection = (headers) => {
 		directives.push('');
 		directives.push('\t# CSP');
 
-		const cspParts = ['upgrade-insecure-requests'];
+		// Report-Only モードでは upgrade-insecure-requests は無視されるため除外する
+		const cspParts = headers.cspReportOnly ? [] : ['upgrade-insecure-requests'];
 
 		const sanitize = (v) => v.replace(/"/g, '');
 
@@ -476,15 +477,16 @@ const buildHeadersSection = (headers) => {
 			directives.push("\t# ページビルダー等のプラグインで 'unsafe-eval' が必要な場合は、ツールの script-src \"unsafe-eval を許可\" オプションを有効化してください");
 		}
 
+		const cspHeaderName = headers.cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy';
 		if (headers.cspAdminSplit) {
 			directives.push(`\t<If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
-			directives.push(`\t\tHeader always set Content-Security-Policy "${cspValue}"`);
+			directives.push(`\t\tHeader always set ${cspHeaderName} "${cspValue}"`);
 			directives.push('\t</If>');
 			directives.push(`\t<If "%{REQUEST_URI} =~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
-			directives.push(`\t\tHeader always set Content-Security-Policy "${ADMIN_CSP}"`);
+			directives.push(`\t\tHeader always set ${cspHeaderName} "${ADMIN_CSP}"`);
 			directives.push('\t</If>');
 		} else {
-			directives.push(`\tHeader always set Content-Security-Policy "${cspValue}"`);
+			directives.push(`\tHeader always set ${cspHeaderName} "${cspValue}"`);
 		}
 	}
 
