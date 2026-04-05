@@ -99,6 +99,7 @@ const elCspFrameSrcGoogleMaps = document.querySelector('[name="cspFrameSrcGoogle
 const elCspFrameAncestorsEnabled = document.querySelector('[name="cspFrameAncestorsEnabled"]');
 const elCspFrameAncestorsValue = document.querySelector('[name="cspFrameAncestorsValue"]');
 const elCspAdminSplit = document.querySelector('[name="cspAdminSplit"]');
+const elCspReportOnly = document.querySelector('[name="cspReportOnly"]');
 
 const elXContentType = document.querySelector('[name="xContentType"]');
 
@@ -242,6 +243,7 @@ const getCurrentSettings = () => ({
 		cspFrameAncestorsEnabled: elCspFrameAncestorsEnabled?.checked ?? false,
 		cspFrameAncestorsValue: elCspFrameAncestorsValue?.value.trim() ?? '',
 		cspAdminSplit: elCspAdminSplit?.checked ?? false,
+		cspReportOnly: elCspReportOnly?.checked ?? false,
 
 		xContentType: elXContentType?.checked ?? false,
 
@@ -432,6 +434,7 @@ const applySettingsToForm = (settings) => {
 	if (elCspFrameAncestorsEnabled) elCspFrameAncestorsEnabled.checked = settings.headers.cspFrameAncestorsEnabled;
 	if (elCspFrameAncestorsValue) elCspFrameAncestorsValue.value = settings.headers.cspFrameAncestorsValue;
 	if (elCspAdminSplit) elCspAdminSplit.checked = settings.headers.cspAdminSplit;
+	if (elCspReportOnly) elCspReportOnly.checked = settings.headers.cspReportOnly;
 	if (elXContentType) elXContentType.checked = settings.headers.xContentType;
 	if (elXFrameOptions) elXFrameOptions.checked = settings.headers.xFrameOptions;
 	const xfoRadio = document.querySelector(`[name="xFrameOptionsValue"][value="${settings.headers.xFrameOptionsValue}"]`);

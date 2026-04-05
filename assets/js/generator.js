@@ -420,10 +420,8 @@ const buildHeadersSection = (headers) => {
 
 	// CSP
 	if (headers.cspEnabled) {
-		directives.push('');
-		directives.push('\t# CSP');
-
-		const cspParts = ['upgrade-insecure-requests'];
+		// Report-Only モードでは upgrade-insecure-requests は無視されるため除外する
+		const cspParts = headers.cspReportOnly ? [] : ['upgrade-insecure-requests'];
 
 		const sanitize = (v) => v.replace(/"/g, '');
 
@@ -472,19 +470,28 @@ const buildHeadersSection = (headers) => {
 
 		const cspValue = cspParts.join('; ');
 
-		if (headers.cspScriptSrcEnabled && !headers.cspScriptUnsafeEval) {
-			directives.push("\t# ページビルダー等のプラグインで 'unsafe-eval' が必要な場合は、ツールの script-src \"unsafe-eval を許可\" オプションを有効化してください");
-		}
+		// cspValue が空（Report-Only + 全ディレクティブ無効）の場合は # CSP コメントごとブロック全体を出力しない
+		if (cspValue) {
+			directives.push('');
+			directives.push('\t# CSP');
 
-		if (headers.cspAdminSplit) {
-			directives.push(`\t<If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
-			directives.push(`\t\tHeader always set Content-Security-Policy "${cspValue}"`);
-			directives.push('\t</If>');
-			directives.push(`\t<If "%{REQUEST_URI} =~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
-			directives.push(`\t\tHeader always set Content-Security-Policy "${ADMIN_CSP}"`);
-			directives.push('\t</If>');
-		} else {
-			directives.push(`\tHeader always set Content-Security-Policy "${cspValue}"`);
+			if (headers.cspScriptSrcEnabled && !headers.cspScriptUnsafeEval) {
+				directives.push("\t# ページビルダー等のプラグインで 'unsafe-eval' が必要な場合は、ツールの script-src \"unsafe-eval を許可\" オプションを有効化してください");
+			}
+
+			const cspHeaderName = headers.cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy';
+			// Report-Only 時は ADMIN_CSP からも upgrade-insecure-requests を除外する（正規表現で堅牢に除去）
+			const adminCspValue = headers.cspReportOnly ? ADMIN_CSP.replace(/upgrade-insecure-requests;\s*/g, '') : ADMIN_CSP;
+			if (headers.cspAdminSplit) {
+				directives.push(`\t<If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
+				directives.push(`\t\tHeader always set ${cspHeaderName} "${cspValue}"`);
+				directives.push('\t</If>');
+				directives.push(`\t<If "%{REQUEST_URI} =~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
+				directives.push(`\t\tHeader always set ${cspHeaderName} "${adminCspValue}"`);
+				directives.push('\t</If>');
+			} else {
+				directives.push(`\tHeader always set ${cspHeaderName} "${cspValue}"`);
+			}
 		}
 	}
 
