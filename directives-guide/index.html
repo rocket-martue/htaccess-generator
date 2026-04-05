@@ -45,17 +45,36 @@
 		<div class="app-wrapper">
 
 			<header class="app-header">
-				<h1><a href="../">.htaccess Generator</a></h1>
+				<h1><a href="../">.htaccess Generator</a><span class="h1-sub">for WordPress</span></h1>
 				<p>.htaccess ディレクティブ・フラグ解説ガイド</p>
 				<div class="header-actions">
-					<a href="../" class="header-link"><span aria-hidden="true">←</span> ジェネレーター</a>
 					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
 					</button>
+					<button type="button" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false"
+						aria-controls="site-nav-menu">
+						<span class="bar"></span>
+						<span class="bar"></span>
+						<span class="bar"></span>
+					</button>
 				</div>
 			</header>
 
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション">
+				<div class="site-nav-card">
+					<ul class="site-nav-list">
+						<li><a href="../">🏠 ジェネレーター</a></li>
+						<li><a href="../htaccess-basics-guide/">.htaccess 入門</a></li>
+						<li><a href="../directives-guide/" aria-current="page">ディレクティブ解説</a></li>
+						<li><a href="../security-headers-guide/">セキュリティヘッダー</a></li>
+						<li><a href="../cache-performance-guide/">キャッシュ &amp; パフォーマンス</a></li>
+						<li><a href="../wp-protection-guide/">wp-admin 保護</a></li>
+						<li><a href="../options-errordocument-guide/">Options &amp; ErrorDocument</a></li>
+						<li><a href="../recovery-guide/">リカバリ方法</a></li>
+					</ul>
+				</div>
+			</nav>
 			<main id="main-content">
 				<article class="card article">
 

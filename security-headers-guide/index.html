@@ -9,7 +9,8 @@
 		<meta property="og:type" content="article">
 		<meta property="og:title" content="セキュリティヘッダー解説ガイド">
 		<meta property="og:description" content="WordPress 環境で使用するセキュリティレスポンスヘッダーの役割・防御対象・設定値の意味を解説するガイド">
-		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta property="og:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/security-headers-guide/">
@@ -19,7 +20,8 @@
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:title" content="セキュリティヘッダー解説ガイド">
 		<meta name="twitter:description" content="WordPress 環境で使用するセキュリティレスポンスヘッダーの役割・防御対象・設定値の意味を解説するガイド">
-		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta name="twitter:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 
 		<title>セキュリティヘッダー解説ガイド | .htaccess Generator</title>
 		<script>
@@ -33,7 +35,8 @@
 		</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
 		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
 
@@ -42,17 +45,36 @@
 		<div class="app-wrapper">
 
 			<header class="app-header">
-				<h1><a href="../">.htaccess Generator</a></h1>
+				<h1><a href="../">.htaccess Generator</a><span class="h1-sub">for WordPress</span></h1>
 				<p>セキュリティヘッダー解説ガイド</p>
 				<div class="header-actions">
-					<a href="../" class="header-link"><span aria-hidden="true">←</span> ジェネレーター</a>
 					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
 					</button>
+					<button type="button" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false"
+						aria-controls="site-nav-menu">
+						<span class="bar"></span>
+						<span class="bar"></span>
+						<span class="bar"></span>
+					</button>
 				</div>
 			</header>
 
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション">
+				<div class="site-nav-card">
+					<ul class="site-nav-list">
+						<li><a href="../">🏠 ジェネレーター</a></li>
+						<li><a href="../htaccess-basics-guide/">.htaccess 入門</a></li>
+						<li><a href="../directives-guide/">ディレクティブ解説</a></li>
+						<li><a href="../security-headers-guide/" aria-current="page">セキュリティヘッダー</a></li>
+						<li><a href="../cache-performance-guide/">キャッシュ &amp; パフォーマンス</a></li>
+						<li><a href="../wp-protection-guide/">wp-admin 保護</a></li>
+						<li><a href="../options-errordocument-guide/">Options &amp; ErrorDocument</a></li>
+						<li><a href="../recovery-guide/">リカバリ方法</a></li>
+					</ul>
+				</div>
+			</nav>
 			<main id="main-content">
 				<article class="card article">
 
@@ -60,22 +82,32 @@
 					<section>
 						<h2>セキュリティヘッダーとは</h2>
 
-						<p>セキュリティヘッダーは、サーバーがブラウザへのレスポンスに付与する HTTP ヘッダーのこと。ブラウザはこのヘッダーを読み取り、スクリプトの実行制限・通信の強制 HTTPS 化・iframe 埋め込みのブロックなど、様々なセキュリティ動作を自動的に行う。</p>
-						<p>アプリケーション側のコード（PHP・JavaScript）を変更せずに適用できるため、<code>.htaccess</code> によるサーバーレベルでの防御として広く使われる。</p>
+						<p>セキュリティヘッダーは、サーバーがブラウザへのレスポンスに付与する HTTP ヘッダーのこと。ブラウザはこのヘッダーを読み取り、スクリプトの実行制限・通信の強制 HTTPS
+							化・iframe 埋め込みのブロックなど、様々なセキュリティ動作を自動的に行う。</p>
+						<p>アプリケーション側のコード（PHP・JavaScript）を変更せずに適用できるため、<code>.htaccess</code> によるサーバーレベルでの防御として広く使われる。
+						</p>
 
 						<h3>設定するメリット</h3>
 						<ul>
 							<li><strong>コード変更不要で防御を追加できる</strong> — プラグインやテーマのコードに手を入れずに、サーバー設定だけで多くの攻撃を防げる。</li>
-							<li><strong>ブラウザの安全機能を確実に有効化できる</strong> — 現代のブラウザはセキュリティ機能を多数持っているが、ヘッダーが指示しないと自動で有効にならないものが多い。</li>
-							<li><strong>脆弱性スキャンの評価が上がる</strong> — セキュリティ診断ツール（例: Mozilla Observatory、Security Headers）でのスコアが向上し、サイトの信頼性をアピールできる。</li>
-							<li><strong>WordPress のプラグイン脆弱性の影響を局限できる</strong> — XSS 脆弱性を持つプラグインが攻撃されても、CSP や X-Content-Type-Options が第二の防御線として機能する。</li>
+							<li><strong>ブラウザの安全機能を確実に有効化できる</strong> —
+								現代のブラウザはセキュリティ機能を多数持っているが、ヘッダーが指示しないと自動で有効にならないものが多い。</li>
+							<li><strong>脆弱性スキャンの評価が上がる</strong> — セキュリティ診断ツール（例: Mozilla Observatory、Security
+								Headers）でのスコアが向上し、サイトの信頼性をアピールできる。</li>
+							<li><strong>WordPress のプラグイン脆弱性の影響を局限できる</strong> — XSS 脆弱性を持つプラグインが攻撃されても、CSP や
+								X-Content-Type-Options が第二の防御線として機能する。</li>
 						</ul>
 
 						<h3>注意点・デメリット</h3>
 						<ul>
-							<li><strong>設定ミスでサイトが壊れる可能性がある</strong> — 特に CSP は設定が厳しすぎると JavaScript・CSS・画像が読み込めなくなる。まず Report-Only モードでテストするのが安全。</li>
-							<li><strong>プラグインとの競合が起きる場合がある</strong> — WordPress プラグインがセキュリティヘッダーを独自に出力している場合、<code>.htaccess</code> と二重になる。プラグイン側の設定を無効化するか、どちらかに統一する。</li>
-							<li><strong>HSTS は一度設定すると取り消しが難しい</strong> — ブラウザにキャッシュされるため、HTTP 運用に戻したい場合は <code>max-age</code> を短くしてから段階的に解除する必要がある。</li>
+							<li><strong>設定ミスでサイトが壊れる可能性がある</strong> — 特に CSP は設定が厳しすぎると JavaScript・CSS・画像が読み込めなくなる。まず
+								Report-Only モードでテストするのが安全。</li>
+							<li><strong>プラグインとの競合が起きる場合がある</strong> — WordPress
+								プラグインがセキュリティヘッダーを独自に出力している場合、<code>.htaccess</code> と二重になる。プラグイン側の設定を無効化するか、どちらかに統一する。
+							</li>
+							<li><strong>HSTS は一度設定すると取り消しが難しい</strong> — ブラウザにキャッシュされるため、HTTP 運用に戻したい場合は
+								<code>max-age</code> を短くしてから段階的に解除する必要がある。
+							</li>
 						</ul>
 
 						<h3>ジェネレーターで設定できるヘッダー一覧</h3>
@@ -117,7 +149,9 @@
 						</div>
 
 						<blockquote>
-							<p>これらのヘッダーはすべて Apache の <code>mod_headers</code> モジュールで出力する。<code>&lt;IfModule mod_headers.c&gt;</code> でラップすることで、モジュールが無効な環境でも 500 エラーを防げる。</p>
+							<p>これらのヘッダーはすべて Apache の <code>mod_headers</code>
+								モジュールで出力する。<code>&lt;IfModule mod_headers.c&gt;</code> でラップすることで、モジュールが無効な環境でも 500
+								エラーを防げる。</p>
 						</blockquote>
 					</section>
 
@@ -211,7 +245,9 @@
 								に対応していることを確認する。対応していないサブドメインにアクセスできなくなる。</p>
 						</blockquote>
 
-						<p>ジェネレーターでは <code>includeSubDomains</code> と <code>preload</code> をそれぞれ個別に ON/OFF できる。サブドメインが HTTPS 非対応の場合は <code>includeSubDomains</code> を外す、プリロードリスト登録が不要なら <code>preload</code> を外す、といった調整が可能。</p>
+						<p>ジェネレーターでは <code>includeSubDomains</code> と <code>preload</code> をそれぞれ個別に ON/OFF できる。サブドメインが
+							HTTPS 非対応の場合は <code>includeSubDomains</code> を外す、プリロードリスト登録が不要なら <code>preload</code>
+							を外す、といった調整が可能。</p>
 					</section>
 
 					<hr class="divider">
@@ -231,7 +267,8 @@
 						<h3><code>upgrade-insecure-requests</code> の役割</h3>
 						<p>ページ内の <code>http://</code> リソース（画像・CSS・JS など）を自動的に <code>https://</code> に変換する指示。Mixed
 							Content（HTTP と HTTPS が混在するページ）を自動修正するために使う。</p>
-						<p>ジェネレーターでは CSP を有効にすると <code>upgrade-insecure-requests</code> は常に出力される（削除不可）。その上で各ディレクティブを個別に ON/OFF できる。</p>
+						<p>ジェネレーターでは CSP を有効にすると <code>upgrade-insecure-requests</code> は常に出力される（削除不可）。その上で各ディレクティブを個別に
+							ON/OFF できる。</p>
 
 						<h3>ジェネレーターで設定できるディレクティブ</h3>
 						<div class="table-wrap">
@@ -251,7 +288,8 @@
 									</tr>
 									<tr>
 										<td><code>script-src</code></td>
-										<td>JavaScript の読み込み元。<code>'unsafe-inline'</code> / <code>'unsafe-eval'</code> を個別に追加可能</td>
+										<td>JavaScript の読み込み元。<code>'unsafe-inline'</code> / <code>'unsafe-eval'</code>
+											を個別に追加可能</td>
 										<td><code>'self'</code></td>
 									</tr>
 									<tr>
@@ -289,7 +327,11 @@
 						</div>
 
 						<h3>WordPress 固有の注意点</h3>
-						<p>WordPress はコアと多くのプラグインがインラインスクリプトを使用するため、<code>script-src</code> に <code>'unsafe-inline'</code> が必要になるケースが多い。さらに Gutenberg ブロックエディターは <code>eval()</code> を使うため <code>'unsafe-eval'</code> も必要になる場合がある。同様にインラインスタイルを多用するプラグインでは <code>style-src 'unsafe-inline'</code> も必要になる。</p>
+						<p>WordPress はコアと多くのプラグインがインラインスクリプトを使用するため、<code>script-src</code> に
+							<code>'unsafe-inline'</code> が必要になるケースが多い。さらに Gutenberg ブロックエディターは <code>eval()</code> を使うため
+							<code>'unsafe-eval'</code> も必要になる場合がある。同様にインラインスタイルを多用するプラグインでは
+							<code>style-src 'unsafe-inline'</code> も必要になる。
+						</p>
 						<p>CSP を厳格化（unsafe-* を除去）したい場合は nonce ベースの実装が推奨されるが、多くのプラグインとの互換性を維持するのは難しいため、段階的な導入が現実的。</p>
 
 						<h3>img-src と OG image の落とし穴</h3>
@@ -319,10 +361,13 @@ img-src 'self' data:</code></pre>
     Header always set Content-Security-Policy "upgrade-insecure-requests; default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'self'"
 &lt;/If&gt;</code></pre>
 
-						<p>管理画面側の CSP はハードコードの固定値で、<code>'unsafe-inline'</code> と <code>'unsafe-eval'</code> が許可されている。Gutenberg ブロックエディターやコアの管理画面は多数のインラインスクリプトと <code>eval()</code> を使うため、これらなしでは管理画面が動作しない。</p>
+						<p>管理画面側の CSP はハードコードの固定値で、<code>'unsafe-inline'</code> と <code>'unsafe-eval'</code>
+							が許可されている。Gutenberg ブロックエディターやコアの管理画面は多数のインラインスクリプトと <code>eval()</code>
+							を使うため、これらなしでは管理画面が動作しない。</p>
 
 						<blockquote>
-							<p>フロントエンド側の CSP を変更しても管理画面側の CSP は固定値のまま変わらない。管理画面の動作を最優先にしつつ、フロントエンドのみ CSP を厳格化するための設計。</p>
+							<p>フロントエンド側の CSP を変更しても管理画面側の CSP は固定値のまま変わらない。管理画面の動作を最優先にしつつ、フロントエンドのみ CSP を厳格化するための設計。
+							</p>
 						</blockquote>
 
 						<h3>Report-Only モード</h3>
@@ -387,7 +432,9 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
 							</table>
 						</div>
 
-						<p>ジェネレーターでは <code>SAMEORIGIN</code>（デフォルト）と <code>DENY</code> を選択できる。自サイトで iframe 埋め込みが不要なら <code>DENY</code> を選ぶとより厳格になる。</p>
+						<p>ジェネレーターでは <code>SAMEORIGIN</code>（デフォルト）と <code>DENY</code> を選択できる。自サイトで iframe 埋め込みが不要なら
+							<code>DENY</code> を選ぶとより厳格になる。
+						</p>
 					</section>
 
 					<hr class="divider">
@@ -493,7 +540,9 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
 						<p>空の括弧 <code>()</code> はそのディレクティブを完全に無効化することを意味する（すべてのオリジンからの使用を禁止）。</p>
 
 						<h3>制御可能な機能一覧</h3>
-						<p>ジェネレーターでは以下の機能を個別に ON/OFF できる。チェック ON で制限（<code>feature=()</code> を出力）、OFF でポリシーから除外（ブラウザデフォルトで許可）。なお <code>geolocation</code> のみ例外で、ON/OFF の 2 択ではなく「完全無効化 / Google マップ許可 / ポリシーから除外」の 3 段階で設定できる。</p>
+						<p>ジェネレーターでは以下の機能を個別に ON/OFF できる。チェック ON で制限（<code>feature=()</code> を出力）、OFF
+							でポリシーから除外（ブラウザデフォルトで許可）。なお <code>geolocation</code> のみ例外で、ON/OFF の 2 択ではなく「完全無効化 / Google
+							マップ許可 / ポリシーから除外」の 3 段階で設定できる。</p>
 						<div class="table-wrap">
 							<table>
 								<thead>
@@ -575,7 +624,8 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
 						</div>
 
 						<blockquote>
-							<p>Google マップを埋め込んでいても「現在地を表示」ボタンを使わないサイトなら「完全無効化」のままで問題ない。「現在地を表示」が必要な場合のみ「Google マップ許可」を選ぶ。</p>
+							<p>Google マップを埋め込んでいても「現在地を表示」ボタンを使わないサイトなら「完全無効化」のままで問題ない。「現在地を表示」が必要な場合のみ「Google
+								マップ許可」を選ぶ。</p>
 						</blockquote>
 					</section>
 

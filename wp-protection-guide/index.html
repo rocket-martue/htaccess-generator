@@ -4,13 +4,15 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
+		<meta name="description"
+			content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
 		<!-- OGP -->
 		<meta property="og:type" content="article">
 		<meta property="og:title" content="wp-admin / wp-includes / uploads 保護解説ガイド">
 		<meta property="og:description"
 			content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
-		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta property="og:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/wp-protection-guide/">
@@ -21,7 +23,8 @@
 		<meta name="twitter:title" content="wp-admin / wp-includes / uploads 保護解説ガイド">
 		<meta name="twitter:description"
 			content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
-		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta name="twitter:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 
 		<title>wp-admin / wp-includes / uploads 保護解説ガイド | .htaccess Generator</title>
 		<script>
@@ -35,7 +38,8 @@
 		</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
 		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
 
@@ -44,17 +48,36 @@
 		<div class="app-wrapper">
 
 			<header class="app-header">
-				<h1><a href="../">.htaccess Generator</a></h1>
+				<h1><a href="../">.htaccess Generator</a><span class="h1-sub">for WordPress</span></h1>
 				<p>wp-admin / uploads 保護解説ガイド</p>
 				<div class="header-actions">
-					<a href="../" class="header-link"><span aria-hidden="true">←</span> ジェネレーター</a>
 					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
 					</button>
+					<button type="button" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false"
+						aria-controls="site-nav-menu">
+						<span class="bar"></span>
+						<span class="bar"></span>
+						<span class="bar"></span>
+					</button>
 				</div>
 			</header>
 
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション">
+				<div class="site-nav-card">
+					<ul class="site-nav-list">
+						<li><a href="../">🏠 ジェネレーター</a></li>
+						<li><a href="../htaccess-basics-guide/">.htaccess 入門</a></li>
+						<li><a href="../directives-guide/">ディレクティブ解説</a></li>
+						<li><a href="../security-headers-guide/">セキュリティヘッダー</a></li>
+						<li><a href="../cache-performance-guide/">キャッシュ &amp; パフォーマンス</a></li>
+						<li><a href="../wp-protection-guide/" aria-current="page">wp-admin 保護</a></li>
+						<li><a href="../options-errordocument-guide/">Options &amp; ErrorDocument</a></li>
+						<li><a href="../recovery-guide/">リカバリ方法</a></li>
+					</ul>
+				</div>
+			</nav>
 			<main id="main-content">
 				<article class="card article">
 
@@ -123,7 +146,8 @@ Require valid-user</code></pre>
 						<h3>upgrade.php のサーバー内部 IP 除外の理由</h3>
 						<p>WordPress の自動更新は内部でサーバー自身（<code>127.0.0.1</code> / <code>::1</code>）が
 							<code>upgrade.php</code> にアクセスする。Basic 認証がかかっていると自動更新が失敗するため、ループバック IP アドレスからのアクセスだけ Basic
-							認証なしで許可する。なお、上記の設定例は Apache 2.4 以降（<code>mod_authz_core</code>）を前提としており、Apache 2.2 を利用している場合は同等の許可設定を別途追加する必要がある。
+							認証なしで許可する。なお、上記の設定例は Apache 2.4 以降（<code>mod_authz_core</code>）を前提としており、Apache 2.2
+							を利用している場合は同等の許可設定を別途追加する必要がある。
 						</p>
 
 						<h3>Basic 認証の設定項目</h3>
@@ -190,7 +214,8 @@ RewriteCond %{REQUEST_URI} ^/wp-includes/[^/]+\.php$ [NC]
 RewriteRule .* - [F,L]</code></pre>
 
 						<h3>wp-admin/includes/ を全ブロックする理由</h3>
-						<p><code>wp-admin/includes/</code> は管理画面の内部処理ファイルが格納されるディレクトリで、ブラウザから直接アクセスする必要がない。すべてのリクエストをブロックする。</p>
+						<p><code>wp-admin/includes/</code>
+							は管理画面の内部処理ファイルが格納されるディレクトリで、ブラウザから直接アクセスする必要がない。すべてのリクエストをブロックする。</p>
 
 						<h3>wp-includes/*.php のみブロックする理由</h3>
 						<p><code>wp-includes/</code> には CSS・JS・画像などフロントエンドで必要なアセットも含まれるため、ディレクトリ全体をブロックするとサイトが壊れる。PHP
@@ -198,7 +223,8 @@ RewriteRule .* - [F,L]</code></pre>
 						<p>パターン <code>[^/]+\.php$</code>
 							はディレクトリ直下の PHP ファイルのみにマッチする。これにより
 							<code>wp-includes/js/tinymce/wp-tinymce.php</code>
-							などサブディレクトリ内の正当な PHP ファイルへのアクセスを妨げない。</p>
+							などサブディレクトリ内の正当な PHP ファイルへのアクセスを妨げない。
+						</p>
 
 						<h3>ディレクトリ一覧（<code>-d</code> 判定）との違い</h3>
 						<p>ディレクトリ一覧の表示は <code>Options -Indexes</code>
