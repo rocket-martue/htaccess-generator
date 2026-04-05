@@ -115,6 +115,7 @@ const elPpPayment = document.querySelector('[name="ppPayment"]');
 const elPpUsb = document.querySelector('[name="ppUsb"]');
 const elPpGyroscope = document.querySelector('[name="ppGyroscope"]');
 const elPpMagnetometer = document.querySelector('[name="ppMagnetometer"]');
+const elPpAccelerometer = document.querySelector('[name="ppAccelerometer"]');
 const elPpGeolocation = document.querySelector('[name="ppGeolocation"]');
 const elPpSubFields = document.querySelector('.pp-sub-fields');
 
@@ -257,6 +258,7 @@ const getCurrentSettings = () => ({
 		ppUsb: elPpUsb?.checked ?? true,
 		ppGyroscope: elPpGyroscope?.checked ?? true,
 		ppMagnetometer: elPpMagnetometer?.checked ?? true,
+		ppAccelerometer: elPpAccelerometer?.checked ?? true,
 		ppGeolocation: elPpGeolocation?.value ?? 'deny',
 	},
 	wpAdmin: {
@@ -444,6 +446,7 @@ const applySettingsToForm = (settings) => {
 	if (elPpUsb) elPpUsb.checked = settings.headers.ppUsb;
 	if (elPpGyroscope) elPpGyroscope.checked = settings.headers.ppGyroscope;
 	if (elPpMagnetometer) elPpMagnetometer.checked = settings.headers.ppMagnetometer;
+	if (elPpAccelerometer) elPpAccelerometer.checked = settings.headers.ppAccelerometer;
 	if (elPpGeolocation) elPpGeolocation.value = settings.headers.ppGeolocation;
 
 	// wp-admin
@@ -686,7 +689,7 @@ const initEvents = () => {
 	// Permissions-Policy：サブ機能が全 OFF → メイントグルを自動で OFF に
 	// メイントグルを ON にしたとき → サブ機能を全 ON にリセット（詰み状態の回避）
 	// ※ ppGeolocation は <select> のため checkbox 群とは別に処理する
-	const ppCheckboxEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer];
+	const ppCheckboxEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer, elPpAccelerometer];
 	const isPpAnyEnabled = () =>
 		ppCheckboxEls.some((el) => el?.checked) || ((elPpGeolocation?.value ?? 'off') !== 'off');
 	elPermissionsPolicy?.addEventListener('change', () => {
