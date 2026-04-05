@@ -82,6 +82,25 @@ a {
   text-decoration: none;
 }
 
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 0.75em 1.5em;
+  background: var(--accent-solid);
+  color: #fff;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  border-radius: 0 0 var(--radius-sm) 0;
+  text-decoration: none;
+  -webkit-transition: top 0.15s;
+  transition: top 0.15s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
 hr {
   border: none;
 }
@@ -345,6 +364,17 @@ hr {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-decoration: none;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 1.5em 0 1em;
+  margin-top: 1em;
+  border-top: 1px solid var(--border-color);
+}
+.app-footer p {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
 }
 
 .toggle-row {

@@ -48,6 +48,27 @@ a {
 	text-decoration: none;
 }
 
+// ── スキップリンク ──
+
+.skip-link {
+	position: absolute;
+	top: -100%;
+	left: 0;
+	z-index: 9999;
+	padding: 0.75em 1.5em;
+	background: var(--accent-solid);
+	color: #fff;
+	font-size: var(--font-size-sm);
+	font-weight: 700;
+	border-radius: 0 0 var(--radius-sm) 0;
+	text-decoration: none;
+	transition: top 0.15s;
+
+	&:focus {
+		top: 0;
+	}
+}
+
 hr {
 	border: none;
 }
