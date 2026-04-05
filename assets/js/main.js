@@ -758,34 +758,35 @@ const initEvents = () => {
 	// テーマ切り替え
 	setupThemeToggle();
 
-	// ドロップダウンナビ — aria-expanded 管理・Esc で閉じる
-	const dropdown = document.querySelector('.header-nav-dropdown');
-	const dropdownBtn = dropdown?.querySelector('button');
-	const dropdownMenu = dropdown?.querySelector('.dropdown-menu');
-	if (dropdown && dropdownBtn) {
-		const setExpanded = (val) => {
-			dropdownBtn.setAttribute('aria-expanded', String(val));
-			if (dropdownMenu) dropdownMenu.setAttribute('aria-hidden', String(!val));
+	// ハンバーガーナビ — 開閉 / Esc / 外クリックで閉じる
+	const hamburgerBtn = document.querySelector('.hamburger-btn');
+	const siteNav = document.querySelector('.site-nav');
+	if (hamburgerBtn && siteNav) {
+		const setOpen = (val) => {
+			hamburgerBtn.setAttribute('aria-expanded', String(val));
+			hamburgerBtn.setAttribute('aria-label', val ? 'メニューを閉じる' : 'メニューを開く');
+			if (val) {
+				siteNav.removeAttribute('hidden');
+				document.body.style.overflow = 'hidden';
+			} else {
+				siteNav.setAttribute('hidden', '');
+				document.body.style.overflow = '';
+			}
 		};
-		setExpanded(false);
-		dropdown.addEventListener('mouseenter', () => setExpanded(true));
-		dropdown.addEventListener('mouseleave', () => {
-			if (!dropdown.contains(document.activeElement)) setExpanded(false);
-		});
-		let escapingByKey = false;
-		dropdown.addEventListener('focusin', () => {
-			if (!escapingByKey) setExpanded(true);
-		});
-		dropdown.addEventListener('focusout', (e) => {
-			if (!dropdown.contains(e.relatedTarget)) setExpanded(false);
+		hamburgerBtn.addEventListener('click', () => {
+			setOpen(hamburgerBtn.getAttribute('aria-expanded') !== 'true');
 		});
 		document.addEventListener('keydown', (e) => {
-			if (e.key === 'Escape' && dropdownBtn.getAttribute('aria-expanded') === 'true') {
+			if (e.key === 'Escape' && hamburgerBtn.getAttribute('aria-expanded') === 'true') {
 				e.preventDefault();
-				escapingByKey = true;
-				setExpanded(false);
-				dropdownBtn.focus();
-				escapingByKey = false;
+				setOpen(false);
+				hamburgerBtn.focus();
+			}
+		});
+		siteNav.addEventListener('click', (e) => {
+			if (!e.target.closest('.site-nav-card')) {
+				setOpen(false);
+				hamburgerBtn.focus();
 			}
 		});
 	}

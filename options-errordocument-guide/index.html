@@ -45,17 +45,37 @@
 		<div class="app-wrapper">
 
 			<header class="app-header">
-				<h1><a href="../">.htaccess Generator</a></h1>
+				<h1><a href="../">.htaccess Generator</a><span class="h1-sub">for WordPress</span></h1>
 				<p>Options &amp; ErrorDocument ガイド</p>
 				<div class="header-actions">
-					<a href="../" class="header-link"><span aria-hidden="true">←</span> ジェネレーター</a>
 					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
 					</button>
+					<button type="button" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false"
+						aria-controls="site-nav-menu">
+						<span class="bar"></span>
+						<span class="bar"></span>
+						<span class="bar"></span>
+					</button>
 				</div>
 			</header>
 
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション">
+				<div class="site-nav-card">
+					<ul class="site-nav-list">
+						<li><a href="../">🏠 ジェネレーター</a></li>
+						<li><a href="../htaccess-basics-guide/">.htaccess 入門</a></li>
+						<li><a href="../directives-guide/">ディレクティブ解説</a></li>
+						<li><a href="../security-headers-guide/">セキュリティヘッダー</a></li>
+						<li><a href="../cache-performance-guide/">キャッシュ &amp; パフォーマンス</a></li>
+						<li><a href="../wp-protection-guide/">wp-admin 保護</a></li>
+						<li><a href="../options-errordocument-guide/" aria-current="page">Options &amp;
+								ErrorDocument</a></li>
+						<li><a href="../recovery-guide/">リカバリ方法</a></li>
+					</ul>
+				</div>
+			</nav>
 			<main id="main-content">
 				<article class="card article">
 
@@ -142,7 +162,10 @@ Options -Indexes</code></pre>
 Options -Indexes +FollowSymLinks</code></pre>
 						<p>多くのレンタルサーバーではデフォルトで <code>FollowSymLinks</code> が有効になっているが、明示的に記述しておくと環境依存によるトラブルを防げる。</p>
 						<blockquote>
-							<p><strong>注意:</strong> 一部のレンタルサーバー環境では、<code>.htaccess</code> から <code>Options</code> を変更すること自体が禁止されており、<code>Options</code> 行を記述すると 500 エラー（Internal Server Error）になる場合がある。そのような環境では、<code>Options</code> 行をコメントアウトまたは削除して運用すること。設定を追加した直後に 500 エラーになった場合は、まず <code>Options</code> 行を一時的に外して動作を確認すること。</p>
+							<p><strong>注意:</strong> 一部のレンタルサーバー環境では、<code>.htaccess</code> から <code>Options</code>
+								を変更すること自体が禁止されており、<code>Options</code> 行を記述すると 500 エラー（Internal Server
+								Error）になる場合がある。そのような環境では、<code>Options</code> 行をコメントアウトまたは削除して運用すること。設定を追加した直後に 500
+								エラーになった場合は、まず <code>Options</code> 行を一時的に外して動作を確認すること。</p>
 						</blockquote>
 
 						<h3>ディレクトリ一覧の無効化</h3>
@@ -253,7 +276,8 @@ ErrorDocument 500 /error/500.html</code></pre>
 							でアクセスされるため、相対パスは正しく解決されないことがある）。</p>
 
 						<h3>メンテナンスページの実装</h3>
-						<p>サイト全体をメンテナンス中にするには、<code>RewriteRule</code> で 503 ステータスを返し、<code>ErrorDocument 503</code> でメンテナンスページを返す。</p>
+						<p>サイト全体をメンテナンス中にするには、<code>RewriteRule</code> で 503 ステータスを返し、<code>ErrorDocument 503</code>
+							でメンテナンスページを返す。</p>
 						<pre class="article-code"><code>&lt;IfModule mod_rewrite.c&gt;
     RewriteEngine On
     # メンテナンスページ自身はリダイレクトしない

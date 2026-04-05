@@ -9,7 +9,8 @@
 		<meta property="og:type" content="article">
 		<meta property="og:title" content=".htaccess とは？入門ガイド">
 		<meta property="og:description" content=".htaccess とは何か、できること・使える環境・WordPress との関係・基本構文をわかりやすく解説した入門ガイド">
-		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta property="og:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/htaccess-basics-guide/">
@@ -19,7 +20,8 @@
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:title" content=".htaccess とは？入門ガイド">
 		<meta name="twitter:description" content=".htaccess とは何か、できること・使える環境・WordPress との関係・基本構文をわかりやすく解説した入門ガイド">
-		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
+		<meta name="twitter:image"
+			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 
 		<title>.htaccess とは？入門ガイド | .htaccess Generator</title>
 		<script>
@@ -33,7 +35,8 @@
 		</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
 		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
 
@@ -42,16 +45,36 @@
 		<div class="app-wrapper">
 
 			<header class="app-header">
-				<h1><a href="../">.htaccess Generator</a></h1>
+				<h1><a href="../">.htaccess Generator</a><span class="h1-sub">for WordPress</span></h1>
 				<p>.htaccess とは？入門ガイド</p>
 				<div class="header-actions">
-					<a href="../" class="header-link"><span aria-hidden="true">←</span> ジェネレーター</a>
 					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
 					</button>
+					<button type="button" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false"
+						aria-controls="site-nav-menu">
+						<span class="bar"></span>
+						<span class="bar"></span>
+						<span class="bar"></span>
+					</button>
 				</div>
 			</header>
+
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション">
+				<div class="site-nav-card">
+					<ul class="site-nav-list">
+						<li><a href="../">🏠 ジェネレーター</a></li>
+						<li><a href="../htaccess-basics-guide/" aria-current="page">.htaccess 入門</a></li>
+						<li><a href="../directives-guide/">ディレクティブ解説</a></li>
+						<li><a href="../security-headers-guide/">セキュリティヘッダー</a></li>
+						<li><a href="../cache-performance-guide/">キャッシュ &amp; パフォーマンス</a></li>
+						<li><a href="../wp-protection-guide/">wp-admin 保護</a></li>
+						<li><a href="../options-errordocument-guide/">Options &amp; ErrorDocument</a></li>
+						<li><a href="../recovery-guide/">リカバリ方法</a></li>
+					</ul>
+				</div>
+			</nav>
 
 			<main id="main-content">
 				<article class="card article">
@@ -62,7 +85,8 @@
 						<p><strong>Apache ウェブサーバーのディレクトリ単位の設定ファイル</strong>。</p>
 						<p>ファイル名は <code>.htaccess</code>（ドット始まり）で、特定のディレクトリに置くとそのディレクトリ以下すべての挙動を制御できる。</p>
 						<p>通常の Apache 設定は <code>httpd.conf</code> というサーバー全体の設定ファイルで行うが、レンタルサーバーでは
-							<code>httpd.conf</code> を直接編集できない。</p>
+							<code>httpd.conf</code> を直接編集できない。
+						</p>
 						<p><code>.htaccess</code> はサーバー管理者の権限がなくても、ディレクトリ単位で設定を上書きできる仕組みとして用意されている。</p>
 
 						<h3>配置場所と効果範囲</h3>
@@ -212,7 +236,11 @@ RewriteRule . /index.php [L]
 </IfModule>
 # END WordPress</code></pre>
 						<blockquote>
-							<p><strong>補足:</strong> <code>RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]</code> は WordPress 6.0 以降で追加された行。Apache が <code>Authorization</code> ヘッダーを破棄する問題に対処するためのもので、REST API や Application Passwords の動作に影響する。WordPress のバージョンによって自動生成されるブロックの内容が異なる場合がある。</p>
+							<p><strong>補足:</strong>
+								<code>RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]</code> は WordPress
+								6.0 以降で追加された行。Apache が <code>Authorization</code> ヘッダーを破棄する問題に対処するためのもので、REST API や
+								Application Passwords の動作に影響する。WordPress のバージョンによって自動生成されるブロックの内容が異なる場合がある。
+							</p>
 						</blockquote>
 
 						<h3>カスタムルールを書く場所</h3>
@@ -237,7 +265,10 @@ RewriteRule . /index.php [L]
 # END WordPress</code></pre>
 
 						<blockquote>
-							<p>ルールの書き順は「カスタムルール → プラグイン生成ブロック → <code># BEGIN WordPress</code>」が一般的。プラグインが生成するブロック（Wordfence・EWWW Image Optimizer・Nginx Cache 等）も WordPress ブロックと同様に直接編集しない。</p>
+							<p>ルールの書き順は「カスタムルール → プラグイン生成ブロック →
+								<code># BEGIN WordPress</code>」が一般的。プラグインが生成するブロック（Wordfence・EWWW Image Optimizer・Nginx
+								Cache 等）も WordPress ブロックと同様に直接編集しない。
+							</p>
 						</blockquote>
 					</section>
 
