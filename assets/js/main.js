@@ -435,7 +435,11 @@ const applySettingsToForm = (settings) => {
 
 	// Headers
 	if (elHstsEnabled) elHstsEnabled.checked = settings.headers.hstsEnabled;
-	if (elHstsMaxAge) elHstsMaxAge.value = settings.headers.hstsMaxAge ?? '63072000';
+	if (elHstsMaxAge) {
+		const maxAgeVal = String(settings.headers.hstsMaxAge ?? '63072000');
+		const validOption = Array.from(elHstsMaxAge.options).some((o) => o.value === maxAgeVal);
+		elHstsMaxAge.value = validOption ? maxAgeVal : '63072000';
+	}
 	if (elHstsIncludeSubDomains) elHstsIncludeSubDomains.checked = settings.headers.hstsIncludeSubDomains;
 	if (elHstsPreload) elHstsPreload.checked = settings.headers.hstsPreload;
 	if (elCspEnabled) elCspEnabled.checked = settings.headers.cspEnabled;
@@ -738,7 +742,7 @@ const initEvents = () => {
 	});
 
 	// Permissions-Policy：サブ機能が全 OFF → メイントグルを自動で OFF に
-	// メイントグルを ON にしたとき → サブ機能を全 ON にリセット（詰み状態の回避）
+	// メイントグルを ON にしたとき → サブ機能をデフォルト値にリセット（詰み状態の回避）
 	// ※ ppGeolocation は <select> のため checkbox 群とは別に処理する
 	const ppCheckboxEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer, elPpAccelerometer, elPpFullscreen, elPpAutoplay, elPpClipboardRead, elPpClipboardWrite, elPpPictureInPicture, elPpScreenWakeLock, elPpWebShare];
 	const isPpAnyEnabled = () =>
