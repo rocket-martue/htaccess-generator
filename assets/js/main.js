@@ -59,6 +59,7 @@ const elBlockBackdoors = document.querySelector('[name="blockBackdoors"]');
 const elBlockWpNesting = document.querySelector('[name="blockWpNesting"]');
 const elBlockWpIncludesDir = document.querySelector('[name="blockWpIncludesDir"]');
 const elHttpsRedirect = document.querySelector('[name="httpsRedirect"]');
+const elHttpsSubFields = document.querySelector('#https-sub-fields');
 const elXForwardedProto = document.querySelector('[name="xForwardedProto"]');
 const elBlockBadQuery = document.querySelector('[name="blockBadQuery"]');
 const elBadQueryParams = document.querySelector('[name="badQueryParams"]');
@@ -76,9 +77,11 @@ const elMimeType = document.querySelector('[name="mimeType"]');
 
 // Headers
 const elHstsEnabled = document.querySelector('[name="hstsEnabled"]');
+const elHstsMaxAge = document.querySelector('[name="hstsMaxAge"]');
 const elHstsIncludeSubDomains = document.querySelector('[name="hstsIncludeSubDomains"]');
 const elHstsPreload = document.querySelector('[name="hstsPreload"]');
 const elHstsSubFields = document.querySelector('.hsts-sub-fields');
+const elHstsPreloadWarn = document.querySelector('#hsts-preload-warn');
 
 const elCspEnabled = document.querySelector('[name="cspEnabled"]');
 const elCspSubFields = document.querySelector('.csp-sub-fields');
@@ -122,6 +125,13 @@ const elPpUsb = document.querySelector('[name="ppUsb"]');
 const elPpGyroscope = document.querySelector('[name="ppGyroscope"]');
 const elPpMagnetometer = document.querySelector('[name="ppMagnetometer"]');
 const elPpAccelerometer = document.querySelector('[name="ppAccelerometer"]');
+const elPpFullscreen = document.querySelector('[name="ppFullscreen"]');
+const elPpAutoplay = document.querySelector('[name="ppAutoplay"]');
+const elPpClipboardRead = document.querySelector('[name="ppClipboardRead"]');
+const elPpClipboardWrite = document.querySelector('[name="ppClipboardWrite"]');
+const elPpPictureInPicture = document.querySelector('[name="ppPictureInPicture"]');
+const elPpScreenWakeLock = document.querySelector('[name="ppScreenWakeLock"]');
+const elPpWebShare = document.querySelector('[name="ppWebShare"]');
 const elPpGeolocation = document.querySelector('[name="ppGeolocation"]');
 const elPpSubFields = document.querySelector('.pp-sub-fields');
 
@@ -228,6 +238,7 @@ const getCurrentSettings = () => ({
 	},
 	headers: {
 		hstsEnabled: elHstsEnabled?.checked ?? false,
+		hstsMaxAge: elHstsMaxAge?.value ?? '63072000',
 		hstsIncludeSubDomains: elHstsIncludeSubDomains?.checked ?? true,
 		hstsPreload: elHstsPreload?.checked ?? true,
 
@@ -272,6 +283,13 @@ const getCurrentSettings = () => ({
 		ppGyroscope: elPpGyroscope?.checked ?? true,
 		ppMagnetometer: elPpMagnetometer?.checked ?? true,
 		ppAccelerometer: elPpAccelerometer?.checked ?? true,
+		ppFullscreen: elPpFullscreen?.checked ?? true,
+		ppAutoplay: elPpAutoplay?.checked ?? false,
+		ppClipboardRead: elPpClipboardRead?.checked ?? false,
+		ppClipboardWrite: elPpClipboardWrite?.checked ?? false,
+		ppPictureInPicture: elPpPictureInPicture?.checked ?? false,
+		ppScreenWakeLock: elPpScreenWakeLock?.checked ?? false,
+		ppWebShare: elPpWebShare?.checked ?? false,
 		ppGeolocation: elPpGeolocation?.value ?? 'deny',
 	},
 	wpAdmin: {
@@ -426,6 +444,11 @@ const applySettingsToForm = (settings) => {
 
 	// Headers
 	if (elHstsEnabled) elHstsEnabled.checked = settings.headers.hstsEnabled;
+	if (elHstsMaxAge) {
+		const maxAgeVal = String(settings.headers.hstsMaxAge ?? '63072000');
+		const validOption = Array.from(elHstsMaxAge.options).some((o) => o.value === maxAgeVal);
+		elHstsMaxAge.value = validOption ? maxAgeVal : '63072000';
+	}
 	if (elHstsIncludeSubDomains) elHstsIncludeSubDomains.checked = settings.headers.hstsIncludeSubDomains;
 	if (elHstsPreload) elHstsPreload.checked = settings.headers.hstsPreload;
 	if (elCspEnabled) elCspEnabled.checked = settings.headers.cspEnabled;
@@ -467,6 +490,13 @@ const applySettingsToForm = (settings) => {
 	if (elPpGyroscope) elPpGyroscope.checked = settings.headers.ppGyroscope;
 	if (elPpMagnetometer) elPpMagnetometer.checked = settings.headers.ppMagnetometer;
 	if (elPpAccelerometer) elPpAccelerometer.checked = settings.headers.ppAccelerometer;
+	if (elPpFullscreen) elPpFullscreen.checked = settings.headers.ppFullscreen ?? true;
+	if (elPpAutoplay) elPpAutoplay.checked = settings.headers.ppAutoplay ?? false;
+	if (elPpClipboardRead) elPpClipboardRead.checked = settings.headers.ppClipboardRead ?? false;
+	if (elPpClipboardWrite) elPpClipboardWrite.checked = settings.headers.ppClipboardWrite ?? false;
+	if (elPpPictureInPicture) elPpPictureInPicture.checked = settings.headers.ppPictureInPicture ?? false;
+	if (elPpScreenWakeLock) elPpScreenWakeLock.checked = settings.headers.ppScreenWakeLock ?? false;
+	if (elPpWebShare) elPpWebShare.checked = settings.headers.ppWebShare ?? false;
 	if (elPpGeolocation) elPpGeolocation.value = settings.headers.ppGeolocation;
 
 	// wp-admin
@@ -531,6 +561,19 @@ const updateConditionalFields = () => {
 		elBlockDangerousExt?.setAttribute('aria-expanded', String(dangerousExtVisible));
 	}
 
+	// HTTPS リダイレクト サブフィールド
+	if (elHttpsSubFields) {
+		const httpsVisible = elHttpsRedirect?.checked ?? false;
+		elHttpsSubFields.hidden = !httpsVisible;
+		elHttpsRedirect?.setAttribute('aria-expanded', String(httpsVisible));
+		if (elXForwardedProto) {
+			elXForwardedProto.disabled = !httpsVisible;
+			if (!httpsVisible) {
+				elXForwardedProto.checked = false;
+			}
+		}
+	}
+
 	// 不正クエリ サブフィールド
 	if (elBadQueryFields) {
 		const badQueryVisible = elBlockBadQuery?.checked ?? false;
@@ -581,6 +624,13 @@ const updateConditionalFields = () => {
 		if (!includeSubEnabled) {
 			elHstsPreload.checked = false;
 		}
+	}
+
+	// preload ON かつ max-age < 31536000 の場合は警告表示
+	if (elHstsPreloadWarn) {
+		const preloadOn = elHstsPreload?.checked ?? false;
+		const maxAge = Number(elHstsMaxAge?.value ?? 63072000);
+		elHstsPreloadWarn.hidden = !(preloadOn && maxAge < 31536000);
 	}
 
 	// CSP サブオプション
@@ -728,15 +778,17 @@ const initEvents = () => {
 	});
 
 	// Permissions-Policy：サブ機能が全 OFF → メイントグルを自動で OFF に
-	// メイントグルを ON にしたとき → サブ機能を全 ON にリセット（詰み状態の回避）
+	// メイントグルを ON にしたとき → サブ機能をデフォルト値にリセット（詰み状態の回避）
 	// ※ ppGeolocation は <select> のため checkbox 群とは別に処理する
-	const ppCheckboxEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer, elPpAccelerometer];
+	const ppCheckboxEls = [elPpCamera, elPpMicrophone, elPpPayment, elPpUsb, elPpGyroscope, elPpMagnetometer, elPpAccelerometer, elPpFullscreen, elPpAutoplay, elPpClipboardRead, elPpClipboardWrite, elPpPictureInPicture, elPpScreenWakeLock, elPpWebShare];
 	const isPpAnyEnabled = () =>
 		ppCheckboxEls.some((el) => el?.checked) || ((elPpGeolocation?.value ?? 'off') !== 'off');
 	elPermissionsPolicy?.addEventListener('change', () => {
 		if (elPermissionsPolicy.checked) {
-			ppCheckboxEls.forEach((el) => { if (el) el.checked = true; });
-			if (elPpGeolocation) elPpGeolocation.value = 'deny';
+			ppCheckboxEls.forEach((el) => {
+				if (el) el.checked = DEFAULT_SETTINGS.headers[el.name] ?? true;
+			});
+			if (elPpGeolocation) elPpGeolocation.value = DEFAULT_SETTINGS.headers.ppGeolocation ?? 'deny';
 			updatePreview();
 		}
 	});
@@ -754,6 +806,13 @@ const initEvents = () => {
 			elPermissionsPolicy.checked = false;
 			updateConditionalFields();
 		}
+		updatePreview();
+		clearPresetActiveState();
+	});
+
+	// HSTS max-age セレクトの change イベント
+	elHstsMaxAge?.addEventListener('change', () => {
+		updateConditionalFields();
 		updatePreview();
 		clearPresetActiveState();
 	});

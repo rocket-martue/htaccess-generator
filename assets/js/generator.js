@@ -50,6 +50,7 @@ const VALID_EXPIRES_VALUES = ['1 hour', '1 day', '1 week', '1 month', '3 months'
 
 /** Cache-Control max-age の許可値（秒） */
 const VALID_CC_MAX_AGE_VALUES = ['3600', '86400', '604800', '2592000', '7776000', '31536000'];
+const VALID_HSTS_MAX_AGE_VALUES = ['300', '86400', '2592000', '31536000', '63072000'];
 
 // ─── ヘルパー ─────────────────────────────────────────────────────
 
@@ -445,7 +446,10 @@ const buildHeadersSection = (headers) => {
 
 	// HSTS
 	if (headers.hstsEnabled) {
-		const hstsParts = ['max-age=63072000'];
+		const hstsMaxAge = VALID_HSTS_MAX_AGE_VALUES.includes(String(headers.hstsMaxAge))
+			? String(headers.hstsMaxAge)
+			: '63072000';
+		const hstsParts = [`max-age=${hstsMaxAge}`];
 		if (headers.hstsIncludeSubDomains) {
 			hstsParts.push('includeSubDomains');
 		}
@@ -574,6 +578,13 @@ const buildHeadersSection = (headers) => {
 		if (headers.ppGyroscope) ppFeatures.push('gyroscope=()');
 		if (headers.ppMagnetometer) ppFeatures.push('magnetometer=()');
 		if (headers.ppAccelerometer) ppFeatures.push('accelerometer=()');
+		if (headers.ppFullscreen) ppFeatures.push('fullscreen=()');
+		if (headers.ppAutoplay) ppFeatures.push('autoplay=()');
+		if (headers.ppClipboardRead) ppFeatures.push('clipboard-read=()');
+		if (headers.ppClipboardWrite) ppFeatures.push('clipboard-write=()');
+		if (headers.ppPictureInPicture) ppFeatures.push('picture-in-picture=()');
+		if (headers.ppScreenWakeLock) ppFeatures.push('screen-wake-lock=()');
+		if (headers.ppWebShare) ppFeatures.push('web-share=()');
 		if (headers.ppGeolocation === 'deny' || headers.ppGeolocation === true) {
 			ppFeatures.push('geolocation=()');
 		} else if (headers.ppGeolocation === 'google-maps') {
