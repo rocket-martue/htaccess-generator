@@ -782,9 +782,84 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="cacheControl">Cache-Control ヘッダー</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="cacheControl" id="cacheControl">
+										<input type="checkbox" name="cacheControl" id="cacheControl" aria-expanded="false"
+											aria-controls="cache-control-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
+								</div>
+								<div class="cache-control-sub-fields sub-options" id="cache-control-sub-fields" hidden>
+									<div class="cache-expiry-row">
+										<span class="cache-expiry-label">CSS / JS</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">CSS / JS の Cache-Control max-age</legend>
+											<label class="sub-option-label"><input type="radio" name="ccScript"
+													value="3600"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccScript"
+													value="86400"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccScript"
+													value="604800"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccScript"
+													value="2592000"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccScript"
+													value="7776000"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccScript"
+													value="31536000" checked><span>1年</span></label>
+										</fieldset>
+									</div>
+									<div class="cache-expiry-row">
+										<span class="cache-expiry-label">画像・アイコン</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">画像・アイコンの Cache-Control max-age</legend>
+											<label class="sub-option-label"><input type="radio" name="ccImage"
+													value="3600"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccImage"
+													value="86400"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccImage"
+													value="604800"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccImage"
+													value="2592000" checked><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccImage"
+													value="7776000"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccImage"
+													value="31536000"><span>1年</span></label>
+										</fieldset>
+									</div>
+									<div class="cache-expiry-row">
+										<span class="cache-expiry-label">フォント</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">フォントの Cache-Control max-age</legend>
+											<label class="sub-option-label"><input type="radio" name="ccFont"
+													value="3600"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccFont"
+													value="86400"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccFont"
+													value="604800"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccFont"
+													value="2592000"><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccFont"
+													value="7776000"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccFont"
+													value="31536000" checked><span>1年</span></label>
+										</fieldset>
+									</div>
+									<div class="cache-expiry-row">
+										<span class="cache-expiry-label">動画</span>
+										<fieldset class="sub-fieldset cache-expiry-options">
+											<legend class="sub-legend">動画の Cache-Control max-age</legend>
+											<label class="sub-option-label"><input type="radio" name="ccVideo"
+													value="3600"><span>1時間</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccVideo"
+													value="86400"><span>1日</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccVideo"
+													value="604800"><span>1週間</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccVideo"
+													value="2592000" checked><span>1ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccVideo"
+													value="7776000"><span>3ヶ月</span></label>
+											<label class="sub-option-label"><input type="radio" name="ccVideo"
+													value="31536000"><span>1年</span></label>
+										</fieldset>
+									</div>
 								</div>
 								<div class="toggle-row">
 									<label class="toggle-label" for="etagDisable">ETag 無効化</label>

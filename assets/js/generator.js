@@ -48,6 +48,9 @@ const VALID_RP_VALUES = [
 /** ExpiresByType の許可値 */
 const VALID_EXPIRES_VALUES = ['1 hour', '1 day', '1 week', '1 month', '3 months', '1 year'];
 
+/** Cache-Control max-age の許可値（秒） */
+const VALID_CC_MAX_AGE_VALUES = ['3600', '86400', '604800', '2592000', '7776000', '31536000'];
+
 // ─── ヘルパー ─────────────────────────────────────────────────────
 
 /**
@@ -56,6 +59,13 @@ const VALID_EXPIRES_VALUES = ['1 hour', '1 day', '1 week', '1 month', '3 months'
  * @returns {string}
  */
 const resolveExpires = (val) => VALID_EXPIRES_VALUES.includes(val) ? val : '1 month';
+
+/**
+ * Cache-Control max-age 値をホワイトリストで検証し、不正値は '31536000' にフォールバックする
+ * @param {string} val
+ * @returns {string}
+ */
+const resolveCcMaxAge = (val) => VALID_CC_MAX_AGE_VALUES.includes(String(val)) ? String(val) : '31536000';
 
 /**
  * ファイルアクセス拒否ブロックを生成する（Apache 2.2/2.4 両対応）
@@ -356,13 +366,27 @@ const buildCacheSection = (cache) => {
 
 	// Cache-Control ヘッダー
 	if (cache.cacheControl) {
+		const ccScript = resolveCcMaxAge(cache.ccScript);
+		const ccImage  = resolveCcMaxAge(cache.ccImage);
+		const ccFont   = resolveCcMaxAge(cache.ccFont);
+		const ccVideo  = resolveCcMaxAge(cache.ccVideo);
+
 		lines.push('# Cache-Control ヘッダー');
 		lines.push('<IfModule mod_headers.c>');
-		lines.push('\t<FilesMatch "\\.(css|js|jpg|jpeg|png|gif|webp|svg|ico|woff|woff2|ttf|otf)$">');
-		lines.push('\t\tHeader set Cache-Control "public, max-age=31536000, immutable"');
+		lines.push('\t<FilesMatch "\\.(css|js)$">');
+		lines.push(`\t\tHeader always set Cache-Control "public, max-age=${ccScript}, immutable"`);
+		lines.push('\t</FilesMatch>');
+		lines.push('\t<FilesMatch "\\.(jpg|jpeg|png|gif|webp|svg|ico)$">');
+		lines.push(`\t\tHeader always set Cache-Control "public, max-age=${ccImage}"`);
+		lines.push('\t</FilesMatch>');
+		lines.push('\t<FilesMatch "\\.(woff|woff2|ttf|otf)$">');
+		lines.push(`\t\tHeader always set Cache-Control "public, max-age=${ccFont}, immutable"`);
+		lines.push('\t</FilesMatch>');
+		lines.push('\t<FilesMatch "\\.(mp4|webm|ogv)$">');
+		lines.push(`\t\tHeader always set Cache-Control "public, max-age=${ccVideo}"`);
 		lines.push('\t</FilesMatch>');
 		lines.push('\t<FilesMatch "\\.(html|htm)$">');
-		lines.push('\t\tHeader set Cache-Control "no-cache, must-revalidate"');
+		lines.push('\t\tHeader always set Cache-Control "no-cache, must-revalidate"');
 		lines.push('\t</FilesMatch>');
 		lines.push('</IfModule>');
 		lines.push('');
