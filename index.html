@@ -101,6 +101,24 @@
 							<div class="preset-group" role="group" aria-label="プリセット選択"></div>
 						</section>
 
+						<!-- 対象 Apache バージョン -->
+						<section class="card" aria-label="対象 Apache バージョン">
+							<h2 class="section-title">対象 Apache バージョン</h2>
+							<div class="form-group">
+								<fieldset class="sub-fieldset">
+									<legend class="sub-legend">対象 Apache バージョン</legend>
+									<label class="sub-option-label">
+										<input type="radio" name="apacheVersion" value="both" checked>
+										<span>Apache 2.2 / 2.4 両対応（デフォルト）</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="radio" name="apacheVersion" value="2.4">
+										<span>Apache 2.4 以降のみ（シンプル出力）</span>
+									</label>
+								</fieldset>
+							</div>
+						</section>
+
 						<!-- Options & ErrorDocument -->
 						<section class="card" aria-label="Options と ErrorDocument">
 							<h2 class="section-title">Options & ErrorDocument</h2>

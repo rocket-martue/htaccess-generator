@@ -158,6 +158,9 @@ const elTabBtnRoot = document.querySelector('[data-tab="root"]');
 const elTabBtnAdmin = document.querySelector('[data-tab="wp-admin"]');
 const elTabBtnUploads = document.querySelector('[data-tab="uploads"]');
 
+// Apache バージョン
+// ラジオボタンのため、値は document.querySelector('[name="apacheVersion"]:checked') で取得する
+
 // Presets
 const elPresetGroup = document.querySelector('.preset-group');
 
@@ -171,6 +174,7 @@ let generatedUploads = [];
 // ─── 設定値の取得 ─────────────────────────────────────────────────
 
 const getCurrentSettings = () => ({
+	apacheVersion: document.querySelector('[name="apacheVersion"]:checked')?.value ?? 'both',
 	options: {
 		disableMultiviews: elDisableMultiviews?.checked ?? false,
 		disableIndexes: elDisableIndexes?.checked ?? false,
@@ -380,6 +384,12 @@ const switchTab = (tabId) => {
 // ─── プリセット適用 ─────────────────────────────────────────────
 
 const applySettingsToForm = (settings) => {
+	// Apache バージョン
+	if (settings.apacheVersion !== undefined) {
+		const avRadio = document.querySelector(`[name="apacheVersion"][value="${settings.apacheVersion}"]`);
+		if (avRadio) avRadio.checked = true;
+	}
+
 	// Options
 	if (elDisableMultiviews) elDisableMultiviews.checked = settings.options.disableMultiviews;
 	if (elDisableIndexes) elDisableIndexes.checked = settings.options.disableIndexes;
@@ -829,6 +839,14 @@ const initEvents = () => {
 	// Cache-Control max-age ラジオボタンの change イベントでプレビュー更新
 	const ccRadios = document.querySelectorAll('[name="ccScript"], [name="ccImage"], [name="ccFont"], [name="ccVideo"]');
 	ccRadios.forEach((radio) => {
+		radio.addEventListener('change', () => {
+			updatePreview();
+			clearPresetActiveState();
+		});
+	});
+
+	// Apache バージョン ラジオボタンの change イベントでプレビュー更新
+	document.querySelectorAll('[name="apacheVersion"]').forEach((radio) => {
 		radio.addEventListener('change', () => {
 			updatePreview();
 			clearPresetActiveState();
