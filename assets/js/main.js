@@ -171,7 +171,7 @@ const getCurrentSettings = () => ({
 		protectWpConfig: elProtectWpConfig?.checked ?? false,
 		protectHtaccess: elProtectHtaccess?.checked ?? false,
 		blockDangerousExt: elBlockDangerousExt?.checked ?? false,
-		blockDangerousExtList: elBlockDangerousExtList?.value ?? '.inc\n.log\n.sh\n.sql',
+		blockDangerousExtList: elBlockDangerousExtList?.value ?? DEFAULT_SETTINGS.fileProtection.blockDangerousExtList,
 		wpLoginBasicAuth: elWpLoginBasicAuth?.checked ?? false,
 		htpasswdPath: elLoginHtpasswdPath?.value.trim() ?? '',
 	},
@@ -205,7 +205,7 @@ const getCurrentSettings = () => ({
 		httpsRedirect: elHttpsRedirect?.checked ?? false,
 		xForwardedProto: elXForwardedProto?.checked ?? false,
 		blockBadQuery: elBlockBadQuery?.checked ?? false,
-		badQueryParams: elBadQueryParams?.value ?? 'w',
+		badQueryParams: elBadQueryParams?.value ?? DEFAULT_SETTINGS.rewrite.badQueryParams,
 	},
 	cache: {
 		gzip: elGzip?.checked ?? false,
@@ -372,7 +372,7 @@ const applySettingsToForm = (settings) => {
 	if (elProtectWpConfig) elProtectWpConfig.checked = settings.fileProtection.protectWpConfig;
 	if (elProtectHtaccess) elProtectHtaccess.checked = settings.fileProtection.protectHtaccess;
 	if (elBlockDangerousExt) elBlockDangerousExt.checked = settings.fileProtection.blockDangerousExt;
-	if (elBlockDangerousExtList) elBlockDangerousExtList.value = settings.fileProtection.blockDangerousExtList ?? '.inc\n.log\n.sh\n.sql';
+	if (elBlockDangerousExtList) elBlockDangerousExtList.value = settings.fileProtection.blockDangerousExtList ?? DEFAULT_SETTINGS.fileProtection.blockDangerousExtList;
 	if (elWpLoginBasicAuth) elWpLoginBasicAuth.checked = settings.fileProtection.wpLoginBasicAuth;
 	if (elLoginHtpasswdPath) elLoginHtpasswdPath.value = settings.fileProtection.htpasswdPath;
 
@@ -406,7 +406,7 @@ const applySettingsToForm = (settings) => {
 	if (elHttpsRedirect) elHttpsRedirect.checked = settings.rewrite.httpsRedirect;
 	if (elXForwardedProto) elXForwardedProto.checked = settings.rewrite.xForwardedProto;
 	if (elBlockBadQuery) elBlockBadQuery.checked = settings.rewrite.blockBadQuery;
-	if (elBadQueryParams) elBadQueryParams.value = settings.rewrite.badQueryParams ?? 'w';
+	if (elBadQueryParams) elBadQueryParams.value = settings.rewrite.badQueryParams ?? DEFAULT_SETTINGS.rewrite.badQueryParams;
 
 	// Cache
 	if (elGzip) elGzip.checked = settings.cache.gzip;

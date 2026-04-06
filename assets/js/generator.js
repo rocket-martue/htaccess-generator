@@ -150,10 +150,12 @@ const buildFileProtectionSection = (fileProtection) => {
 
 	// 危険な拡張子ブロック
 	if (fileProtection.blockDangerousExt) {
-		const rawExts = (fileProtection.blockDangerousExtList ?? '.inc\n.log\n.sh\n.sql')
-			.split('\n')
-			.map((e) => e.trim().replace(/^\.+/, '').toLowerCase())
-			.filter((e) => /^[a-z0-9_-]+$/.test(e));
+		const rawExts = [...new Set(
+			(fileProtection.blockDangerousExtList ?? '.inc\n.log\n.sh\n.sql')
+				.split('\n')
+				.map((e) => e.trim().replace(/^\.+/, '').toLowerCase())
+				.filter((e) => /^[a-z0-9_-]+$/.test(e))
+		)];
 		const extPattern = rawExts.length > 0
 			? rawExts.join('|')
 			: 'inc|log|sh|sql';
@@ -287,12 +289,13 @@ const buildRewriteSection = (rewrite) => {
 			.split('\n')
 			.map((p) => p.trim().toLowerCase())
 			.filter((p, i, arr) => /^[a-z0-9_-]+$/.test(p) && arr.indexOf(p) === i);
-		const params = rawParams.length > 0 ? rawParams : BAD_QUERY_PARAMS;
-		rules.push('');
-		rules.push('\t# 不正なクエリ文字列をブロック');
-		for (const param of params) {
-			rules.push(`\tRewriteCond %{QUERY_STRING} (^|&)${param}=[^&]+(&|$) [NC]`);
-			rules.push('\tRewriteRule ^ - [R=410,L]');
+		if (rawParams.length > 0) {
+			rules.push('');
+			rules.push('\t# 不正なクエリ文字列をブロック');
+			for (const param of rawParams) {
+				rules.push(`\tRewriteCond %{QUERY_STRING} (^|&)${param}=[^&]+(&|$) [NC]`);
+				rules.push('\tRewriteRule ^ - [R=410,L]');
+			}
 		}
 	}
 
