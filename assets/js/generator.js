@@ -161,7 +161,7 @@ const buildFileProtectionSection = (fileProtection) => {
 			? rawExts.join('|')
 			: 'inc|log|sh|sql';
 		lines.push('# 特定のファイルタイプへのアクセスを制限');
-		lines.push(`<FilesMatch "\\.(${extPattern})$">`);
+		lines.push(`<FilesMatch "(?i)\\.(${extPattern})$">`);
 		lines.push('\t<IfModule mod_authz_core.c>');
 		lines.push('\t\tRequire all denied');
 		lines.push('\t</IfModule>');
@@ -286,10 +286,11 @@ const buildRewriteSection = (rewrite) => {
 
 	// 不正クエリ文字列ブロック
 	if (rewrite.blockBadQuery) {
-		const rawParams = (rewrite.badQueryParams ?? BAD_QUERY_PARAMS.join('\n'))
+		const rawParamsParsed = (rewrite.badQueryParams ?? BAD_QUERY_PARAMS.join('\n'))
 			.split('\n')
 			.map((p) => p.trim().toLowerCase())
 			.filter((p, i, arr) => /^[a-z0-9_-]+$/.test(p) && arr.indexOf(p) === i);
+		const rawParams = rawParamsParsed.length > 0 ? rawParamsParsed : BAD_QUERY_PARAMS;
 		if (rawParams.length > 0) {
 			rules.push('');
 			rules.push('\t# 不正なクエリ文字列をブロック');
