@@ -745,6 +745,15 @@ const initEvents = () => {
 		});
 	});
 
+	// Cache-Control max-age ラジオボタンの change イベントでプレビュー更新
+	const ccRadios = document.querySelectorAll('[name="ccScript"], [name="ccImage"], [name="ccFont"], [name="ccVideo"]');
+	ccRadios.forEach((radio) => {
+		radio.addEventListener('change', () => {
+			updatePreview();
+			clearPresetActiveState();
+		});
+	});
+
 	// ヘッダーサブオプションのラジオボタン change イベントでプレビュー更新
 	const headerRadios = document.querySelectorAll('[name="xFrameOptionsValue"], [name="referrerPolicyValue"]');
 	headerRadios.forEach((radio) => {
