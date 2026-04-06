@@ -21,6 +21,8 @@ const elBlockXmlrpc = document.querySelector('[name="blockXmlrpc"]');
 const elProtectWpConfig = document.querySelector('[name="protectWpConfig"]');
 const elProtectHtaccess = document.querySelector('[name="protectHtaccess"]');
 const elBlockDangerousExt = document.querySelector('[name="blockDangerousExt"]');
+const elBlockDangerousExtList = document.querySelector('[name="blockDangerousExtList"]');
+const elDangerousExtFields = document.querySelector('.dangerous-ext-fields');
 const elWpLoginBasicAuth = document.querySelector('[name="wpLoginBasicAuth"]');
 const elLoginHtpasswdPath = document.querySelector('[name="loginHtpasswdPath"]');
 const elLoginAuthFields = document.querySelector('.login-auth-fields');
@@ -60,6 +62,8 @@ const elHttpsRedirect = document.querySelector('[name="httpsRedirect"]');
 const elHttpsSubFields = document.querySelector('#https-sub-fields');
 const elXForwardedProto = document.querySelector('[name="xForwardedProto"]');
 const elBlockBadQuery = document.querySelector('[name="blockBadQuery"]');
+const elBadQueryParams = document.querySelector('[name="badQueryParams"]');
+const elBadQueryFields = document.querySelector('.bad-query-fields');
 
 // Cache
 const elGzip = document.querySelector('[name="gzip"]');
@@ -177,6 +181,7 @@ const getCurrentSettings = () => ({
 		protectWpConfig: elProtectWpConfig?.checked ?? false,
 		protectHtaccess: elProtectHtaccess?.checked ?? false,
 		blockDangerousExt: elBlockDangerousExt?.checked ?? false,
+		blockDangerousExtList: elBlockDangerousExtList?.value ?? DEFAULT_SETTINGS.fileProtection.blockDangerousExtList,
 		wpLoginBasicAuth: elWpLoginBasicAuth?.checked ?? false,
 		htpasswdPath: elLoginHtpasswdPath?.value.trim() ?? '',
 	},
@@ -210,6 +215,7 @@ const getCurrentSettings = () => ({
 		httpsRedirect: elHttpsRedirect?.checked ?? false,
 		xForwardedProto: elXForwardedProto?.checked ?? false,
 		blockBadQuery: elBlockBadQuery?.checked ?? false,
+		badQueryParams: elBadQueryParams?.value ?? DEFAULT_SETTINGS.rewrite.badQueryParams,
 	},
 	cache: {
 		gzip: elGzip?.checked ?? false,
@@ -384,6 +390,7 @@ const applySettingsToForm = (settings) => {
 	if (elProtectWpConfig) elProtectWpConfig.checked = settings.fileProtection.protectWpConfig;
 	if (elProtectHtaccess) elProtectHtaccess.checked = settings.fileProtection.protectHtaccess;
 	if (elBlockDangerousExt) elBlockDangerousExt.checked = settings.fileProtection.blockDangerousExt;
+	if (elBlockDangerousExtList) elBlockDangerousExtList.value = settings.fileProtection.blockDangerousExtList ?? DEFAULT_SETTINGS.fileProtection.blockDangerousExtList;
 	if (elWpLoginBasicAuth) elWpLoginBasicAuth.checked = settings.fileProtection.wpLoginBasicAuth;
 	if (elLoginHtpasswdPath) elLoginHtpasswdPath.value = settings.fileProtection.htpasswdPath;
 
@@ -417,6 +424,7 @@ const applySettingsToForm = (settings) => {
 	if (elHttpsRedirect) elHttpsRedirect.checked = settings.rewrite.httpsRedirect;
 	if (elXForwardedProto) elXForwardedProto.checked = settings.rewrite.xForwardedProto;
 	if (elBlockBadQuery) elBlockBadQuery.checked = settings.rewrite.blockBadQuery;
+	if (elBadQueryParams) elBadQueryParams.value = settings.rewrite.badQueryParams ?? DEFAULT_SETTINGS.rewrite.badQueryParams;
 
 	// Cache
 	if (elGzip) elGzip.checked = settings.cache.gzip;
@@ -546,6 +554,13 @@ const updateConditionalFields = () => {
 		elIpBlockHint.hidden = !(elIpBlockEnabled?.checked && !elIpBlockList?.value?.trim());
 	}
 
+	// 危険拡張子 サブフィールド
+	if (elDangerousExtFields) {
+		const dangerousExtVisible = elBlockDangerousExt?.checked ?? false;
+		elDangerousExtFields.hidden = !dangerousExtVisible;
+		elBlockDangerousExt?.setAttribute('aria-expanded', String(dangerousExtVisible));
+	}
+
 	// HTTPS リダイレクト サブフィールド
 	if (elHttpsSubFields) {
 		const httpsVisible = elHttpsRedirect?.checked ?? false;
@@ -557,6 +572,13 @@ const updateConditionalFields = () => {
 				elXForwardedProto.checked = false;
 			}
 		}
+	}
+
+	// 不正クエリ サブフィールド
+	if (elBadQueryFields) {
+		const badQueryVisible = elBlockBadQuery?.checked ?? false;
+		elBadQueryFields.hidden = !badQueryVisible;
+		elBlockBadQuery?.setAttribute('aria-expanded', String(badQueryVisible));
 	}
 
 	// ボットブロック サブフィールド
