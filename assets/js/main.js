@@ -65,6 +65,7 @@ const elGzip = document.querySelector('[name="gzip"]');
 const elExpires = document.querySelector('[name="expires"]');
 const elExpiresSubFields = document.querySelector('#expires-sub-fields');
 const elCacheControl = document.querySelector('[name="cacheControl"]');
+const elCacheControlSubFields = document.querySelector('#cache-control-sub-fields');
 const elEtagDisable = document.querySelector('[name="etagDisable"]');
 const elMimeType = document.querySelector('[name="mimeType"]');
 
@@ -211,6 +212,10 @@ const getCurrentSettings = () => ({
 		expiresFeed: document.querySelector('[name="expiresFeed"]:checked')?.value ?? '1 hour',
 		expiresDefault: document.querySelector('[name="expiresDefault"]:checked')?.value ?? '1 month',
 		cacheControl: elCacheControl?.checked ?? false,
+		ccScript: document.querySelector('[name="ccScript"]:checked')?.value ?? '31536000',
+		ccImage: document.querySelector('[name="ccImage"]:checked')?.value ?? '2592000',
+		ccFont: document.querySelector('[name="ccFont"]:checked')?.value ?? '31536000',
+		ccVideo: document.querySelector('[name="ccVideo"]:checked')?.value ?? '2592000',
 		etagDisable: elEtagDisable?.checked ?? false,
 		mimeType: elMimeType?.checked ?? false,
 
@@ -403,6 +408,10 @@ const applySettingsToForm = (settings) => {
 		if (el) el.checked = true;
 	});
 	if (elCacheControl) elCacheControl.checked = settings.cache.cacheControl;
+	['ccScript', 'ccImage', 'ccFont', 'ccVideo'].forEach((key) => {
+		const el = document.querySelector(`[name="${key}"][value="${settings.cache[key]}"]`);
+		if (el) el.checked = true;
+	});
 	if (elEtagDisable) elEtagDisable.checked = settings.cache.etagDisable;
 	if (elMimeType) elMimeType.checked = settings.cache.mimeType;
 
@@ -519,6 +528,13 @@ const updateConditionalFields = () => {
 		const expiresVisible = elExpires?.checked ?? false;
 		elExpiresSubFields.hidden = !expiresVisible;
 		elExpires?.setAttribute('aria-expanded', String(expiresVisible));
+	}
+
+	// Cache-Control サブフィールド
+	if (elCacheControlSubFields) {
+		const ccVisible = elCacheControl?.checked ?? false;
+		elCacheControlSubFields.hidden = !ccVisible;
+		elCacheControl?.setAttribute('aria-expanded', String(ccVisible));
 	}
 
 	// wp-admin フィールド
@@ -723,6 +739,15 @@ const initEvents = () => {
 	// Expires ラジオボタンの change イベントでプレビュー更新
 	const expiresRadios = document.querySelectorAll('[name="expiresScript"], [name="expiresImage"], [name="expiresIcon"], [name="expiresVideo"], [name="expiresFont"], [name="expiresFeed"], [name="expiresDefault"]');
 	expiresRadios.forEach((radio) => {
+		radio.addEventListener('change', () => {
+			updatePreview();
+			clearPresetActiveState();
+		});
+	});
+
+	// Cache-Control max-age ラジオボタンの change イベントでプレビュー更新
+	const ccRadios = document.querySelectorAll('[name="ccScript"], [name="ccImage"], [name="ccFont"], [name="ccVideo"]');
+	ccRadios.forEach((radio) => {
 		radio.addEventListener('change', () => {
 			updatePreview();
 			clearPresetActiveState();
