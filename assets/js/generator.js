@@ -152,8 +152,8 @@ const buildFileProtectionSection = (fileProtection) => {
 	if (fileProtection.blockDangerousExt) {
 		const rawExts = (fileProtection.blockDangerousExtList ?? '.inc\n.log\n.sh\n.sql')
 			.split('\n')
-			.map((e) => e.trim().replace(/^\.+/, ''))
-			.filter((e) => /^[a-zA-Z0-9_-]+$/.test(e));
+			.map((e) => e.trim().replace(/^\.+/, '').toLowerCase())
+			.filter((e) => /^[a-z0-9_-]+$/.test(e));
 		const extPattern = rawExts.length > 0
 			? rawExts.join('|')
 			: 'inc|log|sh|sql';
@@ -285,8 +285,8 @@ const buildRewriteSection = (rewrite) => {
 	if (rewrite.blockBadQuery) {
 		const rawParams = (rewrite.badQueryParams ?? BAD_QUERY_PARAMS.join('\n'))
 			.split('\n')
-			.map((p) => p.trim())
-			.filter((p, i, arr) => /^[a-zA-Z0-9_-]+$/.test(p) && arr.indexOf(p) === i);
+			.map((p) => p.trim().toLowerCase())
+			.filter((p, i, arr) => /^[a-z0-9_-]+$/.test(p) && arr.indexOf(p) === i);
 		const params = rawParams.length > 0 ? rawParams : BAD_QUERY_PARAMS;
 		rules.push('');
 		rules.push('\t# 不正なクエリ文字列をブロック');
