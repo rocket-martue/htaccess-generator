@@ -21,6 +21,8 @@ const elBlockXmlrpc = document.querySelector('[name="blockXmlrpc"]');
 const elProtectWpConfig = document.querySelector('[name="protectWpConfig"]');
 const elProtectHtaccess = document.querySelector('[name="protectHtaccess"]');
 const elBlockDangerousExt = document.querySelector('[name="blockDangerousExt"]');
+const elBlockDangerousExtList = document.querySelector('[name="blockDangerousExtList"]');
+const elDangerousExtFields = document.querySelector('.dangerous-ext-fields');
 const elWpLoginBasicAuth = document.querySelector('[name="wpLoginBasicAuth"]');
 const elLoginHtpasswdPath = document.querySelector('[name="loginHtpasswdPath"]');
 const elLoginAuthFields = document.querySelector('.login-auth-fields');
@@ -59,6 +61,8 @@ const elBlockWpIncludesDir = document.querySelector('[name="blockWpIncludesDir"]
 const elHttpsRedirect = document.querySelector('[name="httpsRedirect"]');
 const elXForwardedProto = document.querySelector('[name="xForwardedProto"]');
 const elBlockBadQuery = document.querySelector('[name="blockBadQuery"]');
+const elBadQueryParams = document.querySelector('[name="badQueryParams"]');
+const elBadQueryFields = document.querySelector('.bad-query-fields');
 
 // Cache
 const elGzip = document.querySelector('[name="gzip"]');
@@ -167,6 +171,7 @@ const getCurrentSettings = () => ({
 		protectWpConfig: elProtectWpConfig?.checked ?? false,
 		protectHtaccess: elProtectHtaccess?.checked ?? false,
 		blockDangerousExt: elBlockDangerousExt?.checked ?? false,
+		blockDangerousExtList: elBlockDangerousExtList?.value ?? '.inc\n.log\n.sh\n.sql',
 		wpLoginBasicAuth: elWpLoginBasicAuth?.checked ?? false,
 		htpasswdPath: elLoginHtpasswdPath?.value.trim() ?? '',
 	},
@@ -200,6 +205,7 @@ const getCurrentSettings = () => ({
 		httpsRedirect: elHttpsRedirect?.checked ?? false,
 		xForwardedProto: elXForwardedProto?.checked ?? false,
 		blockBadQuery: elBlockBadQuery?.checked ?? false,
+		badQueryParams: elBadQueryParams?.value ?? 'w',
 	},
 	cache: {
 		gzip: elGzip?.checked ?? false,
@@ -366,6 +372,7 @@ const applySettingsToForm = (settings) => {
 	if (elProtectWpConfig) elProtectWpConfig.checked = settings.fileProtection.protectWpConfig;
 	if (elProtectHtaccess) elProtectHtaccess.checked = settings.fileProtection.protectHtaccess;
 	if (elBlockDangerousExt) elBlockDangerousExt.checked = settings.fileProtection.blockDangerousExt;
+	if (elBlockDangerousExtList) elBlockDangerousExtList.value = settings.fileProtection.blockDangerousExtList ?? '.inc\n.log\n.sh\n.sql';
 	if (elWpLoginBasicAuth) elWpLoginBasicAuth.checked = settings.fileProtection.wpLoginBasicAuth;
 	if (elLoginHtpasswdPath) elLoginHtpasswdPath.value = settings.fileProtection.htpasswdPath;
 
@@ -399,6 +406,7 @@ const applySettingsToForm = (settings) => {
 	if (elHttpsRedirect) elHttpsRedirect.checked = settings.rewrite.httpsRedirect;
 	if (elXForwardedProto) elXForwardedProto.checked = settings.rewrite.xForwardedProto;
 	if (elBlockBadQuery) elBlockBadQuery.checked = settings.rewrite.blockBadQuery;
+	if (elBadQueryParams) elBadQueryParams.value = settings.rewrite.badQueryParams ?? 'w';
 
 	// Cache
 	if (elGzip) elGzip.checked = settings.cache.gzip;
@@ -514,6 +522,16 @@ const updateConditionalFields = () => {
 	}
 	if (elIpBlockHint) {
 		elIpBlockHint.hidden = !(elIpBlockEnabled?.checked && !elIpBlockList?.value?.trim());
+	}
+
+	// 危険拡張子 サブフィールド
+	if (elDangerousExtFields) {
+		elDangerousExtFields.hidden = !elBlockDangerousExt?.checked;
+	}
+
+	// 不正クエリ サブフィールド
+	if (elBadQueryFields) {
+		elBadQueryFields.hidden = !elBlockBadQuery?.checked;
 	}
 
 	// ボットブロック サブフィールド

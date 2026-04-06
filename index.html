@@ -161,12 +161,22 @@
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockDangerousExt">危険な拡張子をブロック（.inc / .log / .sh /
-										.sql）</label>
+									<label class="toggle-label" for="blockDangerousExt">危険な拡張子をブロック</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockDangerousExt" id="blockDangerousExt">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
+								</div>
+								<div class="dangerous-ext-fields" hidden>
+									<div class="input-group">
+										<label for="blockDangerousExtList" class="input-label">ブロックする拡張子（1行に1つ）</label>
+										<textarea name="blockDangerousExtList" id="blockDangerousExtList"
+											class="input-textarea" rows="4"
+											placeholder=".inc&#10;.log&#10;.sh&#10;.sql" spellcheck="false">.inc
+.log
+.sh
+.sql</textarea>
+									</div>
 								</div>
 
 								<hr class="divider">
@@ -352,6 +362,13 @@
 										<input type="checkbox" name="blockBadQuery" id="blockBadQuery">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
+								</div>
+								<div class="bad-query-fields" hidden>
+									<div class="input-group">
+										<label for="badQueryParams" class="input-label">ブロックするパラメータ名（1行に1つ）</label>
+										<textarea name="badQueryParams" id="badQueryParams" class="input-textarea" rows="3"
+											placeholder="w" spellcheck="false">w</textarea>
+									</div>
 								</div>
 							</div>
 						</section>

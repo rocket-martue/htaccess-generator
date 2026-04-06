@@ -150,8 +150,15 @@ const buildFileProtectionSection = (fileProtection) => {
 
 	// 危険な拡張子ブロック
 	if (fileProtection.blockDangerousExt) {
+		const rawExts = (fileProtection.blockDangerousExtList ?? '.inc\n.log\n.sh\n.sql')
+			.split('\n')
+			.map((e) => e.trim().replace(/^\./, ''))
+			.filter((e) => /^[a-zA-Z0-9_-]+$/.test(e));
+		const extPattern = rawExts.length > 0
+			? rawExts.join('|')
+			: 'inc|log|sh|sql';
 		lines.push('# 特定のファイルタイプへのアクセスを制限');
-		lines.push('<FilesMatch "\\.(inc|log|sh|sql)$">');
+		lines.push(`<FilesMatch "\\.(${extPattern})$">`);
 		lines.push('\t<IfModule mod_authz_core.c>');
 		lines.push('\t\tRequire all denied');
 		lines.push('\t</IfModule>');
@@ -276,9 +283,14 @@ const buildRewriteSection = (rewrite) => {
 
 	// 不正クエリ文字列ブロック
 	if (rewrite.blockBadQuery) {
+		const rawParams = (rewrite.badQueryParams ?? BAD_QUERY_PARAMS.join('\n'))
+			.split('\n')
+			.map((p) => p.trim())
+			.filter((p, i, arr) => /^[a-zA-Z0-9_-]+$/.test(p) && arr.indexOf(p) === i);
+		const params = rawParams.length > 0 ? rawParams : BAD_QUERY_PARAMS;
 		rules.push('');
 		rules.push('\t# 不正なクエリ文字列をブロック');
-		for (const param of BAD_QUERY_PARAMS) {
+		for (const param of params) {
 			rules.push(`\tRewriteCond %{QUERY_STRING} (^|&)${param}=[^&]+(&|$) [NC]`);
 			rules.push('\tRewriteRule ^ - [R=410,L]');
 		}
