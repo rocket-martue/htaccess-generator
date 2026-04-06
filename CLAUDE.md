@@ -97,6 +97,12 @@ console.log('sha256-' + crypto.createHash('sha256').update(script, 'utf8').diges
 
 ---
 
+## 作業フロー
+
+- **修正・機能追加が必要な場合は、まず GitHub Issue をたてる**（直接コミットしない）
+
+---
+
 ## 実装後チェックリスト
 
 機能追加・変更を行ったあとは以下を確認すること。
