@@ -75,16 +75,17 @@ const resolveCcMaxAge = (val) => VALID_CC_MAX_AGE_VALUES.includes(String(val)) ?
  * @returns {string[]} 行の配列
  */
 const buildDenyDirectives = (indent, apacheVersion) => {
+	const nestedIndent = `${indent}\t`;
 	if (apacheVersion === '2.4') {
 		return [`${indent}Require all denied`];
 	}
 	return [
 		`${indent}<IfModule mod_authz_core.c>`,
-		`${indent}\tRequire all denied`,
+		`${nestedIndent}Require all denied`,
 		`${indent}</IfModule>`,
 		`${indent}<IfModule !mod_authz_core.c>`,
-		`${indent}\tOrder deny,allow`,
-		`${indent}\tDeny from all`,
+		`${nestedIndent}Order deny,allow`,
+		`${nestedIndent}Deny from all`,
 		`${indent}</IfModule>`,
 	];
 };
