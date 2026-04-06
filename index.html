@@ -371,6 +371,16 @@
 									</label>
 								</div>
 								<div class="hsts-sub-fields sub-options" id="hsts-sub-fields" hidden>
+									<div class="sub-fieldset">
+										<label class="sub-option-group-label" for="hstsMaxAge">max-age</label>
+										<select name="hstsMaxAge" id="hstsMaxAge" class="input-text">
+											<option value="300">300（5分・テスト用）</option>
+											<option value="86400">86400（1日）</option>
+											<option value="2592000">2592000（30日）</option>
+											<option value="31536000">31536000（1年）</option>
+											<option value="63072000" selected>63072000（2年・推奨）</option>
+										</select>
+									</div>
 									<label class="sub-option-label">
 										<input type="checkbox" name="hstsIncludeSubDomains" id="hstsIncludeSubDomains"
 											checked>
@@ -380,6 +390,7 @@
 										<input type="checkbox" name="hstsPreload" id="hstsPreload" checked>
 										<span>preload</span>
 									</label>
+									<p class="sub-options-hint" id="hsts-preload-warn" hidden aria-live="polite">preload には max-age 1年（31536000）以上が必要です</p>
 								</div>
 
 								<!-- CSP -->
@@ -620,6 +631,34 @@
 									<label class="sub-option-label">
 										<input type="checkbox" name="ppAccelerometer" id="ppAccelerometer" checked>
 										<span>accelerometer</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppFullscreen" id="ppFullscreen" checked>
+										<span>fullscreen</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppAutoplay" id="ppAutoplay">
+										<span>autoplay</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppClipboardRead" id="ppClipboardRead">
+										<span>clipboard-read</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppClipboardWrite" id="ppClipboardWrite">
+										<span>clipboard-write</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppPictureInPicture" id="ppPictureInPicture">
+										<span>picture-in-picture</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppScreenWakeLock" id="ppScreenWakeLock">
+										<span>screen-wake-lock</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="checkbox" name="ppWebShare" id="ppWebShare">
+										<span>web-share</span>
 									</label>
 									<div>
 										<label for="ppGeolocation">geolocation</label>

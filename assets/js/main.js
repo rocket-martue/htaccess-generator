@@ -72,9 +72,11 @@ const elMimeType = document.querySelector('[name="mimeType"]');
 
 // Headers
 const elHstsEnabled = document.querySelector('[name="hstsEnabled"]');
+const elHstsMaxAge = document.querySelector('[name="hstsMaxAge"]');
 const elHstsIncludeSubDomains = document.querySelector('[name="hstsIncludeSubDomains"]');
 const elHstsPreload = document.querySelector('[name="hstsPreload"]');
 const elHstsSubFields = document.querySelector('.hsts-sub-fields');
+const elHstsPreloadWarn = document.querySelector('#hsts-preload-warn');
 
 const elCspEnabled = document.querySelector('[name="cspEnabled"]');
 const elCspSubFields = document.querySelector('.csp-sub-fields');
@@ -118,6 +120,13 @@ const elPpUsb = document.querySelector('[name="ppUsb"]');
 const elPpGyroscope = document.querySelector('[name="ppGyroscope"]');
 const elPpMagnetometer = document.querySelector('[name="ppMagnetometer"]');
 const elPpAccelerometer = document.querySelector('[name="ppAccelerometer"]');
+const elPpFullscreen = document.querySelector('[name="ppFullscreen"]');
+const elPpAutoplay = document.querySelector('[name="ppAutoplay"]');
+const elPpClipboardRead = document.querySelector('[name="ppClipboardRead"]');
+const elPpClipboardWrite = document.querySelector('[name="ppClipboardWrite"]');
+const elPpPictureInPicture = document.querySelector('[name="ppPictureInPicture"]');
+const elPpScreenWakeLock = document.querySelector('[name="ppScreenWakeLock"]');
+const elPpWebShare = document.querySelector('[name="ppWebShare"]');
 const elPpGeolocation = document.querySelector('[name="ppGeolocation"]');
 const elPpSubFields = document.querySelector('.pp-sub-fields');
 
@@ -222,6 +231,7 @@ const getCurrentSettings = () => ({
 	},
 	headers: {
 		hstsEnabled: elHstsEnabled?.checked ?? false,
+		hstsMaxAge: elHstsMaxAge?.value ?? '63072000',
 		hstsIncludeSubDomains: elHstsIncludeSubDomains?.checked ?? true,
 		hstsPreload: elHstsPreload?.checked ?? true,
 
@@ -266,6 +276,13 @@ const getCurrentSettings = () => ({
 		ppGyroscope: elPpGyroscope?.checked ?? true,
 		ppMagnetometer: elPpMagnetometer?.checked ?? true,
 		ppAccelerometer: elPpAccelerometer?.checked ?? true,
+		ppFullscreen: elPpFullscreen?.checked ?? true,
+		ppAutoplay: elPpAutoplay?.checked ?? false,
+		ppClipboardRead: elPpClipboardRead?.checked ?? false,
+		ppClipboardWrite: elPpClipboardWrite?.checked ?? false,
+		ppPictureInPicture: elPpPictureInPicture?.checked ?? false,
+		ppScreenWakeLock: elPpScreenWakeLock?.checked ?? false,
+		ppWebShare: elPpWebShare?.checked ?? false,
 		ppGeolocation: elPpGeolocation?.value ?? 'deny',
 	},
 	wpAdmin: {
@@ -418,6 +435,7 @@ const applySettingsToForm = (settings) => {
 
 	// Headers
 	if (elHstsEnabled) elHstsEnabled.checked = settings.headers.hstsEnabled;
+	if (elHstsMaxAge) elHstsMaxAge.value = settings.headers.hstsMaxAge ?? '63072000';
 	if (elHstsIncludeSubDomains) elHstsIncludeSubDomains.checked = settings.headers.hstsIncludeSubDomains;
 	if (elHstsPreload) elHstsPreload.checked = settings.headers.hstsPreload;
 	if (elCspEnabled) elCspEnabled.checked = settings.headers.cspEnabled;
@@ -459,6 +477,13 @@ const applySettingsToForm = (settings) => {
 	if (elPpGyroscope) elPpGyroscope.checked = settings.headers.ppGyroscope;
 	if (elPpMagnetometer) elPpMagnetometer.checked = settings.headers.ppMagnetometer;
 	if (elPpAccelerometer) elPpAccelerometer.checked = settings.headers.ppAccelerometer;
+	if (elPpFullscreen) elPpFullscreen.checked = settings.headers.ppFullscreen ?? true;
+	if (elPpAutoplay) elPpAutoplay.checked = settings.headers.ppAutoplay ?? false;
+	if (elPpClipboardRead) elPpClipboardRead.checked = settings.headers.ppClipboardRead ?? false;
+	if (elPpClipboardWrite) elPpClipboardWrite.checked = settings.headers.ppClipboardWrite ?? false;
+	if (elPpPictureInPicture) elPpPictureInPicture.checked = settings.headers.ppPictureInPicture ?? false;
+	if (elPpScreenWakeLock) elPpScreenWakeLock.checked = settings.headers.ppScreenWakeLock ?? false;
+	if (elPpWebShare) elPpWebShare.checked = settings.headers.ppWebShare ?? false;
 	if (elPpGeolocation) elPpGeolocation.value = settings.headers.ppGeolocation;
 
 	// wp-admin
@@ -559,6 +584,13 @@ const updateConditionalFields = () => {
 		if (!includeSubEnabled) {
 			elHstsPreload.checked = false;
 		}
+	}
+
+	// preload ON かつ max-age < 31536000 の場合は警告表示
+	if (elHstsPreloadWarn) {
+		const preloadOn = elHstsPreload?.checked ?? false;
+		const maxAge = Number(elHstsMaxAge?.value ?? 63072000);
+		elHstsPreloadWarn.hidden = !(preloadOn && maxAge < 31536000);
 	}
 
 	// CSP サブオプション

@@ -430,7 +430,7 @@ const buildHeadersSection = (headers) => {
 
 	// HSTS
 	if (headers.hstsEnabled) {
-		const hstsParts = ['max-age=63072000'];
+		const hstsParts = [`max-age=${headers.hstsMaxAge ?? 63072000}`];
 		if (headers.hstsIncludeSubDomains) {
 			hstsParts.push('includeSubDomains');
 		}
@@ -559,6 +559,13 @@ const buildHeadersSection = (headers) => {
 		if (headers.ppGyroscope) ppFeatures.push('gyroscope=()');
 		if (headers.ppMagnetometer) ppFeatures.push('magnetometer=()');
 		if (headers.ppAccelerometer) ppFeatures.push('accelerometer=()');
+		if (headers.ppFullscreen) ppFeatures.push('fullscreen=()');
+		if (headers.ppAutoplay) ppFeatures.push('autoplay=()');
+		if (headers.ppClipboardRead) ppFeatures.push('clipboard-read=()');
+		if (headers.ppClipboardWrite) ppFeatures.push('clipboard-write=()');
+		if (headers.ppPictureInPicture) ppFeatures.push('picture-in-picture=()');
+		if (headers.ppScreenWakeLock) ppFeatures.push('screen-wake-lock=()');
+		if (headers.ppWebShare) ppFeatures.push('web-share=()');
 		if (headers.ppGeolocation === 'deny' || headers.ppGeolocation === true) {
 			ppFeatures.push('geolocation=()');
 		} else if (headers.ppGeolocation === 'google-maps') {
