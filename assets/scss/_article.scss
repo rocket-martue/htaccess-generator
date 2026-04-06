@@ -140,6 +140,39 @@
 	}
 }
 
+// ── ライセンス表示 ──
+
+.license-notice {
+	margin-top: 2em;
+	padding-top: 1.5em;
+	border-top: 1px solid var(--border-color);
+
+	> div {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75em;
+	}
+
+	img {
+		flex-shrink: 0;
+		display: block;
+	}
+
+	p {
+		margin: 0.25em 0;
+		font-size: var(--font-size-sm);
+		color: var(--text-muted);
+
+		a {
+			color: var(--accent-solid);
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
 // ── 戻るリンク ──
 
 .article-back {

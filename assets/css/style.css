@@ -1198,6 +1198,38 @@ hr {
   background: rgba(120, 180, 255, 0.04);
 }
 
+.license-notice {
+  margin-top: 2em;
+  padding-top: 1.5em;
+  border-top: 1px solid var(--border-color);
+}
+.license-notice > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.75em;
+}
+.license-notice img {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  display: block;
+}
+.license-notice p {
+  margin: 0.25em 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+.license-notice p a {
+  color: var(--accent-solid);
+}
+.license-notice p a:hover {
+  text-decoration: underline;
+}
+
 .article-back {
   margin-top: 2em;
   padding-top: 1.5em;
