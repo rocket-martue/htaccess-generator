@@ -745,8 +745,10 @@ const initEvents = () => {
 		ppCheckboxEls.some((el) => el?.checked) || ((elPpGeolocation?.value ?? 'off') !== 'off');
 	elPermissionsPolicy?.addEventListener('change', () => {
 		if (elPermissionsPolicy.checked) {
-			ppCheckboxEls.forEach((el) => { if (el) el.checked = true; });
-			if (elPpGeolocation) elPpGeolocation.value = 'deny';
+			ppCheckboxEls.forEach((el) => {
+				if (el) el.checked = DEFAULT_SETTINGS.headers[el.name] ?? true;
+			});
+			if (elPpGeolocation) elPpGeolocation.value = DEFAULT_SETTINGS.headers.ppGeolocation ?? 'deny';
 			updatePreview();
 		}
 	});
