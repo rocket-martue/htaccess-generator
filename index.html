@@ -334,16 +334,15 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="httpsRedirect">HTTPS リダイレクト</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="httpsRedirect" id="httpsRedirect">
+										<input type="checkbox" name="httpsRedirect" id="httpsRedirect"
+											aria-expanded="false" aria-controls="https-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
-								<div class="toggle-row">
-									<label class="toggle-label" for="xForwardedProto">X-Forwarded-Proto
-										判定（リバースプロキシ対応）</label>
-									<label class="toggle-switch">
+								<div class="sub-options" id="https-sub-fields" hidden>
+									<label class="sub-option-label">
 										<input type="checkbox" name="xForwardedProto" id="xForwardedProto">
-										<span class="toggle-track" aria-hidden="true"></span>
+										<span>X-Forwarded-Proto 判定（リバースプロキシ対応）</span>
 									</label>
 								</div>
 								<div class="toggle-row">

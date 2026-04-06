@@ -57,6 +57,7 @@ const elBlockBackdoors = document.querySelector('[name="blockBackdoors"]');
 const elBlockWpNesting = document.querySelector('[name="blockWpNesting"]');
 const elBlockWpIncludesDir = document.querySelector('[name="blockWpIncludesDir"]');
 const elHttpsRedirect = document.querySelector('[name="httpsRedirect"]');
+const elHttpsSubFields = document.querySelector('#https-sub-fields');
 const elXForwardedProto = document.querySelector('[name="xForwardedProto"]');
 const elBlockBadQuery = document.querySelector('[name="blockBadQuery"]');
 
@@ -514,6 +515,19 @@ const updateConditionalFields = () => {
 	}
 	if (elIpBlockHint) {
 		elIpBlockHint.hidden = !(elIpBlockEnabled?.checked && !elIpBlockList?.value?.trim());
+	}
+
+	// HTTPS リダイレクト サブフィールド
+	if (elHttpsSubFields) {
+		const httpsVisible = elHttpsRedirect?.checked ?? false;
+		elHttpsSubFields.hidden = !httpsVisible;
+		elHttpsRedirect?.setAttribute('aria-expanded', String(httpsVisible));
+		if (elXForwardedProto) {
+			elXForwardedProto.disabled = !httpsVisible;
+			if (!httpsVisible) {
+				elXForwardedProto.checked = false;
+			}
+		}
 	}
 
 	// ボットブロック サブフィールド
