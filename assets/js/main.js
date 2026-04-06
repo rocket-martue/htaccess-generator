@@ -526,12 +526,16 @@ const updateConditionalFields = () => {
 
 	// 危険拡張子 サブフィールド
 	if (elDangerousExtFields) {
-		elDangerousExtFields.hidden = !elBlockDangerousExt?.checked;
+		const dangerousExtVisible = elBlockDangerousExt?.checked ?? false;
+		elDangerousExtFields.hidden = !dangerousExtVisible;
+		elBlockDangerousExt?.setAttribute('aria-expanded', String(dangerousExtVisible));
 	}
 
 	// 不正クエリ サブフィールド
 	if (elBadQueryFields) {
-		elBadQueryFields.hidden = !elBlockBadQuery?.checked;
+		const badQueryVisible = elBlockBadQuery?.checked ?? false;
+		elBadQueryFields.hidden = !badQueryVisible;
+		elBlockBadQuery?.setAttribute('aria-expanded', String(badQueryVisible));
 	}
 
 	// ボットブロック サブフィールド

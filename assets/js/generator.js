@@ -152,7 +152,7 @@ const buildFileProtectionSection = (fileProtection) => {
 	if (fileProtection.blockDangerousExt) {
 		const rawExts = (fileProtection.blockDangerousExtList ?? '.inc\n.log\n.sh\n.sql')
 			.split('\n')
-			.map((e) => e.trim().replace(/^\./, ''))
+			.map((e) => e.trim().replace(/^\.+/, ''))
 			.filter((e) => /^[a-zA-Z0-9_-]+$/.test(e));
 		const extPattern = rawExts.length > 0
 			? rawExts.join('|')
