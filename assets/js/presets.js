@@ -9,6 +9,7 @@
  * デフォルト設定（全オプション OFF の初期状態）
  */
 export const DEFAULT_SETTINGS = {
+	apacheVersion: 'both',
 	options: {
 		disableMultiviews: false,
 		disableIndexes: false,

@@ -101,6 +101,29 @@
 							<div class="preset-group" role="group" aria-label="プリセット選択"></div>
 						</section>
 
+						<!-- 対象 Apache バージョン -->
+						<section class="card" aria-label="対象 Apache バージョン">
+							<h2 class="section-title">対象 Apache バージョン</h2>
+							<div class="form-group">
+								<fieldset class="sub-fieldset">
+									<legend class="sub-legend">対象 Apache バージョン</legend>
+									<label class="sub-option-label">
+										<input type="radio" name="apacheVersion" value="both" checked>
+										<span>アクセス制御ディレクティブを Apache 2.2 / 2.4 互換形式で出力（デフォルト）</span>
+									</label>
+									<label class="sub-option-label">
+										<input type="radio" name="apacheVersion" value="2.4">
+										<span>アクセス制御ディレクティブを Apache 2.4 形式で出力（シンプル）</span>
+									</label>
+									<p class="sub-options-hint">
+										⚠️ この切り替えで変わるのは主にアクセス制御ディレクティブの出力形式のみです。
+										生成される .htaccess 全体が Apache 2.2 互換になるわけではありません。
+										Apache 2.2 環境では、他の Apache 2.4 専用ディレクティブにより 500 エラーが発生する場合があります。
+									</p>
+								</fieldset>
+							</div>
+						</section>
+
 						<!-- Options & ErrorDocument -->
 						<section class="card" aria-label="Options と ErrorDocument">
 							<h2 class="section-title">Options & ErrorDocument</h2>
