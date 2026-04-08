@@ -529,11 +529,15 @@ const buildHeadersSection = (headers) => {
 			const adminCspParts = headers.cspReportOnly ? [] : ['upgrade-insecure-requests'];
 			if (defaultSrc) adminCspParts.push(`default-src ${defaultSrc}`);
 
+			// 'none' は他のソースと併用不可のため、unsafe-* を付与するベース値として使用できない。
+			// 'none' が指定されている場合は 'self' に置き換えて unsafe-* を付与する。
+			const resolveAdminBase = (base) => (sanitize(base).trim() === "'none'" ? "'self'" : base);
+
 			const adminScriptBase = headers.cspScriptSrcEnabled
 				? (headers.cspScriptSrcValue || "'self'")
 				: (headers.cspDefaultSrcEnabled ? (headers.cspDefaultSrcValue || "'self' https:") : null);
 			if (adminScriptBase !== null) {
-				const adminScriptSrc = buildSrc(true, adminScriptBase, ["'unsafe-inline'", "'unsafe-eval'"]);
+				const adminScriptSrc = buildSrc(true, resolveAdminBase(adminScriptBase), ["'unsafe-inline'", "'unsafe-eval'"]);
 				if (adminScriptSrc) adminCspParts.push(`script-src ${adminScriptSrc}`);
 			}
 
@@ -541,7 +545,7 @@ const buildHeadersSection = (headers) => {
 				? (headers.cspStyleSrcValue || "'self'")
 				: (headers.cspDefaultSrcEnabled ? (headers.cspDefaultSrcValue || "'self' https:") : null);
 			if (adminStyleBase !== null) {
-				const adminStyleSrc = buildSrc(true, adminStyleBase, ["'unsafe-inline'"]);
+				const adminStyleSrc = buildSrc(true, resolveAdminBase(adminStyleBase), ["'unsafe-inline'"]);
 				if (adminStyleSrc) adminCspParts.push(`style-src ${adminStyleSrc}`);
 			}
 
