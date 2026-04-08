@@ -371,7 +371,7 @@ img-src 'self' data:</code></pre>
     Header always set Content-Security-Policy "upgrade-insecure-requests; default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'self'"
 &lt;/If&gt;</code></pre>
 
-						<p>管理画面側の CSP はユーザーが選択したディレクティブをベースに動的生成される。<code>script-src</code> / <code>style-src</code> には自動的に <code>'unsafe-inline'</code> / <code>'unsafe-eval'</code> が付与され、Gutenberg ブロックエディターやコアの管理画面が正常動作する。</p>
+						<p>管理画面側の CSP はユーザーが選択したディレクティブをベースに動的生成される。<code>script-src</code> には自動的に <code>'unsafe-inline'</code> と <code>'unsafe-eval'</code> が、<code>style-src</code> には <code>'unsafe-inline'</code> のみが付与され、Gutenberg ブロックエディターやコアの管理画面が正常動作する。</p>
 
 						<blockquote>
 							<p><code>script-src</code> / <code>style-src</code> を有効にしていない場合でも、<code>default-src</code> が有効なら管理画面 CSP はその値を継承して <code>script-src</code> / <code>style-src</code> を明示的に追加する。</p>

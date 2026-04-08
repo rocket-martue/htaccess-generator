@@ -523,7 +523,7 @@ const buildHeadersSection = (headers) => {
 			const cspHeaderName = headers.cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy';
 
 			// 管理画面 CSP: フロント CSP と同じディレクティブ構成をベースに、
-			// script-src / style-src に 'unsafe-inline' / 'unsafe-eval' を追加して生成する。
+			// script-src には 'unsafe-inline' / 'unsafe-eval' を、style-src には 'unsafe-inline' のみを追加して生成する。
 			// script-src / style-src が未選択でも default-src が有効な場合は、
 			// default-src の値を継承して明示的に上書きし、wp-admin が正常動作するようにする。
 			const adminCspParts = headers.cspReportOnly ? [] : ['upgrade-insecure-requests'];
