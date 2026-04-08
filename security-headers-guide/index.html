@@ -303,13 +303,12 @@
 									</tr>
 									<tr>
 										<td><code>script-src</code></td>
-										<td>JavaScript の読み込み元。<code>'unsafe-inline'</code> / <code>'unsafe-eval'</code>
-											を個別に追加可能</td>
+										<td>JavaScript の読み込み元</td>
 										<td><code>'self'</code></td>
 									</tr>
 									<tr>
 										<td><code>style-src</code></td>
-										<td>CSS の読み込み元。<code>'unsafe-inline'</code> を追加可能</td>
+										<td>CSS の読み込み元</td>
 										<td><code>'self'</code></td>
 									</tr>
 									<tr>
@@ -342,12 +341,8 @@
 						</div>
 
 						<h3>WordPress 固有の注意点</h3>
-						<p>WordPress はコアと多くのプラグインがインラインスクリプトを使用するため、<code>script-src</code> に
-							<code>'unsafe-inline'</code> が必要になるケースが多い。さらに Gutenberg ブロックエディターは <code>eval()</code> を使うため
-							<code>'unsafe-eval'</code> も必要になる場合がある。同様にインラインスタイルを多用するプラグインでは
-							<code>style-src 'unsafe-inline'</code> も必要になる。
-						</p>
-						<p>CSP を厳格化（unsafe-* を除去）したい場合は nonce ベースの実装が推奨されるが、多くのプラグインとの互換性を維持するのは難しいため、段階的な導入が現実的。</p>
+						<p>WordPress のコアや Gutenberg ブロックエディター、管理画面プラグインは多数のインラインスクリプト・インラインスタイルや <code>eval()</code> を使用するため、wp-admin では <code>'unsafe-inline'</code> / <code>'unsafe-eval'</code> が必要になる。</p>
+						<p>ジェネレーターは CSP 有効時に wp-admin / wp-login.php とフロントエンドを自動的に分岐出力する。フロントエンドは <code>unsafe-*</code> なしで厳格化しつつ、管理画面には必要な <code>unsafe-*</code> を付与した CSP を別途適用するため、両立が可能。</p>
 
 						<h3>img-src と OG image の落とし穴</h3>
 						<p><code>img-src</code> を明示すると <code>default-src</code> のフォールバックが効かなくなる。以下のミスに注意する。</p>
@@ -376,13 +371,10 @@ img-src 'self' data:</code></pre>
     Header always set Content-Security-Policy "upgrade-insecure-requests; default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'self'"
 &lt;/If&gt;</code></pre>
 
-						<p>管理画面側の CSP はハードコードの固定値で、<code>'unsafe-inline'</code> と <code>'unsafe-eval'</code>
-							が許可されている。Gutenberg ブロックエディターやコアの管理画面は多数のインラインスクリプトと <code>eval()</code>
-							を使うため、これらなしでは管理画面が動作しない。</p>
+						<p>管理画面側の CSP はユーザーが選択したディレクティブをベースに動的生成される。<code>script-src</code> / <code>style-src</code> には自動的に <code>'unsafe-inline'</code> / <code>'unsafe-eval'</code> が付与され、Gutenberg ブロックエディターやコアの管理画面が正常動作する。</p>
 
 						<blockquote>
-							<p>フロントエンド側の CSP を変更しても管理画面側の CSP は固定値のまま変わらない。管理画面の動作を最優先にしつつ、フロントエンドのみ CSP を厳格化するための設計。
-							</p>
+							<p><code>script-src</code> / <code>style-src</code> を有効にしていない場合でも、<code>default-src</code> が有効なら管理画面 CSP はその値を継承して <code>script-src</code> / <code>style-src</code> を明示的に追加する。</p>
 						</blockquote>
 
 						<h3>Report-Only モード</h3>
