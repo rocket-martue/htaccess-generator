@@ -31,12 +31,6 @@ const BAD_QUERY_PARAMS = [
 /** X-Frame-Options の許可値 */
 const VALID_XFO_VALUES = ['SAMEORIGIN', 'DENY'];
 
-/**
- * wp-admin 向け CSP（Gutenberg・管理画面プラグイン対応）
- * 'unsafe-inline' / 'unsafe-eval' を必要とするためフロントエンド CSP とは別にハードコードで管理する。
- * フロントエンド側の CSP を変更しても、こちらは意図的に固定値を維持する。
- */
-const ADMIN_CSP = "upgrade-insecure-requests; default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'self'";
 
 /** Referrer-Policy の許可値 */
 const VALID_RP_VALUES = [
@@ -492,15 +486,10 @@ const buildHeadersSection = (headers) => {
 		const defaultSrc = buildSrc(headers.cspDefaultSrcEnabled, headers.cspDefaultSrcValue || "'self' https:");
 		if (defaultSrc) cspParts.push(`default-src ${defaultSrc}`);
 
-		const scriptExtras = [
-			headers.cspScriptUnsafeInline ? "'unsafe-inline'" : null,
-			headers.cspScriptUnsafeEval ? "'unsafe-eval'" : null,
-		];
-		const scriptSrc = buildSrc(headers.cspScriptSrcEnabled, headers.cspScriptSrcValue || "'self'", scriptExtras);
+		const scriptSrc = buildSrc(headers.cspScriptSrcEnabled, headers.cspScriptSrcValue || "'self'");
 		if (scriptSrc) cspParts.push(`script-src ${scriptSrc}`);
 
-		const styleExtras = [headers.cspStyleUnsafeInline ? "'unsafe-inline'" : null];
-		const styleSrc = buildSrc(headers.cspStyleSrcEnabled, headers.cspStyleSrcValue || "'self'", styleExtras);
+		const styleSrc = buildSrc(headers.cspStyleSrcEnabled, headers.cspStyleSrcValue || "'self'");
 		if (styleSrc) cspParts.push(`style-src ${styleSrc}`);
 
 		const imgSrc = buildSrc(headers.cspImgSrcEnabled, headers.cspImgSrcValue || "'self' data: https:");
@@ -531,23 +520,45 @@ const buildHeadersSection = (headers) => {
 			directives.push('');
 			directives.push('\t# CSP');
 
-			if (headers.cspScriptSrcEnabled && !headers.cspScriptUnsafeEval) {
-				directives.push("\t# ページビルダー等のプラグインで 'unsafe-eval' が必要な場合は、ツールの script-src \"unsafe-eval を許可\" オプションを有効化してください");
+			const cspHeaderName = headers.cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy';
+
+			// 管理画面 CSP: フロント CSP と同じディレクティブ構成をベースに、
+			// script-src / style-src に 'unsafe-inline' / 'unsafe-eval' を追加して生成する。
+			// script-src / style-src が未選択でも default-src が有効な場合は、
+			// default-src の値を継承して明示的に上書きし、wp-admin が正常動作するようにする。
+			const adminCspParts = headers.cspReportOnly ? [] : ['upgrade-insecure-requests'];
+			if (defaultSrc) adminCspParts.push(`default-src ${defaultSrc}`);
+
+			const adminScriptBase = headers.cspScriptSrcEnabled
+				? (headers.cspScriptSrcValue || "'self'")
+				: (headers.cspDefaultSrcEnabled ? (headers.cspDefaultSrcValue || "'self' https:") : null);
+			if (adminScriptBase !== null) {
+				const adminScriptSrc = buildSrc(true, adminScriptBase, ["'unsafe-inline'", "'unsafe-eval'"]);
+				if (adminScriptSrc) adminCspParts.push(`script-src ${adminScriptSrc}`);
 			}
 
-			const cspHeaderName = headers.cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy';
-			// Report-Only 時は ADMIN_CSP からも upgrade-insecure-requests を除外する（正規表現で堅牢に除去）
-			const adminCspValue = headers.cspReportOnly ? ADMIN_CSP.replace(/upgrade-insecure-requests;\s*/g, '') : ADMIN_CSP;
-			if (headers.cspAdminSplit) {
-				directives.push(`\t<If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
-				directives.push(`\t\tHeader always set ${cspHeaderName} "${cspValue}"`);
-				directives.push('\t</If>');
-				directives.push(`\t<If "%{REQUEST_URI} =~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
-				directives.push(`\t\tHeader always set ${cspHeaderName} "${adminCspValue}"`);
-				directives.push('\t</If>');
-			} else {
-				directives.push(`\tHeader always set ${cspHeaderName} "${cspValue}"`);
+			const adminStyleBase = headers.cspStyleSrcEnabled
+				? (headers.cspStyleSrcValue || "'self'")
+				: (headers.cspDefaultSrcEnabled ? (headers.cspDefaultSrcValue || "'self' https:") : null);
+			if (adminStyleBase !== null) {
+				const adminStyleSrc = buildSrc(true, adminStyleBase, ["'unsafe-inline'"]);
+				if (adminStyleSrc) adminCspParts.push(`style-src ${adminStyleSrc}`);
 			}
+
+			if (imgSrc) adminCspParts.push(`img-src ${imgSrc}`);
+			if (fontSrc) adminCspParts.push(`font-src ${fontSrc}`);
+			if (connectSrc) adminCspParts.push(`connect-src ${connectSrc}`);
+			if (frameSrc) adminCspParts.push(`frame-src ${frameSrc}`);
+			if (frameAncestors) adminCspParts.push(`frame-ancestors ${frameAncestors}`);
+
+			const adminCspValue = adminCspParts.join('; ');
+
+			directives.push(`\t<If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
+			directives.push(`\t\tHeader always set ${cspHeaderName} "${cspValue}"`);
+			directives.push('\t</If>');
+			directives.push(`\t<If "%{REQUEST_URI} =~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
+			directives.push(`\t\tHeader always set ${cspHeaderName} "${adminCspValue}"`);
+			directives.push('\t</If>');
 		}
 	}
 

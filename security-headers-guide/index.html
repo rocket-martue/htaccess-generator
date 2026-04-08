@@ -364,7 +364,7 @@ img-src 'self' data:</code></pre>
 						</blockquote>
 
 						<h3>管理画面用 CSP 分岐（WordPress）</h3>
-						<p>ジェネレーターの「管理画面用 CSP を分岐」オプションを有効にすると、フロントエンドと wp-admin / wp-login.php で異なる CSP を出力する。</p>
+						<p>ジェネレーターで CSP を有効にすると、フロントエンドと wp-admin / wp-login.php で自動的に異なる CSP を出力する。フロントエンドは script-src / style-src から unsafe-* を除外し、wp-admin にはあらかじめ unsafe-inline / unsafe-eval を許可した CSP が適用される。</p>
 
 						<pre class="article-code"><code># フロントエンド（wp-admin・wp-login.php 以外）
 &lt;If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\.php)#"&gt;
