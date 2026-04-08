@@ -89,11 +89,8 @@ const elCspDefaultSrcEnabled = document.querySelector('[name="cspDefaultSrcEnabl
 const elCspDefaultSrcValue = document.querySelector('[name="cspDefaultSrcValue"]');
 const elCspScriptSrcEnabled = document.querySelector('[name="cspScriptSrcEnabled"]');
 const elCspScriptSrcValue = document.querySelector('[name="cspScriptSrcValue"]');
-const elCspScriptUnsafeInline = document.querySelector('[name="cspScriptUnsafeInline"]');
-const elCspScriptUnsafeEval = document.querySelector('[name="cspScriptUnsafeEval"]');
 const elCspStyleSrcEnabled = document.querySelector('[name="cspStyleSrcEnabled"]');
 const elCspStyleSrcValue = document.querySelector('[name="cspStyleSrcValue"]');
-const elCspStyleUnsafeInline = document.querySelector('[name="cspStyleUnsafeInline"]');
 const elCspImgSrcEnabled = document.querySelector('[name="cspImgSrcEnabled"]');
 const elCspImgSrcValue = document.querySelector('[name="cspImgSrcValue"]');
 const elCspFontSrcEnabled = document.querySelector('[name="cspFontSrcEnabled"]');
@@ -106,7 +103,6 @@ const elCspFrameSrcYoutube = document.querySelector('[name="cspFrameSrcYoutube"]
 const elCspFrameSrcGoogleMaps = document.querySelector('[name="cspFrameSrcGoogleMaps"]');
 const elCspFrameAncestorsEnabled = document.querySelector('[name="cspFrameAncestorsEnabled"]');
 const elCspFrameAncestorsValue = document.querySelector('[name="cspFrameAncestorsValue"]');
-const elCspAdminSplit = document.querySelector('[name="cspAdminSplit"]');
 const elCspReportOnly = document.querySelector('[name="cspReportOnly"]');
 
 const elXContentType = document.querySelector('[name="xContentType"]');
@@ -251,11 +247,8 @@ const getCurrentSettings = () => ({
 		cspDefaultSrcValue: elCspDefaultSrcValue?.value.trim() ?? '',
 		cspScriptSrcEnabled: elCspScriptSrcEnabled?.checked ?? false,
 		cspScriptSrcValue: elCspScriptSrcValue?.value.trim() ?? '',
-		cspScriptUnsafeInline: elCspScriptUnsafeInline?.checked ?? false,
-		cspScriptUnsafeEval: elCspScriptUnsafeEval?.checked ?? false,
 		cspStyleSrcEnabled: elCspStyleSrcEnabled?.checked ?? false,
 		cspStyleSrcValue: elCspStyleSrcValue?.value.trim() ?? '',
-		cspStyleUnsafeInline: elCspStyleUnsafeInline?.checked ?? false,
 		cspImgSrcEnabled: elCspImgSrcEnabled?.checked ?? false,
 		cspImgSrcValue: elCspImgSrcValue?.value.trim() ?? '',
 		cspFontSrcEnabled: elCspFontSrcEnabled?.checked ?? false,
@@ -268,7 +261,6 @@ const getCurrentSettings = () => ({
 		cspFrameSrcGoogleMaps: elCspFrameSrcGoogleMaps?.checked ?? false,
 		cspFrameAncestorsEnabled: elCspFrameAncestorsEnabled?.checked ?? false,
 		cspFrameAncestorsValue: elCspFrameAncestorsValue?.value.trim() ?? '',
-		cspAdminSplit: elCspAdminSplit?.checked ?? false,
 		cspReportOnly: elCspReportOnly?.checked ?? false,
 
 		xContentType: elXContentType?.checked ?? false,
@@ -466,11 +458,8 @@ const applySettingsToForm = (settings) => {
 	if (elCspDefaultSrcValue) elCspDefaultSrcValue.value = settings.headers.cspDefaultSrcValue;
 	if (elCspScriptSrcEnabled) elCspScriptSrcEnabled.checked = settings.headers.cspScriptSrcEnabled;
 	if (elCspScriptSrcValue) elCspScriptSrcValue.value = settings.headers.cspScriptSrcValue;
-	if (elCspScriptUnsafeInline) elCspScriptUnsafeInline.checked = settings.headers.cspScriptUnsafeInline;
-	if (elCspScriptUnsafeEval) elCspScriptUnsafeEval.checked = settings.headers.cspScriptUnsafeEval;
 	if (elCspStyleSrcEnabled) elCspStyleSrcEnabled.checked = settings.headers.cspStyleSrcEnabled;
 	if (elCspStyleSrcValue) elCspStyleSrcValue.value = settings.headers.cspStyleSrcValue;
-	if (elCspStyleUnsafeInline) elCspStyleUnsafeInline.checked = settings.headers.cspStyleUnsafeInline;
 	if (elCspImgSrcEnabled) elCspImgSrcEnabled.checked = settings.headers.cspImgSrcEnabled;
 	if (elCspImgSrcValue) elCspImgSrcValue.value = settings.headers.cspImgSrcValue;
 	if (elCspFontSrcEnabled) elCspFontSrcEnabled.checked = settings.headers.cspFontSrcEnabled;
@@ -483,7 +472,6 @@ const applySettingsToForm = (settings) => {
 	if (elCspFrameSrcGoogleMaps) elCspFrameSrcGoogleMaps.checked = settings.headers.cspFrameSrcGoogleMaps;
 	if (elCspFrameAncestorsEnabled) elCspFrameAncestorsEnabled.checked = settings.headers.cspFrameAncestorsEnabled;
 	if (elCspFrameAncestorsValue) elCspFrameAncestorsValue.value = settings.headers.cspFrameAncestorsValue;
-	if (elCspAdminSplit) elCspAdminSplit.checked = settings.headers.cspAdminSplit;
 	if (elCspReportOnly) elCspReportOnly.checked = settings.headers.cspReportOnly;
 	if (elXContentType) elXContentType.checked = settings.headers.xContentType;
 	if (elXFrameOptions) elXFrameOptions.checked = settings.headers.xFrameOptions;

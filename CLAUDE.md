@@ -93,13 +93,16 @@ console.log('sha256-' + crypto.createHash('sha256').update(script, 'utf8').diges
 | `# BEGIN WordPress` ブロック | 生成しない | WordPress が自動生成するため |
 | `style.css` の直接編集 | 禁止 | SCSS コンパイル済みファイルのため `assets/scss/` を編集する |
 | `# BEGIN/END HtaccessGenerator` マーカー | ルート .htaccess のみ出力 | WordPress の BEGIN/END ブロックと共存できるよう範囲を明示するため |
-| CSP Report-Only 時の `upgrade-insecure-requests` | 除外 | アクション指示のため Report-Only ヘッダーに含めても無視される。ADMIN_CSP も同様に除外する |
+| CSP Report-Only 時の `upgrade-insecure-requests` | 除外 | アクション指示のため Report-Only ヘッダーに含めても無視される。管理画面 CSP も同様に除外する |
+| 管理画面 CSP（wp-admin / wp-login.php） | フロント CSP と同じディレクティブ構成をベースに `script-src` へ `'unsafe-inline'` / `'unsafe-eval'`、`style-src` へ `'unsafe-inline'` を追加して動的生成 | ハードコード定数を廃止し、ユーザー設定を反映しつつ wp-admin の動作に必要な unsafe-* を保証するため |
 
 ---
 
 ## 作業フロー
 
 - **修正・機能追加が必要な場合は、まず GitHub Issue をたてる**（直接コミットしない）
+
+GitHub MCP を使用する
 
 ---
 
