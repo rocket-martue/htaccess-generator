@@ -108,12 +108,12 @@
 								<fieldset class="sub-fieldset">
 									<legend class="sub-legend">対象 Apache バージョン</legend>
 									<label class="sub-option-label">
-										<input type="radio" name="apacheVersion" value="both">
-										<span>アクセス制御ディレクティブを Apache 2.2 / 2.4 互換形式で出力</span>
+										<input type="radio" name="apacheVersion" value="2.4" checked>
+										<span>アクセス制御ディレクティブを Apache 2.4 形式で出力</span>
 									</label>
 									<label class="sub-option-label">
-										<input type="radio" name="apacheVersion" value="2.4" checked>
-										<span>アクセス制御ディレクティブを Apache 2.4 形式で出力（デフォルト）</span>
+										<input type="radio" name="apacheVersion" value="both">
+										<span>アクセス制御ディレクティブを Apache 2.2 / 2.4 互換形式で出力</span>
 									</label>
 									<p class="sub-options-hint">
 										⚠️ この切り替えで変わるのは主にアクセス制御ディレクティブの出力形式のみです。
@@ -195,8 +195,8 @@
 									<div class="input-group">
 										<label for="blockDangerousExtList" class="input-label">ブロックする拡張子（1行に1つ）</label>
 										<textarea name="blockDangerousExtList" id="blockDangerousExtList"
-											class="input-textarea" rows="4"
-											placeholder=".inc&#10;.log&#10;.sh&#10;.sql" spellcheck="false">.inc
+											class="input-textarea" rows="4" placeholder=".inc&#10;.log&#10;.sh&#10;.sql"
+											spellcheck="false">.inc
 .log
 .sh
 .sql</textarea>
@@ -390,8 +390,8 @@
 								<div class="bad-query-fields sub-options" id="bad-query-fields" hidden>
 									<div class="input-group">
 										<label for="badQueryParams" class="input-label">ブロックするパラメータ名（1行に1つ）</label>
-										<textarea name="badQueryParams" id="badQueryParams" class="input-textarea" rows="3"
-											placeholder="w" spellcheck="false">w</textarea>
+										<textarea name="badQueryParams" id="badQueryParams" class="input-textarea"
+											rows="3" placeholder="w" spellcheck="false">w</textarea>
 									</div>
 								</div>
 							</div>
@@ -431,7 +431,8 @@
 										<input type="checkbox" name="hstsPreload" id="hstsPreload" checked>
 										<span>preload</span>
 									</label>
-									<p class="sub-options-hint" id="hsts-preload-warn" hidden aria-live="polite">preload には max-age 1年（31536000）以上が必要です</p>
+									<p class="sub-options-hint" id="hsts-preload-warn" hidden aria-live="polite">preload
+										には max-age 1年（31536000）以上が必要です</p>
 								</div>
 
 								<!-- CSP -->
@@ -444,7 +445,8 @@
 									</label>
 								</div>
 								<div class="csp-sub-fields sub-options" id="csp-sub-fields" hidden>
-									<p class="sub-options-hint">Report-Only モード以外では upgrade-insecure-requests が常に含まれます</p>
+									<p class="sub-options-hint">Report-Only モード以外では upgrade-insecure-requests が常に含まれます
+									</p>
 									<!-- default-src -->
 									<div class="csp-directive-row">
 										<label class="sub-option-label">
@@ -532,7 +534,8 @@
 											Report-Only モード（テスト用）
 										</label>
 									</div>
-									<p class="sub-options-hint"><code>Content-Security-Policy-Report-Only</code> を出力。<code>upgrade-insecure-requests</code> は除外されます。</p>
+									<p class="sub-options-hint"><code>Content-Security-Policy-Report-Only</code>
+										を出力。<code>upgrade-insecure-requests</code> は除外されます。</p>
 								</div>
 
 								<!-- X-Content-Type-Options -->
@@ -847,8 +850,8 @@
 								<div class="toggle-row">
 									<label class="toggle-label" for="cacheControl">Cache-Control ヘッダー</label>
 									<label class="toggle-switch">
-										<input type="checkbox" name="cacheControl" id="cacheControl" aria-expanded="false"
-											aria-controls="cache-control-sub-fields">
+										<input type="checkbox" name="cacheControl" id="cacheControl"
+											aria-expanded="false" aria-controls="cache-control-sub-fields">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
