@@ -445,8 +445,14 @@
 									</label>
 								</div>
 								<div class="csp-sub-fields sub-options" id="csp-sub-fields" hidden>
-									<p class="sub-options-hint">Report-Only モード以外では upgrade-insecure-requests が常に含まれます
-									</p>
+									<!-- Report-Only モード -->
+									<div class="csp-directive-row">
+										<label class="sub-option-label">
+											<input type="checkbox" name="cspReportOnly" id="cspReportOnly">
+											Report-Only モード（テスト用）
+										</label>
+									</div>
+									<p class="sub-options-hint"><code>Content-Security-Policy-Report-Only</code> を出力。<code>upgrade-insecure-requests</code> は除外されます。Report-Only モード以外では常に含まれます。</p>
 									<!-- default-src -->
 									<div class="csp-directive-row">
 										<label class="sub-option-label">
@@ -527,15 +533,6 @@
 										<input type="text" class="input-text" name="cspFrameAncestorsValue"
 											placeholder="'self'">
 									</div>
-									<!-- Report-Only モード -->
-									<div class="csp-directive-row">
-										<label class="sub-option-label">
-											<input type="checkbox" name="cspReportOnly" id="cspReportOnly">
-											Report-Only モード（テスト用）
-										</label>
-									</div>
-									<p class="sub-options-hint"><code>Content-Security-Policy-Report-Only</code>
-										を出力。<code>upgrade-insecure-requests</code> は除外されます。</p>
 								</div>
 
 								<!-- X-Content-Type-Options -->
