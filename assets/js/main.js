@@ -170,7 +170,7 @@ let generatedUploads = [];
 // ─── 設定値の取得 ─────────────────────────────────────────────────
 
 const getCurrentSettings = () => ({
-	apacheVersion: document.querySelector('[name="apacheVersion"]:checked')?.value ?? 'both',
+	apacheVersion: document.querySelector('[name="apacheVersion"]:checked')?.value ?? '2.4',
 	options: {
 		disableMultiviews: elDisableMultiviews?.checked ?? false,
 		disableIndexes: elDisableIndexes?.checked ?? false,
