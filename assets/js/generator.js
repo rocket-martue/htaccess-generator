@@ -489,7 +489,7 @@ const buildHeadersSection = (headers) => {
 		const scriptSrc = buildSrc(headers.cspScriptSrcEnabled, headers.cspScriptSrcValue || "'self'");
 		if (scriptSrc) cspParts.push(`script-src ${scriptSrc}`);
 
-		const styleSrc = buildSrc(headers.cspStyleSrcEnabled, headers.cspStyleSrcValue || "'self'");
+		const styleSrc = buildSrc(headers.cspStyleSrcEnabled, headers.cspStyleSrcValue || "'self' 'unsafe-inline'");
 		if (styleSrc) cspParts.push(`style-src ${styleSrc}`);
 
 		const imgSrc = buildSrc(headers.cspImgSrcEnabled, headers.cspImgSrcValue || "'self' data: https:");
@@ -498,7 +498,7 @@ const buildHeadersSection = (headers) => {
 		const fontSrc = buildSrc(headers.cspFontSrcEnabled, headers.cspFontSrcValue || "'self'");
 		if (fontSrc) cspParts.push(`font-src ${fontSrc}`);
 
-		const connectSrc = buildSrc(headers.cspConnectSrcEnabled, headers.cspConnectSrcValue || "'self'");
+		const connectSrc = buildSrc(headers.cspConnectSrcEnabled, headers.cspConnectSrcValue || "'self' https:");
 		if (connectSrc) cspParts.push(`connect-src ${connectSrc}`);
 
 		const frameSrcExtras = [
@@ -542,7 +542,7 @@ const buildHeadersSection = (headers) => {
 			}
 
 			const adminStyleBase = headers.cspStyleSrcEnabled
-				? (headers.cspStyleSrcValue || "'self'")
+				? (headers.cspStyleSrcValue || "'self' 'unsafe-inline'")
 				: (headers.cspDefaultSrcEnabled ? (headers.cspDefaultSrcValue || "'self' https:") : null);
 			if (adminStyleBase !== null) {
 				const adminStyleSrc = buildSrc(true, resolveAdminBase(adminStyleBase), ["'unsafe-inline'"]);
