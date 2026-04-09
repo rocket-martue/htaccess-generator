@@ -284,6 +284,42 @@ Cloudflare Pages の HTTP レスポンスヘッダーをリポジトリルート
 
 ## 作業履歴
 
+### 2026-03-26: PR #5 マージ（#4 対応）
+
+**ブランチ**: `feature/issue-4-guide-pages`
+
+**対応内容**:
+
+- **#4** ガイドページ追加・URL 構造整理・`assets/` 統合・ダークモード FOUC 修正: ディレクティブ解説・セキュリティヘッダー・キャッシュ＆パフォーマンス・WordPress 保護・リカバリーの 5 ガイドページを追加。`css/` `js/` `scss/` を `assets/` 配下に統合。`<head>` 内ブロッキングインラインスクリプトで FOUC を解消し、`_headers` の CSP を sha256 ハッシュ対応に変更。ドロップダウンナビをヘッダーに追加
+
+**変更ファイル**: `index.html` / 各ガイドページ（新規）/ `assets/` 全体 / `_headers`
+
+---
+
+### 2026-03-26: PR #7 マージ（#6 対応）
+
+**ブランチ**: `fix/issue-6-dropdown-escape-blur`
+
+**対応内容**:
+
+- **#6** Escape キーでドロップダウンが視覚的に閉じない問題を修正: CSS 表示条件を `aria-expanded` ベースに一元化。`focusin` ハンドラに `escapingByKey` フラグを追加し Escape 後のフォーカス復帰で再開しないよう制御
+
+**変更ファイル**: `assets/js/main.js` / `assets/scss/_layout.scss` / `assets/css/style.css`
+
+---
+
+### 2026-03-27: PR #9 マージ（#8 対応）
+
+**ブランチ**: `feature/issue-8-preset-reset-button`
+
+**対応内容**:
+
+- **#8** プリセットエリアにリセットボタンを追加: 全設定を初期状態（全 OFF）に戻せるリセットボタンを実装。ライト/ダーク両テーマ対応スタイルを追加
+
+**変更ファイル**: `assets/js/main.js` / `assets/scss/_preset.scss` / `assets/css/style.css`
+
+---
+
 ### 2026-03-27: Issue #10 対応計画策定・派生 Issue 作成
 
 **対象 Issue**: [#10 セキュリティレスポンスヘッダーの設定は、サイト毎に設定内容を変更できた方がいい](https://github.com/rocket-martue/htaccess-generator/issues/10)
@@ -307,6 +343,43 @@ Cloudflare Pages の HTTP レスポンスヘッダーをリポジトリルート
 - [#13 Options ディレクティブのサーバー互換性注意喚起](https://github.com/rocket-martue/htaccess-generator/issues/13)
 - [#14 キャッシュ有効期限のカスタマイズ](https://github.com/rocket-martue/htaccess-generator/issues/14)
 - [#15 入力が必要なオプションにヒントメッセージを表示](https://github.com/rocket-martue/htaccess-generator/issues/15)
+
+---
+
+### 2026-03-28: PR #16 マージ（#10 対応）
+
+**ブランチ**: `feature/issue-10-security-headers-customization`
+
+**対応内容**:
+
+- **#10** セキュリティレスポンスヘッダーのカスタマイズ対応: HSTS（includeSubDomains / preload）・X-Frame-Options（DENY / SAMEORIGIN）・Referrer-Policy（8 択ラジオ）・Permissions-Policy（7 機能チェックボックス）のサブオプション UI を追加し、`generator.js` の `buildHeadersSection()` を動的生成に変更。セキュリティヘッダーガイドページも合わせて更新
+
+**変更ファイル**: `index.html` / `assets/js/generator.js` / `assets/js/main.js` / `assets/js/presets.js` / `assets/scss/_form.scss` / `security-headers-guide/index.html`
+
+---
+
+### 2026-03-28: PR #17 マージ（#11 対応）
+
+**ブランチ**: `feature/issue-11-csp-detailed-settings`
+
+**対応内容**:
+
+- **#11** CSP（Content-Security-Policy）詳細設定対応: `upgrade-insecure-requests` 固定出力だった CSP を、各ディレクティブ（default-src / script-src / style-src / img-src / font-src / connect-src / frame-src / frame-ancestors）を個別 ON/OFF・値指定できるサブフィールド UI に拡張。script-src に `unsafe-inline` / `unsafe-eval`、style-src に `unsafe-inline` チェックボックスを追加。frame-src に YouTube / Google Maps ショートカット追加
+
+**変更ファイル**: `index.html` / `assets/js/generator.js` / `assets/js/main.js` / `assets/js/presets.js` / `assets/scss/_form.scss` / `security-headers-guide/index.html`
+
+---
+
+### 2026-03-28: PR #19 マージ（htaccess 入門ガイド追加）
+
+**ブランチ**: `feat/htaccess-basics-guide`
+
+**対応内容**:
+
+- `.htaccess` 入門ガイドページ（`htaccess-basics-guide/index.html`）を新規作成: .htaccess とは / できること / 使える環境（主要レンタルサーバー対応表）/ WordPress との関係 / 基本構文の 3 本柱 / 注意事項（バックアップ・リカバリガイドリンク）
+- `index.html` のガイドドロップダウンに「.htaccess 入門」を先頭エントリとして追加
+
+**変更ファイル**: `htaccess-basics-guide/index.html`（新規）/ `index.html`
 
 ---
 
@@ -338,6 +411,23 @@ Cloudflare Pages の HTTP レスポンスヘッダーをリポジトリルート
 
 ---
 
+### 2026-04-01: PR #29 マージ（#20 / #21 / #25 / #26 / #27 / #28 対応）
+
+**ブランチ**: `fix/p1-bug-fixes`
+
+**対応内容**:
+
+- **#20** CSP `frame-src` で `'none'` と許可ソースが同時出力されるバグを修正: YouTube / Google Maps が ON の場合は `'none'` を除外
+- **#21** CSP に `default-src` を追加: デフォルト値 `'self' https:`、全プリセットに反映（未指定ディレクティブの全許可フォールバックを防止）
+- **#25** `wp-includes` の直接アクセスブロックを 2 ブロック構成に修正（`wp-admin/includes/` への全アクセス + `wp-includes/*.php` への直接アクセス）
+- **#26** Gzip の `SetOutputFilter DEFLATE` を削除（`AddOutputFilterByType` との重複・圧縮済み画像の再圧縮 CPU 浪費を解消）
+- **#27** CSP に wp-admin 用分岐（`<If>` ブロック）を追加: `cspAdminSplit` チェックボックスで管理画面とフロントエンドに別 CSP を出力（管理画面側は `unsafe-eval` + `unsafe-inline` 許可）
+- **#28** Permissions-Policy `geolocation` を 3 択 UI に変更: 完全無効化 / Google マップ許可 / ポリシーから除外
+
+**変更ファイル**: `assets/js/generator.js` / `assets/js/main.js` / `assets/js/presets.js` / `index.html`
+
+---
+
 ### 2026-04-01: PR #32 作成（#31 対応）
 
 **ブランチ**: `fix/issue-31-double-slash-pattern`
@@ -347,3 +437,129 @@ Cloudflare Pages の HTTP レスポンスヘッダーをリポジトリルート
 - **#31** ダブルスラッシュ検出パターンをクエリ文字列除外に修正: `[^\s]*` → `[^\s?]*`（ `?url=https://example.com` への誤マッチを防止）
 
 **変更ファイル**: `assets/js/generator.js` / `directives-guide/index.html`
+
+---
+
+### 2026-04-02: PR #34 マージ（#33 対応）
+
+**ブランチ**: `feat/issue-33-security-headers-guide-content`
+
+**対応内容**:
+
+- **#33** セキュリティヘッダーガイドにコンテンツを追加: 「セキュリティヘッダーとは」イントロセクション追加（概要・メリット・デメリット・ヘッダー一覧テーブル）。CSP セクションに管理画面用 CSP 分岐（`<If>` ブロック）の説明追加。Permissions-Policy の `geolocation` 3 択設定を説明
+
+**変更ファイル**: `security-headers-guide/index.html`
+
+---
+
+### 2026-04-04: PR #36 マージ（#35 対応）
+
+**ブランチ**: `fix/issue-35-remove-basic-auth-username`
+
+**対応内容**:
+
+- **#35** Basic 認証のユーザー名入力欄を削除: `require valid-user` は `.htpasswd` 登録ユーザー全員を許可するため、ジェネレーター側でユーザー名を入力させる必要がなかった。wp-login.php / wp-admin 両方の入力欄を削除し、出力コメントを簡略化
+
+**変更ファイル**: `index.html` / `assets/js/generator.js` / `assets/js/main.js` / `assets/js/presets.js`
+
+---
+
+### 2026-04-05: PR #38 マージ（CSP デフォルト設定改善）
+
+**ブランチ**: `fix/csp-security-defaults`
+
+**対応内容**:
+
+- `img-src` に `https:` を追加（バグ修正）: `img-src` 明示時に `default-src` フォールバックが効かなくなる仕様により外部画像が全ブロックされていた問題を修正（`'self' data:` → `'self' data: https:`）
+- `unsafe-eval` をデフォルト無効化: XSS リスクが高いため全プリセットで `false` に変更。必要な場合向けにコメント案内を追加
+- `X-Frame-Options` と `frame-ancestors` 併用時にコメントを追加
+- `Permissions-Policy` に `accelerometer=()` を追加
+
+**変更ファイル**: `assets/js/generator.js` / `assets/js/main.js` / `assets/js/presets.js` / `index.html`
+
+---
+
+### 2026-04-05: PR #39 マージ（#37 対応）
+
+**ブランチ**: `feat/csp-report-only`
+
+**対応内容**:
+
+- **#37** CSP に Report-Only モードを追加: `Content-Security-Policy-Report-Only` ヘッダーを出力するチェックボックスを追加。Report-Only 時は `upgrade-insecure-requests` を除外（管理画面 CSP も同様）。全ディレクティブ無効時は CSP ヘッダー自体を出力しないガードを追加
+
+**変更ファイル**: `index.html` / `assets/js/generator.js` / `assets/js/main.js` / `assets/js/presets.js`
+
+---
+
+### 2026-04-06: PR #45 マージ（#44 対応）
+
+**ブランチ**: `feature/cache-control-max-age-customizable`
+
+**対応内容**:
+
+- **#44** Cache-Control の max-age をカテゴリ別にカスタマイズ可能に: CSS/JS・画像・アイコン・フォント・動画の max-age をラジオボタン（6 択）で設定可能に。CSS/JS・フォントには `immutable` 付与。`Header set` → `Header always set` に修正（CLAUDE.md 禁止事項対応）
+
+**変更ファイル**: `assets/js/generator.js` / `index.html` / `assets/js/main.js` / `assets/js/presets.js`
+
+---
+
+### 2026-04-06: PR #55, #56, #57, #59 マージ（#40 / #41 / #42 / #43 / #52 / #53 対応）
+
+**ブランチ**: 各 Issue 個別ブランチ
+
+**対応内容**:
+
+- **#52** X-Forwarded-Proto を HTTPS リダイレクトのサブオプションに従属（PR #55）: 独立 toggle-row からサブオプションに移動し、`httpsRedirect` OFF 時に連動して無効化
+- **#53** 対応 Apache バージョン（2.4 以降）を UI と README に明記（PR #56）: ヘッダー説明文・README 技術スタックテーブルに要件を追記
+- **#40** HSTS max-age カスタマイズ（PR #57）: セレクトボックス（5 択）追加、`preload` ON かつ max-age 1年未満の場合に警告表示
+- **#41** Permissions-Policy 拡充（PR #57）: `fullscreen` / `autoplay` / `clipboard-read` / `clipboard-write` / `picture-in-picture` / `screen-wake-lock` / `web-share` の 7 項目を追加
+- **#42** 不正クエリパラメータのカスタマイズ（PR #59）: テキストエリアで自由に設定可能に（英数字・`_`・`-` のみ許容）
+- **#43** 危険な拡張子のカスタマイズ（PR #59）: テキストエリアで自由に設定可能に（先頭の `.` 自動除去・バリデーションあり）
+
+**変更ファイル**: `index.html` / `assets/js/generator.js` / `assets/js/main.js` / `assets/js/presets.js`
+
+---
+
+### 2026-04-07: PR #60 マージ（#58 対応）
+
+**ブランチ**: `feature/issue-58-apache-version-selector`
+
+**対応内容**:
+
+- **#58** 対象 Apache バージョンを UI で切り替えられるようにする: プリセットセクション直下にラジオボタン（2.2/2.4 両対応 / 2.4 以降のみ）を追加。2.4 選択時は `<IfVersion>` 分岐なしのシンプルな `Require all denied` 出力に切り替わる
+
+**変更ファイル**: `index.html` / `assets/js/generator.js` / `assets/js/main.js` / `assets/js/presets.js`
+
+---
+
+### 2026-04-08: PR #62 マージ（#61 対応）
+
+**ブランチ**: `feature/issue-61-csp-refactor`
+
+**対応内容**:
+
+- **#61** CSP 管理画面分岐を常時有効化・管理画面 CSP を動的生成に変更: `cspAdminSplit` チェックボックスを廃止し、CSP 有効時は常に wp-admin / wp-login.php を分岐出力。ハードコードの `ADMIN_CSP` 定数を廃止し、フロント CSP と同じディレクティブ構成をベースに `script-src` / `style-src` へ `'unsafe-inline'` / `'unsafe-eval'` を追加して動的生成。フロント側の `unsafe-*` チェックボックス UI を全廃
+
+**変更ファイル**: `assets/js/generator.js` / `assets/js/main.js` / `assets/js/presets.js` / `index.html`
+
+---
+
+### 2026-04-09: PR #65 マージ（#64 対応）
+
+**ブランチ**: `feature/issue-64-apache-version-default`
+
+**対応内容**:
+
+- **#64** デフォルト Apache バージョンを `both`（2.2/2.4 互換）から `2.4` に変更: `presets.js` の `DEFAULT_SETTINGS.apacheVersion`・`main.js` のフォールバック値・`index.html` のデフォルトチェックをすべて `2.4` に統一
+
+**変更ファイル**: `assets/js/presets.js` / `assets/js/main.js` / `index.html`
+
+---
+
+### 2026-04-09: Issue #66 対応・マージ
+
+**対応内容**:
+
+- **#66** CSP サブフィールドの Report-Only トグルを先頭に移動: ディレクティブ一覧（8行）の末尾にあり見えにくかった `Report-Only モード（テスト用）` チェックボックスをサブフィールドの先頭に移動。2つのヒントテキストを1つに統合（`upgrade-insecure-requests` の注意 + Report-Only の説明）。
+
+**変更ファイル**: `index.html`
