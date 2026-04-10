@@ -557,10 +557,10 @@ const buildHeadersSection = (headers) => {
 
 			const adminCspValue = adminCspParts.join('; ');
 
-			directives.push(`\t<If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
+			directives.push(`\t<If "%{REQUEST_URI} !~ m#(?:^|/)wp-(admin(?:/|$)|login\\.php)#">`);
 			directives.push(`\t\tHeader always set ${cspHeaderName} "${cspValue}"`);
 			directives.push('\t</If>');
-			directives.push(`\t<If "%{REQUEST_URI} =~ m#^/wp-(admin(?:/|$)|login\\.php)#">`);
+			directives.push(`\t<If "%{REQUEST_URI} =~ m#(?:^|/)wp-(admin(?:/|$)|login\\.php)#">`);
 			directives.push(`\t\tHeader always set ${cspHeaderName} "${adminCspValue}"`);
 			directives.push('\t</If>');
 		}
