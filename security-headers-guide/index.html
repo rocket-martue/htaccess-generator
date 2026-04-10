@@ -401,7 +401,7 @@ because it violates the following Content Security Policy directive:
 						<h4>違反レポートを収集する（report-uri / report-to）</h4>
 						<p>CSP 違反レポートは、従来の <code>report-uri</code> に加えて、CSP Level 3 では <code>report-to</code> と <code>Reporting-Endpoints</code>（互換目的では <code>Report-To</code>）でも送信できる。<code>report-uri</code> は現在も多くのブラウザで動作するが非推奨のため、DevTools だけでは把握しきれない実ユーザー環境での違反を収集する場合は新旧両方を併記するのが現実的。</p>
 
-						<pre class="article-code"><code>Header always set Reporting-Endpoints "csp-endpoint=/wp-json/csp-report/v1/collect"
+						<pre class="article-code"><code>Header always set Reporting-Endpoints "csp-endpoint=\"/wp-json/csp-report/v1/collect\""
 Header always set Report-To "{\"group\":\"csp-endpoint\",\"max_age\":10886400,\"endpoints\":[{\"url\":\"https://example.com/wp-json/csp-report/v1/collect\"}]}"
 Header always set Content-Security-Policy-Report-Only \
   "default-src 'self'; report-uri /wp-json/csp-report/v1/collect; report-to csp-endpoint"</code></pre>
@@ -410,13 +410,17 @@ Header always set Content-Security-Policy-Report-Only \
 							<p><code>Reporting-Endpoints</code> は新しい書き方で、<code>Report-To</code> は旧来の Reporting API ヘッダー。対応状況に差があるため、互換性を重視するなら両方を併記する。将来的には <code>report-to</code> 系への移行を前提にしつつ、当面は <code>report-uri</code> と併用するのが安全。</p>
 						</blockquote>
 
-						<p>WordPress REST API でエンドポイントを実装する例（<code>report-uri</code> / <code>report-to</code> のどちらの POST も受ける想定）：</p>
+						<p>WordPress REST API で <code>report-uri</code> 向け受信エンドポイントを実装する例：</p>
+
+						<blockquote>
+							<p><code>report-to</code>（Reporting API）はボディ形式が異なり（<code>application/reports+json</code>・配列 + <code>type: "csp-violation"</code>）、受信処理を別途実装する必要がある。以下の例は <code>report-uri</code> 専用。</p>
+						</blockquote>
 
 						<pre class="article-code"><code>add_action( 'rest_api_init', function () {
     register_rest_route( 'csp-report/v1', '/collect', array(
         'methods'             =&gt; 'POST',
         'callback'            =&gt; function ( WP_REST_Request $request ) {
-            // Content-Type 検証
+            // Content-Type 検証（report-uri: application/csp-report または application/json）
             $content_type = (string) $request-&gt;get_header( 'Content-Type' );
             if ( false === strpos( $content_type, 'application/csp-report' )
                 &amp;&amp; false === strpos( $content_type, 'application/json' ) ) {
