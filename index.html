@@ -415,24 +415,26 @@
 									<div class="sub-fieldset">
 										<label class="sub-option-group-label" for="hstsMaxAge">max-age</label>
 										<select name="hstsMaxAge" id="hstsMaxAge" class="input-text">
-											<option value="300">300（5分・テスト用）</option>
+											<option value="300" selected>300（5分・テスト用）</option>
 											<option value="86400">86400（1日）</option>
 											<option value="2592000">2592000（30日）</option>
 											<option value="31536000">31536000（1年）</option>
-											<option value="63072000" selected>63072000（2年・推奨）</option>
+											<option value="63072000">63072000（2年）</option>
 										</select>
 									</div>
+									<p class="sub-options-hint">まず短い値（300秒）でテストし、問題がないことを確認してから長い値に変更してください。一度ブラウザにキャッシュされると HTTP に戻せなくなります。</p>
 									<label class="sub-option-label">
-										<input type="checkbox" name="hstsIncludeSubDomains" id="hstsIncludeSubDomains"
-											checked>
+										<input type="checkbox" name="hstsIncludeSubDomains" id="hstsIncludeSubDomains">
 										<span>includeSubDomains</span>
 									</label>
+									<p class="sub-options-hint">すべてのサブドメインが HTTPS に対応していることを確認してから有効にしてください。HTTPS 未対応のサブドメインがある場合、ブラウザがアクセスを拒否します。</p>
 									<label class="sub-option-label">
-										<input type="checkbox" name="hstsPreload" id="hstsPreload" checked>
+										<input type="checkbox" name="hstsPreload" id="hstsPreload">
 										<span>preload</span>
 									</label>
 									<p class="sub-options-hint" id="hsts-preload-warn" hidden aria-live="polite">preload
 										には max-age 1年（31536000）以上が必要です</p>
+									<p class="sub-options-hint">ブラウザのプリロードリストへの登録を意図するフラグです。一度登録されると削除に数ヶ月かかります。HTTPS 環境が完全に整っていない場合は有効にしないでください。</p>
 								</div>
 
 								<!-- CSP -->
