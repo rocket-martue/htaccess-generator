@@ -742,7 +742,7 @@ export const PRESETS = [
 				cspConnectSrcEnabled: false,
 				cspConnectSrcValue: '',
 				cspFrameSrcEnabled: false,
-				cspFrameSrcValue: "'self'",
+				cspFrameSrcValue: '',
 				cspFrameSrcYoutube: false,
 				cspFrameSrcGoogleMaps: false,
 				cspFrameAncestorsEnabled: false,

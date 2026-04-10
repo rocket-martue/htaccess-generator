@@ -433,8 +433,8 @@
 										<span>preload</span>
 									</label>
 									<p class="sub-options-hint" id="hsts-preload-warn" hidden aria-live="polite">preload
-										には max-age 1年（31536000）以上が必要です</p>
-									<p class="sub-options-hint">ブラウザのプリロードリストへの登録を意図するフラグです。一度登録されると削除に数ヶ月かかります。HTTPS 環境が完全に整っていない場合は有効にしないでください。</p>
+										には includeSubDomains と max-age 1年（31536000）以上が必要です</p>
+									<p class="sub-options-hint">ブラウザのプリロードリストへの登録を意図するフラグです。preload を有効にしても、includeSubDomains が OFF の場合は生成結果に反映されません。利用する場合は includeSubDomains を ON にし、max-age を 1年（31536000）以上に設定してください。一度登録されると削除に数ヶ月かかるため、HTTPS 環境が完全に整っていない場合は有効にしないでください。</p>
 								</div>
 
 								<!-- CSP -->

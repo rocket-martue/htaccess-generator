@@ -238,9 +238,9 @@ const getCurrentSettings = () => ({
 	},
 	headers: {
 		hstsEnabled: elHstsEnabled?.checked ?? false,
-		hstsMaxAge: elHstsMaxAge?.value ?? '63072000',
-		hstsIncludeSubDomains: elHstsIncludeSubDomains?.checked ?? true,
-		hstsPreload: elHstsPreload?.checked ?? true,
+		hstsMaxAge: elHstsMaxAge?.value ?? DEFAULT_SETTINGS.headers.hstsMaxAge,
+		hstsIncludeSubDomains: elHstsIncludeSubDomains?.checked ?? DEFAULT_SETTINGS.headers.hstsIncludeSubDomains,
+		hstsPreload: elHstsPreload?.checked ?? DEFAULT_SETTINGS.headers.hstsPreload,
 
 		cspEnabled: elCspEnabled?.checked ?? false,
 		cspDefaultSrcEnabled: elCspDefaultSrcEnabled?.checked ?? false,
@@ -447,9 +447,9 @@ const applySettingsToForm = (settings) => {
 	// Headers
 	if (elHstsEnabled) elHstsEnabled.checked = settings.headers.hstsEnabled;
 	if (elHstsMaxAge) {
-		const maxAgeVal = String(settings.headers.hstsMaxAge ?? '63072000');
+		const maxAgeVal = String(settings.headers.hstsMaxAge ?? DEFAULT_SETTINGS.headers.hstsMaxAge);
 		const validOption = Array.from(elHstsMaxAge.options).some((o) => o.value === maxAgeVal);
-		elHstsMaxAge.value = validOption ? maxAgeVal : '63072000';
+		elHstsMaxAge.value = validOption ? maxAgeVal : DEFAULT_SETTINGS.headers.hstsMaxAge;
 	}
 	if (elHstsIncludeSubDomains) elHstsIncludeSubDomains.checked = settings.headers.hstsIncludeSubDomains;
 	if (elHstsPreload) elHstsPreload.checked = settings.headers.hstsPreload;
@@ -627,7 +627,7 @@ const updateConditionalFields = () => {
 	// preload ON かつ max-age < 31536000 の場合は警告表示
 	if (elHstsPreloadWarn) {
 		const preloadOn = elHstsPreload?.checked ?? false;
-		const maxAge = Number(elHstsMaxAge?.value ?? 63072000);
+		const maxAge = Number(elHstsMaxAge?.value ?? DEFAULT_SETTINGS.headers.hstsMaxAge);
 		elHstsPreloadWarn.hidden = !(preloadOn && maxAge < 31536000);
 	}
 
