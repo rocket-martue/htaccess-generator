@@ -388,6 +388,65 @@ Header always set Content-Security-Policy-Report-Only "default-src 'self'; repor
 							<p>Report-Only モードでは <code>upgrade-insecure-requests</code>
 								は無視される。これはアクション指示（リソースのアップグレード）であり、制限指示ではないため。本番 CSP にのみ含める。</p>
 						</blockquote>
+
+						<h4>DevTools で違反を確認する</h4>
+						<p>Report-Only ヘッダーを設定した状態でサイトを表示し、ブラウザの DevTools（F12）→ Console タブを開く。CSP 違反が発生すると以下のようなエラーが出力される。</p>
+
+						<pre class="article-code"><code>Refused to load the script 'https://www.googletagmanager.com/gtm.js'
+because it violates the following Content Security Policy directive:
+"script-src 'self'"</code></pre>
+
+						<p>Console に出力された違反を確認し、許可すべきオリジンを各ディレクティブに追加してから Enforce モード（<code>Content-Security-Policy</code>）へ移行する。</p>
+
+						<h4>report-uri で違反を収集する</h4>
+						<p><code>report-uri</code> ディレクティブにエンドポイントを指定すると、違反レポートを JSON で受け取れる。DevTools だけでは把握しきれない実ユーザー環境での違反を収集・分析できる。</p>
+
+						<pre class="article-code"><code>Header always set Content-Security-Policy-Report-Only \
+  "default-src 'self'; report-uri /wp-json/csp-report/v1/collect"</code></pre>
+
+						<p>WordPress REST API でエンドポイントを実装する例：</p>
+
+						<pre class="article-code"><code>add_action( 'rest_api_init', function () {
+    register_rest_route( 'csp-report/v1', '/collect', array(
+        'methods'             =&gt; 'POST',
+        'callback'            =&gt; function ( WP_REST_Request $request ) {
+            $body = $request-&gt;get_body();
+            $data = json_decode( $body, true );
+            if ( isset( $data['csp-report'] ) ) {
+                error_log( 'CSP violation: ' . wp_json_encode( $data['csp-report'] ) );
+            }
+            return new WP_REST_Response( null, 204 );
+        },
+        'permission_callback' =&gt; '__return_true',
+    ) );
+} );</code></pre>
+
+						<blockquote>
+							<p>受け取ったレポートはサーバーエラーログや独自テーブルに保存し、問題のある違反を確認してから CSP を調整する。本番トラフィックが多い場合はレポートが大量になるため、外部サービスの利用も検討する。</p>
+						</blockquote>
+
+						<h4>外部サービスを使う</h4>
+						<p>自前でエンドポイントを用意せず、SaaS サービスに収集させる方法もある。</p>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>サービス</th>
+										<th>特徴</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><a href="https://report-uri.com" rel="noopener noreferrer" target="_blank">report-uri.com</a></td>
+										<td>CSP・CT・HPKP レポートを収集・可視化。無料プランあり</td>
+									</tr>
+									<tr>
+										<td><a href="https://sentry.io" rel="noopener noreferrer" target="_blank">Sentry</a></td>
+										<td>エラー監視ツール。CSP レポートも受け付ける</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</section>
 
 					<hr class="divider">
