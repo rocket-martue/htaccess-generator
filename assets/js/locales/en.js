@@ -186,6 +186,15 @@ export default {
 	'preset.reset.label': 'Reset',
 	'preset.reset.desc': 'Reset all settings to default',
 
+	// Preset group
+	'preset.group.aria': 'Select preset',
+
+	// Theme toggle
+	'theme.dark': 'Switch to dark mode',
+	'theme.light': 'Switch to light mode',
+	'theme.dark.label': 'Dark',
+	'theme.light.label': 'Light',
+
 	// .htaccess output comments
 	'gen.comment.blockXmlrpc': '# Disable XML-RPC access',
 	'gen.comment.protectWpConfig': '# Protect wp-config.php',
@@ -204,10 +213,19 @@ export default {
 	'gen.comment.gzip': '# Gzip compression',
 	'gen.comment.expires': '# Browser cache settings',
 	'gen.comment.cacheControl': '# Cache-Control headers',
+	'gen.comment.mimeType': '# Add MIME types',
 	'gen.comment.etagDisable': '# Disable ETags',
 	'gen.comment.hsts': '\t# HSTS (sent only over HTTPS)',
+	'gen.comment.csp': '\t# CSP',
+	'gen.comment.xContentType': '\t# X-Content-Type-Options',
 	'gen.comment.xFrameOptions': '\t# X-Frame-Options',
 	'gen.comment.xFrameOptionsWithCsp': '\t# X-Frame-Options (combined with CSP frame-ancestors - fallback for legacy browsers)',
+	'gen.comment.referrerPolicy': '\t# Referrer-Policy',
+	'gen.comment.permissionsPolicy': '\t# Permissions-Policy',
+	'gen.section.security': '# Security Settings',
+	'gen.section.rewrite': '# Rewrite Rules',
+	'gen.section.cache': '# Cache & Performance Settings',
+	'gen.section.headers': '# Security Response Headers',
 	'gen.comment.wpAdminBasicAuth': '# Set Basic Auth for wp-admin',
 	'gen.comment.ajaxExclude': '# Allow access to admin-ajax.php (for frontend Ajax)',
 	'gen.comment.upgradeIpExclude': '# Skip Basic Auth for upgrade.php from server internal IP (for auto-updates)',

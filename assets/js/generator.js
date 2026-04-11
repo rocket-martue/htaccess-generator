@@ -421,7 +421,7 @@ const buildCacheSection = (cache, t) => {
 
 	// MIME Type
 	if (cache.mimeType) {
-		lines.push('# MIME Type');
+		lines.push(t('gen.comment.mimeType'));
 		lines.push('<IfModule mime_module>');
 		lines.push('\tAddType image/x-icon .ico');
 		lines.push('\tAddType image/svg+xml .svg');
@@ -523,7 +523,7 @@ const buildHeadersSection = (headers, t) => {
 		// cspValue が空（Report-Only + 全ディレクティブ無効）の場合は # CSP コメントごとブロック全体を出力しない
 		if (cspValue) {
 			directives.push('');
-			directives.push('\t# CSP');
+			directives.push(t('gen.comment.csp'));
 
 			const cspHeaderName = headers.cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy';
 
@@ -574,7 +574,7 @@ const buildHeadersSection = (headers, t) => {
 	// X-Content-Type-Options
 	if (headers.xContentType) {
 		directives.push('');
-		directives.push('\t# X-Content-Type-Options');
+		directives.push(t('gen.comment.xContentType'));
 		directives.push('\tHeader always set X-Content-Type-Options "nosniff"');
 	}
 
@@ -597,7 +597,7 @@ const buildHeadersSection = (headers, t) => {
 			? headers.referrerPolicyValue
 			: 'strict-origin-when-cross-origin';
 		directives.push('');
-		directives.push('\t# Referrer-Policy');
+		directives.push(t('gen.comment.referrerPolicy'));
 		directives.push(`\tHeader always set Referrer-Policy "${rpValue}"`);
 	}
 
@@ -627,7 +627,7 @@ const buildHeadersSection = (headers, t) => {
 
 		if (ppFeatures.length > 0) {
 			directives.push('');
-			directives.push('\t# Permissions-Policy');
+			directives.push(t('gen.comment.permissionsPolicy'));
 			directives.push(`\tHeader always set Permissions-Policy "${ppFeatures.join(', ')}"`);
 		}
 	}
@@ -671,7 +671,7 @@ export const buildRoot = (settings, t) => {
 	// Security Settings
 	if (optionsLines.length > 0 || filesLines.length > 0 || ipLines.length > 0) {
 		lines.push('# ===========================');
-		lines.push('# Security Settings');
+		lines.push(t('gen.section.security'));
 		lines.push('# ===========================');
 		lines.push(...optionsLines, ...filesLines, ...ipLines);
 	}
@@ -679,7 +679,7 @@ export const buildRoot = (settings, t) => {
 	// Rewrite Rules
 	if (rewriteLines.length > 0) {
 		lines.push('# ===========================');
-		lines.push('# Rewrite Rules');
+		lines.push(t('gen.section.rewrite'));
 		lines.push('# ===========================');
 		lines.push(...rewriteLines);
 	}
@@ -687,7 +687,7 @@ export const buildRoot = (settings, t) => {
 	// Cache & Performance Settings
 	if (cacheLines.length > 0) {
 		lines.push('# ===========================');
-		lines.push('# Cache & Performance Settings');
+		lines.push(t('gen.section.cache'));
 		lines.push('# ===========================');
 		lines.push(...cacheLines);
 	}
@@ -695,7 +695,7 @@ export const buildRoot = (settings, t) => {
 	// Security Response Headers
 	if (headerLines.length > 0) {
 		lines.push('# ===========================');
-		lines.push('# Security Response Headers');
+		lines.push(t('gen.section.headers'));
 		lines.push('# ===========================');
 		lines.push(...headerLines);
 	}

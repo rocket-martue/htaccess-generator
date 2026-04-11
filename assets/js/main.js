@@ -7,7 +7,7 @@
 
 import { buildRoot, buildWpAdmin, buildUploads } from './generator.js';
 import { PRESETS, DEFAULT_SETTINGS } from './presets.js';
-import { initTheme, setupThemeToggle } from './theme.js';
+import { applyTheme, initTheme, setupThemeToggle, DARK_THEME } from './theme.js';
 import { t, getLang, setLang, initLang } from './i18n.js';
 
 // ─── DOM 参照 ─────────────────────────────────────────────────────
@@ -881,7 +881,7 @@ const initEvents = () => {
 	elDownloadBtn?.addEventListener('click', handleDownload);
 
 	// テーマ切り替え
-	setupThemeToggle();
+	setupThemeToggle(t);
 
 	// ハンバーガーナビ — 開閉 / Esc / 外クリックで閉じる
 	const hamburgerBtn = document.querySelector('.hamburger-btn');
@@ -898,6 +898,8 @@ const initEvents = () => {
 				document.body.style.overflow = '';
 			}
 		};
+		// 初期状態の aria-label を現在の言語で同期する
+		setOpen(hamburgerBtn.getAttribute('aria-expanded') === 'true');
 		hamburgerBtn.addEventListener('click', () => {
 			setOpen(hamburgerBtn.getAttribute('aria-expanded') !== 'true');
 		});
@@ -926,7 +928,14 @@ const initLangToggle = () => {
 	langBtn.addEventListener('click', async () => {
 		const newLang = getLang() === 'ja' ? 'en' : 'ja';
 		await setLang(newLang);
-		// 言語切り替え後にプレビューを再生成
+		// 言語切り替え後にテーマボタン・ハンバーガーラベルを更新
+		const isDark = document.documentElement.getAttribute('data-theme') === DARK_THEME;
+		applyTheme(isDark, t);
+		const hamburgerBtn = document.querySelector('.hamburger-btn');
+		if (hamburgerBtn) {
+			const isOpen = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+			hamburgerBtn.setAttribute('aria-label', isOpen ? t('nav.close') : t('nav.open'));
+		}
 		updatePreview();
 	});
 };
@@ -936,6 +945,8 @@ const initLangToggle = () => {
 (async () => {
 	initTheme();
 	await initLang();
+	// initLang() 完了後、現在の言語でテーマボタンラベルを同期する
+	applyTheme(document.documentElement.getAttribute('data-theme') === DARK_THEME, t);
 	initPresets();
 	initEvents();
 	initLangToggle();

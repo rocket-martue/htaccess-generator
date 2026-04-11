@@ -186,6 +186,15 @@ export default {
 	'preset.reset.label': 'リセット',
 	'preset.reset.desc': 'すべての設定を初期状態に戻す',
 
+	// プリセットグループ
+	'preset.group.aria': 'プリセット選択',
+
+	// テーマ切り替え
+	'theme.dark': 'ダークモードに切り替え',
+	'theme.light': 'ライトモードに切り替え',
+	'theme.dark.label': 'ダーク',
+	'theme.light.label': 'ライト',
+
 	// .htaccess 出力コメント
 	'gen.comment.blockXmlrpc': '# XML-RPC へのアクセスを無効化',
 	'gen.comment.protectWpConfig': '# wp-config.php を保護',
@@ -204,10 +213,19 @@ export default {
 	'gen.comment.gzip': '# Gzip 圧縮',
 	'gen.comment.expires': '# ブラウザキャッシュ設定',
 	'gen.comment.cacheControl': '# Cache-Control ヘッダー',
+	'gen.comment.mimeType': '# MIME タイプ追加',
 	'gen.comment.etagDisable': '# ETags を無効化',
 	'gen.comment.hsts': '\t# HSTS（HTTPS 接続時のみ送信）',
+	'gen.comment.csp': '\t# CSP',
+	'gen.comment.xContentType': '\t# X-Content-Type-Options',
 	'gen.comment.xFrameOptions': '\t# X-Frame-Options',
 	'gen.comment.xFrameOptionsWithCsp': '\t# X-Frame-Options（CSP の frame-ancestors と併用 - CSP 非対応の古いブラウザ向け保険）',
+	'gen.comment.referrerPolicy': '\t# Referrer-Policy',
+	'gen.comment.permissionsPolicy': '\t# Permissions-Policy',
+	'gen.section.security': '# セキュリティ設定',
+	'gen.section.rewrite': '# リライトルール',
+	'gen.section.cache': '# キャッシュ & パフォーマンス設定',
+	'gen.section.headers': '# セキュリティレスポンスヘッダー',
 	'gen.comment.wpAdminBasicAuth': '# wp-admin に Basic 認証を設定',
 	'gen.comment.ajaxExclude': '# admin-ajax.php へのアクセスを許可（フロントエンドの Ajax 用）',
 	'gen.comment.upgradeIpExclude': '# upgrade.php はサーバー内部 IP のみ Basic 認証をスキップ（自動更新用）',
