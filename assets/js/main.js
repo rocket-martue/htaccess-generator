@@ -8,6 +8,7 @@
 import { buildRoot, buildWpAdmin, buildUploads } from './generator.js';
 import { PRESETS, DEFAULT_SETTINGS } from './presets.js';
 import { initTheme, setupThemeToggle } from './theme.js';
+import { t, getLang, setLang, initLang } from './i18n.js';
 
 // ─── DOM 参照 ─────────────────────────────────────────────────────
 
@@ -305,9 +306,9 @@ const getCurrentSettings = () => ({
 const updatePreview = () => {
 	const settings = getCurrentSettings();
 
-	generatedRoot = buildRoot(settings);
-	generatedAdmin = buildWpAdmin(settings);
-	generatedUploads = buildUploads(settings);
+	generatedRoot = buildRoot(settings, t);
+	generatedAdmin = buildWpAdmin(settings, t);
+	generatedUploads = buildUploads(settings, t);
 
 	// タブの表示/非表示（チェックボックス ON でタブ表示、生成内容の有無は問わない）
 	const isAdminEnabled = elWpAdminBasicAuth?.checked ?? false;
@@ -333,16 +334,14 @@ const updatePreview = () => {
 	renderCurrentTab();
 };
 
-const WP_ADMIN_PLACEHOLDER = '# .htpasswd のフルパスを入力してください';
-
 const renderCurrentTab = () => {
 	let lines;
-	let placeholder = '# オプションを選択してください';
+	let placeholderKey = 'preview.placeholder';
 
 	switch (currentTab) {
 		case 'wp-admin':
 			lines = generatedAdmin;
-			placeholder = WP_ADMIN_PLACEHOLDER;
+			placeholderKey = 'preview.placeholder.wpAdmin';
 			break;
 		case 'uploads':
 			lines = generatedUploads;
@@ -352,9 +351,13 @@ const renderCurrentTab = () => {
 	}
 
 	if (elPreviewCode) {
-		elPreviewCode.textContent = lines.length > 0
-			? lines.join('\n')
-			: placeholder;
+		if (lines.length > 0) {
+			elPreviewCode.textContent = lines.join('\n');
+			elPreviewCode.removeAttribute('data-empty');
+		} else {
+			elPreviewCode.textContent = t(placeholderKey);
+			elPreviewCode.setAttribute('data-empty', '');
+		}
 	}
 };
 
@@ -670,23 +673,23 @@ const updateConditionalFields = () => {
 
 const handleCopy = async () => {
 	const text = elPreviewCode?.textContent ?? '';
-	if (!text || text === '# オプションを選択してください') return;
+	if (!text || elPreviewCode?.hasAttribute('data-empty')) return;
 
 	try {
 		await navigator.clipboard.writeText(text);
 		if (elCopyBtn) {
-			elCopyBtn.textContent = 'コピー済！';
+			elCopyBtn.textContent = t('btn.copied');
 			elCopyBtn.classList.add('copied');
 			setTimeout(() => {
-				elCopyBtn.textContent = 'コピー';
+				elCopyBtn.textContent = t('btn.copy');
 				elCopyBtn.classList.remove('copied');
 			}, 2000);
 		}
 	} catch {
 		if (elCopyBtn) {
-			elCopyBtn.textContent = 'コピー失敗';
+			elCopyBtn.textContent = t('btn.copyFail');
 			setTimeout(() => {
-				elCopyBtn.textContent = 'コピー';
+				elCopyBtn.textContent = t('btn.copy');
 			}, 2000);
 		}
 	}
@@ -696,7 +699,7 @@ const handleCopy = async () => {
 
 const handleDownload = () => {
 	const text = elPreviewCode?.textContent ?? '';
-	if (!text || text === '# オプションを選択してください') return;
+	if (!text || elPreviewCode?.hasAttribute('data-empty')) return;
 
 	const blob = new Blob([text], { type: 'text/plain' });
 	const url = URL.createObjectURL(blob);
@@ -717,8 +720,10 @@ const initPresets = () => {
 		btn.type = 'button';
 		btn.className = 'preset-btn';
 		btn.dataset.presetId = preset.id;
-		btn.textContent = preset.label;
-		btn.setAttribute('aria-label', preset.description);
+		btn.dataset.i18n = `preset.${preset.id}.label`;
+		btn.dataset.i18nAriaLabel = `preset.${preset.id}.desc`;
+		btn.textContent = t(`preset.${preset.id}.label`);
+		btn.setAttribute('aria-label', t(`preset.${preset.id}.desc`));
 		btn.addEventListener('click', () => applyPreset(preset.id));
 		elPresetGroup?.appendChild(btn);
 	});
@@ -727,8 +732,10 @@ const initPresets = () => {
 	const resetBtn = document.createElement('button');
 	resetBtn.type = 'button';
 	resetBtn.className = 'preset-btn preset-reset-btn';
-	resetBtn.textContent = 'リセット';
-	resetBtn.setAttribute('aria-label', 'すべての設定を初期状態に戻す');
+	resetBtn.dataset.i18n = 'preset.reset.label';
+	resetBtn.dataset.i18nAriaLabel = 'preset.reset.desc';
+	resetBtn.textContent = t('preset.reset.label');
+	resetBtn.setAttribute('aria-label', t('preset.reset.desc'));
 	resetBtn.addEventListener('click', () => {
 		applySettingsToForm(DEFAULT_SETTINGS);
 		clearPresetActiveState();
@@ -882,7 +889,7 @@ const initEvents = () => {
 	if (hamburgerBtn && siteNav) {
 		const setOpen = (val) => {
 			hamburgerBtn.setAttribute('aria-expanded', String(val));
-			hamburgerBtn.setAttribute('aria-label', val ? 'メニューを閉じる' : 'メニューを開く');
+			hamburgerBtn.setAttribute('aria-label', val ? t('nav.close') : t('nav.open'));
 			if (val) {
 				siteNav.removeAttribute('hidden');
 				document.body.style.overflow = 'hidden';
@@ -910,16 +917,34 @@ const initEvents = () => {
 	}
 };
 
+// ─── 言語切り替えボタン ────────────────────────────────────────
+
+const initLangToggle = () => {
+	const langBtn = document.querySelector('.lang-toggle-btn');
+	if (!langBtn) return;
+
+	langBtn.addEventListener('click', async () => {
+		const newLang = getLang() === 'ja' ? 'en' : 'ja';
+		await setLang(newLang);
+		// 言語切り替え後にプレビューを再生成
+		updatePreview();
+	});
+};
+
 // ─── 起動 ─────────────────────────────────────────────────────
 
-initTheme();
-initPresets();
-initEvents();
-updateConditionalFields();
-updatePreview();
+(async () => {
+	initTheme();
+	await initLang();
+	initPresets();
+	initEvents();
+	initLangToggle();
+	updateConditionalFields();
+	updatePreview();
 
-// フッター年の動的更新
-const elFooterYear = document.getElementById('footer-year');
-if (elFooterYear) {
-	elFooterYear.textContent = new Date().getFullYear();
-}
+	// フッター年の動的更新
+	const elFooterYear = document.getElementById('footer-year');
+	if (elFooterYear) {
+		elFooterYear.textContent = new Date().getFullYear();
+	}
+})();

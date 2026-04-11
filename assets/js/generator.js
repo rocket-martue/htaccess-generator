@@ -135,28 +135,29 @@ const buildOptionsSection = (options) => {
  * ファイルアクセス制限セクションを生成する
  * @param {object} fileProtection
  * @param {string} apacheVersion 'both' | '2.4'
+ * @param {Function} t 翻訳関数
  * @returns {string[]}
  */
-const buildFileProtectionSection = (fileProtection, apacheVersion) => {
+const buildFileProtectionSection = (fileProtection, apacheVersion, t) => {
 	const lines = [];
 
 	// xmlrpc.php ブロック
 	if (fileProtection.blockXmlrpc) {
-		lines.push('# XML-RPC へのアクセスを無効化');
+		lines.push(t('gen.comment.blockXmlrpc'));
 		lines.push(...buildDenyFilesBlock('xmlrpc.php', apacheVersion));
 		lines.push('');
 	}
 
 	// wp-config.php 保護
 	if (fileProtection.protectWpConfig) {
-		lines.push('# wp-config.php を保護');
+		lines.push(t('gen.comment.protectWpConfig'));
 		lines.push(...buildDenyFilesBlock('wp-config.php', apacheVersion));
 		lines.push('');
 	}
 
 	// .htaccess 保護
 	if (fileProtection.protectHtaccess) {
-		lines.push('# .htaccess へのアクセス禁止');
+		lines.push(t('gen.comment.protectHtaccess'));
 		lines.push(...buildDenyFilesBlock('.htaccess', apacheVersion));
 		lines.push('');
 	}
@@ -172,7 +173,7 @@ const buildFileProtectionSection = (fileProtection, apacheVersion) => {
 		const extPattern = rawExts.length > 0
 			? rawExts.join('|')
 			: 'inc|log|sh|sql';
-		lines.push('# 特定のファイルタイプへのアクセスを制限');
+		lines.push(t('gen.comment.blockDangerousExt'));
 		lines.push(`<FilesMatch "(?i)\\.(${extPattern})$">`);
 		lines.push(...buildDenyDirectives('\t', apacheVersion));
 		lines.push('</FilesMatch>');
@@ -181,7 +182,7 @@ const buildFileProtectionSection = (fileProtection, apacheVersion) => {
 
 	// wp-login.php Basic 認証
 	if (fileProtection.wpLoginBasicAuth && fileProtection.htpasswdPath) {
-		lines.push('# wp-login.php に Basic 認証を設定');
+		lines.push(t('gen.comment.wpLoginBasicAuth'));
 		lines.push('<Files wp-login.php>');
 		lines.push(`\tAuthUserFile "${fileProtection.htpasswdPath}"`);
 		lines.push('\tAuthName "Member Site"');
@@ -197,9 +198,10 @@ const buildFileProtectionSection = (fileProtection, apacheVersion) => {
 /**
  * IP ブロックセクションを生成する
  * @param {object} ipBlock
+ * @param {Function} t 翻訳関数
  * @returns {string[]}
  */
-const buildIpBlockSection = (ipBlock) => {
+const buildIpBlockSection = (ipBlock, t) => {
 	if (!ipBlock.enabled || !ipBlock.list.trim()) {
 		return [];
 	}
@@ -210,7 +212,7 @@ const buildIpBlockSection = (ipBlock) => {
 	}
 
 	const lines = [];
-	lines.push('# 既知の攻撃 IP をブロック');
+	lines.push(t('gen.comment.ipBlock'));
 	lines.push('<RequireAll>');
 	lines.push('\tRequire all granted');
 	for (const ip of ips) {
@@ -225,15 +227,16 @@ const buildIpBlockSection = (ipBlock) => {
 /**
  * リライトルールセクションを生成する
  * @param {object} rewrite
+ * @param {Function} t 翻訳関数
  * @returns {string[]}
  */
-const buildRewriteSection = (rewrite) => {
+const buildRewriteSection = (rewrite, t) => {
 	const rules = [];
 
 	// スラッシュ重複の正規化
 	if (rewrite.normalizeSlashes) {
 		rules.push('');
-		rules.push('\t# スラッシュの重複（//）を正規化');
+		rules.push(t('gen.comment.normalizeSlashes'));
 		rules.push('	RewriteCond %{THE_REQUEST} \\s[^\\s?]*//');
 		rules.push('\tRewriteRule ^ %{REQUEST_URI} [R=301,L,NE]');
 	}
@@ -245,7 +248,7 @@ const buildRewriteSection = (rewrite) => {
 			.map(([, ua]) => ua);
 		if (activeBots.length > 0) {
 			rules.push('');
-			rules.push('\t# 悪意のあるボット・スクリプトをブロック');
+			rules.push(t('gen.comment.blockBadBots'));
 			rules.push(`\tRewriteCond %{HTTP_USER_AGENT} (${activeBots.join('|')}) [NC]`);
 			rules.push('\tRewriteRule .* - [F,L]');
 		}
@@ -254,7 +257,7 @@ const buildRewriteSection = (rewrite) => {
 	// バックドア探索ブロック
 	if (rewrite.blockBackdoors) {
 		rules.push('');
-		rules.push('\t# バックドア / マルウェア探索をブロック');
+		rules.push(t('gen.comment.blockBackdoors'));
 		rules.push(`\tRewriteCond %{REQUEST_URI} (${BACKDOOR_PATTERNS.join('|')}) [NC]`);
 		rules.push('\tRewriteRule .* - [F,L]');
 	}
@@ -262,7 +265,7 @@ const buildRewriteSection = (rewrite) => {
 	// wp-* ネスト防止
 	if (rewrite.blockWpNesting) {
 		rules.push('');
-		rules.push('\t# wp-* ディレクトリの多重ネストリクエストをブロック');
+		rules.push(t('gen.comment.blockWpNesting'));
 		rules.push('\tRewriteCond %{REQUEST_URI} wp-(content|admin|includes)/.*wp-(content|admin|includes)/ [NC]');
 		rules.push('\tRewriteRule .* - [F,L]');
 	}
@@ -270,11 +273,11 @@ const buildRewriteSection = (rewrite) => {
 	// wp-admin/includes・wp-includes PHP 直接アクセスブロック
 	if (rewrite.blockWpIncludesDir) {
 		rules.push('');
-		rules.push('\t# wp-admin/includes/ への直接アクセスをブロック');
+		rules.push(t('gen.comment.blockWpAdminIncludes'));
 		rules.push('	RewriteCond %{REQUEST_URI} ^/wp-admin/includes(?:/|$) [NC]');
 		rules.push('\tRewriteRule .* - [F,L]');
 		rules.push('');
-		rules.push('\t# wp-includes/*.php への直接アクセスをブロック');
+		rules.push(t('gen.comment.blockWpIncludes'));
 		rules.push('\tRewriteCond %{REQUEST_URI} ^/wp-includes/[^/]+\\.php$ [NC]');
 		rules.push('\tRewriteRule .* - [F,L]');
 	}
@@ -282,7 +285,7 @@ const buildRewriteSection = (rewrite) => {
 	// HTTPS リダイレクト
 	if (rewrite.httpsRedirect) {
 		rules.push('');
-		rules.push('\t# HTTPS リダイレクト');
+		rules.push(t('gen.comment.httpsRedirect'));
 		rules.push('\tRewriteCond %{HTTPS} !=on [NC]');
 		if (rewrite.xForwardedProto) {
 			rules.push('\tRewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]');
@@ -299,7 +302,7 @@ const buildRewriteSection = (rewrite) => {
 		const rawParams = rawParamsParsed.length > 0 ? rawParamsParsed : BAD_QUERY_PARAMS;
 		if (rawParams.length > 0) {
 			rules.push('');
-			rules.push('\t# 不正なクエリ文字列をブロック');
+			rules.push(t('gen.comment.blockBadQuery'));
 			for (const param of rawParams) {
 				rules.push(`\tRewriteCond %{QUERY_STRING} (^|&)${param}=[^&]+(&|$) [NC]`);
 				rules.push('\tRewriteRule ^ - [R=410,L]');
@@ -325,14 +328,15 @@ const buildRewriteSection = (rewrite) => {
 /**
  * キャッシュ & パフォーマンスセクションを生成する
  * @param {object} cache
+ * @param {Function} t 翻訳関数
  * @returns {string[]}
  */
-const buildCacheSection = (cache) => {
+const buildCacheSection = (cache, t) => {
 	const lines = [];
 
 	// Gzip 圧縮
 	if (cache.gzip) {
-		lines.push('# Gzip 圧縮');
+		lines.push(t('gen.comment.gzip'));
 		lines.push('<IfModule mod_deflate.c>');
 		lines.push('\tAddOutputFilterByType DEFLATE text/html text/plain text/xml text/css');
 		lines.push('\tAddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json');
@@ -352,7 +356,7 @@ const buildCacheSection = (cache) => {
 		const font = resolveExpires(cache.expiresFont);
 		const feed = resolveExpires(cache.expiresFeed);
 		const def = resolveExpires(cache.expiresDefault);
-		lines.push('# ブラウザキャッシュ設定');
+		lines.push(t('gen.comment.expires'));
 		lines.push('<IfModule mod_expires.c>');
 		lines.push('\tExpiresActive On');
 		lines.push(`\tExpiresDefault "access plus ${def}"`);
@@ -394,7 +398,7 @@ const buildCacheSection = (cache) => {
 		const ccFont = resolveCcMaxAge(cache.ccFont);
 		const ccVideo = resolveCcMaxAge(cache.ccVideo);
 
-		lines.push('# Cache-Control ヘッダー');
+		lines.push(t('gen.comment.cacheControl'));
 		lines.push('<IfModule mod_headers.c>');
 		lines.push('\t<FilesMatch "\\.(css|js)$">');
 		lines.push(`\t\tHeader always set Cache-Control "public, max-age=${ccScript}, immutable"`);
@@ -431,7 +435,7 @@ const buildCacheSection = (cache) => {
 
 	// ETag 無効化
 	if (cache.etagDisable) {
-		lines.push('# ETags を無効化');
+		lines.push(t('gen.comment.etagDisable'));
 		lines.push('<IfModule mod_headers.c>');
 		lines.push('\tHeader unset ETag');
 		lines.push('</IfModule>');
@@ -446,9 +450,10 @@ const buildCacheSection = (cache) => {
 /**
  * セキュリティレスポンスヘッダーセクションを生成する
  * @param {object} headers
+ * @param {Function} t 翻訳関数
  * @returns {string[]}
  */
-const buildHeadersSection = (headers) => {
+const buildHeadersSection = (headers, t) => {
 	const directives = [];
 
 	// HSTS
@@ -464,7 +469,7 @@ const buildHeadersSection = (headers) => {
 			hstsParts.push('preload');
 		}
 		const hstsValue = hstsParts.join('; ');
-		directives.push('\t# HSTS（HTTPS 接続時のみ送信）');
+		directives.push(t('gen.comment.hsts'));
 		directives.push(`\tHeader always set Strict-Transport-Security "${hstsValue}" "expr=%{HTTPS} == 'on' || %{HTTP:X-Forwarded-Proto} == 'https'"`);
 	}
 
@@ -579,8 +584,8 @@ const buildHeadersSection = (headers) => {
 			? headers.xFrameOptionsValue
 			: 'SAMEORIGIN';
 		const xfoComment = (headers.cspEnabled && headers.cspFrameAncestorsEnabled)
-			? '\t# X-Frame-Options（CSP の frame-ancestors と併用 - CSP 非対応の古いブラウザ向け保険）'
-			: '\t# X-Frame-Options';
+			? t('gen.comment.xFrameOptionsWithCsp')
+			: t('gen.comment.xFrameOptions');
 		directives.push('');
 		directives.push(xfoComment);
 		directives.push(`\tHeader always set X-Frame-Options "${xfoValue}"`);
@@ -645,9 +650,10 @@ const buildHeadersSection = (headers) => {
 /**
  * ルート .htaccess のディレクティブを生成する
  * @param {object} settings 全設定オブジェクト
+ * @param {Function} t 翻訳関数
  * @returns {string[]} 行の配列
  */
-export const buildRoot = (settings) => {
+export const buildRoot = (settings, t) => {
 	const lines = [];
 
 	lines.push('# BEGIN HtaccessGenerator');
@@ -656,11 +662,11 @@ export const buildRoot = (settings) => {
 
 	const apacheVersion = settings.apacheVersion ?? 'both';
 	const optionsLines = buildOptionsSection(settings.options);
-	const filesLines = buildFileProtectionSection(settings.fileProtection, apacheVersion);
-	const ipLines = buildIpBlockSection(settings.ipBlock);
-	const rewriteLines = buildRewriteSection(settings.rewrite);
-	const cacheLines = buildCacheSection(settings.cache);
-	const headerLines = buildHeadersSection(settings.headers);
+	const filesLines = buildFileProtectionSection(settings.fileProtection, apacheVersion, t);
+	const ipLines = buildIpBlockSection(settings.ipBlock, t);
+	const rewriteLines = buildRewriteSection(settings.rewrite, t);
+	const cacheLines = buildCacheSection(settings.cache, t);
+	const headerLines = buildHeadersSection(settings.headers, t);
 
 	// Security Settings
 	if (optionsLines.length > 0 || filesLines.length > 0 || ipLines.length > 0) {
@@ -703,9 +709,10 @@ export const buildRoot = (settings) => {
 /**
  * 管理画面用 .htaccess ディレクティブを生成する
  * @param {object} settings 全設定オブジェクト
+ * @param {Function} t 翻訳関数
  * @returns {string[]} 行の配列
  */
-export const buildWpAdmin = (settings) => {
+export const buildWpAdmin = (settings, t) => {
 	const admin = settings.wpAdmin;
 	const apacheVersion = settings.apacheVersion ?? 'both';
 
@@ -714,7 +721,7 @@ export const buildWpAdmin = (settings) => {
 	}
 
 	const lines = [];
-	lines.push('# wp-admin に Basic 認証を設定');
+	lines.push(t('gen.comment.wpAdminBasicAuth'));
 	lines.push(`AuthUserFile "${admin.htpasswdPath}"`);
 	lines.push('AuthName "Member Site"');
 	lines.push('AuthType BASIC');
@@ -723,7 +730,7 @@ export const buildWpAdmin = (settings) => {
 	// admin-ajax.php の除外
 	if (admin.ajaxExclude) {
 		lines.push('');
-		lines.push('# admin-ajax.php へのアクセスを許可（フロントエンドの Ajax 用）');
+		lines.push(t('gen.comment.ajaxExclude'));
 		lines.push('<Files admin-ajax.php>');
 		if (apacheVersion === '2.4') {
 			lines.push('\tRequire all granted');
@@ -745,7 +752,7 @@ export const buildWpAdmin = (settings) => {
 	// upgrade.php のサーバー内部 IP 除外
 	if (admin.upgradeIpExclude && admin.serverIp) {
 		lines.push('');
-		lines.push('# upgrade.php はサーバー内部 IP のみ Basic 認証をスキップ（自動更新用）');
+		lines.push(t('gen.comment.upgradeIpExclude'));
 		lines.push('<Files upgrade.php>');
 		if (apacheVersion === '2.4') {
 			lines.push('\t<RequireAny>');
@@ -774,9 +781,10 @@ export const buildWpAdmin = (settings) => {
 /**
  * Uploads ディレクトリ用 .htaccess ディレクティブを生成する
  * @param {object} settings 全設定オブジェクト
+ * @param {Function} t 翻訳関数
  * @returns {string[]} 行の配列
  */
-export const buildUploads = (settings) => {
+export const buildUploads = (settings, t) => {
 	if (!settings.uploads.blockPhp) {
 		return [];
 	}
@@ -784,7 +792,7 @@ export const buildUploads = (settings) => {
 	const apacheVersion = settings.apacheVersion ?? 'both';
 
 	return [
-		'# PHP 関連ファイルの実行を禁止',
+		t('gen.comment.blockPhp'),
 		'<FilesMatch "(?i)\\.(?:php|phar|phtml)$">',
 		...buildDenyDirectives('\t', apacheVersion),
 		'</FilesMatch>',

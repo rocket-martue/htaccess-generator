@@ -1,0 +1,215 @@
+/**
+ * locales/ja.js — 日本語テキスト定義
+ */
+export default {
+	// ナビゲーション
+	'skip.link': 'メインコンテンツへスキップ',
+	'nav.open': 'メニューを開く',
+	'nav.close': 'メニューを閉じる',
+	'nav.aria': 'サイトナビゲーション',
+	'nav.terms': '利用規約',
+
+	// ヘッダー
+	'header.sub': 'for WordPress',
+	'header.desc': 'WordPress 用 .htaccess のセキュリティ・パフォーマンス設定を簡単に生成<br><small>Apache 2.4 以降 / WordPress 対応</small>',
+	'lang.btn.text': 'EN',
+	'lang.btn.label': '言語切り替え（Switch to English）',
+
+	// セクションタイトル
+	'section.preset': 'プリセット',
+	'section.apache': '対象 Apache バージョン',
+	'section.options': 'Options & ErrorDocument',
+	'section.options.aria': 'Options と ErrorDocument',
+	'section.fileProtection': 'ファイルアクセス制限',
+	'section.ipBlock': 'IP アドレスブロック',
+	'section.ipBlock.aria': 'IP ブロック',
+	'section.rewrite': 'リライトルール',
+	'section.secHeaders': 'セキュリティレスポンスヘッダー',
+	'section.secHeaders.aria': 'セキュリティヘッダー',
+	'section.cache': 'キャッシュ & パフォーマンス',
+	'section.cache.aria': 'キャッシュとパフォーマンス',
+	'section.wpAdmin': 'wp-admin Basic 認証',
+	'section.uploads': 'wp-content/uploads 保護',
+	'section.preview': 'プレビュー',
+	'section.preview.aria': '.htaccess プレビュー',
+
+	// Apache バージョン
+	'apache.legend': '対象 Apache バージョン',
+	'apache.v24': 'アクセス制御ディレクティブを Apache 2.4 形式で出力',
+	'apache.both': 'アクセス制御ディレクティブを Apache 2.2 / 2.4 互換形式で出力',
+	'apache.hint': '⚠️ この切り替えで変わるのは主にアクセス制御ディレクティブの出力形式のみです。生成される .htaccess 全体が Apache 2.2 互換になるわけではありません。Apache 2.2 環境では、他の Apache 2.4 専用ディレクティブにより 500 エラーが発生する場合があります。',
+
+	// Options & ErrorDocument
+	'toggle.disableMultiviews': 'ディレクトリ一覧 & コンテンツネゴシエーション無効化',
+	'toggle.disableIndexes': 'ディレクトリインデックス無効化',
+	'options.hint': '⚠️ 一部のレンタルサーバーでは Options の変更が禁止されており、上記の Options 設定を有効にすると 500 エラーが発生する場合があります。その場合は Options 設定を無効にしてください。',
+	'toggle.errorDocument': 'ErrorDocument 軽量化（403 / 404）',
+
+	// ファイルアクセス制限
+	'toggle.blockXmlrpc': 'xmlrpc.php をブロック',
+	'toggle.protectWpConfig': 'wp-config.php を保護',
+	'toggle.protectHtaccess': '.htaccess を保護',
+	'toggle.blockDangerousExt': '危険な拡張子をブロック',
+	'input.blockDangerousExtList': 'ブロックする拡張子（1行に1つ）',
+	'toggle.wpLoginBasicAuth': 'wp-login.php に Basic 認証',
+	'input.htpasswdPath': '.htpasswd のフルパス',
+	'hint.htpasswdPath': '.htpasswd のフルパスを入力すると反映されます',
+
+	// IP ブロック
+	'toggle.ipBlock': 'IP アドレスによるブロック',
+	'input.ipBlockList': 'ブロックする IP（1行に1つ）',
+	'hint.ipBlock': 'ブロックする IP アドレスを入力してください',
+
+	// リライトルール
+	'toggle.normalizeSlashes': 'スラッシュ重複の正規化',
+	'toggle.blockBadBots': '悪意のあるボットをブロック',
+	'hint.badBots': 'チェック ON = ブロックする / OFF = 除外（許可）',
+	'group.attackTools': '攻撃ツール',
+	'group.genericClients': '汎用クライアント',
+	'group.seoBot': 'SEO クローラー',
+	'toggle.blockBackdoors': 'バックドア / マルウェア探索をブロック',
+	'toggle.blockWpNesting': 'wp-* 多重ネストを防止',
+	'toggle.blockWpIncludesDir': 'wp-includes / wp-admin/includes への直接アクセス防止',
+	'toggle.httpsRedirect': 'HTTPS リダイレクト',
+	'toggle.xForwardedProto': 'X-Forwarded-Proto 判定（リバースプロキシ対応）',
+	'toggle.blockBadQuery': '不正なクエリ文字列をブロック',
+	'input.badQueryParams': 'ブロックするパラメータ名（1行に1つ）',
+
+	// セキュリティヘッダー — HSTS
+	'toggle.hstsEnabled': 'HSTS（Strict-Transport-Security）',
+	'hsts.maxAgeLabel': 'max-age',
+	'hsts.300': '300（5分・テスト用）',
+	'hsts.86400': '86400（1日）',
+	'hsts.2592000': '2592000（30日）',
+	'hsts.31536000': '31536000（1年）',
+	'hsts.63072000': '63072000（2年）',
+	'hint.hstsTest': 'まず短い値（300秒）でテストし、問題がないことを確認してから長い値に変更してください。一度ブラウザにキャッシュされると HTTP に戻せなくなります。',
+	'hint.hstsSubDomains': 'すべてのサブドメインが HTTPS に対応していることを確認してから有効にしてください。HTTPS 未対応のサブドメインがある場合、ブラウザがアクセスを拒否します。',
+	'hint.hstsPreloadWarn': 'preload には includeSubDomains と max-age 1年（31536000）以上が必要です',
+	'hint.hstsPreload': 'ブラウザのプリロードリストへの登録を意図するフラグです。preload を有効にしても、includeSubDomains が OFF の場合は生成結果に反映されません。利用する場合は includeSubDomains を ON にし、max-age を 1年（31536000）以上に設定してください。一度登録されると削除に数ヶ月かかるため、HTTPS 環境が完全に整っていない場合は有効にしないでください。',
+
+	// セキュリティヘッダー — CSP
+	'toggle.cspEnabled': 'CSP（Content-Security-Policy）',
+	'hint.csp': 'CSP は本番適用前にブラウザの DevTools（F12）→ Console タブで違反を確認し、サイトに合わせて調整してください。',
+	'toggle.cspReportOnly': 'Report-Only モード（テスト用）',
+	'hint.cspReportOnly': '<code>Content-Security-Policy-Report-Only</code> を出力。<code>upgrade-insecure-requests</code> は除外されます。Report-Only モード以外では常に含まれます。',
+
+	// セキュリティヘッダー — X-Frame-Options
+	'toggle.xContentType': 'X-Content-Type-Options: nosniff',
+	'toggle.xFrameOptions': 'X-Frame-Options',
+	'legend.xFrameOptions': 'X-Frame-Options の値',
+	'xfo.sameorigin': 'SAMEORIGIN（同一ドメインのみ許可）',
+	'xfo.deny': 'DENY（すべて拒否）',
+
+	// セキュリティヘッダー — Referrer-Policy
+	'toggle.referrerPolicy': 'Referrer-Policy',
+	'legend.referrerPolicy': 'Referrer-Policy の値',
+	'rp.recommended': 'strict-origin-when-cross-origin（推奨）',
+	'rp.unsafe': 'unsafe-url（非推奨）',
+
+	// セキュリティヘッダー — Permissions-Policy
+	'toggle.permissionsPolicy': 'Permissions-Policy',
+	'hint.pp': 'チェック ON = 制限する / OFF = ポリシーから除外（許可）',
+	'pp.geolocation': 'geolocation',
+	'pp.geolocation.deny': '完全無効化',
+	'pp.geolocation.googleMaps': 'Google マップ許可',
+	'pp.geolocation.off': 'ポリシーから除外',
+
+	// キャッシュ & パフォーマンス
+	'toggle.gzip': 'Gzip 圧縮',
+	'toggle.expires': 'ブラウザキャッシュ（Expires）',
+	'cache.cssjs': 'CSS / JS',
+	'legend.expiresScript': 'CSS / JS のキャッシュ有効期限',
+	'time.1h': '1時間',
+	'time.1d': '1日',
+	'time.1w': '1週間',
+	'time.1m': '1ヶ月',
+	'time.3m': '3ヶ月',
+	'time.1y': '1年',
+	'cache.image': '画像',
+	'legend.expiresImage': '画像のキャッシュ有効期限',
+	'cache.icon': 'アイコン',
+	'legend.expiresIcon': 'アイコンのキャッシュ有効期限',
+	'cache.video': '動画',
+	'legend.expiresVideo': '動画のキャッシュ有効期限',
+	'cache.font': 'フォント',
+	'legend.expiresFont': 'フォントのキャッシュ有効期限',
+	'cache.feed': 'フィード',
+	'legend.expiresFeed': 'フィードのキャッシュ有効期限',
+	'cache.other': 'その他（デフォルト）',
+	'legend.expiresDefault': 'その他（デフォルト）のキャッシュ有効期限',
+	'toggle.cacheControl': 'Cache-Control ヘッダー',
+	'legend.ccScript': 'CSS / JS の Cache-Control max-age',
+	'cache.imageIcon': '画像・アイコン',
+	'legend.ccImage': '画像・アイコンの Cache-Control max-age',
+	'legend.ccFont': 'フォントの Cache-Control max-age',
+	'legend.ccVideo': '動画の Cache-Control max-age',
+	'toggle.etagDisable': 'ETag 無効化',
+	'toggle.mimeType': 'MIME タイプ追加',
+
+	// wp-admin Basic 認証
+	'toggle.wpAdminBasicAuth': '管理画面に Basic 認証',
+	'input.adminHtpasswdPath': '.htpasswd のフルパス',
+	'hint.adminHtpasswdPath': '.htpasswd のフルパスを入力すると反映されます',
+	'toggle.ajaxExclude': 'admin-ajax.php を除外',
+	'toggle.upgradeIpExclude': 'upgrade.php のサーバー内部 IP 除外',
+	'input.serverIp': 'サーバー内部 IP',
+
+	// Uploads
+	'toggle.blockPhp': 'PHP 実行を禁止',
+
+	// プレビュー
+	'tab.root': 'ルート .htaccess',
+	'tab.list.aria': '生成ファイルの切り替え',
+	'preview.placeholder': '# オプションを選択してください',
+	'preview.placeholder.wpAdmin': '# .htpasswd のフルパスを入力してください',
+	'btn.copy': 'コピー',
+	'btn.copied': 'コピー済！',
+	'btn.copyFail': 'コピー失敗',
+	'btn.copy.aria': '表示中の内容をクリップボードにコピー',
+	'btn.download': 'ダウンロード',
+	'btn.download.aria': '表示中の内容を .htaccess ファイルとしてダウンロード',
+
+	// プリセット（動的生成）
+	'preset.recommended.label': 'おすすめ設定',
+	'preset.recommended.desc': 'セキュリティとパフォーマンスのバランスが取れた推奨構成',
+	'preset.basic.label': '基本設定',
+	'preset.basic.desc': 'おすすめ設定からパフォーマンス（キャッシュ・圧縮）を除いた構成',
+	'preset.performance.label': 'パフォーマンス + セキュリティヘッダー',
+	'preset.performance.desc': 'キャッシュ・圧縮とセキュリティヘッダーを組み合わせた構成',
+	'preset.headers-only.label': 'セキュリティヘッダーのみ',
+	'preset.headers-only.desc': 'セキュリティレスポンスヘッダーだけを有効化',
+	'preset.cache-only.label': 'パフォーマンス重視',
+	'preset.cache-only.desc': 'キャッシュ・圧縮設定のみ有効化',
+	'preset.max-security.label': '最大セキュリティ',
+	'preset.max-security.desc': 'Basic 認証を除くすべてのセキュリティ項目を有効化',
+	'preset.reset.label': 'リセット',
+	'preset.reset.desc': 'すべての設定を初期状態に戻す',
+
+	// .htaccess 出力コメント
+	'gen.comment.blockXmlrpc': '# XML-RPC へのアクセスを無効化',
+	'gen.comment.protectWpConfig': '# wp-config.php を保護',
+	'gen.comment.protectHtaccess': '# .htaccess へのアクセス禁止',
+	'gen.comment.blockDangerousExt': '# 特定のファイルタイプへのアクセスを制限',
+	'gen.comment.wpLoginBasicAuth': '# wp-login.php に Basic 認証を設定',
+	'gen.comment.ipBlock': '# 既知の攻撃 IP をブロック',
+	'gen.comment.normalizeSlashes': '\t# スラッシュの重複（//）を正規化',
+	'gen.comment.blockBadBots': '\t# 悪意のあるボット・スクリプトをブロック',
+	'gen.comment.blockBackdoors': '\t# バックドア / マルウェア探索をブロック',
+	'gen.comment.blockWpNesting': '\t# wp-* ディレクトリの多重ネストリクエストをブロック',
+	'gen.comment.blockWpAdminIncludes': '\t# wp-admin/includes/ への直接アクセスをブロック',
+	'gen.comment.blockWpIncludes': '\t# wp-includes/*.php への直接アクセスをブロック',
+	'gen.comment.httpsRedirect': '\t# HTTPS リダイレクト',
+	'gen.comment.blockBadQuery': '\t# 不正なクエリ文字列をブロック',
+	'gen.comment.gzip': '# Gzip 圧縮',
+	'gen.comment.expires': '# ブラウザキャッシュ設定',
+	'gen.comment.cacheControl': '# Cache-Control ヘッダー',
+	'gen.comment.etagDisable': '# ETags を無効化',
+	'gen.comment.hsts': '\t# HSTS（HTTPS 接続時のみ送信）',
+	'gen.comment.xFrameOptions': '\t# X-Frame-Options',
+	'gen.comment.xFrameOptionsWithCsp': '\t# X-Frame-Options（CSP の frame-ancestors と併用 - CSP 非対応の古いブラウザ向け保険）',
+	'gen.comment.wpAdminBasicAuth': '# wp-admin に Basic 認証を設定',
+	'gen.comment.ajaxExclude': '# admin-ajax.php へのアクセスを許可（フロントエンドの Ajax 用）',
+	'gen.comment.upgradeIpExclude': '# upgrade.php はサーバー内部 IP のみ Basic 認証をスキップ（自動更新用）',
+	'gen.comment.blockPhp': '# PHP 関連ファイルの実行を禁止',
+};
