@@ -64,7 +64,12 @@ const loadLocale = async (lang) => {
  */
 export const setLang = async (lang) => {
 	if (lang !== 'ja' && lang !== 'en') return;
-	translations = await loadLocale(lang);
+	try {
+		translations = await loadLocale(lang);
+	} catch (e) {
+		// ロケール読み込み失敗時は現在の翻訳・言語を維持して継続
+		return;
+	}
 	currentLang = lang;
 	try {
 		localStorage.setItem(LANG_STORAGE_KEY, lang);

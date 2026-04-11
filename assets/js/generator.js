@@ -618,7 +618,7 @@ const buildHeadersSection = (headers, t) => {
 		if (headers.ppPictureInPicture) ppFeatures.push('picture-in-picture=()');
 		if (headers.ppScreenWakeLock) ppFeatures.push('screen-wake-lock=()');
 		if (headers.ppWebShare) ppFeatures.push('web-share=()');
-		if (headers.ppGeolocation === 'deny' || headers.ppGeolocation === true) {
+		if (headers.ppGeolocation === 'deny') {
 			ppFeatures.push('geolocation=()');
 		} else if (headers.ppGeolocation === 'google-maps') {
 			// ダブルクォートを \" にエスケープして Apache 構文の衝突を回避する
@@ -653,7 +653,7 @@ const buildHeadersSection = (headers, t) => {
  * @param {Function} t 翻訳関数
  * @returns {string[]} 行の配列
  */
-export const buildRoot = (settings, t) => {
+export const buildRoot = (settings, t = (key) => key) => {
 	const lines = [];
 
 	lines.push('# BEGIN HtaccessGenerator');
@@ -712,7 +712,7 @@ export const buildRoot = (settings, t) => {
  * @param {Function} t 翻訳関数
  * @returns {string[]} 行の配列
  */
-export const buildWpAdmin = (settings, t) => {
+export const buildWpAdmin = (settings, t = (key) => key) => {
 	const admin = settings.wpAdmin;
 	const apacheVersion = settings.apacheVersion ?? 'both';
 
@@ -784,7 +784,7 @@ export const buildWpAdmin = (settings, t) => {
  * @param {Function} t 翻訳関数
  * @returns {string[]} 行の配列
  */
-export const buildUploads = (settings, t) => {
+export const buildUploads = (settings, t = (key) => key) => {
 	if (!settings.uploads.blockPhp) {
 		return [];
 	}
