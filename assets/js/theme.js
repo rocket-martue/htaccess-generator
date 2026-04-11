@@ -38,9 +38,13 @@ const applyTheme = (isDark, t = null) => {
  * localStorage からテーマを復元して適用
  */
 const initTheme = () => {
-	const stored = localStorage.getItem(THEME_STORAGE_KEY);
-	const isDark = stored === DARK_THEME;
-	applyTheme(isDark);
+	let stored = null;
+	try {
+		stored = localStorage.getItem(THEME_STORAGE_KEY);
+	} catch (e) {
+		// localStorage 利用不可の場合はデフォルト（ライト）を使用
+	}
+	applyTheme(stored === DARK_THEME);
 };
 
 /**
@@ -50,7 +54,11 @@ const initTheme = () => {
 const setupThemeToggle = (t = null) => {
 	document.querySelector('.theme-toggle-btn')?.addEventListener('click', () => {
 		const isDark = document.documentElement.getAttribute('data-theme') !== DARK_THEME;
-		localStorage.setItem(THEME_STORAGE_KEY, isDark ? DARK_THEME : 'light');
+		try {
+			localStorage.setItem(THEME_STORAGE_KEY, isDark ? DARK_THEME : 'light');
+		} catch (e) {
+			// localStorage 利用不可の場合は非永続で切り替えのみ実行
+		}
 		applyTheme(isDark, t);
 	});
 };
