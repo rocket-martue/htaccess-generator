@@ -235,4 +235,6 @@ export default {
 	'guide.htaccess-basics.subtitle': 'What is .htaccess? A Beginner\'s Guide',
 	'guide.htaccess-basics.title': 'What is .htaccess? A Beginner\'s Guide | .htaccess Generator',
 	'guide.htaccess-basics.description': 'A beginner\'s guide explaining what .htaccess is, what it can do, supported environments, its relationship with WordPress, and basic syntax.',
+	'guide.htaccess-basics.ogUrl': 'https://htaccess-generator-b46.pages.dev/htaccess-basics-guide/?lang=en',
+	'guide.htaccess-basics.ogLocale': 'en_US',
 };

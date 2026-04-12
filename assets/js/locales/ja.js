@@ -235,4 +235,6 @@ export default {
 	'guide.htaccess-basics.subtitle': '.htaccess とは？入門ガイド',
 	'guide.htaccess-basics.title': '.htaccess とは？入門ガイド | .htaccess Generator',
 	'guide.htaccess-basics.description': '.htaccess とは何か、できること・使える環境・WordPress との関係・基本構文をわかりやすく解説した入門ガイド',
+	'guide.htaccess-basics.ogUrl': 'https://htaccess-generator-b46.pages.dev/htaccess-basics-guide/',
+	'guide.htaccess-basics.ogLocale': 'ja_JP',
 };
