@@ -4,7 +4,7 @@
  * テーマの初期化・切り替えボタンのイベント登録・i18n 対応を行う。
  */
 
-import { initTheme, setupThemeToggle, applyTheme } from './theme.js';
+import { initTheme, setupThemeToggle, applyTheme, DARK_THEME } from './theme.js';
 import { initLang, getLang, setLang, t } from './i18n.js';
 
 /**
@@ -13,9 +13,13 @@ import { initLang, getLang, setLang, t } from './i18n.js';
 const applyLangBlocks = () => {
 	const lang = getLang();
 	document.querySelectorAll('.lang-block').forEach((el) => {
-		el.dataset.lang === lang
-			? el.removeAttribute('hidden')
-			: el.setAttribute('hidden', '');
+		if (el.dataset.lang === lang) {
+			el.removeAttribute('hidden');
+			el.setAttribute('lang', el.dataset.lang);
+		} else {
+			el.setAttribute('hidden', '');
+			el.removeAttribute('lang');
+		}
 	});
 };
 
@@ -26,7 +30,7 @@ const applyLangBlocks = () => {
 
 	// initTheme() は initLang() より先に実行されるため、
 	// 現在のテーマを再適用してトグルボタンの文言/aria-label を現在言語で更新する
-	const currentIsDark = document.documentElement.dataset.theme === 'dark';
+	const currentIsDark = document.documentElement.getAttribute('data-theme') === DARK_THEME;
 	applyTheme(currentIsDark, t);
 	setupThemeToggle(t);
 
@@ -34,7 +38,7 @@ const applyLangBlocks = () => {
 	const langToggleBtn = document.querySelector('.lang-toggle-btn');
 	if (langToggleBtn) {
 		langToggleBtn.addEventListener('click', async () => {
-			const currentIsDark = document.documentElement.dataset.theme === 'dark';
+			const currentIsDark = document.documentElement.getAttribute('data-theme') === DARK_THEME;
 			const next = getLang() === 'ja' ? 'en' : 'ja';
 			await setLang(next);
 			applyLangBlocks();
