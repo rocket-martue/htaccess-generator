@@ -234,4 +234,5 @@ export default {
 	// Guide pages
 	'guide.lang.btn.text': 'JA',
 	'guide.lang.btn.label': 'Switch language (日本語に切り替え)',
+	'guide.htaccess-basics.subtitle': 'What is .htaccess? A Beginner\'s Guide',
 };

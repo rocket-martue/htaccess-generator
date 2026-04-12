@@ -22,7 +22,6 @@ const applyLangBlocks = () => {
 (async () => {
 	initTheme();
 	await initLang();
-	applyTranslations();
 	applyLangBlocks();
 	setupThemeToggle(t);
 

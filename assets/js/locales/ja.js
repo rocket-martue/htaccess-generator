@@ -234,4 +234,5 @@ export default {
 	// ガイドページ
 	'guide.lang.btn.text': 'EN',
 	'guide.lang.btn.label': '言語切り替え（Switch to English）',
+	'guide.htaccess-basics.subtitle': '.htaccess とは？入門ガイド',
 };
