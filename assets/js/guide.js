@@ -24,16 +24,17 @@ const applyLangBlocks = () => {
 	await initLang();
 	applyTranslations();
 	applyLangBlocks();
-	setupThemeToggle();
+	setupThemeToggle(t);
 
 	// lang toggle ボタン
 	const langToggleBtn = document.querySelector('.lang-toggle-btn');
 	if (langToggleBtn) {
 		langToggleBtn.addEventListener('click', async () => {
+			const currentIsDark = document.documentElement.dataset.theme === 'dark';
 			const next = getLang() === 'ja' ? 'en' : 'ja';
 			await setLang(next);
 			applyLangBlocks();
-			applyTheme();
+			applyTheme(currentIsDark, t);
 
 			// ハンバーガーの aria-label を更新
 			const hamburgerBtn = document.querySelector('.hamburger-btn');
@@ -48,6 +49,10 @@ const applyLangBlocks = () => {
 	const hamburgerBtn = document.querySelector('.hamburger-btn');
 	const siteNav = document.querySelector('.site-nav');
 	if (hamburgerBtn && siteNav) {
+		// initLang() 完了後に初期 aria-label を正しい言語で設定する
+		const isOpen = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+		hamburgerBtn.setAttribute('aria-label', isOpen ? t('nav.close') : t('nav.open'));
+
 		const setOpen = (val) => {
 			hamburgerBtn.setAttribute('aria-expanded', String(val));
 			hamburgerBtn.setAttribute('aria-label', val ? t('nav.close') : t('nav.open'));
