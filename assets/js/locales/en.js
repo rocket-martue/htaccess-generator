@@ -232,7 +232,7 @@ export default {
 	'gen.comment.blockPhp': '# Disable PHP file execution',
 
 	// Guide pages
-	'guide.lang.btn.text': 'JA',
-	'guide.lang.btn.label': 'Switch language (日本語に切り替え)',
 	'guide.htaccess-basics.subtitle': 'What is .htaccess? A Beginner\'s Guide',
+	'guide.htaccess-basics.title': 'What is .htaccess? A Beginner\'s Guide | .htaccess Generator',
+	'guide.htaccess-basics.description': 'A beginner\'s guide explaining what .htaccess is, what it can do, supported environments, its relationship with WordPress, and basic syntax.',
 };

@@ -30,6 +30,7 @@ export const getLang = () => currentLang;
  * - data-i18n       → textContent
  * - data-i18n-html  → innerHTML（ロケールデータは信頼済みのため安全）
  * - data-i18n-aria-label → aria-label 属性
+ * - data-i18n-content    → content 属性（meta タグ用）
  */
 export const applyTranslations = () => {
 	document.querySelectorAll('[data-i18n]').forEach((el) => {
@@ -40,6 +41,9 @@ export const applyTranslations = () => {
 	});
 	document.querySelectorAll('[data-i18n-aria-label]').forEach((el) => {
 		el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel));
+	});
+	document.querySelectorAll('[data-i18n-content]').forEach((el) => {
+		el.setAttribute('content', t(el.dataset.i18nContent));
 	});
 	document.documentElement.lang = currentLang;
 };
