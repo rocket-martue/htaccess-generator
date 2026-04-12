@@ -5,7 +5,7 @@
  */
 
 import { initTheme, setupThemeToggle, applyTheme } from './theme.js';
-import { initLang, getLang, setLang, applyTranslations, t } from './i18n.js';
+import { initLang, getLang, setLang, t } from './i18n.js';
 
 /**
  * lang-block の表示 / 非表示を現在の言語に合わせて切り替える
@@ -23,6 +23,11 @@ const applyLangBlocks = () => {
 	initTheme();
 	await initLang();
 	applyLangBlocks();
+
+	// initTheme() は initLang() より先に実行されるため、
+	// 現在のテーマを再適用してトグルボタンの文言/aria-label を現在言語で更新する
+	const currentIsDark = document.documentElement.dataset.theme === 'dark';
+	applyTheme(currentIsDark, t);
 	setupThemeToggle(t);
 
 	// lang toggle ボタン
