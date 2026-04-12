@@ -25,6 +25,11 @@
 		<meta name="license" content="https://creativecommons.org/licenses/by-nc-sa/4.0/">
 
 		<link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+		<link rel="alternate" hreflang="ja" href="https://htaccess-generator-b46.pages.dev/htaccess-basics-guide/">
+		<link rel="alternate" hreflang="en"
+			href="https://htaccess-generator-b46.pages.dev/htaccess-basics-guide/?lang=en">
+		<link rel="alternate" hreflang="x-default"
+			href="https://htaccess-generator-b46.pages.dev/htaccess-basics-guide/">
 		<title>.htaccess とは？入門ガイド | .htaccess Generator</title>
 		<script>
 			try {
@@ -43,13 +48,18 @@
 	</head>
 
 	<body>
-		<a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
+		<a href="#main-content" class="skip-link" data-i18n="skip.link">メインコンテンツへスキップ</a>
 		<div class="app-wrapper">
 
 			<header class="app-header">
 				<h1><a href="../">.htaccess Generator</a><span class="h1-sub">for WordPress</span></h1>
 				<p>.htaccess とは？入門ガイド</p>
 				<div class="header-actions">
+					<button type="button" class="lang-toggle-btn" aria-label="言語切り替え（Switch to English）"
+						data-i18n-aria-label="guide.lang.btn.label">
+						<span class="lang-toggle-icon" aria-hidden="true">🌐</span>
+						<span class="lang-toggle-label" data-i18n="guide.lang.btn.text">EN</span>
+					</button>
 					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
@@ -63,7 +73,7 @@
 				</div>
 			</header>
 
-			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション">
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション" data-i18n-aria-label="nav.aria">
 				<div class="site-nav-card">
 					<ul class="site-nav-list">
 						<li><a href="../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14"
@@ -79,7 +89,7 @@
 						<li><a href="../wp-protection-guide/">wp-admin 保護</a></li>
 						<li><a href="../options-errordocument-guide/">Options &amp; ErrorDocument</a></li>
 						<li><a href="../recovery-guide/">リカバリ方法</a></li>
-						<li><a href="../terms/">利用規約</a></li>
+						<li><a href="../terms/" data-i18n="nav.terms">利用規約</a></li>
 						<li><a href="https://github.com/rocket-martue/htaccess-generator" target="_blank"
 								rel="noopener noreferrer">GitHub <svg xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"
@@ -96,80 +106,161 @@
 
 					<!-- .htaccess とは？ -->
 					<section>
-						<h2>.htaccess とは？</h2>
-						<p><strong>Apache ウェブサーバーのディレクトリ単位の設定ファイル</strong>。</p>
-						<p>ファイル名は <code>.htaccess</code>（ドット始まり）で、特定のディレクトリに置くとそのディレクトリ以下すべての挙動を制御できる。</p>
-						<p>通常の Apache 設定は <code>httpd.conf</code> というサーバー全体の設定ファイルで行うが、レンタルサーバーでは
-							<code>httpd.conf</code> を直接編集できない。
-						</p>
-						<p><code>.htaccess</code> はサーバー管理者の権限がなくても、ディレクトリ単位で設定を上書きできる仕組みとして用意されている。</p>
+						<div class="lang-block" data-lang="ja">
+							<h2>.htaccess とは？</h2>
+							<p><strong>Apache ウェブサーバーのディレクトリ単位の設定ファイル</strong>。</p>
+							<p>ファイル名は <code>.htaccess</code>（ドット始まり）で、特定のディレクトリに置くとそのディレクトリ以下すべての挙動を制御できる。</p>
+							<p>通常の Apache 設定は <code>httpd.conf</code> というサーバー全体の設定ファイルで行うが、レンタルサーバーでは
+								<code>httpd.conf</code> を直接編集できない。
+							</p>
+							<p><code>.htaccess</code> はサーバー管理者の権限がなくても、ディレクトリ単位で設定を上書きできる仕組みとして用意されている。</p>
 
-						<h3>配置場所と効果範囲</h3>
-						<div class="table-wrap">
-							<table>
-								<thead>
-									<tr>
-										<th>配置場所</th>
-										<th>効果範囲</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>サイトルート（<code>/public_html/</code>）</td>
-										<td>サイト全体</td>
-									</tr>
-									<tr>
-										<td><code>/public_html/blog/</code></td>
-										<td><code>/blog/</code> 以下のみ</td>
-									</tr>
-								</tbody>
-							</table>
+							<h3>配置場所と効果範囲</h3>
+							<div class="table-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>配置場所</th>
+											<th>効果範囲</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>サイトルート（<code>/public_html/</code>）</td>
+											<td>サイト全体</td>
+										</tr>
+										<tr>
+											<td><code>/public_html/blog/</code></td>
+											<td><code>/blog/</code> 以下のみ</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<blockquote>
+								<p>通常は WordPress がインストールされているサイトルートに 1 つ置くだけで OK。</p>
+							</blockquote>
 						</div>
-						<blockquote>
-							<p>通常は WordPress がインストールされているサイトルートに 1 つ置くだけで OK。</p>
-						</blockquote>
+						<div class="lang-block" data-lang="en" hidden>
+							<h2>What is .htaccess?</h2>
+							<p><strong>A per-directory configuration file for the Apache web server</strong>.</p>
+							<p>The file is named <code>.htaccess</code> (dot prefix). Placing it in a directory controls
+								the behavior of that directory and everything beneath it.</p>
+							<p>Normally, Apache settings are managed in <code>httpd.conf</code>, the server-wide
+								configuration file, but shared hosting providers typically do not allow direct access to
+								it.</p>
+							<p><code>.htaccess</code> exists as a mechanism that lets you override settings on a
+								per-directory basis without needing server-administrator privileges.</p>
+
+							<h3>Placement and scope</h3>
+							<div class="table-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>Location</th>
+											<th>Scope</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Site root (<code>/public_html/</code>)</td>
+											<td>Entire site</td>
+										</tr>
+										<tr>
+											<td><code>/public_html/blog/</code></td>
+											<td><code>/blog/</code> and below only</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<blockquote>
+								<p>In most cases, a single file placed in the site root where WordPress is installed is
+									all you need.</p>
+							</blockquote>
+						</div>
 					</section>
 
 					<hr class="divider">
 
 					<!-- .htaccess でできること -->
 					<section>
-						<h2>.htaccess でできること</h2>
-						<div class="table-wrap">
-							<table>
-								<thead>
-									<tr>
-										<th>機能</th>
-										<th>例</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>リクエストの書き換え</td>
-										<td>HTTP → HTTPS へ 301 リダイレクト、URL 正規化</td>
-									</tr>
-									<tr>
-										<td>アクセス制限</td>
-										<td>特定の IP やボット UA をブロック（403 を返す）</td>
-									</tr>
-									<tr>
-										<td>ファイル保護</td>
-										<td><code>wp-config.php</code> や <code>.htaccess</code> 自体への直接アクセスを拒否</td>
-									</tr>
-									<tr>
-										<td>レスポンスヘッダーの追加</td>
-										<td>HSTS・CSP・X-Frame-Options などセキュリティヘッダーの付与</td>
-									</tr>
-									<tr>
-										<td>キャッシュ制御</td>
-										<td>画像・CSS・JS のブラウザキャッシュ有効期限を設定</td>
-									</tr>
-									<tr>
-										<td>圧縮</td>
-										<td>Gzip 圧縮でレスポンスサイズを削減</td>
-									</tr>
-								</tbody>
-							</table>
+						<div class="lang-block" data-lang="ja">
+							<h2>.htaccess でできること</h2>
+							<div class="table-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>機能</th>
+											<th>例</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>リクエストの書き換え</td>
+											<td>HTTP → HTTPS へ 301 リダイレクト、URL 正規化</td>
+										</tr>
+										<tr>
+											<td>アクセス制限</td>
+											<td>特定の IP やボット UA をブロック（403 を返す）</td>
+										</tr>
+										<tr>
+											<td>ファイル保護</td>
+											<td><code>wp-config.php</code> や <code>.htaccess</code> 自体への直接アクセスを拒否</td>
+										</tr>
+										<tr>
+											<td>レスポンスヘッダーの追加</td>
+											<td>HSTS・CSP・X-Frame-Options などセキュリティヘッダーの付与</td>
+										</tr>
+										<tr>
+											<td>キャッシュ制御</td>
+											<td>画像・CSS・JS のブラウザキャッシュ有効期限を設定</td>
+										</tr>
+										<tr>
+											<td>圧縮</td>
+											<td>Gzip 圧縮でレスポンスサイズを削減</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+							<h2>What .htaccess can do</h2>
+							<div class="table-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>Feature</th>
+											<th>Example</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Request rewriting</td>
+											<td>301 redirect from HTTP to HTTPS, URL normalization</td>
+										</tr>
+										<tr>
+											<td>Access restriction</td>
+											<td>Block specific IPs or bot User-Agents (return 403)</td>
+										</tr>
+										<tr>
+											<td>File protection</td>
+											<td>Deny direct access to <code>wp-config.php</code> or
+												<code>.htaccess</code> itself</td>
+										</tr>
+										<tr>
+											<td>Response header injection</td>
+											<td>Add security headers: HSTS, CSP, X-Frame-Options, etc.</td>
+										</tr>
+										<tr>
+											<td>Cache control</td>
+											<td>Set browser cache expiry for images, CSS, and JS</td>
+										</tr>
+										<tr>
+											<td>Compression</td>
+											<td>Reduce response size with Gzip compression</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</section>
 
@@ -177,61 +268,116 @@
 
 					<!-- 使える環境・使えない環境 -->
 					<section>
-						<h2>使える環境・使えない環境</h2>
-						<p><code>.htaccess</code> は <strong>Apache ウェブサーバー専用</strong>の機能。国内の主要レンタルサーバーはほぼ Apache
-							のため、そのまま使える。</p>
+						<div class="lang-block" data-lang="ja">
+							<h2>使える環境・使えない環境</h2>
+							<p><code>.htaccess</code> は <strong>Apache ウェブサーバー専用</strong>の機能。国内の主要レンタルサーバーはほぼ Apache
+								のため、そのまま使える。</p>
 
-						<h3>主要レンタルサーバーの対応状況</h3>
-						<div class="table-wrap">
-							<table>
-								<thead>
-									<tr>
-										<th>サーバー</th>
-										<th>対応</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>エックスサーバー</td>
-										<td>✅ 使える</td>
-									</tr>
-									<tr>
-										<td>ConoHa WING</td>
-										<td>✅ 使える</td>
-									</tr>
-									<tr>
-										<td>シン・レンタルサーバー</td>
-										<td>✅ 使える</td>
-									</tr>
-									<tr>
-										<td>さくらインターネット</td>
-										<td>✅ 使える</td>
-									</tr>
-									<tr>
-										<td>ロリポップ</td>
-										<td>✅ 使える</td>
-									</tr>
-									<tr>
-										<td>VPS（Nginx を自前構築）</td>
-										<td>❌ 使えない</td>
-									</tr>
-									<tr>
-										<td>KUSANAGI（Nginx モード）</td>
-										<td>❌ 使えない</td>
-									</tr>
-								</tbody>
-							</table>
+							<h3>主要レンタルサーバーの対応状況</h3>
+							<div class="table-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>サーバー</th>
+											<th>対応</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>エックスサーバー</td>
+											<td>✅ 使える</td>
+										</tr>
+										<tr>
+											<td>ConoHa WING</td>
+											<td>✅ 使える</td>
+										</tr>
+										<tr>
+											<td>シン・レンタルサーバー</td>
+											<td>✅ 使える</td>
+										</tr>
+										<tr>
+											<td>さくらインターネット</td>
+											<td>✅ 使える</td>
+										</tr>
+										<tr>
+											<td>ロリポップ</td>
+											<td>✅ 使える</td>
+										</tr>
+										<tr>
+											<td>VPS（Nginx を自前構築）</td>
+											<td>❌ 使えない</td>
+										</tr>
+										<tr>
+											<td>KUSANAGI（Nginx モード）</td>
+											<td>❌ 使えない</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<blockquote>
+								<p><strong>Nginx 環境の場合:</strong> 設定は <code>nginx.conf</code> や <code>server</code>
+									ブロックで行う。書き方は違うが概念は共通なので、<code>.htaccess</code> の知識は無駄にならない。</p>
+							</blockquote>
 						</div>
-						<blockquote>
-							<p><strong>Nginx 環境の場合:</strong> 設定は <code>nginx.conf</code> や <code>server</code>
-								ブロックで行う。書き方は違うが概念は共通なので、<code>.htaccess</code> の知識は無駄にならない。</p>
-						</blockquote>
+						<div class="lang-block" data-lang="en" hidden>
+							<h2>Supported and unsupported environments</h2>
+							<p><code>.htaccess</code> is an <strong>Apache-only</strong> feature. Most major Japanese
+								shared hosting services run Apache, so it works out of the box.</p>
+
+							<h3>Compatibility of major hosting providers</h3>
+							<div class="table-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>Provider</th>
+											<th>Support</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Xserver</td>
+											<td>✅ Supported</td>
+										</tr>
+										<tr>
+											<td>ConoHa WING</td>
+											<td>✅ Supported</td>
+										</tr>
+										<tr>
+											<td>Shin Rental Server</td>
+											<td>✅ Supported</td>
+										</tr>
+										<tr>
+											<td>Sakura Internet</td>
+											<td>✅ Supported</td>
+										</tr>
+										<tr>
+											<td>Lolipop</td>
+											<td>✅ Supported</td>
+										</tr>
+										<tr>
+											<td>VPS (Nginx self-hosted)</td>
+											<td>❌ Not supported</td>
+										</tr>
+										<tr>
+											<td>KUSANAGI (Nginx mode)</td>
+											<td>❌ Not supported</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<blockquote>
+								<p><strong>On Nginx:</strong> Configuration is done in <code>nginx.conf</code> or a
+									<code>server</code> block. The syntax differs, but the concepts overlap, so your
+									<code>.htaccess</code> knowledge still applies.</p>
+							</blockquote>
+						</div>
 					</section>
 
 					<hr class="divider">
 
 					<!-- WordPress との関係 -->
 					<section>
+						<div class="lang-block" data-lang="ja">
 						<h2>WordPress との関係</h2>
 
 						<h3>WordPress が自動生成するブロック</h3>
@@ -285,12 +431,62 @@ RewriteRule . /index.php [L]
 								Cache 等）も WordPress ブロックと同様に直接編集しない。
 							</p>
 						</blockquote>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+						<h2>Relationship with WordPress</h2>
+
+						<h3>The block WordPress auto-generates</h3>
+						<p>When you save settings under <strong>Settings → Permalinks</strong> in WordPress, the following block is automatically written to <code>.htaccess</code>.</p>
+						<pre class="article-code"><code># BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress"
+# are dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress</code></pre>
+						<blockquote>
+							<p><strong>Note:</strong>
+								The line <code>RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]</code> was added in WordPress 6.0 to fix a bug where Apache strips the <code>Authorization</code> header, which affects the REST API and Application Passwords. The exact content of the auto-generated block may vary between WordPress versions.
+							</p>
+						</blockquote>
+
+						<h3>Where to put your custom rules</h3>
+						<p>Everything between <code># BEGIN WordPress</code> and <code># END WordPress</code> is <strong>automatically overwritten by WordPress</strong> — never edit it directly. Add your custom rules <strong>above</strong> the block.</p>
+						<pre class="article-code"><code># ✅ Write your custom rules here (above the WordPress block)
+
+# Example: HTTPS redirect
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} !=on [NC]
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# ⚠️ Also leave plugin-generated blocks untouched (Wordfence, EWWW, etc.)
+# ...
+
+# BEGIN WordPress
+# (Auto-generated by WordPress — do not edit)
+...
+# END WordPress</code></pre>
+						<blockquote>
+							<p>The typical order is: custom rules → plugin-generated blocks → <code># BEGIN WordPress</code>. Treat plugin-generated blocks (Wordfence, EWWW Image Optimizer, Nginx Cache, etc.) the same way — never edit them directly.</p>
+						</blockquote>
+						</div>
 					</section>
 
 					<hr class="divider">
 
 					<!-- 基本構文の3つの柱 -->
 					<section>
+						<div class="lang-block" data-lang="ja">
 						<h2>基本構文の 3 つの柱</h2>
 						<p><code>.htaccess</code> に登場するコードのほとんどは、次の 3 つのディレクティブの組み合わせで成り立っている。</p>
 
@@ -320,12 +516,42 @@ RewriteRule . /index.php [L]
 						<blockquote>
 							<p>ディレクティブとフラグの詳細は <a href="../directives-guide/">ディレクティブ・フラグ解説ガイド</a> で解説している。</p>
 						</blockquote>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+						<h2>The three pillars of .htaccess syntax</h2>
+						<p>Most of the code you encounter in <code>.htaccess</code> is built from combinations of these three directives.</p>
+
+						<pre class="article-code"><code>IfModule      → "Is this module available?" (safety guard)
+ └ RewriteCond  → "Does this condition match?" (if statement)
+   └ RewriteRule  → "Condition met — apply this transformation" (action)</code></pre>
+
+						<h3><code>&lt;IfModule&gt;</code> — safety guard for modules</h3>
+						<p>Executes the enclosed directives only when the specified Apache module is enabled. Writing module-dependent directives without <code>&lt;IfModule&gt;</code> on a server that lacks the module will cause a <strong>500 error and site outage</strong>, so always wrap them.</p>
+						<pre class="article-code"><code><IfModule mod_rewrite.c>
+    # Executed only when mod_rewrite is available
+    RewriteEngine On
+    ...
+</IfModule></code></pre>
+
+						<h3><code>RewriteCond</code> — condition (if statement)</h3>
+						<p>Evaluates whether to run the following <code>RewriteRule</code>. Multiple consecutive conditions default to an <strong>AND relationship</strong> — all conditions must match for the rule to fire.</p>
+						<pre class="article-code"><code>RewriteCond %{TEST_STRING} pattern [flags]</code></pre>
+
+						<h3><code>RewriteRule</code> — the action</h3>
+						<p>Rewrites or redirects the URL when all preceding conditions are satisfied.</p>
+						<pre class="article-code"><code>RewriteRule pattern substitution [flags]</code></pre>
+
+						<blockquote>
+							<p>For a detailed breakdown of directives and flags, see the <a href="../directives-guide/">Directives &amp; Flags Guide</a>.</p>
+						</blockquote>
+						</div>
 					</section>
 
 					<hr class="divider">
 
 					<!-- 注意事項 -->
 					<section>
+						<div class="lang-block" data-lang="ja">
 						<h2>注意事項</h2>
 
 						<h3>編集前に必ずバックアップを取る</h3>
@@ -356,15 +582,51 @@ RewriteRule . /index.php [L]
 						<h3>500 エラーが出たときのリカバリ</h3>
 						<p>編集後に 500 エラーが発生したら、バックアップファイルを元の名前に戻せばサイトは復旧する。詳しいリカバリ手順は <a
 								href="../recovery-guide/">リカバリ方法ガイド</a> を参照。</p>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+						<h2>Important notes</h2>
+
+						<h3>Always back up before editing</h3>
+						<p>A typo in <code>.htaccess</code> will <strong>immediately trigger a 500 error (site outage)</strong>. Always download a backup before making any changes.</p>
+
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>Backup method</th>
+										<th>Steps</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>FTP / File manager</td>
+										<td>Download the existing <code>.htaccess</code> and save it locally</td>
+									</tr>
+									<tr>
+										<td>Rename a copy on the server</td>
+										<td>Duplicate and rename to <code>.htaccess.bak</code> on the server</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3>Recovery when a 500 error occurs</h3>
+						<p>If a 500 error appears after editing, restore the backup file to its original name and the site will recover. For detailed recovery steps, see the <a href="../recovery-guide/">Recovery Guide</a>.</p>
+						</div>
 					</section>
 
 					<!-- ジェネレーターへ戻る -->
 					<div class="article-back">
-						<a href="../" class="btn btn-secondary">← ジェネレーターに戻る</a>
+						<div class="lang-block" data-lang="ja">
+							<a href="../" class="btn btn-secondary">← ジェネレーターに戻る</a>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+							<a href="../" class="btn btn-secondary">← Back to Generator</a>
+						</div>
 					</div>
 
 					<aside class="license-notice">
-						<div>
+						<div class="lang-block" data-lang="ja">
 							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja"
 								rel="nofollow noreferrer noopener" target="_blank">
 								<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"
@@ -377,6 +639,24 @@ RewriteRule . /index.php [L]
 								の下で提供されています。
 								<strong>有料オンライン講座・有料教材への転載は禁止</strong>しています。
 								詳細は<a href="/terms" rel="nofollow noreferrer">利用規約</a>をご確認ください。
+							</p>
+							<p>
+								&copy; 2026 まーちゅう（<a href="https://x.com/RocketMartue"
+									rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>）
+							</p>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
+								rel="nofollow noreferrer noopener" target="_blank">
+								<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"
+									alt="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" width="88" height="31">
+							</a>
+							<p>
+								This content is licensed under
+								<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
+									rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>.
+								<strong>Reproduction in paid online courses or paid educational materials is prohibited.</strong>
+								See the <a href="/terms" rel="nofollow noreferrer">Terms of Use</a> for details.
 							</p>
 							<p>
 								&copy; 2026 まーちゅう（<a href="https://x.com/RocketMartue"

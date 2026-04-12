@@ -230,4 +230,8 @@ export default {
 	'gen.comment.ajaxExclude': '# admin-ajax.php へのアクセスを許可（フロントエンドの Ajax 用）',
 	'gen.comment.upgradeIpExclude': '# upgrade.php はサーバー内部 IP のみ Basic 認証をスキップ（自動更新用）',
 	'gen.comment.blockPhp': '# PHP 関連ファイルの実行を禁止',
+
+	// ガイドページ
+	'guide.lang.btn.text': 'EN',
+	'guide.lang.btn.label': '言語切り替え（Switch to English）',
 };

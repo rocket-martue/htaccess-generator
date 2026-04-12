@@ -230,4 +230,8 @@ export default {
 	'gen.comment.ajaxExclude': '# Allow access to admin-ajax.php (for frontend Ajax)',
 	'gen.comment.upgradeIpExclude': '# Skip Basic Auth for upgrade.php from server internal IP (for auto-updates)',
 	'gen.comment.blockPhp': '# Disable PHP file execution',
+
+	// Guide pages
+	'guide.lang.btn.text': 'JA',
+	'guide.lang.btn.label': 'Switch language (日本語に切り替え)',
 };
