@@ -230,4 +230,11 @@ export default {
 	'gen.comment.ajaxExclude': '# admin-ajax.php へのアクセスを許可（フロントエンドの Ajax 用）',
 	'gen.comment.upgradeIpExclude': '# upgrade.php はサーバー内部 IP のみ Basic 認証をスキップ（自動更新用）',
 	'gen.comment.blockPhp': '# PHP 関連ファイルの実行を禁止',
+
+	// ガイドページ
+	'guide.htaccess-basics.subtitle': '.htaccess とは？入門ガイド',
+	'guide.htaccess-basics.title': '.htaccess とは？入門ガイド | .htaccess Generator',
+	'guide.htaccess-basics.description': '.htaccess とは何か、できること・使える環境・WordPress との関係・基本構文をわかりやすく解説した入門ガイド',
+	'guide.htaccess-basics.ogUrl': 'https://htaccess-generator-b46.pages.dev/htaccess-basics-guide/',
+	'guide.htaccess-basics.ogLocale': 'ja_JP',
 };

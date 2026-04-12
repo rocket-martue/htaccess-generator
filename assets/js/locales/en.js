@@ -230,4 +230,11 @@ export default {
 	'gen.comment.ajaxExclude': '# Allow access to admin-ajax.php (for frontend Ajax)',
 	'gen.comment.upgradeIpExclude': '# Skip Basic Auth for upgrade.php from server internal IP (for auto-updates)',
 	'gen.comment.blockPhp': '# Disable PHP file execution',
+
+	// Guide pages
+	'guide.htaccess-basics.subtitle': 'What is .htaccess? A Beginner\'s Guide',
+	'guide.htaccess-basics.title': 'What is .htaccess? A Beginner\'s Guide | .htaccess Generator',
+	'guide.htaccess-basics.description': 'A beginner\'s guide explaining what .htaccess is, what it can do, supported environments, its relationship with WordPress, and basic syntax.',
+	'guide.htaccess-basics.ogUrl': 'https://htaccess-generator-b46.pages.dev/htaccess-basics-guide/?lang=en',
+	'guide.htaccess-basics.ogLocale': 'en_US',
 };
