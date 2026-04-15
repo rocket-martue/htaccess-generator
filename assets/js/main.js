@@ -47,7 +47,7 @@ const elBbZgrab = document.querySelector('[name="bbZgrab"]');
 const elBbWget = document.querySelector('[name="bbWget"]');
 const elBbCurl = document.querySelector('[name="bbCurl"]');
 const elBbHttpie = document.querySelector('[name="bbHttpie"]');
-const elBbPythonRequests = document.querySelector('[name="bbPythonRequests"]');
+const elBbPython = document.querySelector('[name="bbPython"]');
 const elBbGoHttpClient = document.querySelector('[name="bbGoHttpClient"]');
 const elBbLibwwwPerl = document.querySelector('[name="bbLibwwwPerl"]');
 const elBbScrapy = document.querySelector('[name="bbScrapy"]');
@@ -201,7 +201,7 @@ const getCurrentSettings = () => ({
 		bbWget: elBbWget?.checked ?? true,
 		bbCurl: elBbCurl?.checked ?? true,
 		bbHttpie: elBbHttpie?.checked ?? true,
-		bbPythonRequests: elBbPythonRequests?.checked ?? true,
+		bbPython: elBbPython?.checked ?? true,
 		bbGoHttpClient: elBbGoHttpClient?.checked ?? true,
 		bbLibwwwPerl: elBbLibwwwPerl?.checked ?? true,
 		bbScrapy: elBbScrapy?.checked ?? true,
@@ -414,7 +414,7 @@ const applySettingsToForm = (settings) => {
 	if (elBbWget) elBbWget.checked = settings.rewrite.bbWget;
 	if (elBbCurl) elBbCurl.checked = settings.rewrite.bbCurl;
 	if (elBbHttpie) elBbHttpie.checked = settings.rewrite.bbHttpie;
-	if (elBbPythonRequests) elBbPythonRequests.checked = settings.rewrite.bbPythonRequests;
+	if (elBbPython) elBbPython.checked = settings.rewrite.bbPython;
 	if (elBbGoHttpClient) elBbGoHttpClient.checked = settings.rewrite.bbGoHttpClient;
 	if (elBbLibwwwPerl) elBbLibwwwPerl.checked = settings.rewrite.bbLibwwwPerl;
 	if (elBbScrapy) elBbScrapy.checked = settings.rewrite.bbScrapy;
@@ -774,7 +774,7 @@ const initEvents = () => {
 	// メイントグルを ON にしたとき → サブ機能を全 ON にリセット（詰み状態の回避）
 	const bbSubEls = [
 		elBbNikto, elBbSqlmap, elBbMasscan, elBbNmap, elBbZgrab,
-		elBbWget, elBbCurl, elBbHttpie, elBbPythonRequests, elBbGoHttpClient,
+		elBbWget, elBbCurl, elBbHttpie, elBbPython, elBbGoHttpClient,
 		elBbLibwwwPerl, elBbScrapy, elBbJava,
 		elBbAhrefsbot, elBbSemrushbot, elBbDotbot, elBbMj12bot,
 	];
