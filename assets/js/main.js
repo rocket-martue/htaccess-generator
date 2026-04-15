@@ -5,7 +5,7 @@
  * プレビュー更新・コピー・ダウンロード処理を担う。
  */
 
-import { buildRoot, buildWpAdmin, buildUploads } from './generator.js';
+import { buildRoot, buildWpAdmin, buildUploads, isValidHtpasswdPath } from './generator.js';
 import { PRESETS, DEFAULT_SETTINGS } from './presets.js';
 import { applyTheme, initTheme, setupThemeToggle, DARK_THEME } from './theme.js';
 import { t, getLang, setLang, initLang } from './i18n.js';
@@ -544,7 +544,14 @@ const updateConditionalFields = () => {
 		elLoginAuthFields.hidden = !elWpLoginBasicAuth?.checked;
 	}
 	if (elLoginHtpasswdHint) {
-		elLoginHtpasswdHint.hidden = !(elWpLoginBasicAuth?.checked && !elLoginHtpasswdPath?.value?.trim());
+		const loginPath = elLoginHtpasswdPath?.value ?? '';
+		const loginPathInvalid = elWpLoginBasicAuth?.checked && !isValidHtpasswdPath(loginPath);
+		elLoginHtpasswdHint.hidden = !loginPathInvalid;
+		if (loginPathInvalid) {
+			elLoginHtpasswdHint.textContent = loginPath.trim() === ''
+				? t('hint.htpasswdPath')
+				: t('hint.htpasswdPathInvalid');
+		}
 	}
 
 	// IP ブロックフィールド
@@ -608,7 +615,14 @@ const updateConditionalFields = () => {
 		elWpAdminFields.hidden = !elWpAdminBasicAuth?.checked;
 	}
 	if (elAdminHtpasswdHint) {
-		elAdminHtpasswdHint.hidden = !(elWpAdminBasicAuth?.checked && !elAdminHtpasswdPath?.value?.trim());
+		const adminPath = elAdminHtpasswdPath?.value ?? '';
+		const adminPathInvalid = elWpAdminBasicAuth?.checked && !isValidHtpasswdPath(adminPath);
+		elAdminHtpasswdHint.hidden = !adminPathInvalid;
+		if (adminPathInvalid) {
+			elAdminHtpasswdHint.textContent = adminPath.trim() === ''
+				? t('hint.adminHtpasswdPath')
+				: t('hint.adminHtpasswdPathInvalid');
+		}
 	}
 
 	// HSTS サブオプション

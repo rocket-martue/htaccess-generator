@@ -54,6 +54,7 @@ export default {
 	'toggle.wpLoginBasicAuth': 'Basic Auth for wp-login.php',
 	'input.htpasswdPath': 'Full path to .htpasswd',
 	'hint.htpasswdPath': 'Enter the full path to .htpasswd to apply',
+	'hint.htpasswdPathInvalid': 'Enter a valid full path to .htpasswd (e.g. /home/username/.htpasswd)',
 
 	// IP Block
 	'toggle.ipBlock': 'Block by IP address',
@@ -151,6 +152,7 @@ export default {
 	'toggle.wpAdminBasicAuth': 'Basic Auth for admin panel',
 	'input.adminHtpasswdPath': 'Full path to .htpasswd',
 	'hint.adminHtpasswdPath': 'Enter the full path to .htpasswd to apply',
+	'hint.adminHtpasswdPathInvalid': 'Enter a valid full path to .htpasswd (e.g. /home/username/.htpasswd)',
 	'toggle.ajaxExclude': 'Exclude admin-ajax.php',
 	'toggle.upgradeIpExclude': 'Exclude upgrade.php for server internal IP',
 	'input.serverIp': 'Server internal IP',
