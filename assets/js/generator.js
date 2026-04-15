@@ -10,7 +10,7 @@
 /** 悪意のあるボット・スクリプトの UA マップ（設定キー → UA 文字列） */
 const BAD_BOT_MAP = {
 	bbNikto: 'nikto', bbSqlmap: 'sqlmap', bbMasscan: 'masscan', bbNmap: 'nmap', bbZgrab: 'zgrab',
-	bbWget: 'wget', bbCurl: 'curl', bbHttpie: 'httpie', bbPythonRequests: 'python-requests',
+	bbWget: 'wget', bbCurl: 'curl', bbHttpie: 'httpie', bbPython: 'python',
 	bbGoHttpClient: 'go-http-client', bbLibwwwPerl: 'libwww-perl', bbScrapy: 'scrapy', bbJava: 'java/',
 	bbAhrefsbot: 'ahrefsbot', bbSemrushbot: 'semrushbot', bbDotbot: 'dotbot', bbMj12bot: 'mj12bot',
 };

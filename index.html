@@ -46,9 +46,11 @@
 
 			<header class="app-header">
 				<h1>.htaccess Generator<span class="h1-sub" data-i18n="header.sub">for WordPress</span></h1>
-				<p data-i18n-html="header.desc">WordPress 用 .htaccess のセキュリティ・パフォーマンス設定を簡単に生成<br><small>Apache 2.4 以降 / WordPress 対応</small></p>
+				<p data-i18n-html="header.desc">WordPress 用 .htaccess のセキュリティ・パフォーマンス設定を簡単に生成<br><small>Apache 2.4 以降 /
+						WordPress 対応</small></p>
 				<div class="header-actions">
-					<button type="button" class="lang-toggle-btn" aria-label="Switch to English" data-i18n-aria-label="lang.btn.label">
+					<button type="button" class="lang-toggle-btn" aria-label="Switch to English"
+						data-i18n-aria-label="lang.btn.label">
 						<span class="lang-toggle-icon" aria-hidden="true">🌐</span>
 						<span class="lang-toggle-label" data-i18n="lang.btn.text">EN</span>
 					</button>
@@ -102,7 +104,8 @@
 						<!-- プリセット -->
 						<section class="card" aria-label="プリセット" data-i18n-aria-label="section.preset">
 							<h2 class="section-title" data-i18n="section.preset">プリセット</h2>
-							<div class="preset-group" role="group" aria-label="プリセット選択" data-i18n-aria-label="preset.group.aria"></div>
+							<div class="preset-group" role="group" aria-label="プリセット選択"
+								data-i18n-aria-label="preset.group.aria"></div>
 						</section>
 
 						<!-- 対象 Apache バージョン -->
@@ -129,11 +132,13 @@
 						</section>
 
 						<!-- Options & ErrorDocument -->
-						<section class="card" aria-label="Options と ErrorDocument" data-i18n-aria-label="section.options.aria">
+						<section class="card" aria-label="Options と ErrorDocument"
+							data-i18n-aria-label="section.options.aria">
 							<h2 class="section-title" data-i18n="section.options">Options & ErrorDocument</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="disableMultiviews" data-i18n="toggle.disableMultiviews">ディレクトリ一覧 &
+									<label class="toggle-label" for="disableMultiviews"
+										data-i18n="toggle.disableMultiviews">ディレクトリ一覧 &
 										コンテンツネゴシエーション無効化</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="disableMultiviews" id="disableMultiviews">
@@ -141,7 +146,8 @@
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="disableIndexes" data-i18n="toggle.disableIndexes">ディレクトリインデックス無効化</label>
+									<label class="toggle-label" for="disableIndexes"
+										data-i18n="toggle.disableIndexes">ディレクトリインデックス無効化</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="disableIndexes" id="disableIndexes">
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -153,7 +159,8 @@
 									その場合は Options 設定を無効にしてください。
 								</p>
 								<div class="toggle-row">
-									<label class="toggle-label" for="errorDocument" data-i18n="toggle.errorDocument">ErrorDocument 軽量化（403 / 404）</label>
+									<label class="toggle-label" for="errorDocument"
+										data-i18n="toggle.errorDocument">ErrorDocument 軽量化（403 / 404）</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="errorDocument" id="errorDocument">
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -167,28 +174,32 @@
 							<h2 class="section-title" data-i18n="section.fileProtection">ファイルアクセス制限</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockXmlrpc" data-i18n="toggle.blockXmlrpc">xmlrpc.php をブロック</label>
+									<label class="toggle-label" for="blockXmlrpc"
+										data-i18n="toggle.blockXmlrpc">xmlrpc.php をブロック</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockXmlrpc" id="blockXmlrpc">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="protectWpConfig" data-i18n="toggle.protectWpConfig">wp-config.php を保護</label>
+									<label class="toggle-label" for="protectWpConfig"
+										data-i18n="toggle.protectWpConfig">wp-config.php を保護</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="protectWpConfig" id="protectWpConfig">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="protectHtaccess" data-i18n="toggle.protectHtaccess">.htaccess を保護</label>
+									<label class="toggle-label" for="protectHtaccess"
+										data-i18n="toggle.protectHtaccess">.htaccess を保護</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="protectHtaccess" id="protectHtaccess">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockDangerousExt" data-i18n="toggle.blockDangerousExt">危険な拡張子をブロック</label>
+									<label class="toggle-label" for="blockDangerousExt"
+										data-i18n="toggle.blockDangerousExt">危険な拡張子をブロック</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockDangerousExt" id="blockDangerousExt"
 											aria-expanded="false" aria-controls="dangerous-ext-fields">
@@ -197,7 +208,8 @@
 								</div>
 								<div class="dangerous-ext-fields sub-options" id="dangerous-ext-fields" hidden>
 									<div class="input-group">
-										<label for="blockDangerousExtList" class="input-label" data-i18n="input.blockDangerousExtList">ブロックする拡張子（1行に1つ）</label>
+										<label for="blockDangerousExtList" class="input-label"
+											data-i18n="input.blockDangerousExtList">ブロックする拡張子（1行に1つ）</label>
 										<textarea name="blockDangerousExtList" id="blockDangerousExtList"
 											class="input-textarea" rows="4" placeholder=".inc&#10;.log&#10;.sh&#10;.sql"
 											spellcheck="false">.inc
@@ -210,7 +222,8 @@
 								<hr class="divider">
 
 								<div class="toggle-row">
-									<label class="toggle-label" for="wpLoginBasicAuth" data-i18n="toggle.wpLoginBasicAuth">wp-login.php に Basic 認証</label>
+									<label class="toggle-label" for="wpLoginBasicAuth"
+										data-i18n="toggle.wpLoginBasicAuth">wp-login.php に Basic 認証</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="wpLoginBasicAuth" id="wpLoginBasicAuth">
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -218,12 +231,14 @@
 								</div>
 								<div class="login-auth-fields" hidden>
 									<div class="input-group">
-										<label for="loginHtpasswdPath" class="input-label" data-i18n="input.htpasswdPath">.htpasswd のフルパス</label>
+										<label for="loginHtpasswdPath" class="input-label"
+											data-i18n="input.htpasswdPath">.htpasswd のフルパス</label>
 										<input type="text" name="loginHtpasswdPath" id="loginHtpasswdPath"
 											class="input-text" placeholder="/home/username/.htpasswd" autocomplete="off"
 											spellcheck="false">
 									</div>
-									<p class="sub-options-hint" id="login-htpasswd-hint" hidden aria-live="polite" data-i18n="hint.htpasswdPath">
+									<p class="sub-options-hint" id="login-htpasswd-hint" hidden aria-live="polite"
+										data-i18n="hint.htpasswdPath">
 										.htpasswd のフルパスを入力すると反映されます
 									</p>
 								</div>
@@ -235,7 +250,8 @@
 							<h2 class="section-title" data-i18n="section.ipBlock">IP アドレスブロック</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="ipBlockEnabled" data-i18n="toggle.ipBlock">IP アドレスによるブロック</label>
+									<label class="toggle-label" for="ipBlockEnabled" data-i18n="toggle.ipBlock">IP
+										アドレスによるブロック</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="ipBlockEnabled" id="ipBlockEnabled">
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -243,11 +259,13 @@
 								</div>
 								<div class="ip-block-fields" hidden>
 									<div class="input-group">
-										<label for="ipBlockList" class="input-label" data-i18n="input.ipBlockList">ブロックする IP（1行に1つ）</label>
+										<label for="ipBlockList" class="input-label"
+											data-i18n="input.ipBlockList">ブロックする IP（1行に1つ）</label>
 										<textarea name="ipBlockList" id="ipBlockList" class="input-textarea" rows="4"
 											placeholder="192.0.2.1&#10;198.51.100.0/24" spellcheck="false"></textarea>
 									</div>
-									<p class="sub-options-hint" id="ip-block-hint" hidden aria-live="polite" data-i18n="hint.ipBlock">
+									<p class="sub-options-hint" id="ip-block-hint" hidden aria-live="polite"
+										data-i18n="hint.ipBlock">
 										ブロックする IP アドレスを入力してください
 									</p>
 								</div>
@@ -259,14 +277,16 @@
 							<h2 class="section-title" data-i18n="section.rewrite">リライトルール</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="normalizeSlashes" data-i18n="toggle.normalizeSlashes">スラッシュ重複の正規化</label>
+									<label class="toggle-label" for="normalizeSlashes"
+										data-i18n="toggle.normalizeSlashes">スラッシュ重複の正規化</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="normalizeSlashes" id="normalizeSlashes">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockBadBots" data-i18n="toggle.blockBadBots">悪意のあるボットをブロック</label>
+									<label class="toggle-label" for="blockBadBots"
+										data-i18n="toggle.blockBadBots">悪意のあるボットをブロック</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockBadBots" id="blockBadBots"
 											aria-expanded="false" aria-controls="bad-bots-sub-fields">
@@ -274,7 +294,8 @@
 									</label>
 								</div>
 								<div class="bad-bots-sub-fields sub-options" id="bad-bots-sub-fields" hidden>
-									<p class="sub-options-hint" data-i18n="hint.badBots">チェック ON = ブロックする / OFF = 除外（許可）</p>
+									<p class="sub-options-hint" data-i18n="hint.badBots">チェック ON = ブロックする / OFF = 除外（許可）
+									</p>
 									<p class="sub-option-group-label" data-i18n="group.attackTools">攻撃ツール</p>
 									<label class="sub-option-label">
 										<input type="checkbox" name="bbNikto" id="bbNikto" checked>
@@ -310,8 +331,8 @@
 										<span>httpie</span>
 									</label>
 									<label class="sub-option-label">
-										<input type="checkbox" name="bbPythonRequests" id="bbPythonRequests" checked>
-										<span>python-requests</span>
+										<input type="checkbox" name="bbPython" id="bbPython" checked>
+										<span>python</span>
 									</label>
 									<label class="sub-option-label">
 										<input type="checkbox" name="bbGoHttpClient" id="bbGoHttpClient" checked>
@@ -348,21 +369,24 @@
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockBackdoors" data-i18n="toggle.blockBackdoors">バックドア / マルウェア探索をブロック</label>
+									<label class="toggle-label" for="blockBackdoors"
+										data-i18n="toggle.blockBackdoors">バックドア / マルウェア探索をブロック</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockBackdoors" id="blockBackdoors">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockWpNesting" data-i18n="toggle.blockWpNesting">wp-* 多重ネストを防止</label>
+									<label class="toggle-label" for="blockWpNesting"
+										data-i18n="toggle.blockWpNesting">wp-* 多重ネストを防止</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockWpNesting" id="blockWpNesting">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockWpIncludesDir" data-i18n="toggle.blockWpIncludesDir">wp-includes /
+									<label class="toggle-label" for="blockWpIncludesDir"
+										data-i18n="toggle.blockWpIncludesDir">wp-includes /
 										wp-admin/includes への直接アクセス防止</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockWpIncludesDir" id="blockWpIncludesDir">
@@ -370,7 +394,8 @@
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="httpsRedirect" data-i18n="toggle.httpsRedirect">HTTPS リダイレクト</label>
+									<label class="toggle-label" for="httpsRedirect"
+										data-i18n="toggle.httpsRedirect">HTTPS リダイレクト</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="httpsRedirect" id="httpsRedirect"
 											aria-expanded="false" aria-controls="https-sub-fields">
@@ -384,7 +409,8 @@
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockBadQuery" data-i18n="toggle.blockBadQuery">不正なクエリ文字列をブロック</label>
+									<label class="toggle-label" for="blockBadQuery"
+										data-i18n="toggle.blockBadQuery">不正なクエリ文字列をブロック</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockBadQuery" id="blockBadQuery"
 											aria-expanded="false" aria-controls="bad-query-fields">
@@ -393,7 +419,8 @@
 								</div>
 								<div class="bad-query-fields sub-options" id="bad-query-fields" hidden>
 									<div class="input-group">
-										<label for="badQueryParams" class="input-label" data-i18n="input.badQueryParams">ブロックするパラメータ名（1行に1つ）</label>
+										<label for="badQueryParams" class="input-label"
+											data-i18n="input.badQueryParams">ブロックするパラメータ名（1行に1つ）</label>
 										<textarea name="badQueryParams" id="badQueryParams" class="input-textarea"
 											rows="3" placeholder="w" spellcheck="false">w</textarea>
 									</div>
@@ -407,8 +434,8 @@
 							<div class="form-group">
 								<!-- HSTS -->
 								<div class="toggle-row">
-									<label class="toggle-label"
-										for="hstsEnabled" data-i18n="toggle.hstsEnabled">HSTS（Strict-Transport-Security）</label>
+									<label class="toggle-label" for="hstsEnabled"
+										data-i18n="toggle.hstsEnabled">HSTS（Strict-Transport-Security）</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="hstsEnabled" id="hstsEnabled" aria-expanded="false"
 											aria-controls="hsts-sub-fields">
@@ -417,7 +444,8 @@
 								</div>
 								<div class="hsts-sub-fields sub-options" id="hsts-sub-fields" hidden>
 									<div class="sub-fieldset">
-										<label class="sub-option-group-label" for="hstsMaxAge" data-i18n="hsts.maxAgeLabel">max-age</label>
+										<label class="sub-option-group-label" for="hstsMaxAge"
+											data-i18n="hsts.maxAgeLabel">max-age</label>
 										<select name="hstsMaxAge" id="hstsMaxAge" class="input-text">
 											<option value="300" data-i18n="hsts.300" selected>300（5分・テスト用）</option>
 											<option value="86400" data-i18n="hsts.86400">86400（1日）</option>
@@ -426,24 +454,32 @@
 											<option value="63072000" data-i18n="hsts.63072000">63072000（2年）</option>
 										</select>
 									</div>
-									<p class="sub-options-hint" data-i18n="hint.hstsTest">まず短い値（300秒）でテストし、問題がないことを確認してから長い値に変更してください。一度ブラウザにキャッシュされると HTTP に戻せなくなります。</p>
+									<p class="sub-options-hint" data-i18n="hint.hstsTest">
+										まず短い値（300秒）でテストし、問題がないことを確認してから長い値に変更してください。一度ブラウザにキャッシュされると HTTP に戻せなくなります。</p>
 									<label class="sub-option-label">
 										<input type="checkbox" name="hstsIncludeSubDomains" id="hstsIncludeSubDomains">
 										<span>includeSubDomains</span>
 									</label>
-									<p class="sub-options-hint" data-i18n="hint.hstsSubDomains">すべてのサブドメインが HTTPS に対応していることを確認してから有効にしてください。HTTPS 未対応のサブドメインがある場合、ブラウザがアクセスを拒否します。</p>
+									<p class="sub-options-hint" data-i18n="hint.hstsSubDomains">すべてのサブドメインが HTTPS
+										に対応していることを確認してから有効にしてください。HTTPS 未対応のサブドメインがある場合、ブラウザがアクセスを拒否します。</p>
 									<label class="sub-option-label">
 										<input type="checkbox" name="hstsPreload" id="hstsPreload">
 										<span>preload</span>
 									</label>
-									<p class="sub-options-hint" id="hsts-preload-warn" hidden aria-live="polite" data-i18n="hint.hstsPreloadWarn">preload
+									<p class="sub-options-hint" id="hsts-preload-warn" hidden aria-live="polite"
+										data-i18n="hint.hstsPreloadWarn">preload
 										には includeSubDomains と max-age 1年（31536000）以上が必要です</p>
-									<p class="sub-options-hint" data-i18n="hint.hstsPreload">ブラウザのプリロードリストへの登録を意図するフラグです。preload を有効にしても、includeSubDomains が OFF の場合は生成結果に反映されません。利用する場合は includeSubDomains を ON にし、max-age を 1年（31536000）以上に設定してください。一度登録されると削除に数ヶ月かかるため、HTTPS 環境が完全に整っていない場合は有効にしないでください。</p>
+									<p class="sub-options-hint" data-i18n="hint.hstsPreload">
+										ブラウザのプリロードリストへの登録を意図するフラグです。preload を有効にしても、includeSubDomains が OFF
+										の場合は生成結果に反映されません。利用する場合は includeSubDomains を ON にし、max-age を
+										1年（31536000）以上に設定してください。一度登録されると削除に数ヶ月かかるため、HTTPS 環境が完全に整っていない場合は有効にしないでください。
+									</p>
 								</div>
 
 								<!-- CSP -->
 								<div class="toggle-row">
-									<label class="toggle-label" for="cspEnabled" data-i18n="toggle.cspEnabled">CSP（Content-Security-Policy）</label>
+									<label class="toggle-label" for="cspEnabled"
+										data-i18n="toggle.cspEnabled">CSP（Content-Security-Policy）</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="cspEnabled" id="cspEnabled" aria-expanded="false"
 											aria-controls="csp-sub-fields">
@@ -451,7 +487,8 @@
 									</label>
 								</div>
 								<div class="csp-sub-fields sub-options" id="csp-sub-fields" hidden>
-									<p class="sub-options-hint" data-i18n="hint.csp">CSP は本番適用前にブラウザの DevTools（F12）→ Console タブで違反を確認し、サイトに合わせて調整してください。</p>
+									<p class="sub-options-hint" data-i18n="hint.csp">CSP は本番適用前にブラウザの DevTools（F12）→
+										Console タブで違反を確認し、サイトに合わせて調整してください。</p>
 									<!-- Report-Only モード -->
 									<div class="csp-directive-row">
 										<label class="sub-option-label">
@@ -459,7 +496,10 @@
 											<span data-i18n="toggle.cspReportOnly">Report-Only モード（テスト用）</span>
 										</label>
 									</div>
-									<p class="sub-options-hint" data-i18n-html="hint.cspReportOnly"><code>Content-Security-Policy-Report-Only</code> を出力。<code>upgrade-insecure-requests</code> は除外されます。Report-Only モード以外では常に含まれます。</p>
+									<p class="sub-options-hint" data-i18n-html="hint.cspReportOnly">
+										<code>Content-Security-Policy-Report-Only</code>
+										を出力。<code>upgrade-insecure-requests</code> は除外されます。Report-Only モード以外では常に含まれます。
+									</p>
 									<!-- default-src -->
 									<div class="csp-directive-row">
 										<label class="sub-option-label">
@@ -544,7 +584,8 @@
 
 								<!-- X-Content-Type-Options -->
 								<div class="toggle-row">
-									<label class="toggle-label" for="xContentType" data-i18n="toggle.xContentType">X-Content-Type-Options:
+									<label class="toggle-label" for="xContentType"
+										data-i18n="toggle.xContentType">X-Content-Type-Options:
 										nosniff</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="xContentType" id="xContentType">
@@ -554,7 +595,8 @@
 
 								<!-- X-Frame-Options -->
 								<div class="toggle-row">
-									<label class="toggle-label" for="xFrameOptions" data-i18n="toggle.xFrameOptions">X-Frame-Options</label>
+									<label class="toggle-label" for="xFrameOptions"
+										data-i18n="toggle.xFrameOptions">X-Frame-Options</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="xFrameOptions" id="xFrameOptions"
 											aria-expanded="false" aria-controls="xfo-sub-fields">
@@ -563,7 +605,8 @@
 								</div>
 								<div class="xfo-sub-fields sub-options" id="xfo-sub-fields" hidden>
 									<fieldset class="sub-fieldset">
-										<legend class="sub-legend" data-i18n="legend.xFrameOptions">X-Frame-Options の値</legend>
+										<legend class="sub-legend" data-i18n="legend.xFrameOptions">X-Frame-Options の値
+										</legend>
 										<label class="sub-option-label">
 											<input type="radio" name="xFrameOptionsValue" value="SAMEORIGIN" checked>
 											<span data-i18n="xfo.sameorigin">SAMEORIGIN（同一ドメインのみ許可）</span>
@@ -577,7 +620,8 @@
 
 								<!-- Referrer-Policy -->
 								<div class="toggle-row">
-									<label class="toggle-label" for="referrerPolicy" data-i18n="toggle.referrerPolicy">Referrer-Policy</label>
+									<label class="toggle-label" for="referrerPolicy"
+										data-i18n="toggle.referrerPolicy">Referrer-Policy</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="referrerPolicy" id="referrerPolicy"
 											aria-expanded="false" aria-controls="rp-sub-fields">
@@ -586,7 +630,8 @@
 								</div>
 								<div class="rp-sub-fields sub-options" id="rp-sub-fields" hidden>
 									<fieldset class="sub-fieldset">
-										<legend class="sub-legend" data-i18n="legend.referrerPolicy">Referrer-Policy の値</legend>
+										<legend class="sub-legend" data-i18n="legend.referrerPolicy">Referrer-Policy の値
+										</legend>
 										<label class="sub-option-label">
 											<input type="radio" name="referrerPolicyValue" value="no-referrer">
 											<span>no-referrer</span>
@@ -627,7 +672,8 @@
 
 								<!-- Permissions-Policy -->
 								<div class="toggle-row">
-									<label class="toggle-label" for="permissionsPolicy" data-i18n="toggle.permissionsPolicy">Permissions-Policy</label>
+									<label class="toggle-label" for="permissionsPolicy"
+										data-i18n="toggle.permissionsPolicy">Permissions-Policy</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="permissionsPolicy" id="permissionsPolicy"
 											aria-expanded="false" aria-controls="pp-sub-fields">
@@ -635,7 +681,8 @@
 									</label>
 								</div>
 								<div class="pp-sub-fields sub-options" id="pp-sub-fields" hidden>
-									<p class="sub-options-hint" data-i18n="hint.pp">チェック ON = 制限する / OFF = ポリシーから除外（許可）</p>
+									<p class="sub-options-hint" data-i18n="hint.pp">チェック ON = 制限する / OFF = ポリシーから除外（許可）
+									</p>
 									<label class="sub-option-label">
 										<input type="checkbox" name="ppCamera" id="ppCamera" checked>
 										<span>camera</span>
@@ -696,7 +743,8 @@
 										<label for="ppGeolocation" data-i18n="pp.geolocation">geolocation</label>
 										<select name="ppGeolocation" id="ppGeolocation" class="input-text">
 											<option value="deny" data-i18n="pp.geolocation.deny" selected>完全無効化</option>
-											<option value="google-maps" data-i18n="pp.geolocation.googleMaps">Google マップ許可</option>
+											<option value="google-maps" data-i18n="pp.geolocation.googleMaps">Google
+												マップ許可</option>
 											<option value="off" data-i18n="pp.geolocation.off">ポリシーから除外</option>
 										</select>
 									</div>
@@ -716,7 +764,8 @@
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="expires" data-i18n="toggle.expires">ブラウザキャッシュ（Expires）</label>
+									<label class="toggle-label" for="expires"
+										data-i18n="toggle.expires">ブラウザキャッシュ（Expires）</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="expires" id="expires" aria-expanded="false"
 											aria-controls="expires-sub-fields">
@@ -727,7 +776,8 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label" data-i18n="cache.cssjs">CSS / JS</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend" data-i18n="legend.expiresScript">CSS / JS のキャッシュ有効期限</legend>
+											<legend class="sub-legend" data-i18n="legend.expiresScript">CSS / JS
+												のキャッシュ有効期限</legend>
 											<label class="sub-option-label"><input type="radio" name="expiresScript"
 													value="1 hour"><span data-i18n="time.1h">1時間</span></label>
 											<label class="sub-option-label"><input type="radio" name="expiresScript"
@@ -745,7 +795,8 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label" data-i18n="cache.image">画像</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend" data-i18n="legend.expiresImage">画像のキャッシュ有効期限</legend>
+											<legend class="sub-legend" data-i18n="legend.expiresImage">画像のキャッシュ有効期限
+											</legend>
 											<label class="sub-option-label"><input type="radio" name="expiresImage"
 													value="1 hour"><span data-i18n="time.1h">1時間</span></label>
 											<label class="sub-option-label"><input type="radio" name="expiresImage"
@@ -763,7 +814,8 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label" data-i18n="cache.icon">アイコン</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend" data-i18n="legend.expiresIcon">アイコンのキャッシュ有効期限</legend>
+											<legend class="sub-legend" data-i18n="legend.expiresIcon">アイコンのキャッシュ有効期限
+											</legend>
 											<label class="sub-option-label"><input type="radio" name="expiresIcon"
 													value="1 hour"><span data-i18n="time.1h">1時間</span></label>
 											<label class="sub-option-label"><input type="radio" name="expiresIcon"
@@ -781,7 +833,8 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label" data-i18n="cache.video">動画</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend" data-i18n="legend.expiresVideo">動画のキャッシュ有効期限</legend>
+											<legend class="sub-legend" data-i18n="legend.expiresVideo">動画のキャッシュ有効期限
+											</legend>
 											<label class="sub-option-label"><input type="radio" name="expiresVideo"
 													value="1 hour"><span data-i18n="time.1h">1時間</span></label>
 											<label class="sub-option-label"><input type="radio" name="expiresVideo"
@@ -799,7 +852,8 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label" data-i18n="cache.font">フォント</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend" data-i18n="legend.expiresFont">フォントのキャッシュ有効期限</legend>
+											<legend class="sub-legend" data-i18n="legend.expiresFont">フォントのキャッシュ有効期限
+											</legend>
 											<label class="sub-option-label"><input type="radio" name="expiresFont"
 													value="1 hour"><span data-i18n="time.1h">1時間</span></label>
 											<label class="sub-option-label"><input type="radio" name="expiresFont"
@@ -817,7 +871,8 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label" data-i18n="cache.feed">フィード</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend" data-i18n="legend.expiresFeed">フィードのキャッシュ有効期限</legend>
+											<legend class="sub-legend" data-i18n="legend.expiresFeed">フィードのキャッシュ有効期限
+											</legend>
 											<label class="sub-option-label"><input type="radio" name="expiresFeed"
 													value="1 hour" checked><span data-i18n="time.1h">1時間</span></label>
 											<label class="sub-option-label"><input type="radio" name="expiresFeed"
@@ -835,7 +890,8 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label" data-i18n="cache.other">その他（デフォルト）</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend" data-i18n="legend.expiresDefault">その他（デフォルト）のキャッシュ有効期限</legend>
+											<legend class="sub-legend" data-i18n="legend.expiresDefault">
+												その他（デフォルト）のキャッシュ有効期限</legend>
 											<label class="sub-option-label"><input type="radio" name="expiresDefault"
 													value="1 hour"><span data-i18n="time.1h">1時間</span></label>
 											<label class="sub-option-label"><input type="radio" name="expiresDefault"
@@ -852,7 +908,8 @@
 									</div>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="cacheControl" data-i18n="toggle.cacheControl">Cache-Control ヘッダー</label>
+									<label class="toggle-label" for="cacheControl"
+										data-i18n="toggle.cacheControl">Cache-Control ヘッダー</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="cacheControl" id="cacheControl"
 											aria-expanded="false" aria-controls="cache-control-sub-fields">
@@ -863,7 +920,8 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label" data-i18n="cache.cssjs">CSS / JS</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend" data-i18n="legend.ccScript">CSS / JS の Cache-Control max-age</legend>
+											<legend class="sub-legend" data-i18n="legend.ccScript">CSS / JS の
+												Cache-Control max-age</legend>
 											<label class="sub-option-label"><input type="radio" name="ccScript"
 													value="3600"><span data-i18n="time.1h">1時間</span></label>
 											<label class="sub-option-label"><input type="radio" name="ccScript"
@@ -881,7 +939,8 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label" data-i18n="cache.imageIcon">画像・アイコン</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend" data-i18n="legend.ccImage">画像・アイコンの Cache-Control max-age</legend>
+											<legend class="sub-legend" data-i18n="legend.ccImage">画像・アイコンの Cache-Control
+												max-age</legend>
 											<label class="sub-option-label"><input type="radio" name="ccImage"
 													value="3600"><span data-i18n="time.1h">1時間</span></label>
 											<label class="sub-option-label"><input type="radio" name="ccImage"
@@ -899,7 +958,8 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label" data-i18n="cache.font">フォント</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend" data-i18n="legend.ccFont">フォントの Cache-Control max-age</legend>
+											<legend class="sub-legend" data-i18n="legend.ccFont">フォントの Cache-Control
+												max-age</legend>
 											<label class="sub-option-label"><input type="radio" name="ccFont"
 													value="3600"><span data-i18n="time.1h">1時間</span></label>
 											<label class="sub-option-label"><input type="radio" name="ccFont"
@@ -917,7 +977,8 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label" data-i18n="cache.video">動画</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend" data-i18n="legend.ccVideo">動画の Cache-Control max-age</legend>
+											<legend class="sub-legend" data-i18n="legend.ccVideo">動画の Cache-Control
+												max-age</legend>
 											<label class="sub-option-label"><input type="radio" name="ccVideo"
 													value="3600"><span data-i18n="time.1h">1時間</span></label>
 											<label class="sub-option-label"><input type="radio" name="ccVideo"
@@ -934,14 +995,16 @@
 									</div>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="etagDisable" data-i18n="toggle.etagDisable">ETag 無効化</label>
+									<label class="toggle-label" for="etagDisable" data-i18n="toggle.etagDisable">ETag
+										無効化</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="etagDisable" id="etagDisable">
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="mimeType" data-i18n="toggle.mimeType">MIME タイプ追加</label>
+									<label class="toggle-label" for="mimeType" data-i18n="toggle.mimeType">MIME
+										タイプ追加</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="mimeType" id="mimeType">
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -956,7 +1019,8 @@
 							<h2 class="section-title" data-i18n="section.wpAdmin">wp-admin Basic 認証</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="wpAdminBasicAuth" data-i18n="toggle.wpAdminBasicAuth">管理画面に Basic 認証</label>
+									<label class="toggle-label" for="wpAdminBasicAuth"
+										data-i18n="toggle.wpAdminBasicAuth">管理画面に Basic 認証</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="wpAdminBasicAuth" id="wpAdminBasicAuth">
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -964,23 +1028,27 @@
 								</div>
 								<div class="wp-admin-fields" hidden>
 									<div class="input-group">
-										<label for="adminHtpasswdPath" class="input-label" data-i18n="input.adminHtpasswdPath">.htpasswd のフルパス</label>
+										<label for="adminHtpasswdPath" class="input-label"
+											data-i18n="input.adminHtpasswdPath">.htpasswd のフルパス</label>
 										<input type="text" name="adminHtpasswdPath" id="adminHtpasswdPath"
 											class="input-text" placeholder="/home/username/.htpasswd" autocomplete="off"
 											spellcheck="false">
 									</div>
-									<p class="sub-options-hint" id="admin-htpasswd-hint" hidden aria-live="polite" data-i18n="hint.adminHtpasswdPath">
+									<p class="sub-options-hint" id="admin-htpasswd-hint" hidden aria-live="polite"
+										data-i18n="hint.adminHtpasswdPath">
 										.htpasswd のフルパスを入力すると反映されます
 									</p>
 									<div class="toggle-row">
-										<label class="toggle-label" for="ajaxExclude" data-i18n="toggle.ajaxExclude">admin-ajax.php を除外</label>
+										<label class="toggle-label" for="ajaxExclude"
+											data-i18n="toggle.ajaxExclude">admin-ajax.php を除外</label>
 										<label class="toggle-switch">
 											<input type="checkbox" name="ajaxExclude" id="ajaxExclude" checked>
 											<span class="toggle-track" aria-hidden="true"></span>
 										</label>
 									</div>
 									<div class="toggle-row">
-										<label class="toggle-label" for="upgradeIpExclude" data-i18n="toggle.upgradeIpExclude">upgrade.php のサーバー内部 IP
+										<label class="toggle-label" for="upgradeIpExclude"
+											data-i18n="toggle.upgradeIpExclude">upgrade.php のサーバー内部 IP
 											除外</label>
 										<label class="toggle-switch">
 											<input type="checkbox" name="upgradeIpExclude" id="upgradeIpExclude">
@@ -988,7 +1056,8 @@
 										</label>
 									</div>
 									<div class="input-group">
-										<label for="serverIp" class="input-label" data-i18n="input.serverIp">サーバー内部 IP</label>
+										<label for="serverIp" class="input-label" data-i18n="input.serverIp">サーバー内部
+											IP</label>
 										<input type="text" name="serverIp" id="serverIp" class="input-text"
 											placeholder="127.0.0.1" autocomplete="off" spellcheck="false">
 									</div>
@@ -1001,7 +1070,8 @@
 							<h2 class="section-title" data-i18n="section.uploads">wp-content/uploads 保護</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockPhp" data-i18n="toggle.blockPhp">PHP 実行を禁止</label>
+									<label class="toggle-label" for="blockPhp" data-i18n="toggle.blockPhp">PHP
+										実行を禁止</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockPhp" id="blockPhp">
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -1014,11 +1084,13 @@
 
 					<!-- ── プレビューパネル ────────────────── -->
 					<div class="preview-panel">
-						<section class="card card-preview" aria-label=".htaccess プレビュー" data-i18n-aria-label="section.preview.aria">
+						<section class="card card-preview" aria-label=".htaccess プレビュー"
+							data-i18n-aria-label="section.preview.aria">
 							<h2 class="section-title" data-i18n="section.preview">プレビュー</h2>
 
 							<!-- タブ -->
-							<div class="tab-list" role="tablist" aria-label="生成ファイルの切り替え" data-i18n-aria-label="tab.list.aria">
+							<div class="tab-list" role="tablist" aria-label="生成ファイルの切り替え"
+								data-i18n-aria-label="tab.list.aria">
 								<button type="button" class="tab-btn active" data-tab="root" role="tab"
 									aria-selected="true" data-i18n="tab.root">ルート .htaccess</button>
 								<button type="button" class="tab-btn" data-tab="wp-admin" role="tab"
@@ -1032,13 +1104,10 @@
 
 							<!-- アクションボタン -->
 							<div class="preview-actions">
-								<button type="button" class="btn btn-primary btn-copy"
-									aria-label="表示中の内容をクリップボードにコピー"
-									data-i18n="btn.copy"
-									data-i18n-aria-label="btn.copy.aria">コピー</button>
+								<button type="button" class="btn btn-primary btn-copy" aria-label="表示中の内容をクリップボードにコピー"
+									data-i18n="btn.copy" data-i18n-aria-label="btn.copy.aria">コピー</button>
 								<button type="button" class="btn btn-secondary btn-download"
-									aria-label="表示中の内容を .htaccess ファイルとしてダウンロード"
-									data-i18n="btn.download"
+									aria-label="表示中の内容を .htaccess ファイルとしてダウンロード" data-i18n="btn.download"
 									data-i18n-aria-label="btn.download.aria">ダウンロード</button>
 							</div>
 						</section>
