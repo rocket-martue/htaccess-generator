@@ -54,6 +54,7 @@ export default {
 	'toggle.wpLoginBasicAuth': 'wp-login.php に Basic 認証',
 	'input.htpasswdPath': '.htpasswd のフルパス',
 	'hint.htpasswdPath': '.htpasswd のフルパスを入力すると反映されます',
+	'hint.htpasswdPathInvalid': '.htpasswd のフルパスを正しい形式で入力してください（例: /home/username/.htpasswd）',
 
 	// IP ブロック
 	'toggle.ipBlock': 'IP アドレスによるブロック',
@@ -151,6 +152,7 @@ export default {
 	'toggle.wpAdminBasicAuth': '管理画面に Basic 認証',
 	'input.adminHtpasswdPath': '.htpasswd のフルパス',
 	'hint.adminHtpasswdPath': '.htpasswd のフルパスを入力すると反映されます',
+	'hint.adminHtpasswdPathInvalid': '.htpasswd のフルパスを正しい形式で入力してください（例: /home/username/.htpasswd）',
 	'toggle.ajaxExclude': 'admin-ajax.php を除外',
 	'toggle.upgradeIpExclude': 'upgrade.php のサーバー内部 IP 除外',
 	'input.serverIp': 'サーバー内部 IP',

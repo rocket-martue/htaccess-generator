@@ -60,7 +60,7 @@ const isValidHtpasswdPath = (path) => {
 const IPV4_RE = /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
 const IPV4_CIDR_RE = /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\/(?:[0-9]|[12]\d|3[0-2])$/;
 
-const isValidIpV4OrCidr = (value) => {
+const isValidIpv4OrCidr = (value) => {
 	if (typeof value !== 'string') return false;
 	const trimmed = value.trim();
 	return IPV4_RE.test(trimmed) || IPV4_CIDR_RE.test(trimmed);
@@ -207,9 +207,10 @@ const buildFileProtectionSection = (fileProtection, apacheVersion, t) => {
 
 	// wp-login.php Basic 認証
 	if (fileProtection.wpLoginBasicAuth && isValidHtpasswdPath(fileProtection.htpasswdPath)) {
+		const htpasswdPath = fileProtection.htpasswdPath.trim();
 		lines.push(t('gen.comment.wpLoginBasicAuth'));
 		lines.push('<Files wp-login.php>');
-		lines.push(`\tAuthUserFile "${fileProtection.htpasswdPath}"`);
+		lines.push(`\tAuthUserFile "${htpasswdPath}"`);
 		lines.push('\tAuthName "Member Site"');
 		lines.push('\tAuthType BASIC');
 		lines.push('\trequire valid-user');
@@ -231,7 +232,7 @@ const buildIpBlockSection = (ipBlock, t) => {
 		return [];
 	}
 
-	const ips = ipBlock.list.split('\n').map((s) => s.trim()).filter((s) => isValidIpV4OrCidr(s));
+	const ips = ipBlock.list.split('\n').map((s) => s.trim()).filter((s) => isValidIpv4OrCidr(s));
 	if (ips.length === 0) {
 		return [];
 	}
@@ -745,9 +746,10 @@ export const buildWpAdmin = (settings, t = (key) => key) => {
 		return [];
 	}
 
+	const htpasswdPath = admin.htpasswdPath.trim();
 	const lines = [];
 	lines.push(t('gen.comment.wpAdminBasicAuth'));
-	lines.push(`AuthUserFile "${admin.htpasswdPath}"`);
+	lines.push(`AuthUserFile "${htpasswdPath}"`);
 	lines.push('AuthName "Member Site"');
 	lines.push('AuthType BASIC');
 	lines.push('require valid-user');
@@ -775,25 +777,26 @@ export const buildWpAdmin = (settings, t = (key) => key) => {
 	}
 
 	// upgrade.php のサーバー内部 IP 除外
-	if (admin.upgradeIpExclude && isValidIpV4OrCidr(admin.serverIp)) {
+	if (admin.upgradeIpExclude && isValidIpv4OrCidr(admin.serverIp)) {
+		const serverIp = admin.serverIp.trim();
 		lines.push('');
 		lines.push(t('gen.comment.upgradeIpExclude'));
 		lines.push('<Files upgrade.php>');
 		if (apacheVersion === '2.4') {
 			lines.push('\t<RequireAny>');
-			lines.push(`\t\tRequire ip ${admin.serverIp}`);
+			lines.push(`\t\tRequire ip ${serverIp}`);
 			lines.push('\t\tRequire valid-user');
 			lines.push('\t</RequireAny>');
 		} else {
 			lines.push('\t<IfModule mod_authz_core.c>');
 			lines.push('\t\t<RequireAny>');
-			lines.push(`\t\t\tRequire ip ${admin.serverIp}`);
+			lines.push(`\t\t\tRequire ip ${serverIp}`);
 			lines.push('\t\t\tRequire valid-user');
 			lines.push('\t\t</RequireAny>');
 			lines.push('\t</IfModule>');
 			lines.push('\t<IfModule !mod_authz_core.c>');
 			lines.push('\t\tOrder deny,allow');
-			lines.push(`\t\tAllow from ${admin.serverIp}`);
+			lines.push(`\t\tAllow from ${serverIp}`);
 			lines.push('\t\tSatisfy any');
 			lines.push('\t</IfModule>');
 		}
@@ -824,4 +827,4 @@ export const buildUploads = (settings, t = (key) => key) => {
 	];
 };
 
-export { isValidHtpasswdPath, isValidIpV4OrCidr };
+export { isValidHtpasswdPath, isValidIpv4OrCidr };
