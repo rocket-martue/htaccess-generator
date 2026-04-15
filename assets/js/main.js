@@ -5,7 +5,7 @@
  * プレビュー更新・コピー・ダウンロード処理を担う。
  */
 
-import { buildRoot, buildWpAdmin, buildUploads } from './generator.js';
+import { buildRoot, buildWpAdmin, buildUploads, isValidHtpasswdPath, isValidIpV4OrCidr } from './generator.js';
 import { PRESETS, DEFAULT_SETTINGS } from './presets.js';
 import { applyTheme, initTheme, setupThemeToggle, DARK_THEME } from './theme.js';
 import { t, getLang, setLang, initLang } from './i18n.js';
@@ -544,7 +544,7 @@ const updateConditionalFields = () => {
 		elLoginAuthFields.hidden = !elWpLoginBasicAuth?.checked;
 	}
 	if (elLoginHtpasswdHint) {
-		elLoginHtpasswdHint.hidden = !(elWpLoginBasicAuth?.checked && !elLoginHtpasswdPath?.value?.trim());
+		elLoginHtpasswdHint.hidden = !(elWpLoginBasicAuth?.checked && !isValidHtpasswdPath(elLoginHtpasswdPath?.value ?? ''));
 	}
 
 	// IP ブロックフィールド
@@ -608,7 +608,7 @@ const updateConditionalFields = () => {
 		elWpAdminFields.hidden = !elWpAdminBasicAuth?.checked;
 	}
 	if (elAdminHtpasswdHint) {
-		elAdminHtpasswdHint.hidden = !(elWpAdminBasicAuth?.checked && !elAdminHtpasswdPath?.value?.trim());
+		elAdminHtpasswdHint.hidden = !(elWpAdminBasicAuth?.checked && !isValidHtpasswdPath(elAdminHtpasswdPath?.value ?? ''));
 	}
 
 	// HSTS サブオプション

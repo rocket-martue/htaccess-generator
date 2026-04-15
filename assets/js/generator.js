@@ -46,6 +46,31 @@ const VALID_EXPIRES_VALUES = ['1 hour', '1 day', '1 week', '1 month', '3 months'
 const VALID_CC_MAX_AGE_VALUES = ['3600', '86400', '604800', '2592000', '7776000', '31536000'];
 const VALID_HSTS_MAX_AGE_VALUES = ['300', '86400', '2592000', '31536000', '63072000'];
 
+// ─── 入力バリデーション ───────────────────────────────────────────
+
+const HTPASSWD_PATH_RE = /^\/[a-zA-Z0-9/_.\-]+$/;
+
+const isValidHtpasswdPath = (path) => {
+	if (typeof path !== 'string') return false;
+	const trimmed = path.trim();
+	if (trimmed.length === 0 || trimmed.length > 512) return false;
+	return HTPASSWD_PATH_RE.test(trimmed);
+};
+
+const IPV4_RE = /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
+const IPV4_CIDR_RE = /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\/(?:[0-9]|[12]\d|3[0-2])$/;
+
+const isValidIpV4OrCidr = (value) => {
+	if (typeof value !== 'string') return false;
+	const trimmed = value.trim();
+	return IPV4_RE.test(trimmed) || IPV4_CIDR_RE.test(trimmed);
+};
+
+const sanitizeCspValue = (v) => {
+	if (typeof v !== 'string') return '';
+	return v.replace(/[\x00-\x1f\x7f"\\]/g, '');
+};
+
 // ─── ヘルパー ─────────────────────────────────────────────────────
 
 /**
@@ -181,7 +206,7 @@ const buildFileProtectionSection = (fileProtection, apacheVersion, t) => {
 	}
 
 	// wp-login.php Basic 認証
-	if (fileProtection.wpLoginBasicAuth && fileProtection.htpasswdPath) {
+	if (fileProtection.wpLoginBasicAuth && isValidHtpasswdPath(fileProtection.htpasswdPath)) {
 		lines.push(t('gen.comment.wpLoginBasicAuth'));
 		lines.push('<Files wp-login.php>');
 		lines.push(`\tAuthUserFile "${fileProtection.htpasswdPath}"`);
@@ -206,7 +231,7 @@ const buildIpBlockSection = (ipBlock, t) => {
 		return [];
 	}
 
-	const ips = ipBlock.list.split('\n').map((s) => s.trim()).filter(Boolean);
+	const ips = ipBlock.list.split('\n').map((s) => s.trim()).filter((s) => isValidIpV4OrCidr(s));
 	if (ips.length === 0) {
 		return [];
 	}
@@ -478,7 +503,7 @@ const buildHeadersSection = (headers, t) => {
 		// Report-Only モードでは upgrade-insecure-requests は無視されるため除外する
 		const cspParts = headers.cspReportOnly ? [] : ['upgrade-insecure-requests'];
 
-		const sanitize = (v) => v.replace(/"/g, '');
+		const sanitize = sanitizeCspValue;
 
 		const buildSrc = (enabled, value, extras = []) => {
 			if (!enabled) return null;
@@ -716,7 +741,7 @@ export const buildWpAdmin = (settings, t = (key) => key) => {
 	const admin = settings.wpAdmin;
 	const apacheVersion = settings.apacheVersion ?? 'both';
 
-	if (!admin.basicAuth || !admin.htpasswdPath) {
+	if (!admin.basicAuth || !isValidHtpasswdPath(admin.htpasswdPath)) {
 		return [];
 	}
 
@@ -750,7 +775,7 @@ export const buildWpAdmin = (settings, t = (key) => key) => {
 	}
 
 	// upgrade.php のサーバー内部 IP 除外
-	if (admin.upgradeIpExclude && admin.serverIp) {
+	if (admin.upgradeIpExclude && isValidIpV4OrCidr(admin.serverIp)) {
 		lines.push('');
 		lines.push(t('gen.comment.upgradeIpExclude'));
 		lines.push('<Files upgrade.php>');
@@ -798,3 +823,5 @@ export const buildUploads = (settings, t = (key) => key) => {
 		'</FilesMatch>',
 	];
 };
+
+export { isValidHtpasswdPath, isValidIpV4OrCidr };
