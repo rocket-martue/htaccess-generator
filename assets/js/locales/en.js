@@ -254,4 +254,9 @@ export default {
 	'guide.recovery.description': 'A guide explaining FTP recovery procedures and troubleshooting when a .htaccess misconfiguration causes a 500 error.',
 	'guide.recovery.ogUrl': 'https://htaccess-generator-b46.pages.dev/recovery-guide/?lang=en',
 	'guide.recovery.ogLocale': 'en_US',
+	'guide.terms.subtitle': 'Terms of Use',
+	'guide.terms.title': 'Terms of Use | .htaccess Generator',
+	'guide.terms.description': 'Terms of Use for .htaccess Generator. Covers conditions for using generated .htaccess files, the CC BY-NC-SA 4.0 license of the documentation content, and prohibited uses.',
+	'guide.terms.ogUrl': 'https://htaccess-generator-b46.pages.dev/terms/?lang=en',
+	'guide.terms.ogLocale': 'en_US',
 };

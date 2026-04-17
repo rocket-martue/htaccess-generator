@@ -254,4 +254,9 @@ export default {
 	'guide.recovery.description': '.htaccess の設定ミスで 500 エラーが発生した場合の FTP リカバリ手順とトラブルシューティングを解説するガイド',
 	'guide.recovery.ogUrl': 'https://htaccess-generator-b46.pages.dev/recovery-guide/',
 	'guide.recovery.ogLocale': 'ja_JP',
+	'guide.terms.subtitle': '利用規約',
+	'guide.terms.title': '利用規約 | .htaccess Generator',
+	'guide.terms.description': '.htaccess Generator の利用規約。生成した .htaccess の利用条件、解説コンテンツのライセンス（CC BY-NC-SA 4.0）、禁止事項について説明します。',
+	'guide.terms.ogUrl': 'https://htaccess-generator-b46.pages.dev/terms/',
+	'guide.terms.ogLocale': 'ja_JP',
 };
