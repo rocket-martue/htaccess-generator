@@ -234,6 +234,11 @@ export default {
 	'gen.comment.blockPhp': '# PHP 関連ファイルの実行を禁止',
 
 	// ガイドページ
+	'guide.directives.subtitle': '.htaccess ディレクティブ・フラグ解説ガイド',
+	'guide.directives.title': '.htaccess ディレクティブ・フラグ解説ガイド | .htaccess Generator',
+	'guide.directives.description': 'WordPress 環境で使用する .htaccess の主要ディレクティブとフラグについてまとめた解説ガイド',
+	'guide.directives.ogUrl': 'https://htaccess-generator-b46.pages.dev/directives-guide/',
+	'guide.directives.ogLocale': 'ja_JP',
 	'guide.htaccess-basics.subtitle': '.htaccess とは？入門ガイド',
 	'guide.htaccess-basics.title': '.htaccess とは？入門ガイド | .htaccess Generator',
 	'guide.htaccess-basics.description': '.htaccess とは何か、できること・使える環境・WordPress との関係・基本構文をわかりやすく解説した入門ガイド',
