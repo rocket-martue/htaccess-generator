@@ -5,30 +5,41 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description"
-			content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
+			content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド"
+			data-i18n-content="guide.wp-protection.description">
 		<!-- OGP -->
 		<meta property="og:type" content="article">
-		<meta property="og:title" content="wp-admin / wp-includes / uploads 保護解説ガイド">
+		<meta property="og:title" content="wp-admin / wp-includes / uploads 保護解説ガイド"
+			data-i18n-content="guide.wp-protection.title">
 		<meta property="og:description"
-			content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
+			content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド"
+			data-i18n-content="guide.wp-protection.description">
 		<meta property="og:image"
 			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
-		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/wp-protection-guide/">
-		<meta property="og:locale" content="ja_JP">
+		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/wp-protection-guide/"
+			data-i18n-content="guide.wp-protection.ogUrl">
+		<meta property="og:locale" content="ja_JP" data-i18n-content="guide.wp-protection.ogLocale">
 		<meta property="og:site_name" content=".htaccess Generator">
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:title" content="wp-admin / wp-includes / uploads 保護解説ガイド">
+		<meta name="twitter:title" content="wp-admin / wp-includes / uploads 保護解説ガイド"
+			data-i18n-content="guide.wp-protection.title">
 		<meta name="twitter:description"
-			content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド">
+			content="WordPress の wp-admin・wp-includes・wp-content/uploads ディレクトリを .htaccess で保護する方法を解説するガイド"
+			data-i18n-content="guide.wp-protection.description">
 		<meta name="twitter:image"
 			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
 		<meta name="license" content="https://creativecommons.org/licenses/by-nc-sa/4.0/">
 
 		<link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-		<title>wp-admin / wp-includes / uploads 保護解説ガイド | .htaccess Generator</title>
+		<link rel="alternate" hreflang="ja" href="https://htaccess-generator-b46.pages.dev/wp-protection-guide/">
+		<link rel="alternate" hreflang="en"
+			href="https://htaccess-generator-b46.pages.dev/wp-protection-guide/?lang=en">
+		<link rel="alternate" hreflang="x-default" href="https://htaccess-generator-b46.pages.dev/wp-protection-guide/">
+		<title data-i18n="guide.wp-protection.title">wp-admin / wp-includes / uploads 保護解説ガイド | .htaccess Generator
+		</title>
 		<script>
 			try {
 				if (window.localStorage && localStorage.getItem('htaccess-theme') === 'dark') {
@@ -46,13 +57,18 @@
 	</head>
 
 	<body>
-		<a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
+		<a href="#main-content" class="skip-link" data-i18n="skip.link">メインコンテンツへスキップ</a>
 		<div class="app-wrapper">
 
 			<header class="app-header">
 				<h1><a href="../">.htaccess Generator</a><span class="h1-sub">for WordPress</span></h1>
-				<p>wp-admin / uploads 保護解説ガイド</p>
+				<p data-i18n="guide.wp-protection.subtitle">wp-admin / uploads 保護解説ガイド</p>
 				<div class="header-actions">
+					<button type="button" class="lang-toggle-btn" aria-label="言語切り替え（Switch to English）"
+						data-i18n-aria-label="lang.btn.label">
+						<span class="lang-toggle-icon" aria-hidden="true">🌐</span>
+						<span class="lang-toggle-label" data-i18n="lang.btn.text">EN</span>
+					</button>
 					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
@@ -66,7 +82,7 @@
 				</div>
 			</header>
 
-			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション">
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション" data-i18n-aria-label="nav.aria">
 				<div class="site-nav-card">
 					<ul class="site-nav-list">
 						<li><a href="../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14"
@@ -82,7 +98,7 @@
 						<li><a href="../wp-protection-guide/" aria-current="page">wp-admin 保護</a></li>
 						<li><a href="../options-errordocument-guide/">Options &amp; ErrorDocument</a></li>
 						<li><a href="../recovery-guide/">リカバリ方法</a></li>
-						<li><a href="../terms/">利用規約</a></li>
+						<li><a href="../terms/" data-i18n="nav.terms">利用規約</a></li>
 						<li><a href="https://github.com/rocket-martue/htaccess-generator" target="_blank"
 								rel="noopener noreferrer">GitHub <svg xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"
@@ -98,9 +114,10 @@
 
 					<!-- .htaccess の設置場所 3箇所の全体像 -->
 					<section>
-						<h2>.htaccess の設置場所（3箇所の全体像）</h2>
+						<div class="lang-block" data-lang="ja">
+							<h2>.htaccess の設置場所（3箇所の全体像）</h2>
 
-						<pre class="article-code"><code>public_html/
+							<pre class="article-code"><code>public_html/
 ├── .htaccess              ← ルートの設定（リライト・ヘッダー・キャッシュ等）
 ├── wp-admin/
 │   └── .htaccess          ← 管理画面専用の設定
@@ -108,19 +125,38 @@
     └── uploads/
         └── .htaccess      ← アップロードディレクトリ専用</code></pre>
 
-						<h3>なぜ <code>&lt;Directory&gt;</code> ではなく別ファイルを使うのか</h3>
-						<p><code>&lt;Directory&gt;</code> ディレクティブは Apache
-							のメイン設定ファイル（<code>httpd.conf</code>）専用で、<code>.htaccess</code>
-							内では使用できない。ディレクトリ単位で制御したい場合は、そのディレクトリに別の <code>.htaccess</code> を設置する。</p>
+							<h3>なぜ <code>&lt;Directory&gt;</code> ではなく別ファイルを使うのか</h3>
+							<p><code>&lt;Directory&gt;</code> ディレクティブは Apache
+								のメイン設定ファイル（<code>httpd.conf</code>）専用で、<code>.htaccess</code>
+								内では使用できない。ディレクトリ単位で制御したい場合は、そのディレクトリに別の <code>.htaccess</code> を設置する。</p>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+							<h2>.htaccess Placement (Overview of the 3 Locations)</h2>
+
+							<pre class="article-code"><code>public_html/
+├── .htaccess              ← Root config (rewrite, headers, cache, etc.)
+├── wp-admin/
+│   └── .htaccess          ← Admin screen-specific config
+└── wp-content/
+    └── uploads/
+        └── .htaccess      ← Uploads directory-specific config</code></pre>
+
+							<h3>Why use separate files instead of <code>&lt;Directory&gt;</code>?</h3>
+							<p>The <code>&lt;Directory&gt;</code> directive is exclusive to Apache's main configuration
+								file (<code>httpd.conf</code>) and cannot be used inside <code>.htaccess</code>.
+								To apply settings per directory, place a separate <code>.htaccess</code> file in
+								that directory.</p>
+						</div>
 					</section>
 
 					<hr class="divider">
 
 					<!-- wp-admin/.htaccess -->
 					<section>
-						<h2>wp-admin/.htaccess — 管理画面への Basic 認証</h2>
+						<div class="lang-block" data-lang="ja">
+							<h2>wp-admin/.htaccess — 管理画面への Basic 認証</h2>
 
-						<pre class="article-code"><code># wp-admin/.htaccess
+							<pre class="article-code"><code># wp-admin/.htaccess
 
 # admin-ajax.php は除外（フロントエンドの Ajax に必要）
 &lt;Files admin-ajax.php&gt;
@@ -150,77 +186,183 @@ AuthName "Restricted Area"
 AuthUserFile /home/username/.htpasswd
 Require valid-user</code></pre>
 
-						<h3>Basic 認証の役割</h3>
-						<p>WordPress のログイン画面（<code>/wp-admin/</code>）に追加の認証壁を設ける。WordPress
-							本体のログイン処理が実行される前にサーバーレベルで認証を要求するため、ブルートフォース攻撃（パスワードの総当たり）に対して有効な対策となる。</p>
+							<h3>Basic 認証の役割</h3>
+							<p>WordPress のログイン画面（<code>/wp-admin/</code>）に追加の認証壁を設ける。WordPress
+								本体のログイン処理が実行される前にサーバーレベルで認証を要求するため、ブルートフォース攻撃（パスワードの総当たり）に対して有効な対策となる。</p>
 
-						<h3>admin-ajax.php を除外する理由</h3>
-						<p><code>admin-ajax.php</code> はフロントエンドの Ajax 処理（フォーム送信・ポップアップ表示・カートへの追加など）に使われる。管理画面の Basic
-							認証を適用したままにすると、ログインしていない一般ユーザーの Ajax 処理が失敗するため、このファイルだけ認証を除外する。</p>
+							<h3>admin-ajax.php を除外する理由</h3>
+							<p><code>admin-ajax.php</code> はフロントエンドの Ajax 処理（フォーム送信・ポップアップ表示・カートへの追加など）に使われる。管理画面の Basic
+								認証を適用したままにすると、ログインしていない一般ユーザーの Ajax 処理が失敗するため、このファイルだけ認証を除外する。</p>
 
-						<h3>upgrade.php のサーバー内部 IP 除外の理由</h3>
-						<p>WordPress の自動更新は内部でサーバー自身（<code>127.0.0.1</code> / <code>::1</code>）が
-							<code>upgrade.php</code> にアクセスする。Basic 認証がかかっていると自動更新が失敗するため、ループバック IP アドレスからのアクセスだけ Basic
-							認証なしで許可する。なお、上記の設定例は Apache 2.4 以降（<code>mod_authz_core</code>）を前提としており、Apache 2.2
-							を利用している場合は同等の許可設定を別途追加する必要がある。
-						</p>
+							<h3>upgrade.php のサーバー内部 IP 除外の理由</h3>
+							<p>WordPress の自動更新は内部でサーバー自身（<code>127.0.0.1</code> / <code>::1</code>）が
+								<code>upgrade.php</code> にアクセスする。Basic 認証がかかっていると自動更新が失敗するため、ループバック IP アドレスからのアクセスだけ
+								Basic
+								認証なしで許可する。なお、上記の設定例は Apache 2.4 以降（<code>mod_authz_core</code>）を前提としており、Apache 2.2
+								を利用している場合は同等の許可設定を別途追加する必要がある。
+							</p>
 
-						<h3>Basic 認証の設定項目</h3>
-						<div class="table-wrap">
-							<table>
-								<thead>
-									<tr>
-										<th>ディレクティブ</th>
-										<th>意味</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><code>AuthType Basic</code></td>
-										<td>認証方式を Basic 認証に指定</td>
-									</tr>
-									<tr>
-										<td><code>AuthName</code></td>
-										<td>認証ダイアログに表示されるメッセージ</td>
-									</tr>
-									<tr>
-										<td><code>AuthUserFile</code></td>
-										<td>パスワードファイル（<code>.htpasswd</code>）のフルパス</td>
-									</tr>
-									<tr>
-										<td><code>Require valid-user</code></td>
-										<td>認証に成功したユーザーのみアクセスを許可</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+							<h3>Basic 認証の設定項目</h3>
+							<div class="table-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>ディレクティブ</th>
+											<th>意味</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><code>AuthType Basic</code></td>
+											<td>認証方式を Basic 認証に指定</td>
+										</tr>
+										<tr>
+											<td><code>AuthName</code></td>
+											<td>認証ダイアログに表示されるメッセージ</td>
+										</tr>
+										<tr>
+											<td><code>AuthUserFile</code></td>
+											<td>パスワードファイル（<code>.htpasswd</code>）のフルパス</td>
+										</tr>
+										<tr>
+											<td><code>Require valid-user</code></td>
+											<td>認証に成功したユーザーのみアクセスを許可</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 
-						<h3>.htpasswd ファイルの作成</h3>
-						<p>パスワードファイルは <code>htpasswd</code> コマンドで生成する。このファイルは Web から直接アクセスできない場所（ドキュメントルートの外）に設置する。</p>
+							<h3>.htpasswd ファイルの作成</h3>
+							<p>パスワードファイルは <code>htpasswd</code> コマンドで生成する。このファイルは Web から直接アクセスできない場所（ドキュメントルートの外）に設置する。
+							</p>
 
-						<pre class="article-code"><code># 新規作成（-c オプション）
+							<pre class="article-code"><code># 新規作成（-c オプション）
 htpasswd -c /home/username/.htpasswd ユーザー名
 
 # 既存ファイルにユーザーを追加
 htpasswd /home/username/.htpasswd ユーザー名</code></pre>
 
-						<blockquote>
-							<p>パスワードの自動生成や <code>.htpasswd</code> のハッシュ生成は .htaccess Generator では行わない。bcrypt
-								ハッシュの生成には外部ライブラリが必要で、SHA1 はセキュリティ上不十分なため。<code>htpasswd</code>
-								コマンドを使って安全なパスワードファイルを作成すること。</p>
-						</blockquote>
+							<blockquote>
+								<p>パスワードの自動生成や <code>.htpasswd</code> のハッシュ生成は .htaccess Generator では行わない。bcrypt
+									ハッシュの生成には外部ライブラリが必要で、SHA1 はセキュリティ上不十分なため。<code>htpasswd</code>
+									コマンドを使って安全なパスワードファイルを作成すること。</p>
+							</blockquote>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+							<h2>wp-admin/.htaccess — Basic Authentication for the Admin Screen</h2>
+
+							<pre class="article-code"><code># wp-admin/.htaccess
+
+# Exclude admin-ajax.php (required for frontend Ajax)
+&lt;Files admin-ajax.php&gt;
+    &lt;IfModule mod_authz_core.c&gt;
+        Require all granted
+    &lt;/IfModule&gt;
+    &lt;IfModule !mod_authz_core.c&gt;
+        Satisfy Any
+        Order allow,deny
+        Allow from all
+        Deny from none
+    &lt;/IfModule&gt;
+&lt;/Files&gt;
+
+# Allow upgrade.php only from server-internal IP (for WordPress auto-updates)
+&lt;Files upgrade.php&gt;
+    &lt;IfModule mod_authz_core.c&gt;
+        &lt;RequireAny&gt;
+            Require ip 127.0.0.1 ::1
+            Require valid-user
+        &lt;/RequireAny&gt;
+    &lt;/IfModule&gt;
+&lt;/Files&gt;
+
+AuthType Basic
+AuthName "Restricted Area"
+AuthUserFile /home/username/.htpasswd
+Require valid-user</code></pre>
+
+							<h3>The Role of Basic Authentication</h3>
+							<p>This adds an extra authentication barrier to the WordPress admin screen
+								(<code>/wp-admin/</code>).
+								Because authentication is enforced at the server level before WordPress's own login
+								processing runs, it is an effective countermeasure against brute-force attacks
+								(password guessing).</p>
+
+							<h3>Why Exclude admin-ajax.php</h3>
+							<p><code>admin-ajax.php</code> is used for frontend Ajax requests (form submissions,
+								pop-ups, add-to-cart, etc.). If Basic Auth is applied to the entire admin directory,
+								Ajax requests from non-logged-in visitors will fail, so this file must be excluded
+								from the authentication.</p>
+
+							<h3>Why Exclude upgrade.php by Server-Internal IP</h3>
+							<p>WordPress auto-updates work by having the server itself (<code>127.0.0.1</code> /
+								<code>::1</code>) access <code>upgrade.php</code> internally. If Basic Auth
+								is in place, auto-updates will fail, so access from the loopback IP address is
+								permitted without authentication. Note that the example above assumes Apache 2.4+
+								(<code>mod_authz_core</code>); for Apache 2.2, an equivalent allow directive
+								must be added separately.
+							</p>
+
+							<h3>Basic Authentication Directives</h3>
+							<div class="table-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>Directive</th>
+											<th>Meaning</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><code>AuthType Basic</code></td>
+											<td>Specifies Basic authentication as the auth method</td>
+										</tr>
+										<tr>
+											<td><code>AuthName</code></td>
+											<td>Message displayed in the authentication dialog</td>
+										</tr>
+										<tr>
+											<td><code>AuthUserFile</code></td>
+											<td>Full path to the password file (<code>.htpasswd</code>)</td>
+										</tr>
+										<tr>
+											<td><code>Require valid-user</code></td>
+											<td>Allows access only to successfully authenticated users</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<h3>Creating the .htpasswd File</h3>
+							<p>Generate the password file with the <code>htpasswd</code> command. Place this file
+								outside the document root so it cannot be accessed directly from the web.</p>
+
+							<pre class="article-code"><code># Create new file (-c option)
+htpasswd -c /home/username/.htpasswd username
+
+# Add a user to an existing file
+htpasswd /home/username/.htpasswd username</code></pre>
+
+							<blockquote>
+								<p>.htaccess Generator does not auto-generate passwords or <code>.htpasswd</code>
+									hashes. bcrypt hash generation requires an external library, and SHA1 is
+									insufficient for security. Use the <code>htpasswd</code> command to create
+									a secure password file.</p>
+							</blockquote>
+						</div>
 					</section>
 
 					<hr class="divider">
 
 					<!-- wp-includes / wp-admin/includes 保護 -->
 					<section>
-						<h2>ルート .htaccess — wp-includes / wp-admin/includes の保護</h2>
+						<div class="lang-block" data-lang="ja">
+							<h2>ルート .htaccess — wp-includes / wp-admin/includes の保護</h2>
 
-						<p>WordPress のコアファイルへの直接アクセスをブロックするルール。ルートの <code>.htaccess</code>
-							内、<code>mod_rewrite</code> ブロック内に記述する。</p>
+							<p>WordPress のコアファイルへの直接アクセスをブロックするルール。ルートの <code>.htaccess</code>
+								内、<code>mod_rewrite</code> ブロック内に記述する。</p>
 
-						<pre class="article-code"><code># wp-admin/includes/ への直接アクセスをブロック
+							<pre class="article-code"><code># wp-admin/includes/ への直接アクセスをブロック
 RewriteCond %{REQUEST_URI} ^/wp-admin/includes(?:/|$) [NC]
 RewriteRule .* - [F,L]
 
@@ -228,31 +370,67 @@ RewriteRule .* - [F,L]
 RewriteCond %{REQUEST_URI} ^/wp-includes/[^/]+\.php$ [NC]
 RewriteRule .* - [F,L]</code></pre>
 
-						<h3>wp-admin/includes/ を全ブロックする理由</h3>
-						<p><code>wp-admin/includes/</code>
-							は管理画面の内部処理ファイルが格納されるディレクトリで、ブラウザから直接アクセスする必要がない。すべてのリクエストをブロックする。</p>
+							<h3>wp-admin/includes/ を全ブロックする理由</h3>
+							<p><code>wp-admin/includes/</code>
+								は管理画面の内部処理ファイルが格納されるディレクトリで、ブラウザから直接アクセスする必要がない。すべてのリクエストをブロックする。</p>
 
-						<h3>wp-includes/*.php のみブロックする理由</h3>
-						<p><code>wp-includes/</code> には CSS・JS・画像などフロントエンドで必要なアセットも含まれるため、ディレクトリ全体をブロックするとサイトが壊れる。PHP
-							ファイルのみをブロックし、アセットへのアクセスは許可する。</p>
-						<p>パターン <code>[^/]+\.php$</code>
-							はディレクトリ直下の PHP ファイルのみにマッチする。これにより
-							<code>wp-includes/js/tinymce/wp-tinymce.php</code>
-							などサブディレクトリ内の正当な PHP ファイルへのアクセスを妨げない。
-						</p>
+							<h3>wp-includes/*.php のみブロックする理由</h3>
+							<p><code>wp-includes/</code> には
+								CSS・JS・画像などフロントエンドで必要なアセットも含まれるため、ディレクトリ全体をブロックするとサイトが壊れる。PHP
+								ファイルのみをブロックし、アセットへのアクセスは許可する。</p>
+							<p>パターン <code>[^/]+\.php$</code>
+								はディレクトリ直下の PHP ファイルのみにマッチする。これにより
+								<code>wp-includes/js/tinymce/wp-tinymce.php</code>
+								などサブディレクトリ内の正当な PHP ファイルへのアクセスを妨げない。
+							</p>
 
-						<h3>ディレクトリ一覧（<code>-d</code> 判定）との違い</h3>
-						<p>ディレクトリ一覧の表示は <code>Options -Indexes</code>
-							で既にカバーされる。このルールは PHP ファイルへの直接アクセスという、より実害の大きい攻撃パターンを防ぐ。</p>
+							<h3>ディレクトリ一覧（<code>-d</code> 判定）との違い</h3>
+							<p>ディレクトリ一覧の表示は <code>Options -Indexes</code>
+								で既にカバーされる。このルールは PHP ファイルへの直接アクセスという、より実害の大きい攻撃パターンを防ぐ。</p>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+							<h2>Root .htaccess — Protecting wp-includes / wp-admin/includes</h2>
+
+							<p>Rules to block direct access to WordPress core files. Place these inside the
+								<code>mod_rewrite</code> block in the root <code>.htaccess</code>.
+							</p>
+
+							<pre class="article-code"><code># Block direct access to wp-admin/includes/
+RewriteCond %{REQUEST_URI} ^/wp-admin/includes(?:/|$) [NC]
+RewriteRule .* - [F,L]
+
+# Block direct access to wp-includes/*.php
+RewriteCond %{REQUEST_URI} ^/wp-includes/[^/]+\.php$ [NC]
+RewriteRule .* - [F,L]</code></pre>
+
+							<h3>Why Block All Requests to wp-admin/includes/</h3>
+							<p><code>wp-admin/includes/</code> stores internal admin processing files that never need
+								to be accessed directly from a browser. All requests to this directory should be
+								blocked.</p>
+
+							<h3>Why Block Only *.php in wp-includes/</h3>
+							<p><code>wp-includes/</code> also contains frontend assets such as CSS, JS, and images,
+								so blocking the entire directory would break the site. Only PHP files are blocked
+								while access to assets is permitted.</p>
+							<p>The pattern <code>[^/]+\.php$</code> matches only PHP files directly under the
+								directory, so it does not interfere with legitimate PHP files in subdirectories such
+								as <code>wp-includes/js/tinymce/wp-tinymce.php</code>.
+							</p>
+
+							<h3>Difference from Directory Listing (<code>-d</code> Check)</h3>
+							<p>Directory listing is already covered by <code>Options -Indexes</code>. These rules
+								protect against direct PHP file access, which is a more impactful attack vector.</p>
+						</div>
 					</section>
 
 					<hr class="divider">
 
 					<!-- wp-content/uploads/.htaccess -->
 					<section>
-						<h2>wp-content/uploads/.htaccess — PHP 実行防止</h2>
+						<div class="lang-block" data-lang="ja">
+							<h2>wp-content/uploads/.htaccess — PHP 実行防止</h2>
 
-						<pre class="article-code"><code># wp-content/uploads/.htaccess
+							<pre class="article-code"><code># wp-content/uploads/.htaccess
 
 &lt;FilesMatch "\.(?:php|phar|phtml)$"&gt;
     &lt;IfModule mod_authz_core.c&gt;
@@ -264,51 +442,52 @@ RewriteRule .* - [F,L]</code></pre>
     &lt;/IfModule&gt;
 &lt;/FilesMatch&gt;</code></pre>
 
-						<h3>役割</h3>
-						<p>アップロードディレクトリ（<code>/wp-content/uploads/</code>）への PHP ファイルのアップロードと実行を防ぐ設定。</p>
-						<p>WordPress の脆弱なプラグインやテーマを悪用して <code>.php</code>
-							ファイルをアップロードし、それをブラウザから実行してサーバーを乗っ取る攻撃（リモートコード実行）がある。このファイルはその攻撃への防衛線として機能する。</p>
+							<h3>役割</h3>
+							<p>アップロードディレクトリ（<code>/wp-content/uploads/</code>）への PHP ファイルのアップロードと実行を防ぐ設定。</p>
+							<p>WordPress の脆弱なプラグインやテーマを悪用して <code>.php</code>
+								ファイルをアップロードし、それをブラウザから実行してサーバーを乗っ取る攻撃（リモートコード実行）がある。このファイルはその攻撃への防衛線として機能する。</p>
 
-						<h3><code>&lt;FilesMatch&gt;</code> の役割</h3>
-						<p><code>&lt;Files&gt;</code> の正規表現版。単一のファイル名にマッチする <code>&lt;Files&gt;</code>
-							と異なり、正規表現パターンで複数の拡張子をまとめてマッチできる。</p>
+							<h3><code>&lt;FilesMatch&gt;</code> の役割</h3>
+							<p><code>&lt;Files&gt;</code> の正規表現版。単一のファイル名にマッチする <code>&lt;Files&gt;</code>
+								と異なり、正規表現パターンで複数の拡張子をまとめてマッチできる。</p>
 
-						<div class="table-wrap">
-							<table>
-								<thead>
-									<tr>
-										<th>ブロック対象</th>
-										<th>理由</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><code>.php</code></td>
-										<td>PHP スクリプト本体</td>
-									</tr>
-									<tr>
-										<td><code>.phar</code></td>
-										<td>PHP Archive。PHP コードを含む実行可能なアーカイブ</td>
-									</tr>
-									<tr>
-										<td><code>.phtml</code></td>
-										<td>PHP のレガシーな拡張子。Apache の設定によっては PHP として実行される</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+							<div class="table-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>ブロック対象</th>
+											<th>理由</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><code>.php</code></td>
+											<td>PHP スクリプト本体</td>
+										</tr>
+										<tr>
+											<td><code>.phar</code></td>
+											<td>PHP Archive。PHP コードを含む実行可能なアーカイブ</td>
+										</tr>
+										<tr>
+											<td><code>.phtml</code></td>
+											<td>PHP のレガシーな拡張子。Apache の設定によっては PHP として実行される</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 
-						<blockquote>
-							<p>正常な WordPress 運用では <code>uploads/</code> に <code>.phar</code> や <code>.phtml</code>
-								が入ることはない。攻撃者は <code>.php</code> 以外の拡張子でアップロード制限を回避しようとするため、まとめてブロックする。</p>
-						</blockquote>
+							<blockquote>
+								<p>正常な WordPress 運用では <code>uploads/</code> に <code>.phar</code> や <code>.phtml</code>
+									が入ることはない。攻撃者は <code>.php</code> 以外の拡張子でアップロード制限を回避しようとするため、まとめてブロックする。</p>
+							</blockquote>
 
-						<h3>Apache 2.2 / 2.4 互換パターンを使う理由</h3>
-						<p>ルートの <code>.htaccess</code> は管理者が意図的に設置するが、<code>uploads/</code> の <code>.htaccess</code>
-							はプラグイン（WP Super Cache・EWWWIO 等）が自動生成するケースもある。幅広い Apache バージョンへの互換性を確保することで、どの環境でも確実に機能させる。
-						</p>
+							<h3>Apache 2.2 / 2.4 互換パターンを使う理由</h3>
+							<p>ルートの <code>.htaccess</code> は管理者が意図的に設置するが、<code>uploads/</code> の <code>.htaccess</code>
+								はプラグイン（WP Super Cache・EWWWIO 等）が自動生成するケースもある。幅広い Apache
+								バージョンへの互換性を確保することで、どの環境でも確実に機能させる。
+							</p>
 
-						<pre class="article-code"><code>&lt;IfModule mod_authz_core.c&gt;
+							<pre class="article-code"><code>&lt;IfModule mod_authz_core.c&gt;
     # Apache 2.4+ の書き方
     Require all denied
 &lt;/IfModule&gt;
@@ -318,22 +497,115 @@ RewriteRule .* - [F,L]</code></pre>
     Deny from all
 &lt;/IfModule&gt;</code></pre>
 
-						<h3>なぜ <code>php_flag engine off</code> を使わないのか</h3>
-						<p><code>php_flag engine off</code> は <code>mod_php</code>（Apache モジュールとして動く
-							PHP）環境でのみ有効なディレクティブ。XServer・ConoHa WING 等の主要レンタルサーバーが採用する PHP-FPM（FastCGI）環境では
-							<code>php_flag</code> が使えないため効果がない。
-						</p>
-						<p><code>FilesMatch</code> + <code>Require all denied</code> は Apache のアクセス制御レイヤーで処理するため、PHP
-							の実行方式に依存せずどの環境でも確実に動作する。</p>
+							<h3>なぜ <code>php_flag engine off</code> を使わないのか</h3>
+							<p><code>php_flag engine off</code> は <code>mod_php</code>（Apache モジュールとして動く
+								PHP）環境でのみ有効なディレクティブ。XServer・ConoHa WING 等の主要レンタルサーバーが採用する PHP-FPM（FastCGI）環境では
+								<code>php_flag</code> が使えないため効果がない。
+							</p>
+							<p><code>FilesMatch</code> + <code>Require all denied</code> は Apache のアクセス制御レイヤーで処理するため、PHP
+								の実行方式に依存せずどの環境でも確実に動作する。</p>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+							<h2>wp-content/uploads/.htaccess — Preventing PHP Execution</h2>
+
+							<pre class="article-code"><code># wp-content/uploads/.htaccess
+
+&lt;FilesMatch "\.(?:php|phar|phtml)$"&gt;
+    &lt;IfModule mod_authz_core.c&gt;
+        Require all denied
+    &lt;/IfModule&gt;
+    &lt;IfModule !mod_authz_core.c&gt;
+        Order deny,allow
+        Deny from all
+    &lt;/IfModule&gt;
+&lt;/FilesMatch&gt;</code></pre>
+
+							<h3>Purpose</h3>
+							<p>This configuration prevents PHP files from being uploaded to and executed from the
+								uploads directory (<code>/wp-content/uploads/</code>).</p>
+							<p>Attackers exploit vulnerable plugins or themes to upload <code>.php</code> files and
+								then execute them via a browser to hijack the server (remote code execution). This
+								file acts as a defense line against that attack.</p>
+
+							<h3>The Role of <code>&lt;FilesMatch&gt;</code></h3>
+							<p>This is the regex version of <code>&lt;Files&gt;</code>. Unlike
+								<code>&lt;Files&gt;</code>,
+								which matches a single filename, <code>&lt;FilesMatch&gt;</code> can match multiple
+								extensions at once using a regular expression pattern.</p>
+
+							<div class="table-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>Blocked Extension</th>
+											<th>Reason</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><code>.php</code></td>
+											<td>Standard PHP script files</td>
+										</tr>
+										<tr>
+											<td><code>.phar</code></td>
+											<td>PHP Archive — an executable archive containing PHP code</td>
+										</tr>
+										<tr>
+											<td><code>.phtml</code></td>
+											<td>Legacy PHP extension; may be executed as PHP depending on Apache config
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<blockquote>
+								<p>In normal WordPress operation, <code>.phar</code> or <code>.phtml</code> files
+									never appear in <code>uploads/</code>. Attackers try to bypass upload
+									restrictions by using extensions other than <code>.php</code>, so all of them
+									should be blocked together.</p>
+							</blockquote>
+
+							<h3>Why Use the Apache 2.2 / 2.4 Compatible Pattern</h3>
+							<p>While the root <code>.htaccess</code> is placed intentionally by an admin, the
+								<code>uploads/</code> <code>.htaccess</code> is sometimes auto-generated by
+								plugins (WP Super Cache, EWWW Image Optimizer, etc.). Ensuring compatibility across
+								a wide range of Apache versions guarantees the file works reliably in any environment.
+							</p>
+
+							<pre class="article-code"><code>&lt;IfModule mod_authz_core.c&gt;
+    # Apache 2.4+ syntax
+    Require all denied
+&lt;/IfModule&gt;
+&lt;IfModule !mod_authz_core.c&gt;
+    # Apache 2.2 and earlier (fallback)
+    Order deny,allow
+    Deny from all
+&lt;/IfModule&gt;</code></pre>
+
+							<h3>Why Not Use <code>php_flag engine off</code></h3>
+							<p><code>php_flag engine off</code> is only valid in <code>mod_php</code> environments
+								(PHP running as an Apache module). It has no effect in PHP-FPM (FastCGI)
+								environments used by major shared hosting providers such as XServer and ConoHa WING.
+							</p>
+							<p><code>FilesMatch</code> + <code>Require all denied</code> is processed at the Apache
+								access control layer, so it works reliably in any environment regardless of the PHP
+								execution method.</p>
+						</div>
 					</section>
 
 					<!-- 戻るリンク -->
 					<div class="article-back">
-						<a href="../" class="btn btn-secondary">← ジェネレーターに戻る</a>
+						<div class="lang-block" data-lang="ja">
+							<a href="../" class="btn btn-secondary">← ジェネレーターに戻る</a>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+							<a href="../" class="btn btn-secondary">← Back to Generator</a>
+						</div>
 					</div>
 
 					<aside class="license-notice">
-						<div>
+						<div class="lang-block" data-lang="ja">
 							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja"
 								rel="nofollow noreferrer noopener" target="_blank">
 								<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"
@@ -346,6 +618,26 @@ RewriteRule .* - [F,L]</code></pre>
 								の下で提供されています。
 								<strong>有料オンライン講座・有料教材への転載は禁止</strong>しています。
 								詳細は<a href="/terms" rel="nofollow noreferrer">利用規約</a>をご確認ください。
+							</p>
+							<p>
+								&copy; 2026 まーちゅう（<a href="https://x.com/RocketMartue"
+									rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>）
+							</p>
+						</div>
+						<div class="lang-block" data-lang="en" hidden>
+							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+								rel="nofollow noreferrer noopener" target="_blank">
+								<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"
+									alt="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+									width="88" height="31">
+							</a>
+							<p>
+								This content is licensed under
+								<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+									rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>.
+								<strong>Reproduction in paid online courses or paid educational materials is
+									prohibited.</strong>
+								See the <a href="/terms" rel="nofollow noreferrer">Terms of Use</a> for details.
 							</p>
 							<p>
 								&copy; 2026 まーちゅう（<a href="https://x.com/RocketMartue"
