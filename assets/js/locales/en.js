@@ -234,6 +234,11 @@ export default {
 	'gen.comment.blockPhp': '# Disable PHP file execution',
 
 	// Guide pages
+	'guide.directives.subtitle': '.htaccess Directives & Flags Reference Guide',
+	'guide.directives.title': '.htaccess Directives & Flags Reference Guide | .htaccess Generator',
+	'guide.directives.description': 'A reference guide covering key .htaccess directives and flags used in WordPress environments.',
+	'guide.directives.ogUrl': 'https://htaccess-generator-b46.pages.dev/directives-guide/?lang=en',
+	'guide.directives.ogLocale': 'en_US',
 	'guide.htaccess-basics.subtitle': 'What is .htaccess? A Beginner\'s Guide',
 	'guide.htaccess-basics.title': 'What is .htaccess? A Beginner\'s Guide | .htaccess Generator',
 	'guide.htaccess-basics.description': 'A beginner\'s guide explaining what .htaccess is, what it can do, supported environments, its relationship with WordPress, and basic syntax.',
