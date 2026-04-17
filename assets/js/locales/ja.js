@@ -244,4 +244,9 @@ export default {
 	'guide.htaccess-basics.description': '.htaccess とは何か、できること・使える環境・WordPress との関係・基本構文をわかりやすく解説した入門ガイド',
 	'guide.htaccess-basics.ogUrl': 'https://htaccess-generator-b46.pages.dev/htaccess-basics-guide/',
 	'guide.htaccess-basics.ogLocale': 'ja_JP',
+	'guide.recovery.subtitle': 'リカバリ方法解説ガイド',
+	'guide.recovery.title': 'リカバリ方法解説ガイド | .htaccess Generator',
+	'guide.recovery.description': '.htaccess の設定ミスで 500 エラーが発生した場合の FTP リカバリ手順とトラブルシューティングを解説するガイド',
+	'guide.recovery.ogUrl': 'https://htaccess-generator-b46.pages.dev/recovery-guide/',
+	'guide.recovery.ogLocale': 'ja_JP',
 };
