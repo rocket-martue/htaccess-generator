@@ -244,4 +244,9 @@ export default {
 	'guide.htaccess-basics.description': 'A beginner\'s guide explaining what .htaccess is, what it can do, supported environments, its relationship with WordPress, and basic syntax.',
 	'guide.htaccess-basics.ogUrl': 'https://htaccess-generator-b46.pages.dev/htaccess-basics-guide/?lang=en',
 	'guide.htaccess-basics.ogLocale': 'en_US',
+	'guide.recovery.subtitle': 'Recovery Guide',
+	'guide.recovery.title': 'Recovery Guide | .htaccess Generator',
+	'guide.recovery.description': 'A guide explaining FTP recovery procedures and troubleshooting when a .htaccess misconfiguration causes a 500 error.',
+	'guide.recovery.ogUrl': 'https://htaccess-generator-b46.pages.dev/recovery-guide/?lang=en',
+	'guide.recovery.ogLocale': 'en_US',
 };
