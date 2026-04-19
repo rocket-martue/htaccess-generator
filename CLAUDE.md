@@ -13,14 +13,25 @@ Cloudflare Pages でホスティング。ビルドなし、外部依存なし。
 
 ```
 /
-├── index.html                      ← メインページ（ジェネレーター UI）
-├── htaccess-basics-guide/index.html        ← .htaccess 入門ガイド
-├── directives-guide/index.html             ← ディレクティブ解説ガイド
-├── options-errordocument-guide/index.html  ← Options & ErrorDocument 解説ガイド
-├── security-headers-guide/index.html       ← セキュリティヘッダー解説ガイド
-├── cache-performance-guide/index.html      ← キャッシュ＆パフォーマンス設定解説ガイド
-├── wp-protection-guide/index.html          ← WordPress 保護設定解説ガイド
-├── recovery-guide/index.html               ← 設定ミス時のリカバリー手順ガイド
+├── index.html                      ← メインページ（ジェネレーター UI・日本語）
+├── htaccess-basics-guide/index.html        ← .htaccess 入門ガイド（日本語）
+├── directives-guide/index.html             ← ディレクティブ解説ガイド（日本語）
+├── options-errordocument-guide/index.html  ← Options & ErrorDocument 解説ガイド（日本語）
+├── security-headers-guide/index.html       ← セキュリティヘッダー解説ガイド（日本語）
+├── cache-performance-guide/index.html      ← キャッシュ＆パフォーマンス設定解説ガイド（日本語）
+├── wp-protection-guide/index.html          ← WordPress 保護設定解説ガイド（日本語）
+├── recovery-guide/index.html               ← 設定ミス時のリカバリー手順ガイド（日本語）
+├── terms/index.html                        ← 利用規約（日本語）
+├── en/                                     ← 英語版ページ（URL 物理分離）
+│   ├── index.html                          ← Main UI (English)
+│   ├── htaccess-basics-guide/index.html    ← .htaccess Basics Guide (English)
+│   ├── directives-guide/index.html         ← Directives & Flags Guide (English)
+│   ├── options-errordocument-guide/index.html  ← Options & ErrorDocument Guide (English)
+│   ├── security-headers-guide/index.html   ← Security Headers Guide (English)
+│   ├── cache-performance-guide/index.html  ← Cache & Performance Guide (English)
+│   ├── wp-protection-guide/index.html      ← WordPress Protection Guide (English)
+│   ├── recovery-guide/index.html           ← Recovery Guide (English)
+│   └── terms/index.html                    ← Terms of Use (English)
 ├── assets/
 │   ├── css/style.css               ← SCSS コンパイル済み（直接編集しない）
 │   ├── scss/                       ← SCSS ソース（編集対象）
@@ -29,6 +40,7 @@ Cloudflare Pages でホスティング。ビルドなし、外部依存なし。
 │       ├── guide.js                ← ガイドページ エントリーポイント
 │       ├── theme.js                ← テーマ切り替え共通モジュール
 │       ├── generator.js            ← .htaccess 生成ロジック（DOM 操作なし）
+│       ├── i18n-messages.js        ← 多言語メッセージ定義（messagesJa / messagesEn をエクスポート）
 │       └── presets.js              ← プリセット定義データ
 └── _headers                        ← Cloudflare Pages レスポンスヘッダー設定（CSP ハッシュ管理）
 ```
@@ -59,8 +71,8 @@ console.log('sha256-' + crypto.createHash('sha256').update(script, 'utf8').diges
 ```html
 <script>
     try {
-        if (window.localStorage && localStorage.getItem('htaccess-theme') === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
+        if (window.localStorage && localStorage.getItem("htaccess-theme") === "dark") {
+            document.documentElement.setAttribute("data-theme", "dark");
         }
     } catch (e) {
         // localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
@@ -69,6 +81,7 @@ console.log('sha256-' + crypto.createHash('sha256').update(script, 'utf8').diges
 ```
 
 内容・インデント・コメント文が異なると CSP ハッシュが一致しなくなるため**一字一句同じにすること**。
+日本語ページ（`/`）・英語ページ（`/en/`）の**全ページに同一スクリプト**を使用する。
 
 ---
 
@@ -95,6 +108,8 @@ console.log('sha256-' + crypto.createHash('sha256').update(script, 'utf8').diges
 | `# BEGIN/END HtaccessGenerator` マーカー | ルート .htaccess のみ出力 | WordPress の BEGIN/END ブロックと共存できるよう範囲を明示するため |
 | CSP Report-Only 時の `upgrade-insecure-requests` | 除外 | アクション指示のため Report-Only ヘッダーに含めても無視される。管理画面 CSP も同様に除外する |
 | 管理画面 CSP（wp-admin / wp-login.php） | フロント CSP と同じディレクティブ構成をベースに `script-src` へ `'unsafe-inline'` / `'unsafe-eval'`、`style-src` へ `'unsafe-inline'` を追加して動的生成 | ハードコード定数を廃止し、ユーザー設定を反映しつつ wp-admin の動作に必要な unsafe-* を保証するため |
+| 多言語対応（日本語 / 英語） | URL 物理分離（`/` = 日本語、`/en/` = 英語）| JS 側でのテキスト差し替えは FOUC が発生するため、各言語を独立した HTML ファイルで提供する |
+| `i18n.js` / `locales/` | 削除済み | URL 物理分離に移行したため不要 |
 
 ---
 

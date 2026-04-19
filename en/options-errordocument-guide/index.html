@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="How Apache Options and ErrorDocument directives work, how to configure them, and what to watch out for" />
+		<!-- OGP -->
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="Options &amp; ErrorDocument Guide" />
+		<meta property="og:description" content="How Apache Options and ErrorDocument directives work, how to configure them, and what to watch out for" />
+		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/en/options-errordocument-guide/" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:site_name" content=".htaccess Generator" />
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Options &amp; ErrorDocument Guide" />
+		<meta name="twitter:description" content="How Apache Options and ErrorDocument directives work, how to configure them, and what to watch out for" />
+		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
+		<meta name="license" content="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
+
+		<link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
+		<link rel="canonical" href="https://htaccess-generator-b46.pages.dev/en/options-errordocument-guide/" />
+		<link rel="alternate" hreflang="ja" href="https://htaccess-generator-b46.pages.dev/options-errordocument-guide/" />
+		<link rel="alternate" hreflang="en" href="https://htaccess-generator-b46.pages.dev/en/options-errordocument-guide/" />
+		<link rel="alternate" hreflang="x-default" href="https://htaccess-generator-b46.pages.dev/options-errordocument-guide/" />
+		<title>Options &amp; ErrorDocument Guide | .htaccess Generator</title>
+		<script>
+			try {
+				if (window.localStorage && localStorage.getItem("htaccess-theme") === "dark") {
+					document.documentElement.setAttribute("data-theme", "dark");
+				}
+			} catch (e) {
+				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
+			}
+		</script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap" />
+		<link rel="stylesheet" href="../../assets/css/style.css" />
+	</head>
+
+	<body>
+		<a href="#main-content" class="skip-link">Skip to main content</a>
+		<div class="app-wrapper">
+			<header class="app-header">
+				<h1>
+					<a href="../../en/">.htaccess Generator</a>
+					<span class="h1-sub">for WordPress</span>
+				</h1>
+				<p>Options &amp; ErrorDocument Guide</p>
+				<div class="header-actions">
+					<a href="/options-errordocument-guide/" class="lang-toggle-btn" aria-label="Switch to Japanese"><span class="lang-toggle-icon" aria-hidden="true">🌐</span><span class="lang-toggle-label">JA</span></a>
+					<button type="button" class="theme-toggle-btn" aria-label="Switch to dark mode" aria-pressed="false">
+						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+						<span class="theme-toggle-label">Dark</span>
+					</button>
+					<button type="button" class="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav-menu">
+						<span class="bar"></span>
+						<span class="bar"></span>
+						<span class="menu-label" aria-hidden="true">MENU</span>
+					</button>
+				</div>
+			</header>
+
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="Site navigation">
+				<div class="site-nav-card">
+					<ul class="site-nav-list">
+						<li>
+							<a href="../../en/">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align: -0.125em; margin-right: 0.3em"><path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" /></svg>
+								<span>Generator</span>
+							</a>
+						</li>
+						<li>
+							<a href="../htaccess-basics-guide/">.htaccess Basics</a>
+						</li>
+						<li>
+							<a href="../directives-guide/">Directives</a>
+						</li>
+						<li>
+							<a href="../security-headers-guide/">Security Headers</a>
+						</li>
+						<li>
+							<a href="../cache-performance-guide/">Cache &amp; Performance</a>
+						</li>
+						<li>
+							<a href="../wp-protection-guide/">wp-admin Protection</a>
+						</li>
+						<li>
+							<a href="../options-errordocument-guide/" aria-current="page">Options &amp; ErrorDocument</a>
+						</li>
+						<li>
+							<a href="../recovery-guide/">Recovery</a>
+						</li>
+						<li>
+							<a href="../terms/">Terms of Use</a>
+						</li>
+						<li>
+							<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener noreferrer">
+								GitHub
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align: -0.125em; margin-left: 0.15em"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" /></svg>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main id="main-content">
+				<article class="card article">
+					<!-- Options Directive -->
+					<section>
+					<h2>Options Directive</h2>
+					<p>
+						Apache directive that controls which features Apache provides to a directory, enabling or disabling them. By writing in
+						<code>.htaccess</code>
+						, you can control behavior on a per-directory basis.
+					</p>
+
+					<h3>Syntax</h3>
+					<pre class="article-code"><code>Options [+|-]option-name [[+|-]option-name] ...</code></pre>
+					<p>
+						When prefixing with
+						<code>+</code>
+						or
+						<code>-</code>
+						, you can add or remove options from the current configuration. Without these symbols, the specified options completely replace the current configuration.
+					</p>
+
+					<h3>Major Options List</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Option</th>
+									<th>Meaning</th>
+									<th>Common Use</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>Indexes</code></td>
+									<td>Displays directory listing when no index file exists</td>
+									<td>
+										Use
+										<code>-Indexes</code>
+										to hide listing and prevent direct file viewing
+									</td>
+								</tr>
+								<tr>
+									<td><code>FollowSymLinks</code></td>
+									<td>Permits following symbolic links</td>
+									<td>Required for WordPress mod_rewrite. Usually enabled</td>
+								</tr>
+								<tr>
+									<td><code>SymLinksIfOwnerMatch</code></td>
+									<td>Follows symbolic links only if owner matches</td>
+									<td>More secure than FollowSymLinks but slower</td>
+								</tr>
+								<tr>
+									<td><code>MultiViews</code></td>
+									<td>Auto-selects the best file when accessed without extension</td>
+									<td>Content negotiation (auto language/format switching)</td>
+								</tr>
+								<tr>
+									<td><code>ExecCGI</code></td>
+									<td>Permits execution of CGI scripts</td>
+									<td>Enable only in directories using CGI</td>
+								</tr>
+								<tr>
+									<td><code>All</code></td>
+									<td>Enables all options except MultiViews</td>
+									<td>Often used as server default</td>
+								</tr>
+								<tr>
+									<td><code>None</code></td>
+									<td>Disables all options</td>
+									<td>Used for highly restricted directories</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h3>Inheritance and <code>+</code> / <code>-</code> Notation</h3>
+					<p>
+						<code>Options</code>
+						are inherited from parent to child directories. Without
+						<code>+</code>
+						or
+						<code>-</code>
+						, the inheritance is reset and the settings are completely overwritten.
+					</p>
+					<pre class="article-code"><code># Bad example: resets parent settings to only Indexes, losing FollowSymLinks
+# This breaks mod_rewrite by removing necessary options
+Options Indexes
+
+# Good example: keeps current settings while disabling only Indexes
+Options -Indexes</code></pre>
+					<blockquote>
+						<p>
+							<strong>Important:</strong>
+							Writing
+							<code>Options Indexes</code>
+							without symbols will reset all options to only what you specify. In contrast, using
+							<code>Options -Indexes</code>
+							with
+							<code>+</code>
+							or
+							<code>-</code>
+							applies relative changes to the current settings. Understand this distinction before using.
+						</p>
+					</blockquote>
+
+					<h3>Using with WordPress</h3>
+					<p>
+						WordPress requires the
+						<code>mod_rewrite</code>
+						module, which depends on
+						<code>FollowSymLinks</code>
+						(or
+						<code>SymLinksIfOwnerMatch</code>
+						) being enabled.
+					</p>
+					<pre class="article-code"><code># Typical WordPress .htaccess directive
+Options -Indexes +FollowSymLinks</code></pre>
+					<p>
+						Most shared hosting providers have
+						<code>FollowSymLinks</code>
+						enabled by default, but explicit specification prevents environment-dependent issues.
+					</p>
+					<blockquote>
+						<p>
+							<strong>Important:</strong>
+							Some shared hosting environments prohibit changing
+							<code>Options</code>
+							from
+							<code>.htaccess</code>
+							. If you receive a 500 error (Internal Server Error) after adding
+							<code>Options</code>
+							directives, your host may not allow it. In such cases, comment out or remove the
+							<code>Options</code>
+							lines. If errors occur immediately after adding settings, temporarily disable the
+							<code>Options</code>
+							lines to test.
+						</p>
+					</blockquote>
+
+					<h3>Disabling Directory Listing</h3>
+					<p>
+						When accessing a directory without
+						<code>index.html</code>
+						or
+						<code>index.php</code>
+						, the server displays a file listing by default. Use
+						<code>-Indexes</code>
+						to prevent this.
+					</p>
+					<pre class="article-code"><code>&lt;IfModule mod_autoindex.c&gt;
+    Options -Indexes
+&lt;/IfModule&gt;</code></pre>
+					<blockquote>
+						<p>Exposing directory listings risks revealing site structure and enables attacker enumeration. Always disable in production environments.</p>
+					</blockquote>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- ErrorDocument Directive -->
+					<section>
+					<h2>ErrorDocument Directive</h2>
+					<p>Customize the response returned when HTTP errors occur. Replace default bland error pages with custom error pages or redirect to another URL.</p>
+
+					<h3>Syntax</h3>
+					<pre class="article-code"><code>ErrorDocument status-code response</code></pre>
+					<p>The response can be one of three types:</p>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Type</th>
+									<th>Example</th>
+									<th>Behavior</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Local path</td>
+									<td><code>/error/404.html</code></td>
+									<td>Internal transfer of server file (URL unchanged)</td>
+								</tr>
+								<tr>
+									<td>External URL</td>
+									<td><code>https://example.com/404</code></td>
+									<td>Redirect to external URL with 302 status</td>
+								</tr>
+								<tr>
+									<td>Text</td>
+									<td><code>"Not Found"</code></td>
+									<td>Return specified text as-is (quotes required)</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<blockquote>
+						<p>
+							Local paths should be specified as
+							<strong>absolute paths from root</strong>
+							(starting with
+							<code>/</code>
+							). Relative paths can be used but are not recommended because their resolution varies depending on error location.
+						</p>
+					</blockquote>
+
+					<h3>Common Error Codes and Their Use</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Code</th>
+									<th>Meaning</th>
+									<th>Customization Purpose</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>400</code></td>
+									<td>Bad Request</td>
+									<td>Error page for malformed requests (control chars in URL, etc.)</td>
+								</tr>
+								<tr>
+									<td><code>401</code></td>
+									<td>Unauthorized</td>
+									<td>Custom message for failed Basic authentication</td>
+								</tr>
+								<tr>
+									<td><code>403</code></td>
+									<td>Forbidden</td>
+									<td>
+										Access denied page (displayed after
+										<code>deny from all</code>
+										, etc.)
+									</td>
+								</tr>
+								<tr>
+									<td><code>404</code></td>
+									<td>Not Found</td>
+									<td>Page not found. Most frequently customized</td>
+								</tr>
+								<tr>
+									<td><code>500</code></td>
+									<td>Internal Server Error</td>
+									<td>Server error from PHP failures or configuration mistakes</td>
+								</tr>
+								<tr>
+									<td><code>503</code></td>
+									<td>Service Unavailable</td>
+									<td>Page during maintenance or temporary service downtime</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h3>Custom Error Page Configuration Example</h3>
+					<pre class="article-code"><code># Example setting three commonly used custom error pages
+ErrorDocument 403 /error/403.html
+ErrorDocument 404 /error/404.html
+ErrorDocument 500 /error/500.html</code></pre>
+					<p>
+						Error page files are normal HTML files. When referencing CSS or images, use
+						<strong>absolute paths from root</strong>
+						(since error pages can be accessed from any URL, relative paths may not resolve correctly).
+					</p>
+
+					<h3>Maintenance Page Implementation</h3>
+					<p>
+						To put the entire site in maintenance mode, use
+						<code>RewriteRule</code>
+						to return a 503 status and
+						<code>ErrorDocument 503</code>
+						to specify the maintenance page.
+					</p>
+					<pre class="article-code"><code>&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On
+    # Don't redirect the maintenance page itself
+    RewriteCond %{REQUEST_URI} !/maintenance.html$
+    # Exclude images, CSS, JS
+    RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|gif|ico|svg)$ [NC]
+    RewriteRule ^(.*)$ - [R=503,L]
+&lt;/IfModule&gt;
+
+# Return 503 status (tells search engines we're temporarily down)
+ErrorDocument 503 /maintenance.html</code></pre>
+					<blockquote>
+						<p>
+							During maintenance, returning
+							<code>503</code>
+							informs search engine crawlers that the site is temporarily unavailable. Using redirect (
+							<code>R=302</code>
+							) results in a final
+							<code>200 OK</code>
+							response, which harms SEO. Instead, use
+							<code>R=503,L</code>
+							to return 503 directly, then specify the page with
+							<code>ErrorDocument</code>
+							. Optionally include a
+							<code>Retry-After</code>
+							header to indicate when crawlers should retry.
+						</p>
+					</blockquote>
+
+					<h3>Caution for WordPress Environments</h3>
+					<p>
+						In WordPress environments,
+						<code>404</code>
+						errors are handled by WordPress itself, so
+						<code>ErrorDocument 404</code>
+						typically has no effect. WordPress's rewrite rules forward non-existent paths to
+						<code>index.php</code>
+						, where WordPress returns a 404 template.
+					</p>
+					<pre class="article-code"><code># WordPress .htaccess (auto-generated by WordPress)
+# RewriteRule ^(.*)$ index.php [L]
+# ↑ Since all requests go to index.php, Apache's ErrorDocument 404 isn't used</code></pre>
+					<p>
+						To customize WordPress 404 pages, edit the theme's
+						<code>404.php</code>
+						file.
+					</p>
+					<p>
+						<code>403</code>
+						and
+						<code>500</code>
+						are processed by Apache itself, so
+						<code>ErrorDocument</code>
+						functions correctly for these codes.
+					</p>
+				</section>
+
+					<!-- Back link -->
+					<div class="article-back">
+						<a href="../../en/" class="btn btn-secondary">← Back to Generator</a>
+					</div>
+
+					<aside class="license-notice">
+						<div>
+						<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">
+							<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" width="88" height="31" />
+						</a>
+						<p>
+							This content is licensed under
+							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
+							.
+							<strong>Reproduction in paid online courses and paid educational materials is prohibited</strong>
+							. See the
+							<a href="/en/terms/" rel="nofollow noreferrer">Terms of Use</a>
+							for details.
+						</p>
+						<p>
+							&copy; 2026 Martue (
+								<a href="https://web-ya3.com" rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>
+							)
+						</p>
+					</div>
+					</aside>
+				</article>
+			</main>
+		</div>
+
+		<footer class="app-footer">
+			<p>
+				&copy;
+				<span id="footer-year">2026</span>
+				<a href="https://web-ya3.com" target="_blank" rel="noopener">web-ya3.com</a>
+				&nbsp;|&nbsp;
+				<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener">GitHub</a>
+				&nbsp;|&nbsp;
+				<a href="/en/terms/" rel="nofollow noreferrer">Terms of Use</a>
+			</p>
+		</footer>
+
+		<script type="module" src="../../assets/js/guide.js"></script>
+	</body>
+</html>

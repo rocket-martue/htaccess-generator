@@ -3,29 +3,30 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="Options ディレクティブと ErrorDocument ディレクティブの動作原理・設定方法・注意点をわかりやすく解説したガイド" data-i18n-content="guide.options-errordocument.description" />
+		<meta name="description" content="Options ディレクティブと ErrorDocument ディレクティブの動作原理・設定方法・注意点をわかりやすく解説したガイド" />
 		<!-- OGP -->
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Options &amp; ErrorDocument 解説ガイド" data-i18n-content="guide.options-errordocument.title" />
-		<meta property="og:description" content="Options ディレクティブと ErrorDocument ディレクティブの動作原理・設定方法・注意点をわかりやすく解説したガイド" data-i18n-content="guide.options-errordocument.description" />
+		<meta property="og:title" content="Options &amp; ErrorDocument 解説ガイド" />
+		<meta property="og:description" content="Options ディレクティブと ErrorDocument ディレクティブの動作原理・設定方法・注意点をわかりやすく解説したガイド" />
 		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/options-errordocument-guide/" data-i18n-content="guide.options-errordocument.ogUrl" />
-		<meta property="og:locale" content="ja_JP" data-i18n-content="guide.options-errordocument.ogLocale" />
+		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/options-errordocument-guide/" />
+		<meta property="og:locale" content="ja_JP" />
 		<meta property="og:site_name" content=".htaccess Generator" />
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content="Options &amp; ErrorDocument 解説ガイド" data-i18n-content="guide.options-errordocument.title" />
-		<meta name="twitter:description" content="Options ディレクティブと ErrorDocument ディレクティブの動作原理・設定方法・注意点をわかりやすく解説したガイド" data-i18n-content="guide.options-errordocument.description" />
+		<meta name="twitter:title" content="Options &amp; ErrorDocument 解説ガイド" />
+		<meta name="twitter:description" content="Options ディレクティブと ErrorDocument ディレクティブの動作原理・設定方法・注意点をわかりやすく解説したガイド" />
 		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
 		<meta name="license" content="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
 
 		<link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
+		<link rel="canonical" href="https://htaccess-generator-b46.pages.dev/options-errordocument-guide/" />
 		<link rel="alternate" hreflang="ja" href="https://htaccess-generator-b46.pages.dev/options-errordocument-guide/" />
-		<link rel="alternate" hreflang="en" href="https://htaccess-generator-b46.pages.dev/options-errordocument-guide/?lang=en" />
+		<link rel="alternate" hreflang="en" href="https://htaccess-generator-b46.pages.dev/en/options-errordocument-guide/" />
 		<link rel="alternate" hreflang="x-default" href="https://htaccess-generator-b46.pages.dev/options-errordocument-guide/" />
-		<title data-i18n="guide.options-errordocument.title">Options &amp; ErrorDocument 解説ガイド | .htaccess Generator</title>
+		<title>Options &amp; ErrorDocument 解説ガイド | .htaccess Generator</title>
 		<script>
 			try {
 				if (window.localStorage && localStorage.getItem("htaccess-theme") === "dark") {
@@ -33,26 +34,6 @@
 				}
 			} catch (e) {
 				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
-			}
-			try {
-				const p = new URLSearchParams(window.location.search);
-				const urlLang = p.get('lang');
-				let lang = 'ja';
-				if (urlLang === 'en' || urlLang === 'ja') {
-					lang = urlLang;
-				} else if (window.localStorage) {
-					const stored = localStorage.getItem('htaccess-lang');
-					if (stored === 'en') lang = 'en';
-				}
-				if (lang === 'en') {
-					document.documentElement.classList.add('i18n-pending');
-					const link = document.createElement('link');
-					link.rel = 'modulepreload';
-					link.href = '/assets/js/locales/en.js';
-					document.head.appendChild(link);
-				}
-			} catch (e) {
-				// language detection failed; skip i18n-pending
 			}
 		</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -62,19 +43,16 @@
 	</head>
 
 	<body>
-		<a href="#main-content" class="skip-link" data-i18n="skip.link">メインコンテンツへスキップ</a>
+		<a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
 		<div class="app-wrapper">
 			<header class="app-header">
 				<h1>
 					<a href="../">.htaccess Generator</a>
 					<span class="h1-sub">for WordPress</span>
 				</h1>
-				<p data-i18n="guide.options-errordocument.subtitle">Options &amp; ErrorDocument 解説ガイド</p>
+				<p>Options &amp; ErrorDocument 解説ガイド</p>
 				<div class="header-actions">
-					<button type="button" class="lang-toggle-btn" aria-label="言語切り替え（Switch to English）" data-i18n-aria-label="lang.btn.label">
-						<span class="lang-toggle-icon" aria-hidden="true">🌐</span>
-						<span class="lang-toggle-label" data-i18n="lang.btn.text">EN</span>
-					</button>
+					<a href="/en/options-errordocument-guide/" class="lang-toggle-btn" aria-label="Switch to English"><span class="lang-toggle-icon" aria-hidden="true">🌐</span><span class="lang-toggle-label">EN</span></a>
 					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
@@ -87,7 +65,7 @@
 				</div>
 			</header>
 
-			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション" data-i18n-aria-label="nav.aria">
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション">
 				<div class="site-nav-card">
 					<ul class="site-nav-list">
 						<li>
@@ -95,31 +73,31 @@
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align: -0.125em; margin-right: 0.3em">
 									<path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
 								</svg>
-								<span data-i18n="nav.generator">ジェネレーター</span>
+								<span>ジェネレーター</span>
 							</a>
 						</li>
 						<li>
-							<a href="../htaccess-basics-guide/" data-i18n="nav.basics">.htaccess 入門</a>
+							<a href="../htaccess-basics-guide/">.htaccess 入門</a>
 						</li>
 						<li>
-							<a href="../directives-guide/" data-i18n="nav.directives">ディレクティブ解説</a>
+							<a href="../directives-guide/">ディレクティブ解説</a>
 						</li>
 						<li>
-							<a href="../security-headers-guide/" data-i18n="nav.securityHeaders">セキュリティヘッダー</a>
+							<a href="../security-headers-guide/">セキュリティヘッダー</a>
 						</li>
 						<li>
-							<a href="../cache-performance-guide/" data-i18n="nav.cache">キャッシュ &amp; パフォーマンス</a>
+							<a href="../cache-performance-guide/">キャッシュ &amp; パフォーマンス</a>
 						</li>
 						<li>
-							<a href="../wp-protection-guide/" data-i18n="nav.wpProtection">wp-admin 保護</a>
+							<a href="../wp-protection-guide/">wp-admin 保護</a>
 						</li>
 						<li>
 							<a href="../options-errordocument-guide/" aria-current="page">Options &amp; ErrorDocument</a>
 						</li>
 						<li>
-							<a href="../recovery-guide/" data-i18n="nav.recovery">リカバリ方法</a>
+							<a href="../recovery-guide/">リカバリ方法</a>
 						</li>
-						<li><a href="../terms/" data-i18n="nav.terms">利用規約</a></li>
+						<li><a href="../terms/">利用規約</a></li>
 						<li>
 							<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener noreferrer">
 								GitHub
@@ -135,233 +113,160 @@
 				<article class="card article">
 					<!-- Options ディレクティブ -->
 					<section>
-						<div class="lang-block" data-lang="ja">
-							<h2>Options ディレクティブ</h2>
-							<p>
-								Apache がディレクトリに対して提供する機能を ON / OFF する設定。
-								<code>.htaccess</code>
-								に記述することでディレクトリ単位の挙動を制御できる。
-							</p>
+						<h2>Options ディレクティブ</h2>
+						<p>
+							Apache がディレクトリに対して提供する機能を ON / OFF する設定。
+							<code>.htaccess</code>
+							に記述することでディレクトリ単位の挙動を制御できる。
+						</p>
 
-							<h3>構文</h3>
-							<pre class="article-code"><code>Options [+|-]オプション名 [[+|-]オプション名] ...</code></pre>
-							<p>
-								<code>+</code>
-								/
-								<code>-</code>
-								をつけると現在の設定を継承して追加・削除できる。つけない場合は指定したオプションに完全に置き換わる。
-							</p>
+						<h3>構文</h3>
+						<pre class="article-code"><code>Options [+|-]オプション名 [[+|-]オプション名] ...</code></pre>
+						<p>
+							<code>+</code>
+							/
+							<code>-</code>
+							をつけると現在の設定を継承して追加・削除できる。つけない場合は指定したオプションに完全に置き換わる。
+						</p>
 
-							<h3>主要なオプション一覧</h3>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>オプション</th>
-											<th>意味</th>
-											<th>よくある用途</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><code>Indexes</code></td>
-											<td>index ファイルがないときにディレクトリ一覧を表示する</td>
-											<td>
-												<code>-Indexes</code>
-												で一覧を非表示にしてファイルの直接閲覧を防ぐ
-											</td>
-										</tr>
-										<tr>
-											<td><code>FollowSymLinks</code></td>
-											<td>シンボリックリンクをたどることを許可する</td>
-											<td>WordPress の mod_rewrite に必要。通常は有効にする</td>
-										</tr>
-										<tr>
-											<td><code>SymLinksIfOwnerMatch</code></td>
-											<td>シンボリックリンク先のオーナーが一致する場合のみたどれる</td>
-											<td>
-												<code>FollowSymLinks</code>
-												よりセキュアだが処理が重い
-											</td>
-										</tr>
-										<tr>
-											<td><code>MultiViews</code></td>
-											<td>拡張子なしでアクセスされたとき、最適なファイルを自動選択する</td>
-											<td>コンテンツネゴシエーション（言語・形式の自動振り分け）</td>
-										</tr>
-										<tr>
-											<td><code>ExecCGI</code></td>
-											<td>CGI スクリプトの実行を許可する</td>
-											<td>CGI を使うディレクトリでのみ有効にする</td>
-										</tr>
-										<tr>
-											<td><code>All</code></td>
-											<td>
-												<code>MultiViews</code>
-												以外の全オプションを有効にする
-											</td>
-											<td>サーバーのデフォルト値として使われることが多い</td>
-										</tr>
-										<tr>
-											<td><code>None</code></td>
-											<td>すべてのオプションを無効にする</td>
-											<td>制限の強いディレクトリに使用</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+						<h3>主要なオプション一覧</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>オプション</th>
+										<th>意味</th>
+										<th>よくある用途</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>Indexes</code></td>
+										<td>index ファイルがないときにディレクトリ一覧を表示する</td>
+										<td>
+											<code>-Indexes</code>
+											で一覧を非表示にしてファイルの直接閲覧を防ぐ
+										</td>
+									</tr>
+									<tr>
+										<td><code>FollowSymLinks</code></td>
+										<td>シンボリックリンクをたどることを許可する</td>
+										<td>WordPress の mod_rewrite に必要。通常は有効にする</td>
+									</tr>
+									<tr>
+										<td><code>SymLinksIfOwnerMatch</code></td>
+										<td>シンボリックリンク先のオーナーが一致する場合のみたどれる</td>
+										<td>
+											<code>FollowSymLinks</code>
+											よりセキュアだが処理が重い
+										</td>
+									</tr>
+									<tr>
+										<td><code>MultiViews</code></td>
+										<td>拡張子なしでアクセスされたとき、最適なファイルを自動選択する</td>
+										<td>コンテンツネゴシエーション（言語・形式の自動振り分け）</td>
+									</tr>
+									<tr>
+										<td><code>ExecCGI</code></td>
+										<td>CGI スクリプトの実行を許可する</td>
+										<td>CGI を使うディレクトリでのみ有効にする</td>
+									</tr>
+									<tr>
+										<td><code>All</code></td>
+										<td>
+											<code>MultiViews</code>
+											以外の全オプションを有効にする
+										</td>
+										<td>サーバーのデフォルト値として使われることが多い</td>
+									</tr>
+									<tr>
+										<td><code>None</code></td>
+										<td>すべてのオプションを無効にする</td>
+										<td>制限の強いディレクトリに使用</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 
-							<h3>継承と <code>+</code> / <code>-</code> 記法</h3>
-							<p>
-								<code>Options</code>
-								は親ディレクトリから子ディレクトリへ継承される。
-								<code>+</code>
-								/
-								<code>-</code>
-								なしで指定すると継承をリセットして完全に上書きする。
-							</p>
-							<pre class="article-code"><code># 悪い例：上位の設定をリセットして Indexes だけを有効にしてしまう
+						<h3>継承と <code>+</code> / <code>-</code> 記法</h3>
+						<p>
+							<code>Options</code>
+							は親ディレクトリから子ディレクトリへ継承される。
+							<code>+</code>
+							/
+							<code>-</code>
+							なしで指定すると継承をリセットして完全に上書きする。
+						</p>
+						<pre class="article-code"><code># 悪い例：上位の設定をリセットして Indexes だけを有効にしてしまう
 # FollowSymLinks など他のオプションも消えるため mod_rewrite が動作しなくなる
 Options Indexes
 
 # 良い例：現在の設定を維持したまま Indexes だけ無効にする
 Options -Indexes</code></pre>
-							<blockquote>
-								<p>
-									<strong>注意:</strong>
-									記号なしの
-									<code>Options Indexes</code>
-									のような書き方は、その行で指定したものだけにオプションをリセットしてしまう。一方、
-									<code>Options -Indexes</code>
-									のように
-									<code>+</code>
-									/
-									<code>-</code>
-									を付けた指定は「現在の設定」を基準に相対的に変更する動作になることを理解して使うこと。
-								</p>
-							</blockquote>
-
-							<h3>WordPress での使い方</h3>
+						<blockquote>
 							<p>
-								WordPress が動作するには
-								<code>mod_rewrite</code>
-								モジュールが必要で、
-								<code>FollowSymLinks</code>
-								（または
-								<code>SymLinksIfOwnerMatch</code>
-								）が有効になっていることが前提となる。
+								<strong>注意:</strong>
+								記号なしの
+								<code>Options Indexes</code>
+								のような書き方は、その行で指定したものだけにオプションをリセットしてしまう。一方、
+								<code>Options -Indexes</code>
+								のように
+								<code>+</code>
+								/
+								<code>-</code>
+								を付けた指定は「現在の設定」を基準に相対的に変更する動作になることを理解して使うこと。
 							</p>
-							<pre class="article-code"><code># WordPress の .htaccess での典型的な記述
+						</blockquote>
+
+						<h3>WordPress での使い方</h3>
+						<p>
+							WordPress が動作するには
+							<code>mod_rewrite</code>
+							モジュールが必要で、
+							<code>FollowSymLinks</code>
+							（または
+							<code>SymLinksIfOwnerMatch</code>
+							）が有効になっていることが前提となる。
+						</p>
+						<pre class="article-code"><code># WordPress の .htaccess での典型的な記述
 Options -Indexes +FollowSymLinks</code></pre>
+						<p>
+							多くのレンタルサーバーではデフォルトで
+							<code>FollowSymLinks</code>
+							が有効になっているが、明示的に記述しておくと環境依存によるトラブルを防げる。
+						</p>
+						<blockquote>
 							<p>
-								多くのレンタルサーバーではデフォルトで
-								<code>FollowSymLinks</code>
-								が有効になっているが、明示的に記述しておくと環境依存によるトラブルを防げる。
+								<strong>注意:</strong>
+								一部のレンタルサーバー環境では、
+								<code>.htaccess</code>
+								から
+								<code>Options</code>
+								を変更すること自体が禁止されており、
+								<code>Options</code>
+								行を記述すると 500 エラー（Internal Server Error）になる場合がある。そのような環境では、
+								<code>Options</code>
+								行をコメントアウトまたは削除して運用すること。設定を追加した直後に 500 エラーになった場合は、まず
+								<code>Options</code>
+								行を一時的に外して動作を確認すること。
 							</p>
-							<blockquote>
-								<p>
-									<strong>注意:</strong>
-									一部のレンタルサーバー環境では、
-									<code>.htaccess</code>
-									から
-									<code>Options</code>
-									を変更すること自体が禁止されており、
-									<code>Options</code>
-									行を記述すると 500 エラー（Internal Server Error）になる場合がある。そのような環境では、
-									<code>Options</code>
-									行をコメントアウトまたは削除して運用すること。設定を追加した直後に 500 エラーになった場合は、まず
-									<code>Options</code>
-									行を一時的に外して動作を確認すること。
-								</p>
-							</blockquote>
+						</blockquote>
 
-							<h3>ディレクトリ一覧の無効化</h3>
-							<p>
-								<code>index.html</code>
-								や
-								<code>index.php</code>
-								が存在しないディレクトリにアクセスされると、デフォルトでファイルの一覧が表示されてしまう。これを防ぐには
-								<code>-Indexes</code>
-								を使う。
-							</p>
-							<pre class="article-code"><code>&lt;IfModule mod_autoindex.c&gt;
+						<h3>ディレクトリ一覧の無効化</h3>
+						<p>
+							<code>index.html</code>
+							や
+							<code>index.php</code>
+							が存在しないディレクトリにアクセスされると、デフォルトでファイルの一覧が表示されてしまう。これを防ぐには
+							<code>-Indexes</code>
+							を使う。
+						</p>
+						<pre class="article-code"><code>&lt;IfModule mod_autoindex.c&gt;
     Options -Indexes
 &lt;/IfModule&gt;</code></pre>
-							<blockquote>
-								<p>ディレクトリ一覧の公開はファイル構成の露出や攻撃者による探索（列挙）のリスクになる。本番環境では必ず無効にすること。</p>
-							</blockquote>
-						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<h2>Options Directive</h2>
-							<p>
-								Apache directive that controls which features Apache provides to a directory, enabling or disabling them. By writing in
-								<code>.htaccess</code>
-								, you can control behavior on a per-directory basis.
-							</p>
-
-							<h3>Syntax</h3>
-							<pre class="article-code"><code>Options [+|-]option-name [[+|-]option-name] ...</code></pre>
-							<p>
-								When prefixing with
-								<code>+</code>
-								or
-								<code>-</code>
-								, you can add or remove options from the current configuration. Without these symbols, the specified options completely replace the current configuration.
-							</p>
-
-							<h3>Major Options List</h3>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>Option</th>
-											<th>Meaning</th>
-											<th>Common Use</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><code>Indexes</code></td>
-											<td>Displays directory listing when no index file exists</td>
-											<td>
-												Use
-												<code>-Indexes</code>
-												to hide listing and prevent direct file viewing
-											</td>
-										</tr>
-										<tr>
-											<td><code>FollowSymLinks</code></td>
-											<td>Permits following symbolic links</td>
-											<td>Required for WordPress mod_rewrite. Usually enabled</td>
-										</tr>
-										<tr>
-											<td><code>SymLinksIfOwnerMatch</code></td>
-											<td>Follows symbolic links only if owner matches</td>
-											<td>More secure than FollowSymLinks but slower</td>
-										</tr>
-										<tr>
-											<td><code>MultiViews</code></td>
-											<td>Auto-selects the best file when accessed without extension</td>
-											<td>Content negotiation (auto language/format switching)</td>
-										</tr>
-										<tr>
-											<td><code>ExecCGI</code></td>
-											<td>Permits execution of CGI scripts</td>
-											<td>Enable only in directories using CGI</td>
-										</tr>
-										<tr>
-											<td><code>All</code></td>
-											<td>Enables all options except MultiViews</td>
-											<td>Often used as server default</td>
-										</tr>
-										<tr>
-											<td><code>None</code></td>
-											<td>Disables all options</td>
-											<td>Used for highly restricted directories</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+						<blockquote>
+							<p>ディレクトリ一覧の公開はファイル構成の露出や攻撃者による探索（列挙）のリスクになる。本番環境では必ず無効にすること。</p>
+						</blockquote>
 
 							<h3>Inheritance and <code>+</code> / <code>-</code> Notation</h3>
 							<p>
@@ -450,122 +355,121 @@ Options -Indexes +FollowSymLinks</code></pre>
 
 					<!-- ErrorDocument ディレクティブ -->
 					<section>
-						<div class="lang-block" data-lang="ja">
-							<h2>ErrorDocument ディレクティブ</h2>
-							<p>HTTP エラーが発生したときに返すレスポンスをカスタマイズする設定。デフォルトの素っ気ないエラーページをカスタムページに差し替えたり、別の URL にリダイレクトしたりできる。</p>
+						<h2>ErrorDocument ディレクティブ</h2>
+						<p>HTTP エラーが発生したときに返すレスポンスをカスタマイズする設定。デフォルトの素っ気ないエラーページをカスタムページに差し替えたり、別の URL にリダイレクトしたりできる。</p>
 
-							<h3>構文</h3>
-							<pre class="article-code"><code>ErrorDocument ステータスコード レスポンス</code></pre>
-							<p>レスポンスとして指定できるのは以下の3種類：</p>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>種類</th>
-											<th>記述例</th>
-											<th>動作</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>ローカルパス</td>
-											<td><code>/error/404.html</code></td>
-											<td>サーバー内のファイルを内部転送（URLは変わらない）</td>
-										</tr>
-										<tr>
-											<td>外部URL</td>
-											<td><code>https://example.com/404</code></td>
-											<td>外部URLへ302リダイレクト</td>
-										</tr>
-										<tr>
-											<td>テキスト</td>
-											<td><code>&quot;Not Found&quot;</code></td>
-											<td>指定した文字列をそのまま返す（引用符必須）</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<blockquote>
-								<p>
-									ローカルパスは
-									<strong>ルートからの絶対パス</strong>
-									（
-									<code>/</code>
-									始まり）で指定するのが基本。相対パスも指定自体は可能だが、エラー発生場所によって解決先が変わりやすく
-									<strong>推奨されない</strong>
-									。
-								</p>
-							</blockquote>
+						<h3>構文</h3>
+						<pre class="article-code"><code>ErrorDocument ステータスコード レスポンス</code></pre>
+						<p>レスポンスとして指定できるのは以下の3種類：</p>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>種類</th>
+										<th>記述例</th>
+										<th>動作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>ローカルパス</td>
+										<td><code>/error/404.html</code></td>
+										<td>サーバー内のファイルを内部転送（URLは変わらない）</td>
+									</tr>
+									<tr>
+										<td>外部URL</td>
+										<td><code>https://example.com/404</code></td>
+										<td>外部URLへ302リダイレクト</td>
+									</tr>
+									<tr>
+										<td>テキスト</td>
+										<td><code>&quot;Not Found&quot;</code></td>
+										<td>指定した文字列をそのまま返す（引用符必須）</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<blockquote>
+							<p>
+								ローカルパスは
+								<strong>ルートからの絶対パス</strong>
+								（
+								<code>/</code>
+								始まり）で指定するのが基本。相対パスも指定自体は可能だが、エラー発生場所によって解決先が変わりやすく
+								<strong>推奨されない</strong>
+								。
+							</p>
+						</blockquote>
 
-							<h3>主なエラーコードと用途</h3>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>コード</th>
-											<th>意味</th>
-											<th>カスタマイズの目的</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><code>400</code></td>
-											<td>Bad Request</td>
-											<td>不正なリクエスト（URLに制御文字など）のエラーページ</td>
-										</tr>
-										<tr>
-											<td><code>401</code></td>
-											<td>Unauthorized</td>
-											<td>Basic 認証失敗時のカスタムメッセージ</td>
-										</tr>
-										<tr>
-											<td><code>403</code></td>
-											<td>Forbidden</td>
-											<td>
-												アクセス拒否ページ（
-												<code>deny from all</code>
-												等の後に表示される）
-											</td>
-										</tr>
-										<tr>
-											<td><code>404</code></td>
-											<td>Not Found</td>
-											<td>存在しないページへのアクセス。最もよく使われる</td>
-										</tr>
-										<tr>
-											<td><code>500</code></td>
-											<td>Internal Server Error</td>
-											<td>PHP エラーや設定ミスで発生するサーバー内部エラー</td>
-										</tr>
-										<tr>
-											<td><code>503</code></td>
-											<td>Service Unavailable</td>
-											<td>メンテナンス中など、一時的なサービス停止時のページ</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+						<h3>主なエラーコードと用途</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>コード</th>
+										<th>意味</th>
+										<th>カスタマイズの目的</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>400</code></td>
+										<td>Bad Request</td>
+										<td>不正なリクエスト（URLに制御文字など）のエラーページ</td>
+									</tr>
+									<tr>
+										<td><code>401</code></td>
+										<td>Unauthorized</td>
+										<td>Basic 認証失敗時のカスタムメッセージ</td>
+									</tr>
+									<tr>
+										<td><code>403</code></td>
+										<td>Forbidden</td>
+										<td>
+											アクセス拒否ページ（
+											<code>deny from all</code>
+											等の後に表示される）
+										</td>
+									</tr>
+									<tr>
+										<td><code>404</code></td>
+										<td>Not Found</td>
+										<td>存在しないページへのアクセス。最もよく使われる</td>
+									</tr>
+									<tr>
+										<td><code>500</code></td>
+										<td>Internal Server Error</td>
+										<td>PHP エラーや設定ミスで発生するサーバー内部エラー</td>
+									</tr>
+									<tr>
+										<td><code>503</code></td>
+										<td>Service Unavailable</td>
+										<td>メンテナンス中など、一時的なサービス停止時のページ</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 
-							<h3>カスタムエラーページの設定例</h3>
-							<pre class="article-code"><code># よく使う3つのカスタムエラーページを設定する例
+						<h3>カスタムエラーページの設定例</h3>
+						<pre class="article-code"><code># よく使う3つのカスタムエラーページを設定する例
 ErrorDocument 403 /error/403.html
 ErrorDocument 404 /error/404.html
 ErrorDocument 500 /error/500.html</code></pre>
-							<p>
-								エラーページのファイルは通常の HTML ファイル。CSS や画像を参照するときは
-								<strong>ルートからの絶対パス</strong>
-								で指定する（エラーページは任意の URL でアクセスされるため、相対パスは正しく解決されないことがある）。
-							</p>
+						<p>
+							エラーページのファイルは通常の HTML ファイル。CSS や画像を参照するときは
+							<strong>ルートからの絶対パス</strong>
+							で指定する（エラーページは任意の URL でアクセスされるため、相対パスは正しく解決されないことがある）。
+						</p>
 
-							<h3>メンテナンスページの実装</h3>
-							<p>
-								サイト全体をメンテナンス中にするには、
-								<code>RewriteRule</code>
-								で 503 ステータスを返し、
-								<code>ErrorDocument 503</code>
-								でメンテナンスページを返す。
-							</p>
-							<pre class="article-code"><code>&lt;IfModule mod_rewrite.c&gt;
+						<h3>メンテナンスページの実装</h3>
+						<p>
+							サイト全体をメンテナンス中にするには、
+							<code>RewriteRule</code>
+							で 503 ステータスを返し、
+							<code>ErrorDocument 503</code>
+							でメンテナンスページを返す。
+						</p>
+						<pre class="article-code"><code>&lt;IfModule mod_rewrite.c&gt;
     RewriteEngine On
     # メンテナンスページ自身はリダイレクトしない
     RewriteCond %{REQUEST_URI} !/maintenance.html$
@@ -576,88 +480,52 @@ ErrorDocument 500 /error/500.html</code></pre>
 
 # 503 ステータスを返す（SEOクローラーに一時的な停止と伝える）
 ErrorDocument 503 /maintenance.html</code></pre>
-							<blockquote>
-								<p>
-									メンテナンス中は
-									<code>503</code>
-									を返すことで、検索エンジンのクローラーに「一時停止中」と伝えられる。リダイレクト（
-									<code>R=302</code>
-									）では最終応答が
-									<code>200 OK</code>
-									になってしまい SEO に悪影響を与える。代わりに
-									<code>R=503,L</code>
-									で直接
-									<code>503</code>
-									ステータスを返し、
-									<code>ErrorDocument</code>
-									で対応するページを指定する。必要に応じて
-									<code>Retry-After</code>
-									ヘッダーで再試行時期を指示することも推奨される。
-								</p>
-							</blockquote>
-
-							<h3>WordPress での注意点</h3>
+						<blockquote>
 							<p>
-								WordPress 環境では、
-								<code>404</code>
-								は WordPress 本体が処理するため
-								<code>ErrorDocument 404</code>
-								の設定は通常効かない。WordPress のリライトルールにより、存在しないパスでも
-								<code>index.php</code>
-								に転送されて WordPress 側で 404 テンプレートが返される仕組みになっている。
+								メンテナンス中は
+								<code>503</code>
+								を返すことで、検索エンジンのクローラーに「一時停止中」と伝えられる。リダイレクト（
+								<code>R=302</code>
+								）では最終応答が
+								<code>200 OK</code>
+								になってしまい SEO に悪影響を与える。代わりに
+								<code>R=503,L</code>
+								で直接
+								<code>503</code>
+								ステータスを返し、
+								<code>ErrorDocument</code>
+								で対応するページを指定する。必要に応じて
+								<code>Retry-After</code>
+								ヘッダーで再試行時期を指示することも推奨される。
 							</p>
-							<pre class="article-code"><code># WordPress の .htaccess（WP が自動生成する部分）
+						</blockquote>
+
+						<h3>WordPress での注意点</h3>
+						<p>
+							WordPress 環境では、
+							<code>404</code>
+							は WordPress 本体が処理するため
+							<code>ErrorDocument 404</code>
+							の設定は通常効かない。WordPress のリライトルールにより、存在しないパスでも
+							<code>index.php</code>
+							に転送されて WordPress 側で 404 テンプレートが返される仕組みになっている。
+						</p>
+						<pre class="article-code"><code># WordPress の .htaccess（WP が自動生成する部分）
 # RewriteRule ^(.*)$ index.php [L]
 # ↑ 全リクエストを index.php に渡すため Apache の ErrorDocument 404 は使われない</code></pre>
-							<p>
-								WordPress の 404 ページをカスタマイズしたい場合は、テーマの
-								<code>404.php</code>
-								を編集する。
-							</p>
-							<p>
-								<code>403</code>
-								や
-								<code>500</code>
-								は Apache 側で処理されるため、
-								<code>ErrorDocument</code>
-								が有効に機能する。
-							</p>
-						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<h2>ErrorDocument Directive</h2>
-							<p>Customize the response returned when HTTP errors occur. Replace default bland error pages with custom error pages or redirect to another URL.</p>
-
-							<h3>Syntax</h3>
-							<pre class="article-code"><code>ErrorDocument status-code response</code></pre>
-							<p>The response can be one of three types:</p>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>Type</th>
-											<th>Example</th>
-											<th>Behavior</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Local path</td>
-											<td><code>/error/404.html</code></td>
-											<td>Internal transfer of server file (URL unchanged)</td>
-										</tr>
-										<tr>
-											<td>External URL</td>
-											<td><code>https://example.com/404</code></td>
-											<td>Redirect to external URL with 302 status</td>
-										</tr>
-										<tr>
-											<td>Text</td>
-											<td><code>"Not Found"</code></td>
-											<td>Return specified text as-is (quotes required)</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+						<p>
+							WordPress の 404 ページをカスタマイズしたい場合は、テーマの
+							<code>404.php</code>
+							を編集する。
+						</p>
+						<p>
+							<code>403</code>
+							や
+							<code>500</code>
+							は Apache 側で処理されるため、
+							<code>ErrorDocument</code>
+							が有効に機能する。
+						</p>
 							<blockquote>
 								<p>
 									Local paths should be specified as
@@ -796,56 +664,29 @@ ErrorDocument 503 /maintenance.html</code></pre>
 
 					<!-- ジェネレーターへ戻る -->
 					<div class="article-back">
-						<div class="lang-block" data-lang="ja">
-							<a href="../" class="btn btn-secondary">← ジェネレーターに戻る</a>
-						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<a href="../" class="btn btn-secondary">← Back to Generator</a>
-						</div>
+						<a href="../" class="btn btn-secondary">← ジェネレーターに戻る</a>
 					</div>
 
 					<aside class="license-notice">
-						<div class="lang-block" data-lang="ja">
-							<div>
-								<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" rel="nofollow noreferrer noopener" target="_blank">
-									<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="クリエイティブ・コモンズ 表示-非営利-継承 4.0 国際" width="88" height="31" />
-								</a>
-								<p>
-									この解説コンテンツは
-									<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
-									の下で提供されています。
-									<strong>有料オンライン講座・有料教材への転載は禁止</strong>
-									しています。 詳細は
-									<a href="/terms" rel="nofollow noreferrer">利用規約</a>
-									をご確認ください。
-								</p>
-								<p>
-									&copy; 2026 まーちゅう（
-									<a href="https://web-ya3.com" rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>
-									）
-								</p>
-							</div>
+						<div>
+							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" rel="nofollow noreferrer noopener" target="_blank">
+								<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="クリエイティブ・コモンズ 表示-非営利-継承 4.0 国際" width="88" height="31" />
+							</a>
+							<p>
+								この解説コンテンツは
+								<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
+								の下で提供されています。
+								<strong>有料オンライン講座・有料教材への転載は禁止</strong>
+								しています。 詳細は
+								<a href="/terms" rel="nofollow noreferrer">利用規約</a>
+								をご確認ください。
+							</p>
+							<p>
+								&copy; 2026 まーちゅう（
+								<a href="https://web-ya3.com" rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>
+								）
+							</p>
 						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<div>
-								<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">
-									<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" width="88" height="31" />
-								</a>
-								<p>
-									This content is licensed under
-									<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
-									.
-									<strong>Reproduction in paid online courses and paid educational materials is prohibited</strong>
-									. See the
-									<a href="/terms/?lang=en" rel="nofollow noreferrer">Terms of Use</a>
-									for details.
-								</p>
-								<p>
-									&copy; 2026 Martue（
-									<a href="https://web-ya3.com" rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>
-									）
-								</p>
-							</div>
 						</div>
 					</aside>
 				</article>

@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="A reference guide for common .htaccess directives and RewriteRule flags used in WordPress environments" />
+		<!-- OGP -->
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content=".htaccess Directives &amp; Flags Guide" />
+		<meta property="og:description" content="A reference guide for common .htaccess directives and RewriteRule flags used in WordPress environments" />
+		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/en/directives-guide/" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:site_name" content=".htaccess Generator" />
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content=".htaccess Directives &amp; Flags Guide" />
+		<meta name="twitter:description" content="A reference guide for common .htaccess directives and RewriteRule flags used in WordPress environments" />
+		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
+		<meta name="license" content="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
+
+		<link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
+		<link rel="canonical" href="https://htaccess-generator-b46.pages.dev/en/directives-guide/" />
+		<link rel="alternate" hreflang="ja" href="https://htaccess-generator-b46.pages.dev/directives-guide/" />
+		<link rel="alternate" hreflang="en" href="https://htaccess-generator-b46.pages.dev/en/directives-guide/" />
+		<link rel="alternate" hreflang="x-default" href="https://htaccess-generator-b46.pages.dev/directives-guide/" />
+		<title>.htaccess Directives &amp; Flags Guide | .htaccess Generator</title>
+		<script>
+			try {
+				if (window.localStorage && localStorage.getItem("htaccess-theme") === "dark") {
+					document.documentElement.setAttribute("data-theme", "dark");
+				}
+			} catch (e) {
+				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
+			}
+		</script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap" />
+		<link rel="stylesheet" href="../../assets/css/style.css" />
+	</head>
+
+	<body>
+		<a href="#main-content" class="skip-link">Skip to main content</a>
+		<div class="app-wrapper">
+			<header class="app-header">
+				<h1>
+					<a href="../../en/">.htaccess Generator</a>
+					<span class="h1-sub">for WordPress</span>
+				</h1>
+				<p>.htaccess Directives &amp; Flags Guide</p>
+				<div class="header-actions">
+					<a href="/directives-guide/" class="lang-toggle-btn" aria-label="Switch to Japanese"><span class="lang-toggle-icon" aria-hidden="true">🌐</span><span class="lang-toggle-label">JA</span></a>
+					<button type="button" class="theme-toggle-btn" aria-label="Switch to dark mode" aria-pressed="false">
+						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+						<span class="theme-toggle-label">Dark</span>
+					</button>
+					<button type="button" class="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav-menu">
+						<span class="bar"></span>
+						<span class="bar"></span>
+						<span class="menu-label" aria-hidden="true">MENU</span>
+					</button>
+				</div>
+			</header>
+
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="Site navigation">
+				<div class="site-nav-card">
+					<ul class="site-nav-list">
+						<li>
+							<a href="../../en/">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align: -0.125em; margin-right: 0.3em"><path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" /></svg>
+								<span>Generator</span>
+							</a>
+						</li>
+						<li>
+							<a href="../htaccess-basics-guide/">.htaccess Basics</a>
+						</li>
+						<li>
+							<a href="../directives-guide/" aria-current="page">Directives</a>
+						</li>
+						<li>
+							<a href="../security-headers-guide/">Security Headers</a>
+						</li>
+						<li>
+							<a href="../cache-performance-guide/">Cache &amp; Performance</a>
+						</li>
+						<li>
+							<a href="../wp-protection-guide/">wp-admin Protection</a>
+						</li>
+						<li>
+							<a href="../options-errordocument-guide/">Options &amp; ErrorDocument</a>
+						</li>
+						<li>
+							<a href="../recovery-guide/">Recovery</a>
+						</li>
+						<li>
+							<a href="../terms/">Terms of Use</a>
+						</li>
+						<li>
+							<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener noreferrer">
+								GitHub
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align: -0.125em; margin-left: 0.15em"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" /></svg>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main id="main-content">
+				<article class="card article">
+					<!-- How HTTPS Redirect Rules Work -->
+					<section>
+					<h2>How the HTTPS Redirect Rule Works</h2>
+
+					<pre class="article-code"><code>RewriteCond %{HTTPS} !=on [NC]
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></pre>
+
+					<h3>Role of Each Line</h3>
+
+					<p>
+						<strong>
+							Line 1:
+							<code>RewriteCond %{HTTPS} !=on [NC]</code>
+						</strong>
+					</p>
+					<p>Checks that the current request is not an HTTPS connection. If the client is already connected directly via HTTPS, this condition does not match and no redirect occurs.</p>
+
+					<p>
+						<strong>
+							Line 2:
+							<code>RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]</code>
+						</strong>
+					</p>
+					<p>Handles cases where the request passes through a reverse proxy or CDN (Cloudflare, AWS ALB, etc.).</p>
+					<p>In the following topology:</p>
+					<pre class="article-code"><code>User →(HTTPS)→ CDN/Proxy →(HTTP)→ Server</code></pre>
+					<p>
+						The server sees an HTTP request even though the user is accessing over HTTPS. The proxy sets the
+						<code>X-Forwarded-Proto</code>
+						header, which allows the original protocol to be determined.
+					</p>
+					<blockquote>
+						<p>
+							Without this line, proxy-forwarded HTTPS requests will trigger an
+							<strong>infinite redirect loop</strong>
+							.
+						</p>
+					</blockquote>
+
+					<p>
+						<strong>
+							Line 3:
+							<code>RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code>
+						</strong>
+					</p>
+					<p>Only when both conditions above are true (i.e., it is a genuine HTTP request) does a 301 redirect to the HTTPS URL take place.</p>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- RewriteCond (Conditional Directive) -->
+					<section>
+					<h2>RewriteCond (Condition Directive)</h2>
+					<p>
+						A conditional statement that determines "whether to execute the next
+						<code>RewriteRule</code>
+						". Equivalent to an
+						<code>if</code>
+						statement in programming.
+					</p>
+
+					<h3>Syntax</h3>
+					<pre class="article-code"><code>RewriteCond %{TestString} Pattern [Flags]</code></pre>
+
+					<h3>Common Test Strings (Server Variables)</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Variable</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>%{HTTPS}</code></td>
+									<td>
+										<code>on</code>
+										when connection is HTTPS
+									</td>
+								</tr>
+								<tr>
+									<td><code>%{HTTP_USER_AGENT}</code></td>
+									<td>User-Agent string of the browser or bot</td>
+								</tr>
+								<tr>
+									<td><code>%{REQUEST_URI}</code></td>
+									<td>
+										Requested path (e.g.
+										<code>/wp-admin/</code>
+										)
+									</td>
+								</tr>
+								<tr>
+									<td><code>%{REQUEST_FILENAME}</code></td>
+									<td>Actual file path on the server</td>
+								</tr>
+								<tr>
+									<td><code>%{QUERY_STRING}</code></td>
+									<td>
+										Query string after
+										<code>?</code>
+									</td>
+								</tr>
+								<tr>
+									<td><code>%{THE_REQUEST}</code></td>
+									<td>
+										Raw HTTP request line (e.g.
+										<code>GET /path HTTP/1.1</code>
+										)
+									</td>
+								</tr>
+								<tr>
+									<td><code>%{HTTP:HeaderName}</code></td>
+									<td>Value of any HTTP request header</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h4>
+						Why Use
+						<code>%{THE_REQUEST}</code>
+						and When
+					</h4>
+					<p>
+						<code>%{THE_REQUEST}</code>
+						and
+						<code>%{REQUEST_URI}</code>
+						look similar, but there is a critical difference:
+						<strong>before vs. after Apache's URL normalization</strong>
+						.
+					</p>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Variable</th>
+									<th>Example value</th>
+									<th>Characteristic</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>%{REQUEST_URI}</code></td>
+									<td><code>/path/to/page</code></td>
+									<td>
+										Path after Apache normalization —
+										<code>//</code>
+										is collapsed to
+										<code>/</code>
+									</td>
+								</tr>
+								<tr>
+									<td><code>%{THE_REQUEST}</code></td>
+									<td><code>GET /path//to/page HTTP/1.1</code></td>
+									<td>Raw request line sent by the client; retains pre-normalization information</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<p>
+						<strong>Detecting double slashes</strong>
+						requires
+						<code>%{THE_REQUEST}</code>
+						. By the time
+						<code>%{REQUEST_URI}</code>
+						is available,
+						<code>//</code>
+						has already been collapsed to
+						<code>/</code>
+						and the condition will not match.
+					</p>
+					<pre class="article-code"><code># Normalize URLs containing double slashes with a 301 redirect
+# %{REQUEST_URI} is already normalized, so use %{THE_REQUEST} for detection
+RewriteCond %{THE_REQUEST} \s[^\s?]*//
+RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
+					<p>
+						Breakdown of the
+						<code>\s[^\s?]*//</code>
+						pattern:
+					</p>
+					<ul>
+						<li>
+							<code>\s</code>
+							— Whitespace between the method and the URL (immediately after
+							<code>GET&nbsp;</code>
+							)
+						</li>
+						<li>
+							<code>[^\s?]*</code>
+							— Any characters except whitespace and
+							<code>?</code>
+							(targets the path portion only)
+						</li>
+						<li>
+							<code>//</code>
+							— The double slash being detected
+						</li>
+					</ul>
+					<blockquote>
+						<p>
+							The
+							<code>RewriteRule</code>
+							pattern is applied against the normalized
+							<code>REQUEST_URI</code>
+							. Use
+							<code>%{THE_REQUEST}</code>
+							to detect double slashes in the original request line, then specify the already-normalized
+							<code>%{REQUEST_URI}</code>
+							as the redirect target. The
+							<code>NE</code>
+							flag (noescape) prevents special characters in the redirect target from being escaped. This is the same pattern used in the generator output.
+						</p>
+					</blockquote>
+
+					<h3>Pattern Syntax</h3>
+					<pre class="article-code"><code># Regex match
+RewriteCond %{HTTP_USER_AGENT} (wget|curl|nikto) [NC]
+
+# Negation match (prefix with !)
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+
+# Check if a file exists
+RewriteCond %{REQUEST_FILENAME} -f
+
+# Check if a directory exists
+RewriteCond %{REQUEST_FILENAME} -d</code></pre>
+
+					<h3>Test Operators (-f, -d, etc.)</h3>
+					<p>
+						In addition to regular expressions, the pattern portion accepts
+						<strong>special test operators</strong>
+						that check file system state.
+					</p>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Operator</th>
+									<th>Meaning</th>
+									<th>What it checks</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>-f</code></td>
+									<td>
+										is
+										<strong>F</strong>
+										ile
+									</td>
+									<td>A regular file exists</td>
+								</tr>
+								<tr>
+									<td><code>-d</code></td>
+									<td>
+										is
+										<strong>D</strong>
+										irectory
+									</td>
+									<td>A directory exists</td>
+								</tr>
+								<tr>
+									<td><code>-s</code></td>
+									<td>
+										is file with
+										<strong>S</strong>
+										ize
+									</td>
+									<td>File exists and has a non-zero size</td>
+								</tr>
+								<tr>
+									<td><code>-l</code></td>
+									<td>
+										is symbolic
+										<strong>L</strong>
+										ink
+									</td>
+									<td>A symbolic link exists</td>
+								</tr>
+								<tr>
+									<td><code>-F</code></td>
+									<td>
+										is existing
+										<strong>F</strong>
+										ile (via subrequest)
+									</td>
+									<td>Existence confirmed via an Apache subrequest (expensive)</td>
+								</tr>
+								<tr>
+									<td><code>-U</code></td>
+									<td>
+										is existing
+										<strong>U</strong>
+										RL (via subrequest)
+									</td>
+									<td>URL is accessible (expensive)</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<blockquote>
+						<p>
+							In practice,
+							<code>-f</code>
+							and
+							<code>-d</code>
+							are by far the most common. Prefix with
+							<code>!</code>
+							to negate (e.g.
+							<code>!-f</code>
+							= file does not exist,
+							<code>!-d</code>
+							= directory does not exist). WordPress
+							<code>.htaccess</code>
+							files frequently combine
+							<code>!-f</code>
+							and
+							<code>!-d</code>
+							.
+						</p>
+					</blockquote>
+
+					<h4>WordPress Usage Example</h4>
+					<pre class="article-code"><code>RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]</code></pre>
+					<p>This means "if the requested path corresponds to an actual file or directory, return it as-is without rewriting the URL."</p>
+					<p>
+						This is necessary to serve static files (images, CSS, JS) directly without routing them through WordPress's rewrite engine (
+						<code>index.php</code>
+						). Without it, every request to a real file such as
+						<code>/wp-content/uploads/photo.jpg</code>
+						would be forwarded to
+						<code>index.php</code>
+						, breaking images and stylesheets.
+					</p>
+
+					<h3>Combining Multiple Conditions</h3>
+					<p>
+						Multiple
+						<code>RewriteCond</code>
+						lines default to an
+						<strong>AND</strong>
+						relationship.
+					</p>
+					<pre class="article-code"><code># Condition A AND Condition B → RewriteRule fires only when both are satisfied
+RewriteCond %{HTTPS} !=on [NC]
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></pre>
+
+					<p>
+						Use the
+						<code>[OR]</code>
+						flag to create an OR relationship.
+					</p>
+					<pre class="article-code"><code># File exists OR directory exists
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]</code></pre>
+					<blockquote>
+						<p>
+							<strong>Important:</strong>
+							A
+							<code>RewriteCond</code>
+							applies only to the
+							<code>RewriteRule</code>
+							immediately following it.
+						</p>
+					</blockquote>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- RewriteRule (Rewrite Rule) -->
+					<section>
+					<h2>RewriteRule (Rewrite Rule)</h2>
+					<p>The core directive that actually rewrites URLs or issues redirects.</p>
+
+					<h3>Syntax</h3>
+					<pre class="article-code"><code>RewriteRule Pattern Substitution [Flags]</code></pre>
+
+					<h3>Pattern and Substitution</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Element</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>^(.*)$</code></td>
+									<td>
+										Matches any URL (captured with
+										<code>()</code>
+										)
+									</td>
+								</tr>
+								<tr>
+									<td><code>$1</code></td>
+									<td>References the captured content in the substitution</td>
+								</tr>
+								<tr>
+									<td><code>%{HTTP_HOST}</code></td>
+									<td>
+										Hostname (e.g.
+										<code>example.com</code>
+										)
+									</td>
+								</tr>
+								<tr>
+									<td><code>%{REQUEST_URI}</code></td>
+									<td>Request path</td>
+								</tr>
+								<tr>
+									<td><code>-</code></td>
+									<td>No URL rewrite (used for blocking)</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h3>Examples</h3>
+					<pre class="article-code"><code># HTTPS redirect
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# Return 403 Forbidden without rewriting the URL (bot blocking)
+RewriteRule .* - [F,L]
+
+# Return 410 Gone (against malicious query strings)
+RewriteRule ^ - [R=410,L]</code></pre>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- IfModule (Module Existence Check) -->
+					<section>
+					<h2>IfModule (Module Existence Check)</h2>
+					<p>Executes the enclosed directives only when the specified Apache module is enabled.</p>
+
+					<h3>Syntax</h3>
+					<pre class="article-code"><code>&lt;IfModule ModuleName&gt;
+    # Executed only when the module is available
+&lt;/IfModule&gt;</code></pre>
+
+					<h3>Why It Is Needed</h3>
+					<p>
+						Writing directives for a module that does not exist causes an
+						<strong>Apache startup error (500)</strong>
+						. Wrapping them in
+						<code>IfModule</code>
+						allows the block to be skipped safely in environments where the module is absent.
+					</p>
+
+					<h3>Common Modules</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Module</th>
+									<th>Role</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>mod_rewrite.c</code></td>
+									<td>URL rewriting and redirects</td>
+								</tr>
+								<tr>
+									<td><code>mod_deflate.c</code></td>
+									<td>Gzip compression</td>
+								</tr>
+								<tr>
+									<td><code>mod_expires.c</code></td>
+									<td>Browser cache expiration headers</td>
+								</tr>
+								<tr>
+									<td><code>mod_headers.c</code></td>
+									<td>Adding/modifying HTTP response headers</td>
+								</tr>
+								<tr>
+									<td><code>mod_authz_core.c</code></td>
+									<td>Access control (Apache 2.4+)</td>
+								</tr>
+								<tr>
+									<td><code>mime_module</code></td>
+									<td>Adding MIME types</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h3>Negation (Apache 2.2 / 2.4 Compatible Pattern)</h3>
+					<pre class="article-code"><code>&lt;IfModule mod_authz_core.c&gt;
+    # Apache 2.4+ syntax
+    Require all denied
+&lt;/IfModule&gt;
+&lt;IfModule !mod_authz_core.c&gt;
+    # Apache 2.2 and earlier (fallback)
+    Order deny,allow
+    Deny from all
+&lt;/IfModule&gt;</code></pre>
+					<blockquote>
+						<p>
+							<strong>Note:</strong>
+							XServer runs Apache 2.4, so in practice only the
+							<code>mod_authz_core.c</code>
+							block is used.
+						</p>
+					</blockquote>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- Module Activation Switch -->
+					<section>
+					<h2>Module Enable Switches</h2>
+					<p>
+						Some modules require not just an
+						<code>IfModule</code>
+						wrapper but also an explicit
+						<strong>enable switch (directive)</strong>
+						to activate the feature. Without the switch, all subsequent settings in the block are silently ignored.
+					</p>
+
+					<h3>Modules That Require a Switch</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Module</th>
+									<th>Switch</th>
+									<th>Role</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>mod_rewrite.c</code></td>
+									<td><code>RewriteEngine On</code></td>
+									<td>Enables the URL rewriting engine</td>
+								</tr>
+								<tr>
+									<td><code>mod_expires.c</code></td>
+									<td><code>ExpiresActive On</code></td>
+									<td>Enables the cache expiration feature</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<pre class="article-code"><code># For mod_rewrite
+&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On        ← Switch ON
+    RewriteCond %{HTTPS} !=on [NC]
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+&lt;/IfModule&gt;
+
+# For mod_expires
+&lt;IfModule mod_expires.c&gt;
+    ExpiresActive On        ← Switch ON
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 month"
+&lt;/IfModule&gt;</code></pre>
+
+					<h3>Modules That Do Not Need a Switch</h3>
+					<p>
+						Modules such as
+						<code>mod_deflate</code>
+						and
+						<code>mod_headers</code>
+						do not require a switch — directives can be written directly inside the
+						<code>IfModule</code>
+						block. Not every module has an enable switch; it depends on the module's specification.
+					</p>
+
+					<h3>Basic Pattern</h3>
+					<pre class="article-code"><code>IfModule checks module exists → Switch ON → Write directives</code></pre>
+					<p>
+						These three steps together are the standard
+						<code>.htaccess</code>
+						boilerplate.
+					</p>
+					<blockquote>
+						<p>
+							<strong>Note:</strong>
+							You can also explicitly disable with
+							<code>RewriteEngine Off</code>
+							, which is useful for temporarily stopping all rewrite rules during debugging.
+						</p>
+						<p>
+							<strong>Note:</strong>
+							When multiple
+							<code>&lt;IfModule mod_rewrite.c&gt;</code>
+							blocks exist, each block needs its own
+							<code>RewriteEngine On</code>
+							. Each block is independent, so the switch must be repeated.
+						</p>
+					</blockquote>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- RewriteCond Flags -->
+					<section>
+					<h2>RewriteCond Flags</h2>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Flag</th>
+									<th>Name</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>[NC]</code></td>
+									<td>No Case</td>
+									<td>Case-insensitive matching</td>
+								</tr>
+								<tr>
+									<td><code>[OR]</code></td>
+									<td>OR condition</td>
+									<td>Changes the default AND relationship to OR</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- RewriteRule Flags -->
+					<section>
+					<h2>RewriteRule Flags</h2>
+
+					<h3>Frequently Used Flags</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Flag</th>
+									<th>Name</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>[L]</code></td>
+									<td>Last</td>
+									<td>
+										Stops the current rewrite pass; no further rules are evaluated. However, if the URI was rewritten, Apache internally re-evaluates
+										<code>.htaccess</code>
+										. When combined with
+										<code>[R]</code>
+										(external redirect), a response is sent to the client and processing is complete, so no re-evaluation occurs.
+									</td>
+								</tr>
+								<tr>
+									<td><code>[R=code]</code></td>
+									<td>Redirect</td>
+									<td>
+										Issues a redirect with the given HTTP status code (e.g.
+										<code>R=301</code>
+										,
+										<code>R=410</code>
+										). Using
+										<code>[R]</code>
+										alone defaults to 302.
+									</td>
+								</tr>
+								<tr>
+									<td><code>[F]</code></td>
+									<td>Forbidden</td>
+									<td>Returns 403 Forbidden</td>
+								</tr>
+								<tr>
+									<td><code>[NE]</code></td>
+									<td>No Escape</td>
+									<td>Does not encode the substitution URL (prevents double-encoding)</td>
+								</tr>
+								<tr>
+									<td><code>[T=type]</code></td>
+									<td>Type</td>
+									<td>
+										Forces a MIME type (e.g.
+										<code>T=image/webp</code>
+										)
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h3>Other Flags</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Flag</th>
+									<th>Name</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>[QSA]</code></td>
+									<td>Query String Append</td>
+									<td>Appends the original query string to the redirect destination</td>
+								</tr>
+								<tr>
+									<td><code>[QSD]</code></td>
+									<td>Query String Discard</td>
+									<td>Discards the query string</td>
+								</tr>
+								<tr>
+									<td><code>[P]</code></td>
+									<td>Proxy</td>
+									<td>Forwards the request as a proxy instead of redirecting</td>
+								</tr>
+								<tr>
+									<td><code>[G]</code></td>
+									<td>Gone</td>
+									<td>
+										Returns 410 Gone (shorthand for
+										<code>[R=410]</code>
+										)
+									</td>
+								</tr>
+								<tr>
+									<td><code>[CO]</code></td>
+									<td>Cookie</td>
+									<td>Sets a cookie</td>
+								</tr>
+								<tr>
+									<td><code>[E]</code></td>
+									<td>Environment</td>
+									<td>Sets an environment variable</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h3>Combining Flags</h3>
+					<p>Multiple flags can be combined with comma separation.</p>
+					<pre class="article-code"><code># 301 redirect + stop processing + no encoding
+RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
+					<blockquote>
+						<p>
+							Always include
+							<code>[L]</code>
+							. Omitting it can cause subsequent rules to be applied unintentionally.
+						</p>
+					</blockquote>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- Relationship Between the Three Directives -->
+					<section>
+					<h2>Relationship Between the Three Directives</h2>
+					<pre class="article-code"><code>IfModule      → "Is this module available?"
+ └ RewriteCond  → "Does this condition match?"
+   └ RewriteRule  → "Condition met — process it like this"</code></pre>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- Reference: HTTP Status Codes -->
+					<section>
+					<h2>Reference: HTTP Status Codes Used in .htaccess</h2>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Code</th>
+									<th>Meaning</th>
+									<th>Use case</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>301</td>
+									<td>Moved Permanently</td>
+									<td>Permanent redirect (HTTPS enforcement, URL normalization)</td>
+								</tr>
+								<tr>
+									<td>302</td>
+									<td>Found</td>
+									<td>Temporary redirect</td>
+								</tr>
+								<tr>
+									<td>403</td>
+									<td>Forbidden</td>
+									<td>Access denial (bot blocking, file protection)</td>
+								</tr>
+								<tr>
+									<td>404</td>
+									<td>Not Found</td>
+									<td>
+										Resource does not exist (use
+										<code>ErrorDocument 404</code>
+										for a custom error page)
+									</td>
+								</tr>
+								<tr>
+									<td>410</td>
+									<td>Gone</td>
+									<td>Resource permanently removed (used against malicious requests)</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+
+					<!-- Back link -->
+					<div class="article-back">
+						<a href="../../en/" class="btn btn-secondary">← Back to Generator</a>
+					</div>
+
+					<aside class="license-notice">
+						<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">
+						<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" width="88" height="31" />
+					</a>
+					<p>
+						This content is licensed under
+						<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
+						.
+						<strong>Reproduction in paid online courses or paid educational materials is prohibited.</strong>
+						See the
+						<a href="/en/terms/" rel="nofollow noreferrer">Terms of Use</a>
+						for details.
+					</p>
+					<p>
+						&copy; 2026 Martue (
+						<a href="https://web-ya3.com" rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>
+						)
+					</p>
+					</aside>
+				</article>
+			</main>
+		</div>
+
+		<footer class="app-footer">
+			<p>
+				&copy;
+				<span id="footer-year">2026</span>
+				<a href="https://web-ya3.com" target="_blank" rel="noopener">web-ya3.com</a>
+				&nbsp;|&nbsp;
+				<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener">GitHub</a>
+				&nbsp;|&nbsp;
+				<a href="/en/terms/" rel="nofollow noreferrer">Terms of Use</a>
+			</p>
+		</footer>
+
+		<script type="module" src="../../assets/js/guide.js"></script>
+	</body>
+</html>

@@ -8,7 +8,11 @@
 import { buildRoot, buildWpAdmin, buildUploads, isValidHtpasswdPath } from './generator.js';
 import { PRESETS, DEFAULT_SETTINGS } from './presets.js';
 import { applyTheme, initTheme, setupThemeToggle, DARK_THEME } from './theme.js';
-import { t, getLang, setLang, initLang } from './i18n.js';
+import { messagesJa, messagesEn } from './i18n-messages.js';
+
+const lang = document.documentElement.lang === 'en' ? 'en' : 'ja';
+const messages = lang === 'en' ? messagesEn : messagesJa;
+const t = (key) => messages[key] ?? key;
 
 // ─── DOM 参照 ─────────────────────────────────────────────────────
 
@@ -933,37 +937,13 @@ const initEvents = () => {
 	}
 };
 
-// ─── 言語切り替えボタン ────────────────────────────────────────
-
-const initLangToggle = () => {
-	const langBtn = document.querySelector('.lang-toggle-btn');
-	if (!langBtn) return;
-
-	langBtn.addEventListener('click', async () => {
-		const newLang = getLang() === 'ja' ? 'en' : 'ja';
-		await setLang(newLang);
-		// 言語切り替え後にテーマボタン・ハンバーガーラベルを更新
-		const isDark = document.documentElement.getAttribute('data-theme') === DARK_THEME;
-		applyTheme(isDark, t);
-		const hamburgerBtn = document.querySelector('.hamburger-btn');
-		if (hamburgerBtn) {
-			const isOpen = hamburgerBtn.getAttribute('aria-expanded') === 'true';
-			hamburgerBtn.setAttribute('aria-label', isOpen ? t('nav.close') : t('nav.open'));
-		}
-		updatePreview();
-	});
-};
-
 // ─── 起動 ─────────────────────────────────────────────────────
 
-(async () => {
+(() => {
 	initTheme();
-	await initLang();
-	// initLang() 完了後、現在の言語でテーマボタンラベルを同期する
 	applyTheme(document.documentElement.getAttribute('data-theme') === DARK_THEME, t);
 	initPresets();
 	initEvents();
-	initLangToggle();
 	updateConditionalFields();
 	updatePreview();
 
