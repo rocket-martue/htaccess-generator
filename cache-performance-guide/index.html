@@ -3,29 +3,30 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド" data-i18n-content="guide.cache-performance.description" />
+		<meta name="description" content="WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド" />
 		<!-- OGP -->
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="キャッシュ &amp; パフォーマンス解説ガイド" data-i18n-content="guide.cache-performance.title" />
-		<meta property="og:description" content="WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド" data-i18n-content="guide.cache-performance.description" />
+		<meta property="og:title" content="キャッシュ &amp; パフォーマンス解説ガイド" />
+		<meta property="og:description" content="WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド" />
 		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/cache-performance-guide/" data-i18n-content="guide.cache-performance.ogUrl" />
-		<meta property="og:locale" content="ja_JP" data-i18n-content="guide.cache-performance.ogLocale" />
+		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/cache-performance-guide/" />
+		<meta property="og:locale" content="ja_JP" />
 		<meta property="og:site_name" content=".htaccess Generator" />
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content="キャッシュ &amp; パフォーマンス解説ガイド" data-i18n-content="guide.cache-performance.title" />
-		<meta name="twitter:description" content="WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド" data-i18n-content="guide.cache-performance.description" />
+		<meta name="twitter:title" content="キャッシュ &amp; パフォーマンス解説ガイド" />
+		<meta name="twitter:description" content="WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド" />
 		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
 		<meta name="license" content="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
 
 		<link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
+		<link rel="canonical" href="https://htaccess-generator-b46.pages.dev/cache-performance-guide/" />
 		<link rel="alternate" hreflang="ja" href="https://htaccess-generator-b46.pages.dev/cache-performance-guide/" />
-		<link rel="alternate" hreflang="en" href="https://htaccess-generator-b46.pages.dev/cache-performance-guide/?lang=en" />
+		<link rel="alternate" hreflang="en" href="https://htaccess-generator-b46.pages.dev/en/cache-performance-guide/" />
 		<link rel="alternate" hreflang="x-default" href="https://htaccess-generator-b46.pages.dev/cache-performance-guide/" />
-		<title data-i18n="guide.cache-performance.title">キャッシュ &amp; パフォーマンス解説ガイド | .htaccess Generator</title>
+		<title>キャッシュ &amp; パフォーマンス解説ガイド | .htaccess Generator</title>
 		<script>
 			try {
 				if (window.localStorage && localStorage.getItem("htaccess-theme") === "dark") {
@@ -33,26 +34,6 @@
 				}
 			} catch (e) {
 				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
-			}
-			try {
-				const p = new URLSearchParams(window.location.search);
-				const urlLang = p.get('lang');
-				let lang = 'ja';
-				if (urlLang === 'en' || urlLang === 'ja') {
-					lang = urlLang;
-				} else if (window.localStorage) {
-					const stored = localStorage.getItem('htaccess-lang');
-					if (stored === 'en') lang = 'en';
-				}
-				if (lang === 'en') {
-					document.documentElement.classList.add('i18n-pending');
-					const link = document.createElement('link');
-					link.rel = 'modulepreload';
-					link.href = '/assets/js/locales/en.js';
-					document.head.appendChild(link);
-				}
-			} catch (e) {
-				// language detection failed; skip i18n-pending
 			}
 		</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -62,19 +43,16 @@
 	</head>
 
 	<body>
-		<a href="#main-content" class="skip-link" data-i18n="skip.link">メインコンテンツへスキップ</a>
+		<a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
 		<div class="app-wrapper">
 			<header class="app-header">
 				<h1>
 					<a href="../">.htaccess Generator</a>
 					<span class="h1-sub">for WordPress</span>
 				</h1>
-				<p data-i18n="guide.cache-performance.subtitle">キャッシュ &amp; パフォーマンス解説ガイド</p>
+				<p>キャッシュ &amp; パフォーマンス解説ガイド</p>
 				<div class="header-actions">
-					<button type="button" class="lang-toggle-btn" aria-label="言語切り替え（Switch to English）" data-i18n-aria-label="lang.btn.label">
-						<span class="lang-toggle-icon" aria-hidden="true">🌐</span>
-						<span class="lang-toggle-label" data-i18n="lang.btn.text">EN</span>
-					</button>
+					<a href="/en/cache-performance-guide/" class="lang-toggle-btn" aria-label="Switch to English"><span class="lang-toggle-icon" aria-hidden="true">🌐</span><span class="lang-toggle-label">EN</span></a>
 					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
@@ -87,7 +65,7 @@
 				</div>
 			</header>
 
-			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション" data-i18n-aria-label="nav.aria">
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション">
 				<div class="site-nav-card">
 					<ul class="site-nav-list">
 						<li>
@@ -95,31 +73,31 @@
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align: -0.125em; margin-right: 0.3em">
 									<path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
 								</svg>
-								<span data-i18n="nav.generator">ジェネレーター</span>
+								<span>ジェネレーター</span>
 							</a>
 						</li>
 						<li>
-							<a href="../htaccess-basics-guide/" data-i18n="nav.basics">.htaccess 入門</a>
+							<a href="../htaccess-basics-guide/">.htaccess 入門</a>
 						</li>
 						<li>
-							<a href="../directives-guide/" data-i18n="nav.directives">ディレクティブ解説</a>
+							<a href="../directives-guide/">ディレクティブ解説</a>
 						</li>
 						<li>
-							<a href="../security-headers-guide/" data-i18n="nav.securityHeaders">セキュリティヘッダー</a>
+							<a href="../security-headers-guide/">セキュリティヘッダー</a>
 						</li>
 						<li>
-							<a href="../cache-performance-guide/" aria-current="page" data-i18n="nav.cache">キャッシュ &amp; パフォーマンス</a>
+							<a href="../cache-performance-guide/" aria-current="page">キャッシュ &amp; パフォーマンス</a>
 						</li>
 						<li>
-							<a href="../wp-protection-guide/" data-i18n="nav.wpProtection">wp-admin 保護</a>
+							<a href="../wp-protection-guide/">wp-admin 保護</a>
 						</li>
 						<li>
 							<a href="../options-errordocument-guide/">Options &amp; ErrorDocument</a>
 						</li>
 						<li>
-							<a href="../recovery-guide/" data-i18n="nav.recovery">リカバリ方法</a>
+							<a href="../recovery-guide/">リカバリ方法</a>
 						</li>
-						<li><a href="../terms/" data-i18n="nav.terms">利用規約</a></li>
+						<li><a href="../terms/">利用規約</a></li>
 						<li>
 							<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener noreferrer">
 								GitHub
@@ -135,151 +113,80 @@
 				<article class="card article">
 					<!-- なぜセキュリティとキャッシュをセットで管理するのか -->
 					<section>
-						<div class="lang-block" data-lang="ja">
-							<h2>なぜセキュリティ設定とキャッシュをセットで管理するのか</h2>
+						<h2>なぜセキュリティ設定とキャッシュをセットで管理するのか</h2>
 
-							<p>
-								HTTPS 化とキャッシュ設定はセットで行うのが効率的。どちらも
-								<code>.htaccess</code>
-								で管理できるため、一括設定することでメンテナンスコストを下げられる。
-							</p>
-							<p>また、セキュリティプラグイン（Wordfence 等）はリクエストごとにスキャン処理を行うため、サイトのパフォーマンスに影響する場合がある。キャッシュとパフォーマンス最適化によってその「重さ」を相殺できる。</p>
-						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<h2>Why Manage Security Settings and Caching Together</h2>
-
-							<p>
-								Configuring HTTPS and caching together is efficient. Both can be managed in
-								<code>.htaccess</code>
-								, so handling them in one place reduces maintenance overhead.
-							</p>
-							<p>Security plugins such as Wordfence scan every request, which can affect site performance. Caching and performance optimizations help offset that cost.</p>
-						</div>
+						<p>
+							HTTPS 化とキャッシュ設定はセットで行うのが効率的。どちらも
+							<code>.htaccess</code>
+							で管理できるため、一括設定することでメンテナンスコストを下げられる。
+						</p>
+						<p>また、セキュリティプラグイン（Wordfence 等）はリクエストごとにスキャン処理を行うため、サイトのパフォーマンスに影響する場合がある。キャッシュとパフォーマンス最適化によってその「重さ」を相殺できる。</p>
 					</section>
 
 					<hr class="divider" />
 
 					<!-- Gzip 圧縮（mod_deflate） -->
 					<section>
-						<div class="lang-block" data-lang="ja">
-							<h2>Gzip 圧縮（ <code>mod_deflate</code> ）</h2>
+						<h2>Gzip 圧縮（ <code>mod_deflate</code> ）</h2>
 
-							<pre class="article-code"><code>&lt;IfModule mod_deflate.c&gt;
+						<pre class="article-code"><code>&lt;IfModule mod_deflate.c&gt;
     AddOutputFilterByType DEFLATE text/html text/plain text/css
     AddOutputFilterByType DEFLATE application/javascript application/json
     AddOutputFilterByType DEFLATE application/xml text/xml image/svg+xml
     AddOutputFilterByType DEFLATE font/woff font/woff2
 &lt;/IfModule&gt;</code></pre>
 
-							<h3>役割と効果</h3>
-							<p>テキストベースのファイル（HTML・CSS・JavaScript・JSON など）をサーバー側で圧縮してからブラウザに送信する。同じコンテンツでもデータ量を大幅に削減でき、ページの読み込み速度が向上する。</p>
+						<h3>役割と効果</h3>
+						<p>テキストベースのファイル（HTML・CSS・JavaScript・JSON など）をサーバー側で圧縮してからブラウザに送信する。同じコンテンツでもデータ量を大幅に削減でき、ページの読み込み速度が向上する。</p>
 
-							<h3>対象 MIME タイプの選び方</h3>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>MIME タイプ</th>
-											<th>対応ファイル</th>
-											<th>圧縮効果</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><code>text/html</code></td>
-											<td>HTML ページ</td>
-											<td>高（テキストベース）</td>
-										</tr>
-										<tr>
-											<td><code>text/css</code></td>
-											<td>スタイルシート</td>
-											<td>高</td>
-										</tr>
-										<tr>
-											<td><code>application/javascript</code></td>
-											<td>JavaScript</td>
-											<td>高</td>
-										</tr>
-										<tr>
-											<td><code>application/json</code></td>
-											<td>JSON データ</td>
-											<td>高</td>
-										</tr>
-										<tr>
-											<td><code>image/svg+xml</code></td>
-											<td>SVG 画像</td>
-											<td>高（XML テキスト）</td>
-										</tr>
-										<tr>
-											<td><code>font/woff2</code></td>
-											<td>Web フォント</td>
-											<td>低（すでに圧縮済み）</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-							<blockquote>
-								<p>JPEG・PNG・WebP などの画像ファイルはすでに圧縮されているため、Gzip の対象にする必要はない。圧縮しても効果が薄く、CPU 負荷だけ増える。</p>
-							</blockquote>
+						<h3>対象 MIME タイプの選び方</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>MIME タイプ</th>
+										<th>対応ファイル</th>
+										<th>圧縮効果</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>text/html</code></td>
+										<td>HTML ページ</td>
+										<td>高（テキストベース）</td>
+									</tr>
+									<tr>
+										<td><code>text/css</code></td>
+										<td>スタイルシート</td>
+										<td>高</td>
+									</tr>
+									<tr>
+										<td><code>application/javascript</code></td>
+										<td>JavaScript</td>
+										<td>高</td>
+									</tr>
+									<tr>
+										<td><code>application/json</code></td>
+										<td>JSON データ</td>
+										<td>高</td>
+									</tr>
+									<tr>
+										<td><code>image/svg+xml</code></td>
+										<td>SVG 画像</td>
+										<td>高（XML テキスト）</td>
+									</tr>
+									<tr>
+										<td><code>font/woff2</code></td>
+										<td>Web フォント</td>
+										<td>低（すでに圧縮済み）</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<h2>Gzip Compression ( <code>mod_deflate</code> )</h2>
 
-							<pre class="article-code"><code>&lt;IfModule mod_deflate.c&gt;
-    AddOutputFilterByType DEFLATE text/html text/plain text/css
-    AddOutputFilterByType DEFLATE application/javascript application/json
-    AddOutputFilterByType DEFLATE application/xml text/xml image/svg+xml
-    AddOutputFilterByType DEFLATE font/woff font/woff2
-&lt;/IfModule&gt;</code></pre>
-
-							<h3>Role and Effect</h3>
-							<p>Text-based files (HTML, CSS, JavaScript, JSON, etc.) are compressed on the server before being sent to the browser. This significantly reduces transfer size and improves page load speed.</p>
-
-							<h3>Choosing MIME Types to Compress</h3>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>MIME Type</th>
-											<th>File Type</th>
-											<th>Compression Benefit</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><code>text/html</code></td>
-											<td>HTML pages</td>
-											<td>High (text-based)</td>
-										</tr>
-										<tr>
-											<td><code>text/css</code></td>
-											<td>Stylesheets</td>
-											<td>High</td>
-										</tr>
-										<tr>
-											<td><code>application/javascript</code></td>
-											<td>JavaScript</td>
-											<td>High</td>
-										</tr>
-										<tr>
-											<td><code>application/json</code></td>
-											<td>JSON data</td>
-											<td>High</td>
-										</tr>
-										<tr>
-											<td><code>image/svg+xml</code></td>
-											<td>SVG images</td>
-											<td>High (XML text)</td>
-										</tr>
-										<tr>
-											<td><code>font/woff2</code></td>
-											<td>Web fonts</td>
-											<td>Low (already compressed)</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+						<blockquote>
+							<p>JPEG・PNG・WebP などの画像ファイルはすでに圧縮されているため、Gzip の対象にする必要はない。圧縮しても効果が薄く、CPU 負荷だけ増える。</p>
+						</blockquote>
 
 							<blockquote>
 								<p>Image formats such as JPEG, PNG, and WebP are already compressed, so there is no need to Gzip them. The benefit is minimal while CPU usage increases.</p>
@@ -291,10 +198,9 @@
 
 					<!-- ブラウザキャッシュ（Cache-Control） -->
 					<section>
-						<div class="lang-block" data-lang="ja">
-							<h2>ブラウザキャッシュ（ <code>Cache-Control</code> ）</h2>
+						<h2>ブラウザキャッシュ（ <code>Cache-Control</code> ）</h2>
 
-							<pre class="article-code"><code>&lt;IfModule mod_headers.c&gt;
+						<pre class="article-code"><code>&lt;IfModule mod_headers.c&gt;
     # 画像・フォント・アイコン（1年キャッシュ + immutable）
     &lt;FilesMatch "\.(ico|jpg|jpeg|png|gif|webp|svg|woff|woff2|ttf)$"&gt;
         Header always set Cache-Control "public, max-age=31536000, immutable"
@@ -311,97 +217,52 @@
     &lt;/FilesMatch&gt;
 &lt;/IfModule&gt;</code></pre>
 
-							<h3>ファイル種類ごとのキャッシュ有効期限</h3>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>ファイル種類</th>
-											<th>推奨設定</th>
-											<th>理由</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>画像・フォント・CSS・JS</td>
-											<td>1年（31536000秒）</td>
-											<td>更新頻度が低い静的ファイル</td>
-										</tr>
-										<tr>
-											<td>HTML・JSON・XML</td>
-											<td>キャッシュしない</td>
-											<td>WordPress が動的に生成するコンテンツ</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-							<h3><code>immutable</code> フラグの意味</h3>
-							<p>
-								<code>max-age</code>
-								の期限内はサーバーへの再検証リクエスト（条件付き GET）自体を省略する指示。ブラウザが「このファイルは期限内に変わらないと保証されている」とみなし、再アクセス時にサーバーへ問い合わせず即座にキャッシュを返す。
-							</p>
-
-							<blockquote>
-								<p>
-									<code>immutable</code>
-									を使う場合は、CSS・JS のファイル名にバージョン番号やハッシュを含める（キャッシュバスティング）ことが前提。WordPress プラグイン・テーマは通常クエリ文字列（
-									<code>?ver=6.0</code>
-									）でバージョン管理しているため問題ない。
-								</p>
-							</blockquote>
-
-							<h3>HTML / JSON / XML をキャッシュしない理由</h3>
-							<p>
-								WordPress が生成する HTML は投稿・コメント・プラグインの設定によって毎回変わりうる動的コンテンツ。これをキャッシュすると古いコンテンツが表示され続けるため、
-								<code>no-store</code>
-								で完全にキャッシュを無効化する。
-							</p>
+						<h3>ファイル種類ごとのキャッシュ有効期限</h3>
+						<div class="table-wrap">
+							<table>
+								<thead>
+									<tr>
+										<th>ファイル種類</th>
+										<th>推奨設定</th>
+										<th>理由</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>画像・フォント・CSS・JS</td>
+										<td>1年（31536000秒）</td>
+										<td>更新頻度が低い静的ファイル</td>
+									</tr>
+									<tr>
+										<td>HTML・JSON・XML</td>
+										<td>キャッシュしない</td>
+										<td>WordPress が動的に生成するコンテンツ</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<h2>Browser Caching ( <code>Cache-Control</code> )</h2>
 
-							<pre class="article-code"><code>&lt;IfModule mod_headers.c&gt;
-    # Images, fonts, icons (1-year cache + immutable)
-    &lt;FilesMatch "\.(ico|jpg|jpeg|png|gif|webp|svg|woff|woff2|ttf)$"&gt;
-        Header always set Cache-Control "public, max-age=31536000, immutable"
-    &lt;/FilesMatch&gt;
+						<h3><code>immutable</code> フラグの意味</h3>
+						<p>
+							<code>max-age</code>
+							の期限内はサーバーへの再検証リクエスト（条件付き GET）自体を省略する指示。ブラウザが「このファイルは期限内に変わらないと保証されている」とみなし、再アクセス時にサーバーへ問い合わせず即座にキャッシュを返す。
+						</p>
 
-    # CSS and JavaScript (1-year cache + immutable)
-    &lt;FilesMatch "\.(css|js)$"&gt;
-        Header always set Cache-Control "public, max-age=31536000, immutable"
-    &lt;/FilesMatch&gt;
+						<blockquote>
+							<p>
+								<code>immutable</code>
+								を使う場合は、CSS・JS のファイル名にバージョン番号やハッシュを含める（キャッシュバスティング）ことが前提。WordPress プラグイン・テーマは通常クエリ文字列（
+								<code>?ver=6.0</code>
+								）でバージョン管理しているため問題ない。
+							</p>
+						</blockquote>
 
-    # HTML, JSON, XML (no caching)
-    &lt;FilesMatch "\.(html|htm|json|xml)$"&gt;
-        Header always set Cache-Control "no-store, no-cache, must-revalidate"
-    &lt;/FilesMatch&gt;
-&lt;/IfModule&gt;</code></pre>
-
-							<h3>Cache Lifetime by File Type</h3>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>File Type</th>
-											<th>Recommended Setting</th>
-											<th>Reason</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Images, fonts, CSS, JS</td>
-											<td>1 year (31536000 seconds)</td>
-											<td>Static files that change infrequently</td>
-										</tr>
-										<tr>
-											<td>HTML, JSON, XML</td>
-											<td>No caching</td>
-											<td>Dynamically generated content by WordPress</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+						<h3>HTML / JSON / XML をキャッシュしない理由</h3>
+						<p>
+							WordPress が生成する HTML は投稿・コメント・プラグインの設定によって毎回変わりうる動的コンテンツ。これをキャッシュすると古いコンテンツが表示され続けるため、
+							<code>no-store</code>
+							で完全にキャッシュを無効化する。
+						</p>
 
 							<h3>The <code>immutable</code> Flag</h3>
 							<p>
@@ -433,60 +294,35 @@
 
 					<!-- ETag の無効化 -->
 					<section>
-						<div class="lang-block" data-lang="ja">
-							<h2>ETag の無効化</h2>
+						<h2>ETag の無効化</h2>
 
-							<pre class="article-code"><code>FileETag None</code></pre>
+						<pre class="article-code"><code>FileETag None</code></pre>
 
-							<h3>役割とメリット</h3>
-							<p>
-								ETag はファイルの変更を検出するための識別子。
-								<code>Cache-Control</code>
-								で有効期限を設定している場合、ETag による再検証は冗長になる。
-							</p>
+						<h3>役割とメリット</h3>
+						<p>
+							ETag はファイルの変更を検出するための識別子。
+							<code>Cache-Control</code>
+							で有効期限を設定している場合、ETag による再検証は冗長になる。
+						</p>
 
-							<p>ETag を無効化する主なメリットは以下の通り。</p>
-							<ul>
-								<li>
-									冗長な
-									<code>If-None-Match</code>
-									リクエストがなくなりサーバー負荷が下がる
-								</li>
-								<li>複数のウェブサーバーで構成される環境（ロードバランサー等）では、サーバーごとに ETag の値が異なるため正しく機能しないケースがある。これを回避できる</li>
-							</ul>
-						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<h2>Disabling ETag</h2>
-
-							<pre class="article-code"><code>FileETag None</code></pre>
-
-							<h3>Role and Benefits</h3>
-							<p>
-								An ETag is an identifier used to detect file changes. When
-								<code>Cache-Control</code>
-								expiry is already configured, ETag-based revalidation becomes redundant.
-							</p>
-
-							<p>The main benefits of disabling ETags are:</p>
-							<ul>
-								<li>
-									Eliminates redundant
-									<code>If-None-Match</code>
-									requests, reducing server load
-								</li>
-								<li>In multi-server environments (e.g. load balancers), ETag values can differ between servers and may not work correctly &mdash; disabling them avoids this issue</li>
-							</ul>
-						</div>
+						<p>ETag を無効化する主なメリットは以下の通り。</p>
+						<ul>
+							<li>
+								冗長な
+								<code>If-None-Match</code>
+								リクエストがなくなりサーバー負荷が下がる
+							</li>
+							<li>複数のウェブサーバーで構成される環境（ロードバランサー等）では、サーバーごとに ETag の値が異なるため正しく機能しないケースがある。これを回避できる</li>
+						</ul>
 					</section>
 
 					<hr class="divider" />
 
 					<!-- MIME タイプの追加 -->
 					<section>
-						<div class="lang-block" data-lang="ja">
-							<h2>MIME タイプの追加（ <code>mime_module</code> ）</h2>
+						<h2>MIME タイプの追加（ <code>mime_module</code> ）</h2>
 
-							<pre class="article-code"><code>&lt;IfModule mime_module&gt;
+						<pre class="article-code"><code>&lt;IfModule mime_module&gt;
     AddType image/x-icon        .ico
     AddType image/svg+xml       .svg
     AddType font/woff            .woff
@@ -494,182 +330,88 @@
     AddType application/font-ttf .ttf
 &lt;/IfModule&gt;</code></pre>
 
-							<h3>役割</h3>
-							<p>
-								Apache がファイルの種類を正しく識別し、ブラウザに適切な
-								<code>Content-Type</code>
-								ヘッダーを返すための設定。MIME タイプが正しくないと以下の問題が起きる。
-							</p>
+						<h3>役割</h3>
+						<p>
+							Apache がファイルの種類を正しく識別し、ブラウザに適切な
+							<code>Content-Type</code>
+							ヘッダーを返すための設定。MIME タイプが正しくないと以下の問題が起きる。
+						</p>
 
-							<ul>
-								<li>ブラウザがフォントファイルをテキストとして扱い、読み込みに失敗する</li>
-								<li>SVG が画像として表示されない</li>
-								<li>ブラウザが CORS エラーを起こす（特に Web フォント）</li>
-							</ul>
+						<ul>
+							<li>ブラウザがフォントファイルをテキストとして扱い、読み込みに失敗する</li>
+							<li>SVG が画像として表示されない</li>
+							<li>ブラウザが CORS エラーを起こす（特に Web フォント）</li>
+						</ul>
 
-							<p>
-								古いバージョンの Apache では
-								<code>.woff2</code>
-								や
-								<code>.webp</code>
-								が未定義の場合があるため、明示的に追加しておくと安全。
-							</p>
-						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<h2>Adding MIME Types ( <code>mime_module</code> )</h2>
-
-							<pre class="article-code"><code>&lt;IfModule mime_module&gt;
-    AddType image/x-icon        .ico
-    AddType image/svg+xml       .svg
-    AddType font/woff            .woff
-    AddType font/woff2           .woff2
-    AddType application/font-ttf .ttf
-&lt;/IfModule&gt;</code></pre>
-
-							<h3>Role</h3>
-							<p>
-								This configuration ensures Apache correctly identifies file types and sends the appropriate
-								<code>Content-Type</code>
-								header to the browser. Without correct MIME types:
-							</p>
-
-							<ul>
-								<li>Browsers may treat font files as plain text, causing load failures</li>
-								<li>SVG files may not render as images</li>
-								<li>Browsers may throw CORS errors, especially for web fonts</li>
-							</ul>
-
-							<p>
-								Older versions of Apache may not define
-								<code>.woff2</code>
-								or
-								<code>.webp</code>
-								by default, so adding them explicitly is a safe practice.
-							</p>
-						</div>
+						<p>
+							古いバージョンの Apache では
+							<code>.woff2</code>
+							や
+							<code>.webp</code>
+							が未定義の場合があるため、明示的に追加しておくと安全。
+						</p>
 					</section>
 
 					<hr class="divider" />
 
 					<!-- Keep-Alive の有効化 -->
 					<section>
-						<div class="lang-block" data-lang="ja">
-							<h2>Keep-Alive について</h2>
+						<h2>Keep-Alive について</h2>
 
-							<h3>役割</h3>
-							<p>HTTP の持続接続（Keep-Alive）は、1 回の TCP 接続で複数のリクエストを処理する機能。通常、ページを表示するには HTML・CSS・JS・画像など複数のファイルをそれぞれ個別の TCP 接続で取得する。Keep-Alive を使うと接続の確立・切断（TCP ハンドシェイク）のオーバーヘッドを削減してページの表示速度を向上させる。</p>
+						<h3>役割</h3>
+						<p>HTTP の持続接続（Keep-Alive）は、1 回の TCP 接続で複数のリクエストを処理する機能。通常、ページを表示するには HTML・CSS・JS・画像など複数のファイルをそれぞれ個別の TCP 接続で取得する。Keep-Alive を使うと接続の確立・切断（TCP ハンドシェイク）のオーバーヘッドを削減してページの表示速度を向上させる。</p>
 
-							<h3>.htaccess では制御できない</h3>
-							<p>
-								Keep-Alive の有効・無効は
-								<strong>Apache のサーバー設定</strong>
-								（
-								<code>httpd.conf</code>
-								や
-								<code>apache2.conf</code>
-								）で決まる。
-								<code>Connection</code>
-								はホップバイホップヘッダーであるため、
-								<code>.htaccess</code>
-								から
-								<code>Header always set Connection "keep-alive"</code>
-								を指定しても Keep-Alive を有効化する効果はない。
-							</p>
+						<h3>.htaccess では制御できない</h3>
+						<p>
+							Keep-Alive の有効・無効は
+							<strong>Apache のサーバー設定</strong>
+							（
+							<code>httpd.conf</code>
+							や
+							<code>apache2.conf</code>
+							）で決まる。
+							<code>Connection</code>
+							はホップバイホップヘッダーであるため、
+							<code>.htaccess</code>
+							から
+							<code>Header always set Connection "keep-alive"</code>
+							を指定しても Keep-Alive を有効化する効果はない。
+						</p>
 
-							<p>サーバー設定で制御する場合のディレクティブ例：</p>
-							<pre class="article-code"><code>KeepAlive On
+						<p>サーバー設定で制御する場合のディレクティブ例：</p>
+						<pre class="article-code"><code>KeepAlive On
 MaxKeepAliveRequests 100
 KeepAliveTimeout 5</code></pre>
 
-							<blockquote>
-								<p>レンタルサーバー（XServer 等）では Keep-Alive がデフォルトで有効になっている場合がほとんどのため、個別の設定は不要。</p>
-								<p>HTTP/2 以降では接続の多重化が標準機能として実装されているため、Keep-Alive の設定は主に HTTP/1.1 接続にのみ影響する。</p>
-							</blockquote>
-						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<h2>About Keep-Alive</h2>
-
-							<h3>Role</h3>
-							<p>HTTP persistent connections (Keep-Alive) allow multiple requests to be handled over a single TCP connection. Without it, each file &mdash; HTML, CSS, JS, images &mdash; requires a separate TCP connection. Keep-Alive reduces the overhead of establishing and closing connections (TCP handshake), improving page load speed.</p>
-
-							<h3>Cannot Be Controlled via .htaccess</h3>
-							<p>
-								Keep-Alive is determined by
-								<strong>Apache server configuration</strong>
-								(
-								<code>httpd.conf</code>
-								or
-								<code>apache2.conf</code>
-								). Because
-								<code>Connection</code>
-								is a hop-by-hop header, setting
-								<code>Header always set Connection "keep-alive"</code>
-								in
-								<code>.htaccess</code>
-								has no effect on enabling Keep-Alive.
-							</p>
-
-							<p>To control it at the server level, use directives like:</p>
-							<pre class="article-code"><code>KeepAlive On
-MaxKeepAliveRequests 100
-KeepAliveTimeout 5</code></pre>
-
-							<blockquote>
-								<p>Most shared hosting providers (e.g. XServer) have Keep-Alive enabled by default, so no individual configuration is needed.</p>
-								<p>In HTTP/2 and later, connection multiplexing is built in as a standard feature, so Keep-Alive settings primarily affect HTTP/1.1 connections only.</p>
-							</blockquote>
-						</div>
+						<blockquote>
+							<p>レンタルサーバー（XServer 等）では Keep-Alive がデフォルトで有効になっている場合がほとんどのため、個別の設定は不要。</p>
+							<p>HTTP/2 以降では接続の多重化が標準機能として実装されているため、Keep-Alive の設定は主に HTTP/1.1 接続にのみ影響する。</p>
+						</blockquote>
 					</section>
 
 					<!-- 戻るリンク -->
 					<div class="article-back">
-						<div class="lang-block" data-lang="ja">
-							<a href="../" class="btn btn-secondary">← ジェネレーターに戻る</a>
-						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<a href="../" class="btn btn-secondary">← Back to Generator</a>
-						</div>
+						<a href="../" class="btn btn-secondary">← ジェネレーターに戻る</a>
 					</div>
 
 					<aside class="license-notice">
-						<div class="lang-block" data-lang="ja">
-							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" rel="nofollow noreferrer noopener" target="_blank">
-								<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="クリエイティブ・コモンズ 表示-非営利-継承 4.0 国際" width="88" height="31" />
-							</a>
-							<p>
-								この解説コンテンツは
-								<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
-								の下で提供されています。
-								<strong>有料オンライン講座・有料教材への転載は禁止</strong>
-								しています。 詳細は
-								<a href="/terms/" rel="nofollow noreferrer">利用規約</a>
-								をご確認ください。
-							</p>
-							<p>
-								&copy; 2026 まーちゅう（
-								<a href="https://web-ya3.com" rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>
-								）
-							</p>
-						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">
-								<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" width="88" height="31" />
-							</a>
-							<p>
-								This content is licensed under
-								<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
-								.
-								<strong>Reproduction in paid online courses and paid educational materials is prohibited</strong>
-								. See the
-								<a href="/terms/?lang=en" rel="nofollow noreferrer">Terms of Use</a>
-								for details.
-							</p>
-							<p>
-								&copy; 2026 まーちゅう（
-								<a href="https://web-ya3.com" rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>
-								）
-							</p>
-						</div>
+						<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" rel="nofollow noreferrer noopener" target="_blank">
+							<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="クリエイティブ・コモンズ 表示-非営利-継承 4.0 国際" width="88" height="31" />
+						</a>
+						<p>
+							この解説コンテンツは
+							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
+							の下で提供されています。
+							<strong>有料オンライン講座・有料教材への転載は禁止</strong>
+							しています。 詳細は
+							<a href="/terms/" rel="nofollow noreferrer">利用規約</a>
+							をご確認ください。
+						</p>
+						<p>
+							&copy; 2026 まーちゅう（
+							<a href="https://web-ya3.com" rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>
+							）
+						</p>
 					</aside>
 				</article>
 			</main>

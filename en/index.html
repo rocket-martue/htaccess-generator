@@ -1,27 +1,27 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="WordPress 用 .htaccess のセキュリティ・パフォーマンス設定をブラウザで簡単に生成できるツール" />
+		<meta name="description" content="Easily generate .htaccess security and performance settings for WordPress in your browser" />
 		<!-- OGP -->
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content=".htaccess Generator for WordPress" />
-		<meta property="og:description" content="WordPress 用 .htaccess のセキュリティ・パフォーマンス設定をブラウザで簡単に生成できるツール" />
+		<meta property="og:description" content="Easily generate .htaccess security and performance settings for WordPress in your browser" />
 		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/" />
-		<meta property="og:locale" content="ja_JP" />
+		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/en/" />
+		<meta property="og:locale" content="en_US" />
 		<meta property="og:site_name" content=".htaccess Generator" />
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content=".htaccess Generator for WordPress" />
-		<meta name="twitter:description" content="WordPress 用 .htaccess のセキュリティ・パフォーマンス設定をブラウザで簡単に生成できるツール" />
+		<meta name="twitter:description" content="Easily generate .htaccess security and performance settings for WordPress in your browser" />
 		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
 
 		<title>.htaccess Generator for WordPress</title>
-		<link rel="canonical" href="https://htaccess-generator-b46.pages.dev/" />
+		<link rel="canonical" href="https://htaccess-generator-b46.pages.dev/en/" />
 		<link rel="alternate" hreflang="ja" href="https://htaccess-generator-b46.pages.dev/" />
 		<link rel="alternate" hreflang="en" href="https://htaccess-generator-b46.pages.dev/en/" />
 		<link rel="alternate" hreflang="x-default" href="https://htaccess-generator-b46.pages.dev/" />
@@ -37,11 +37,11 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap" />
-		<link rel="stylesheet" href="assets/css/style.css" />
+		<link rel="stylesheet" href="../assets/css/style.css" />
 	</head>
 
 	<body>
-		<a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
+		<a href="#main-content" class="skip-link">Skip to main content</a>
 		<div class="app-wrapper">
 			<header class="app-header">
 				<h1>
@@ -49,20 +49,20 @@
 					<span class="h1-sub">for WordPress</span>
 				</h1>
 				<p>
-					WordPress 用 .htaccess のセキュリティ・パフォーマンス設定を簡単に生成
+					Easily generate .htaccess security &amp; performance settings for WordPress
 					<br />
-					<small>Apache 2.4 以降 / WordPress 対応</small>
+					<small>For Apache 2.4+ / WordPress</small>
 				</p>
 				<div class="header-actions">
-					<a href="/en/" class="lang-toggle-btn" aria-label="Switch to English">
+					<a href="/" class="lang-toggle-btn" aria-label="日本語に切り替え">
 						<span class="lang-toggle-icon" aria-hidden="true">🌐</span>
-						<span class="lang-toggle-label">EN</span>
+						<span class="lang-toggle-label">JA</span>
 					</a>
-					<button type="button" class="theme-toggle-btn" aria-label="ダークモードに切り替え" aria-pressed="false">
+					<button type="button" class="theme-toggle-btn" aria-label="Switch to dark mode" aria-pressed="false">
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
-						<span class="theme-toggle-label">ダーク</span>
+						<span class="theme-toggle-label">Dark</span>
 					</button>
-					<button type="button" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav-menu">
+					<button type="button" class="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav-menu">
 						<span class="bar"></span>
 						<span class="bar"></span>
 						<span class="menu-label" aria-hidden="true">MENU</span>
@@ -70,7 +70,7 @@
 				</div>
 			</header>
 
-			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション">
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="Site navigation">
 				<div class="site-nav-card">
 					<ul class="site-nav-list">
 						<li>
@@ -78,31 +78,31 @@
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align: -0.125em; margin-right: 0.3em">
 									<path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
 								</svg>
-								<span>ジェネレーター</span>
+								<span>Generator</span>
 							</a>
 						</li>
 						<li>
-							<a href="htaccess-basics-guide/">.htaccess 入門</a>
+							<a href="htaccess-basics-guide/">.htaccess Basics</a>
 						</li>
 						<li>
-							<a href="directives-guide/">ディレクティブ解説</a>
+							<a href="directives-guide/">Directives</a>
 						</li>
 						<li>
-							<a href="security-headers-guide/">セキュリティヘッダー</a>
+							<a href="security-headers-guide/">Security Headers</a>
 						</li>
 						<li>
-							<a href="cache-performance-guide/">キャッシュ &amp; パフォーマンス</a>
+							<a href="cache-performance-guide/">Cache &amp; Performance</a>
 						</li>
 						<li>
-							<a href="wp-protection-guide/">wp-admin 保護</a>
+							<a href="wp-protection-guide/">wp-admin Protection</a>
 						</li>
 						<li>
 							<a href="options-errordocument-guide/">Options &amp; ErrorDocument</a>
 						</li>
 						<li>
-							<a href="recovery-guide/">リカバリ方法</a>
+							<a href="recovery-guide/">Recovery</a>
 						</li>
-						<li><a href="terms/">利用規約</a></li>
+						<li><a href="terms/">Terms of Use</a></li>
 						<li>
 							<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener noreferrer">
 								GitHub
@@ -117,54 +117,54 @@
 
 			<main id="main-content">
 				<div class="main-layout">
-					<!-- ── 設定パネル ────────────────────── -->
+					<!-- ── Settings Panel ────────────────────── -->
 					<div class="settings-panel">
-						<!-- プリセット -->
-						<section class="card" aria-label="プリセット">
-							<h2 class="section-title">プリセット</h2>
-							<div class="preset-group" role="group" aria-label="プリセット選択"></div>
+						<!-- Presets -->
+						<section class="card" aria-label="Presets">
+							<h2 class="section-title">Presets</h2>
+							<div class="preset-group" role="group" aria-label="Select preset"></div>
 						</section>
 
-						<!-- 対象 Apache バージョン -->
-						<section class="card" aria-label="対象 Apache バージョン">
-							<h2 class="section-title">対象 Apache バージョン</h2>
+						<!-- Target Apache Version -->
+						<section class="card" aria-label="Target Apache Version">
+							<h2 class="section-title">Target Apache Version</h2>
 							<div class="form-group">
 								<fieldset class="sub-fieldset">
-									<legend class="sub-legend">対象 Apache バージョン</legend>
+									<legend class="sub-legend">Target Apache Version</legend>
 									<label class="sub-option-label">
 										<input type="radio" name="apacheVersion" value="2.4" checked />
-										<span>アクセス制御ディレクティブを Apache 2.4 形式で出力</span>
+										<span>Output access control directives in Apache 2.4 format</span>
 									</label>
 									<label class="sub-option-label">
 										<input type="radio" name="apacheVersion" value="both" />
-										<span>アクセス制御ディレクティブを Apache 2.2 / 2.4 互換形式で出力</span>
+										<span>Output access control directives in Apache 2.2 / 2.4 compatible format</span>
 									</label>
-									<p class="sub-options-hint">⚠️ この切り替えで変わるのは主にアクセス制御ディレクティブの出力形式のみです。 生成される .htaccess 全体が Apache 2.2 互換になるわけではありません。 Apache 2.2 環境では、他の Apache 2.4 専用ディレクティブにより 500 エラーが発生する場合があります。</p>
+									<p class="sub-options-hint">⚠️ This switch only affects the format of access control directives. The entire generated .htaccess will not be Apache 2.2 compatible. On Apache 2.2, other Apache 2.4-specific directives may cause 500 errors.</p>
 								</fieldset>
 							</div>
 						</section>
 
 						<!-- Options & ErrorDocument -->
-						<section class="card" aria-label="Options と ErrorDocument">
-							<h2 class="section-title">Options & ErrorDocument</h2>
+						<section class="card" aria-label="Options and ErrorDocument">
+							<h2 class="section-title">Options &amp; ErrorDocument</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="disableMultiviews">ディレクトリ一覧 & コンテンツネゴシエーション無効化</label>
+									<label class="toggle-label" for="disableMultiviews">Disable directory listing &amp; content negotiation</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="disableMultiviews" id="disableMultiviews" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="disableIndexes">ディレクトリインデックス無効化</label>
+									<label class="toggle-label" for="disableIndexes">Disable directory indexes</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="disableIndexes" id="disableIndexes" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
-								<p class="sub-options-hint">⚠️ 一部のレンタルサーバーでは Options の変更が禁止されており、 上記の Options 設定を有効にすると 500 エラーが発生する場合があります。 その場合は Options 設定を無効にしてください。</p>
+								<p class="sub-options-hint">⚠️ Some shared hosting providers prohibit changing Options directives. Enabling the Options settings above may cause 500 errors. In that case, disable the Options settings.</p>
 								<div class="toggle-row">
-									<label class="toggle-label" for="errorDocument">ErrorDocument 軽量化（403 / 404）</label>
+									<label class="toggle-label" for="errorDocument">Lightweight ErrorDocument (403 / 404)</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="errorDocument" id="errorDocument" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -173,33 +173,33 @@
 							</div>
 						</section>
 
-						<!-- ファイルアクセス制限 -->
-						<section class="card" aria-label="ファイルアクセス制限">
-							<h2 class="section-title">ファイルアクセス制限</h2>
+						<!-- File Access Restrictions -->
+						<section class="card" aria-label="File Access Restrictions">
+							<h2 class="section-title">File Access Restrictions</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockXmlrpc">xmlrpc.php をブロック</label>
+									<label class="toggle-label" for="blockXmlrpc">Block xmlrpc.php</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockXmlrpc" id="blockXmlrpc" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="protectWpConfig">wp-config.php を保護</label>
+									<label class="toggle-label" for="protectWpConfig">Protect wp-config.php</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="protectWpConfig" id="protectWpConfig" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="protectHtaccess">.htaccess を保護</label>
+									<label class="toggle-label" for="protectHtaccess">Protect .htaccess</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="protectHtaccess" id="protectHtaccess" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockDangerousExt">危険な拡張子をブロック</label>
+									<label class="toggle-label" for="blockDangerousExt">Block dangerous extensions</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockDangerousExt" id="blockDangerousExt" aria-expanded="false" aria-controls="dangerous-ext-fields" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -207,7 +207,7 @@
 								</div>
 								<div class="dangerous-ext-fields sub-options" id="dangerous-ext-fields" hidden>
 									<div class="input-group">
-										<label for="blockDangerousExtList" class="input-label">ブロックする拡張子（1行に1つ）</label>
+										<label for="blockDangerousExtList" class="input-label">Extensions to block (one per line)</label>
 										<textarea name="blockDangerousExtList" id="blockDangerousExtList" class="input-textarea" rows="4" placeholder=".inc&#10;.log&#10;.sh&#10;.sql" spellcheck="false">
 .inc
 .log
@@ -220,7 +220,7 @@
 								<hr class="divider" />
 
 								<div class="toggle-row">
-									<label class="toggle-label" for="wpLoginBasicAuth">wp-login.php に Basic 認証</label>
+									<label class="toggle-label" for="wpLoginBasicAuth">Basic Auth for wp-login.php</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="wpLoginBasicAuth" id="wpLoginBasicAuth" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -228,20 +228,20 @@
 								</div>
 								<div class="login-auth-fields" hidden>
 									<div class="input-group">
-										<label for="loginHtpasswdPath" class="input-label">.htpasswd のフルパス</label>
+										<label for="loginHtpasswdPath" class="input-label">Full path to .htpasswd</label>
 										<input type="text" name="loginHtpasswdPath" id="loginHtpasswdPath" class="input-text" placeholder="/home/username/.htpasswd" autocomplete="off" spellcheck="false" />
 									</div>
-									<p class="sub-options-hint" id="login-htpasswd-hint" hidden aria-live="polite">.htpasswd のフルパスを入力すると反映されます</p>
+									<p class="sub-options-hint" id="login-htpasswd-hint" hidden aria-live="polite">Enter the full path to .htpasswd to apply</p>
 								</div>
 							</div>
 						</section>
 
-						<!-- IP ブロック -->
-						<section class="card" aria-label="IP ブロック">
-							<h2 class="section-title">IP アドレスブロック</h2>
+						<!-- IP Block -->
+						<section class="card" aria-label="IP Block">
+							<h2 class="section-title">IP Address Block</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="ipBlockEnabled">IP アドレスによるブロック</label>
+									<label class="toggle-label" for="ipBlockEnabled">Block by IP address</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="ipBlockEnabled" id="ipBlockEnabled" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -249,35 +249,35 @@
 								</div>
 								<div class="ip-block-fields" hidden>
 									<div class="input-group">
-										<label for="ipBlockList" class="input-label">ブロックする IP（1行に1つ）</label>
+										<label for="ipBlockList" class="input-label">IPs to block (one per line)</label>
 										<textarea name="ipBlockList" id="ipBlockList" class="input-textarea" rows="4" placeholder="192.0.2.1&#10;198.51.100.0/24" spellcheck="false"></textarea>
 									</div>
-									<p class="sub-options-hint" id="ip-block-hint" hidden aria-live="polite">ブロックする IP アドレスを入力してください</p>
+									<p class="sub-options-hint" id="ip-block-hint" hidden aria-live="polite">Enter IP addresses to block</p>
 								</div>
 							</div>
 						</section>
 
-						<!-- リライトルール -->
-						<section class="card" aria-label="リライトルール">
-							<h2 class="section-title">リライトルール</h2>
+						<!-- Rewrite Rules -->
+						<section class="card" aria-label="Rewrite Rules">
+							<h2 class="section-title">Rewrite Rules</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="normalizeSlashes">スラッシュ重複の正規化</label>
+									<label class="toggle-label" for="normalizeSlashes">Normalize duplicate slashes</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="normalizeSlashes" id="normalizeSlashes" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockBadBots">悪意のあるボットをブロック</label>
+									<label class="toggle-label" for="blockBadBots">Block malicious bots</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockBadBots" id="blockBadBots" aria-expanded="false" aria-controls="bad-bots-sub-fields" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="bad-bots-sub-fields sub-options" id="bad-bots-sub-fields" hidden>
-									<p class="sub-options-hint">チェック ON = ブロックする / OFF = 除外（許可）</p>
-									<p class="sub-option-group-label">攻撃ツール</p>
+									<p class="sub-options-hint">Checked = block / Unchecked = allow</p>
+									<p class="sub-option-group-label">Attack tools</p>
 									<label class="sub-option-label">
 										<input type="checkbox" name="bbNikto" id="bbNikto" checked />
 										<span>nikto</span>
@@ -298,7 +298,7 @@
 										<input type="checkbox" name="bbZgrab" id="bbZgrab" checked />
 										<span>zgrab</span>
 									</label>
-									<p class="sub-option-group-label">汎用クライアント</p>
+									<p class="sub-option-group-label">Generic clients</p>
 									<label class="sub-option-label">
 										<input type="checkbox" name="bbWget" id="bbWget" checked />
 										<span>wget</span>
@@ -331,7 +331,7 @@
 										<input type="checkbox" name="bbJava" id="bbJava" checked />
 										<span>java/</span>
 									</label>
-									<p class="sub-option-group-label">SEO クローラー</p>
+									<p class="sub-option-group-label">SEO crawlers</p>
 									<label class="sub-option-label">
 										<input type="checkbox" name="bbAhrefsbot" id="bbAhrefsbot" />
 										<span>ahrefsbot</span>
@@ -350,28 +350,28 @@
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockBackdoors">バックドア / マルウェア探索をブロック</label>
+									<label class="toggle-label" for="blockBackdoors">Block backdoor / malware probes</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockBackdoors" id="blockBackdoors" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockWpNesting">wp-* 多重ネストを防止</label>
+									<label class="toggle-label" for="blockWpNesting">Prevent wp-* nested directory requests</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockWpNesting" id="blockWpNesting" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockWpIncludesDir">wp-includes / wp-admin/includes への直接アクセス防止</label>
+									<label class="toggle-label" for="blockWpIncludesDir">Prevent direct access to wp-includes / wp-admin/includes</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockWpIncludesDir" id="blockWpIncludesDir" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="httpsRedirect">HTTPS リダイレクト</label>
+									<label class="toggle-label" for="httpsRedirect">HTTPS redirect</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="httpsRedirect" id="httpsRedirect" aria-expanded="false" aria-controls="https-sub-fields" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -380,11 +380,11 @@
 								<div class="sub-options" id="https-sub-fields" hidden>
 									<label class="sub-option-label">
 										<input type="checkbox" name="xForwardedProto" id="xForwardedProto" />
-										<span>X-Forwarded-Proto 判定（リバースプロキシ対応）</span>
+										<span>X-Forwarded-Proto check (reverse proxy support)</span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockBadQuery">不正なクエリ文字列をブロック</label>
+									<label class="toggle-label" for="blockBadQuery">Block malicious query strings</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockBadQuery" id="blockBadQuery" aria-expanded="false" aria-controls="bad-query-fields" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -392,20 +392,20 @@
 								</div>
 								<div class="bad-query-fields sub-options" id="bad-query-fields" hidden>
 									<div class="input-group">
-										<label for="badQueryParams" class="input-label">ブロックするパラメータ名（1行に1つ）</label>
+										<label for="badQueryParams" class="input-label">Parameter names to block (one per line)</label>
 										<textarea name="badQueryParams" id="badQueryParams" class="input-textarea" rows="3" placeholder="w" spellcheck="false">w</textarea>
 									</div>
 								</div>
 							</div>
 						</section>
 
-						<!-- セキュリティヘッダー -->
-						<section class="card" aria-label="セキュリティヘッダー">
-							<h2 class="section-title">セキュリティレスポンスヘッダー</h2>
+						<!-- Security Response Headers -->
+						<section class="card" aria-label="Security Headers">
+							<h2 class="section-title">Security Response Headers</h2>
 							<div class="form-group">
 								<!-- HSTS -->
 								<div class="toggle-row">
-									<label class="toggle-label" for="hstsEnabled">HSTS（Strict-Transport-Security）</label>
+									<label class="toggle-label" for="hstsEnabled">HSTS (Strict-Transport-Security)</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="hstsEnabled" id="hstsEnabled" aria-expanded="false" aria-controls="hsts-sub-fields" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -415,49 +415,49 @@
 									<div class="sub-fieldset">
 										<label class="sub-option-group-label" for="hstsMaxAge">max-age</label>
 										<select name="hstsMaxAge" id="hstsMaxAge" class="input-text">
-											<option value="300" selected>300（5分・テスト用）</option>
-											<option value="86400">86400（1日）</option>
-											<option value="2592000">2592000（30日）</option>
-											<option value="31536000">31536000（1年）</option>
-											<option value="63072000">63072000（2年）</option>
+											<option value="300" selected>300 (5 min · for testing)</option>
+											<option value="86400">86400 (1 day)</option>
+											<option value="2592000">2592000 (30 days)</option>
+											<option value="31536000">31536000 (1 year)</option>
+											<option value="63072000">63072000 (2 years)</option>
 										</select>
 									</div>
-									<p class="sub-options-hint">まず短い値（300秒）でテストし、問題がないことを確認してから長い値に変更してください。一度ブラウザにキャッシュされると HTTP に戻せなくなります。</p>
+									<p class="sub-options-hint">Start with a short value (300 seconds) and verify there are no issues before increasing. Once cached by the browser, you cannot revert to HTTP.</p>
 									<label class="sub-option-label">
 										<input type="checkbox" name="hstsIncludeSubDomains" id="hstsIncludeSubDomains" />
 										<span>includeSubDomains</span>
 									</label>
-									<p class="sub-options-hint">すべてのサブドメインが HTTPS に対応していることを確認してから有効にしてください。HTTPS 未対応のサブドメインがある場合、ブラウザがアクセスを拒否します。</p>
+									<p class="sub-options-hint">Make sure all subdomains support HTTPS before enabling. If any subdomain does not support HTTPS, browsers will refuse to connect.</p>
 									<label class="sub-option-label">
 										<input type="checkbox" name="hstsPreload" id="hstsPreload" />
 										<span>preload</span>
 									</label>
-									<p class="sub-options-hint" id="hsts-preload-warn" hidden aria-live="polite">preload には includeSubDomains と max-age 1年（31536000）以上が必要です</p>
-									<p class="sub-options-hint">ブラウザのプリロードリストへの登録を意図するフラグです。preload を有効にしても、includeSubDomains が OFF の場合は生成結果に反映されません。利用する場合は includeSubDomains を ON にし、max-age を 1年（31536000）以上に設定してください。一度登録されると削除に数ヶ月かかるため、HTTPS 環境が完全に整っていない場合は有効にしないでください。</p>
+									<p class="sub-options-hint" id="hsts-preload-warn" hidden aria-live="polite">preload requires includeSubDomains and max-age of at least 1 year (31536000)</p>
+									<p class="sub-options-hint">This flag signals intent to be added to browser preload lists. Even with preload enabled, it will not appear in output if includeSubDomains is OFF. If using preload, enable includeSubDomains and set max-age to at least 1 year (31536000). Once registered, removal can take months — do not enable unless your HTTPS setup is complete.</p>
 								</div>
 
 								<!-- CSP -->
 								<div class="toggle-row">
-									<label class="toggle-label" for="cspEnabled">CSP（Content-Security-Policy）</label>
+									<label class="toggle-label" for="cspEnabled">CSP (Content-Security-Policy)</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="cspEnabled" id="cspEnabled" aria-expanded="false" aria-controls="csp-sub-fields" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="csp-sub-fields sub-options" id="csp-sub-fields" hidden>
-									<p class="sub-options-hint">CSP は本番適用前にブラウザの DevTools（F12）→ Console タブで違反を確認し、サイトに合わせて調整してください。</p>
-									<!-- Report-Only モード -->
+									<p class="sub-options-hint">Before applying CSP to production, check for violations in the browser DevTools (F12) → Console tab and adjust to match your site.</p>
+									<!-- Report-Only mode -->
 									<div class="csp-directive-row">
 										<label class="sub-option-label">
 											<input type="checkbox" name="cspReportOnly" id="cspReportOnly" />
-											<span>Report-Only モード（テスト用）</span>
+											<span>Report-Only mode (for testing)</span>
 										</label>
 									</div>
 									<p class="sub-options-hint">
-										<code>Content-Security-Policy-Report-Only</code>
-										を出力。
+										Outputs
+										<code>Content-Security-Policy-Report-Only</code>.
 										<code>upgrade-insecure-requests</code>
-										は除外されます。Report-Only モード以外では常に含まれます。
+										is excluded. It is always included in non-Report-Only mode.
 									</p>
 									<!-- default-src -->
 									<div class="csp-directive-row">
@@ -552,14 +552,14 @@
 								</div>
 								<div class="xfo-sub-fields sub-options" id="xfo-sub-fields" hidden>
 									<fieldset class="sub-fieldset">
-										<legend class="sub-legend">X-Frame-Options の値</legend>
+										<legend class="sub-legend">X-Frame-Options value</legend>
 										<label class="sub-option-label">
 											<input type="radio" name="xFrameOptionsValue" value="SAMEORIGIN" checked />
-											<span>SAMEORIGIN（同一ドメインのみ許可）</span>
+											<span>SAMEORIGIN (allow same domain only)</span>
 										</label>
 										<label class="sub-option-label">
 											<input type="radio" name="xFrameOptionsValue" value="DENY" />
-											<span>DENY（すべて拒否）</span>
+											<span>DENY (block all)</span>
 										</label>
 									</fieldset>
 								</div>
@@ -574,7 +574,7 @@
 								</div>
 								<div class="rp-sub-fields sub-options" id="rp-sub-fields" hidden>
 									<fieldset class="sub-fieldset">
-										<legend class="sub-legend">Referrer-Policy の値</legend>
+										<legend class="sub-legend">Referrer-Policy value</legend>
 										<label class="sub-option-label">
 											<input type="radio" name="referrerPolicyValue" value="no-referrer" />
 											<span>no-referrer</span>
@@ -601,11 +601,11 @@
 										</label>
 										<label class="sub-option-label">
 											<input type="radio" name="referrerPolicyValue" value="strict-origin-when-cross-origin" checked />
-											<span>strict-origin-when-cross-origin（推奨）</span>
+											<span>strict-origin-when-cross-origin (recommended)</span>
 										</label>
 										<label class="sub-option-label">
 											<input type="radio" name="referrerPolicyValue" value="unsafe-url" />
-											<span>unsafe-url（非推奨）</span>
+											<span>unsafe-url (not recommended)</span>
 										</label>
 									</fieldset>
 								</div>
@@ -619,7 +619,7 @@
 									</label>
 								</div>
 								<div class="pp-sub-fields sub-options" id="pp-sub-fields" hidden>
-									<p class="sub-options-hint">チェック ON = 制限する / OFF = ポリシーから除外（許可）</p>
+									<p class="sub-options-hint">Checked = restrict / Unchecked = exclude from policy (allow)</p>
 									<label class="sub-option-label">
 										<input type="checkbox" name="ppCamera" id="ppCamera" checked />
 										<span>camera</span>
@@ -679,28 +679,28 @@
 									<div>
 										<label for="ppGeolocation">geolocation</label>
 										<select name="ppGeolocation" id="ppGeolocation" class="input-text">
-											<option value="deny" selected>完全無効化</option>
-											<option value="google-maps">Google マップ許可</option>
-											<option value="off">ポリシーから除外</option>
+											<option value="deny" selected>Disable completely</option>
+											<option value="google-maps">Allow Google Maps</option>
+											<option value="off">Exclude from policy</option>
 										</select>
 									</div>
 								</div>
 							</div>
 						</section>
 
-						<!-- キャッシュ & パフォーマンス -->
-						<section class="card" aria-label="キャッシュとパフォーマンス">
-							<h2 class="section-title">キャッシュ & パフォーマンス</h2>
+						<!-- Cache & Performance -->
+						<section class="card" aria-label="Cache and Performance">
+							<h2 class="section-title">Cache &amp; Performance</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="gzip">Gzip 圧縮</label>
+									<label class="toggle-label" for="gzip">Gzip compression</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="gzip" id="gzip" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="expires">ブラウザキャッシュ（Expires）</label>
+									<label class="toggle-label" for="expires">Browser cache (Expires)</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="expires" id="expires" aria-expanded="false" aria-controls="expires-sub-fields" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -710,216 +710,216 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label">CSS / JS</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend">CSS / JS のキャッシュ有効期限</legend>
+											<legend class="sub-legend">CSS / JS cache expiration</legend>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresScript" value="1 hour" />
-												<span>1時間</span>
+												<span>1 hour</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresScript" value="1 day" />
-												<span>1日</span>
+												<span>1 day</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresScript" value="1 week" />
-												<span>1週間</span>
+												<span>1 week</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresScript" value="1 month" />
-												<span>1ヶ月</span>
+												<span>1 month</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresScript" value="3 months" />
-												<span>3ヶ月</span>
+												<span>3 months</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresScript" value="1 year" checked />
-												<span>1年</span>
+												<span>1 year</span>
 											</label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<span class="cache-expiry-label">画像</span>
+										<span class="cache-expiry-label">Images</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend">画像のキャッシュ有効期限</legend>
+											<legend class="sub-legend">Image cache expiration</legend>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresImage" value="1 hour" />
-												<span>1時間</span>
+												<span>1 hour</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresImage" value="1 day" />
-												<span>1日</span>
+												<span>1 day</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresImage" value="1 week" />
-												<span>1週間</span>
+												<span>1 week</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresImage" value="1 month" checked />
-												<span>1ヶ月</span>
+												<span>1 month</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresImage" value="3 months" />
-												<span>3ヶ月</span>
+												<span>3 months</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresImage" value="1 year" />
-												<span>1年</span>
+												<span>1 year</span>
 											</label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<span class="cache-expiry-label">アイコン</span>
+										<span class="cache-expiry-label">Icons</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend">アイコンのキャッシュ有効期限</legend>
+											<legend class="sub-legend">Icon cache expiration</legend>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresIcon" value="1 hour" />
-												<span>1時間</span>
+												<span>1 hour</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresIcon" value="1 day" />
-												<span>1日</span>
+												<span>1 day</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresIcon" value="1 week" />
-												<span>1週間</span>
+												<span>1 week</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresIcon" value="1 month" />
-												<span>1ヶ月</span>
+												<span>1 month</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresIcon" value="3 months" />
-												<span>3ヶ月</span>
+												<span>3 months</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresIcon" value="1 year" checked />
-												<span>1年</span>
+												<span>1 year</span>
 											</label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<span class="cache-expiry-label">動画</span>
+										<span class="cache-expiry-label">Videos</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend">動画のキャッシュ有効期限</legend>
+											<legend class="sub-legend">Video cache expiration</legend>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresVideo" value="1 hour" />
-												<span>1時間</span>
+												<span>1 hour</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresVideo" value="1 day" />
-												<span>1日</span>
+												<span>1 day</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresVideo" value="1 week" />
-												<span>1週間</span>
+												<span>1 week</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresVideo" value="1 month" checked />
-												<span>1ヶ月</span>
+												<span>1 month</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresVideo" value="3 months" />
-												<span>3ヶ月</span>
+												<span>3 months</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresVideo" value="1 year" />
-												<span>1年</span>
+												<span>1 year</span>
 											</label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<span class="cache-expiry-label">フォント</span>
+										<span class="cache-expiry-label">Fonts</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend">フォントのキャッシュ有効期限</legend>
+											<legend class="sub-legend">Font cache expiration</legend>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFont" value="1 hour" />
-												<span>1時間</span>
+												<span>1 hour</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFont" value="1 day" />
-												<span>1日</span>
+												<span>1 day</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFont" value="1 week" />
-												<span>1週間</span>
+												<span>1 week</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFont" value="1 month" />
-												<span>1ヶ月</span>
+												<span>1 month</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFont" value="3 months" />
-												<span>3ヶ月</span>
+												<span>3 months</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFont" value="1 year" checked />
-												<span>1年</span>
+												<span>1 year</span>
 											</label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<span class="cache-expiry-label">フィード</span>
+										<span class="cache-expiry-label">Feeds</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend">フィードのキャッシュ有効期限</legend>
+											<legend class="sub-legend">Feed cache expiration</legend>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFeed" value="1 hour" checked />
-												<span>1時間</span>
+												<span>1 hour</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFeed" value="1 day" />
-												<span>1日</span>
+												<span>1 day</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFeed" value="1 week" />
-												<span>1週間</span>
+												<span>1 week</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFeed" value="1 month" />
-												<span>1ヶ月</span>
+												<span>1 month</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFeed" value="3 months" />
-												<span>3ヶ月</span>
+												<span>3 months</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresFeed" value="1 year" />
-												<span>1年</span>
+												<span>1 year</span>
 											</label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<span class="cache-expiry-label">その他（デフォルト）</span>
+										<span class="cache-expiry-label">Other (default)</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend">その他（デフォルト）のキャッシュ有効期限</legend>
+											<legend class="sub-legend">Other (default) cache expiration</legend>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresDefault" value="1 hour" />
-												<span>1時間</span>
+												<span>1 hour</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresDefault" value="1 day" />
-												<span>1日</span>
+												<span>1 day</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresDefault" value="1 week" />
-												<span>1週間</span>
+												<span>1 week</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresDefault" value="1 month" checked />
-												<span>1ヶ月</span>
+												<span>1 month</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresDefault" value="3 months" />
-												<span>3ヶ月</span>
+												<span>3 months</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="expiresDefault" value="1 year" />
-												<span>1年</span>
+												<span>1 year</span>
 											</label>
 										</fieldset>
 									</div>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="cacheControl">Cache-Control ヘッダー</label>
+									<label class="toggle-label" for="cacheControl">Cache-Control headers</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="cacheControl" id="cacheControl" aria-expanded="false" aria-controls="cache-control-sub-fields" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -929,133 +929,133 @@
 									<div class="cache-expiry-row">
 										<span class="cache-expiry-label">CSS / JS</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend">CSS / JS の Cache-Control max-age</legend>
+											<legend class="sub-legend">CSS / JS Cache-Control max-age</legend>
 											<label class="sub-option-label">
 												<input type="radio" name="ccScript" value="3600" />
-												<span>1時間</span>
+												<span>1 hour</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccScript" value="86400" />
-												<span>1日</span>
+												<span>1 day</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccScript" value="604800" />
-												<span>1週間</span>
+												<span>1 week</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccScript" value="2592000" />
-												<span>1ヶ月</span>
+												<span>1 month</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccScript" value="7776000" />
-												<span>3ヶ月</span>
+												<span>3 months</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccScript" value="31536000" checked />
-												<span>1年</span>
+												<span>1 year</span>
 											</label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<span class="cache-expiry-label">画像・アイコン</span>
+										<span class="cache-expiry-label">Images / Icons</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend">画像・アイコンの Cache-Control max-age</legend>
+											<legend class="sub-legend">Images / Icons Cache-Control max-age</legend>
 											<label class="sub-option-label">
 												<input type="radio" name="ccImage" value="3600" />
-												<span>1時間</span>
+												<span>1 hour</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccImage" value="86400" />
-												<span>1日</span>
+												<span>1 day</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccImage" value="604800" />
-												<span>1週間</span>
+												<span>1 week</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccImage" value="2592000" checked />
-												<span>1ヶ月</span>
+												<span>1 month</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccImage" value="7776000" />
-												<span>3ヶ月</span>
+												<span>3 months</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccImage" value="31536000" />
-												<span>1年</span>
+												<span>1 year</span>
 											</label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<span class="cache-expiry-label">フォント</span>
+										<span class="cache-expiry-label">Fonts</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend">フォントの Cache-Control max-age</legend>
+											<legend class="sub-legend">Font Cache-Control max-age</legend>
 											<label class="sub-option-label">
 												<input type="radio" name="ccFont" value="3600" />
-												<span>1時間</span>
+												<span>1 hour</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccFont" value="86400" />
-												<span>1日</span>
+												<span>1 day</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccFont" value="604800" />
-												<span>1週間</span>
+												<span>1 week</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccFont" value="2592000" />
-												<span>1ヶ月</span>
+												<span>1 month</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccFont" value="7776000" />
-												<span>3ヶ月</span>
+												<span>3 months</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccFont" value="31536000" checked />
-												<span>1年</span>
+												<span>1 year</span>
 											</label>
 										</fieldset>
 									</div>
 									<div class="cache-expiry-row">
-										<span class="cache-expiry-label">動画</span>
+										<span class="cache-expiry-label">Videos</span>
 										<fieldset class="sub-fieldset cache-expiry-options">
-											<legend class="sub-legend">動画の Cache-Control max-age</legend>
+											<legend class="sub-legend">Video Cache-Control max-age</legend>
 											<label class="sub-option-label">
 												<input type="radio" name="ccVideo" value="3600" />
-												<span>1時間</span>
+												<span>1 hour</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccVideo" value="86400" />
-												<span>1日</span>
+												<span>1 day</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccVideo" value="604800" />
-												<span>1週間</span>
+												<span>1 week</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccVideo" value="2592000" checked />
-												<span>1ヶ月</span>
+												<span>1 month</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccVideo" value="7776000" />
-												<span>3ヶ月</span>
+												<span>3 months</span>
 											</label>
 											<label class="sub-option-label">
 												<input type="radio" name="ccVideo" value="31536000" />
-												<span>1年</span>
+												<span>1 year</span>
 											</label>
 										</fieldset>
 									</div>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="etagDisable">ETag 無効化</label>
+									<label class="toggle-label" for="etagDisable">Disable ETag</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="etagDisable" id="etagDisable" />
 										<span class="toggle-track" aria-hidden="true"></span>
 									</label>
 								</div>
 								<div class="toggle-row">
-									<label class="toggle-label" for="mimeType">MIME タイプ追加</label>
+									<label class="toggle-label" for="mimeType">Add MIME types</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="mimeType" id="mimeType" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -1064,12 +1064,12 @@
 							</div>
 						</section>
 
-						<!-- wp-admin Basic 認証 -->
-						<section class="card" aria-label="wp-admin Basic 認証">
-							<h2 class="section-title">wp-admin Basic 認証</h2>
+						<!-- wp-admin Basic Auth -->
+						<section class="card" aria-label="wp-admin Basic Auth">
+							<h2 class="section-title">wp-admin Basic Auth</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="wpAdminBasicAuth">管理画面に Basic 認証</label>
+									<label class="toggle-label" for="wpAdminBasicAuth">Basic Auth for admin panel</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="wpAdminBasicAuth" id="wpAdminBasicAuth" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -1077,38 +1077,38 @@
 								</div>
 								<div class="wp-admin-fields" hidden>
 									<div class="input-group">
-										<label for="adminHtpasswdPath" class="input-label">.htpasswd のフルパス</label>
+										<label for="adminHtpasswdPath" class="input-label">Full path to .htpasswd</label>
 										<input type="text" name="adminHtpasswdPath" id="adminHtpasswdPath" class="input-text" placeholder="/home/username/.htpasswd" autocomplete="off" spellcheck="false" />
 									</div>
-									<p class="sub-options-hint" id="admin-htpasswd-hint" hidden aria-live="polite">.htpasswd のフルパスを入力すると反映されます</p>
+									<p class="sub-options-hint" id="admin-htpasswd-hint" hidden aria-live="polite">Enter the full path to .htpasswd to apply</p>
 									<div class="toggle-row">
-										<label class="toggle-label" for="ajaxExclude">admin-ajax.php を除外</label>
+										<label class="toggle-label" for="ajaxExclude">Exclude admin-ajax.php</label>
 										<label class="toggle-switch">
 											<input type="checkbox" name="ajaxExclude" id="ajaxExclude" checked />
 											<span class="toggle-track" aria-hidden="true"></span>
 										</label>
 									</div>
 									<div class="toggle-row">
-										<label class="toggle-label" for="upgradeIpExclude">upgrade.php のサーバー内部 IP 除外</label>
+										<label class="toggle-label" for="upgradeIpExclude">Exclude upgrade.php for server internal IP</label>
 										<label class="toggle-switch">
 											<input type="checkbox" name="upgradeIpExclude" id="upgradeIpExclude" />
 											<span class="toggle-track" aria-hidden="true"></span>
 										</label>
 									</div>
 									<div class="input-group">
-										<label for="serverIp" class="input-label">サーバー内部 IP</label>
+										<label for="serverIp" class="input-label">Server internal IP</label>
 										<input type="text" name="serverIp" id="serverIp" class="input-text" placeholder="127.0.0.1" autocomplete="off" spellcheck="false" />
 									</div>
 								</div>
 							</div>
 						</section>
 
-						<!-- Uploads -->
-						<section class="card" aria-label="wp-content/uploads 保護">
-							<h2 class="section-title">wp-content/uploads 保護</h2>
+						<!-- Uploads Protection -->
+						<section class="card" aria-label="wp-content/uploads Protection">
+							<h2 class="section-title">wp-content/uploads Protection</h2>
 							<div class="form-group">
 								<div class="toggle-row">
-									<label class="toggle-label" for="blockPhp">PHP 実行を禁止</label>
+									<label class="toggle-label" for="blockPhp">Disable PHP execution</label>
 									<label class="toggle-switch">
 										<input type="checkbox" name="blockPhp" id="blockPhp" />
 										<span class="toggle-track" aria-hidden="true"></span>
@@ -1118,25 +1118,25 @@
 						</section>
 					</div>
 
-					<!-- ── プレビューパネル ────────────────── -->
+					<!-- ── Preview Panel ────────────────────── -->
 					<div class="preview-panel">
-						<section class="card card-preview" aria-label=".htaccess プレビュー">
-							<h2 class="section-title">プレビュー</h2>
+						<section class="card card-preview" aria-label=".htaccess Preview">
+							<h2 class="section-title">Preview</h2>
 
-							<!-- タブ -->
-							<div class="tab-list" role="tablist" aria-label="生成ファイルの切り替え">
-								<button type="button" class="tab-btn active" data-tab="root" role="tab" aria-selected="true">ルート .htaccess</button>
+							<!-- Tabs -->
+							<div class="tab-list" role="tablist" aria-label="Switch generated file">
+								<button type="button" class="tab-btn active" data-tab="root" role="tab" aria-selected="true">Root .htaccess</button>
 								<button type="button" class="tab-btn" data-tab="wp-admin" role="tab" aria-selected="false" hidden>wp-admin</button>
 								<button type="button" class="tab-btn" data-tab="uploads" role="tab" aria-selected="false" hidden>uploads</button>
 							</div>
 
-							<!-- コード表示 -->
-							<pre class="preview-pre"><code class="preview-code" data-empty># オプションを選択してください</code></pre>
+							<!-- Code display -->
+							<pre class="preview-pre"><code class="preview-code" data-empty="# Select options to generate"># Select options to generate</code></pre>
 
-							<!-- アクションボタン -->
+							<!-- Action buttons -->
 							<div class="preview-actions">
-								<button type="button" class="btn btn-primary btn-copy" aria-label="表示中の内容をクリップボードにコピー">コピー</button>
-								<button type="button" class="btn btn-secondary btn-download" aria-label="表示中の内容を .htaccess ファイルとしてダウンロード">ダウンロード</button>
+								<button type="button" class="btn btn-primary btn-copy" aria-label="Copy current content to clipboard">Copy</button>
+								<button type="button" class="btn btn-secondary btn-download" aria-label="Download current content as .htaccess file">Download</button>
 							</div>
 						</section>
 					</div>
@@ -1152,10 +1152,10 @@
 				&nbsp;|&nbsp;
 				<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener">GitHub</a>
 				&nbsp;|&nbsp;
-				<a href="/terms" rel="nofollow noreferrer">利用規約</a>
+				<a href="/en/terms/" rel="nofollow noreferrer">Terms of Use</a>
 			</p>
 		</footer>
 
-		<script type="module" src="assets/js/main.js"></script>
+		<script type="module" src="../assets/js/main.js"></script>
 	</body>
 </html>

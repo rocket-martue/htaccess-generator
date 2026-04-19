@@ -43,15 +43,6 @@ body {
 	}
 }
 
-html.i18n-pending {
-	visibility: hidden;
-	animation: i18n-fallback-show 2s forwards;
-}
-
-@keyframes i18n-fallback-show {
-	to { visibility: visible; }
-}
-
 a {
 	color: var(--accent-solid);
 	text-decoration: none;

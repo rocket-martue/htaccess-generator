@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Explanation of HTTP security response headers - their purpose, threat coverage, and configuration values for WordPress sites" />
+		<!-- OGP -->
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="Security Headers Guide" />
+		<meta property="og:description" content="Explanation of HTTP security response headers - their purpose, threat coverage, and configuration values for WordPress sites" />
+		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/en/security-headers-guide/" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:site_name" content=".htaccess Generator" />
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Security Headers Guide" />
+		<meta name="twitter:description" content="Explanation of HTTP security response headers - their purpose, threat coverage, and configuration values for WordPress sites" />
+		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
+		<meta name="license" content="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
+
+		<link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
+		<link rel="canonical" href="https://htaccess-generator-b46.pages.dev/en/security-headers-guide/" />
+		<link rel="alternate" hreflang="ja" href="https://htaccess-generator-b46.pages.dev/security-headers-guide/" />
+		<link rel="alternate" hreflang="en" href="https://htaccess-generator-b46.pages.dev/en/security-headers-guide/" />
+		<link rel="alternate" hreflang="x-default" href="https://htaccess-generator-b46.pages.dev/security-headers-guide/" />
+		<title>Security Headers Guide | .htaccess Generator</title>
+		<script>
+			try {
+				if (window.localStorage && localStorage.getItem("htaccess-theme") === "dark") {
+					document.documentElement.setAttribute("data-theme", "dark");
+				}
+			} catch (e) {
+				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
+			}
+		</script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap" />
+		<link rel="stylesheet" href="../../assets/css/style.css" />
+	</head>
+
+	<body>
+		<a href="#main-content" class="skip-link">Skip to main content</a>
+		<div class="app-wrapper">
+			<header class="app-header">
+				<h1>
+					<a href="../../en/">.htaccess Generator</a>
+					<span class="h1-sub">for WordPress</span>
+				</h1>
+				<p>Security Headers Guide</p>
+				<div class="header-actions">
+					<a href="/security-headers-guide/" class="lang-toggle-btn" aria-label="日本語に切り替え"><span class="lang-toggle-icon" aria-hidden="true">🌐</span><span class="lang-toggle-label">JA</span></a>
+					<button type="button" class="theme-toggle-btn" aria-label="Switch to dark mode" aria-pressed="false">
+						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+						<span class="theme-toggle-label">Dark</span>
+					</button>
+					<button type="button" class="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav-menu">
+						<span class="bar"></span>
+						<span class="bar"></span>
+						<span class="menu-label" aria-hidden="true">MENU</span>
+					</button>
+				</div>
+			</header>
+
+			<nav class="site-nav" id="site-nav-menu" hidden aria-label="Site navigation">
+				<div class="site-nav-card">
+					<ul class="site-nav-list">
+						<li>
+							<a href="../../en/">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align: -0.125em; margin-right: 0.3em"><path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" /></svg>
+								<span>Generator</span>
+							</a>
+						</li>
+						<li>
+							<a href="../htaccess-basics-guide/">.htaccess Basics</a>
+						</li>
+						<li>
+							<a href="../directives-guide/">Directives</a>
+						</li>
+						<li>
+							<a href="../security-headers-guide/" aria-current="page">Security Headers</a>
+						</li>
+						<li>
+							<a href="../cache-performance-guide/">Cache &amp; Performance</a>
+						</li>
+						<li>
+							<a href="../wp-protection-guide/">wp-admin Protection</a>
+						</li>
+						<li>
+							<a href="../options-errordocument-guide/">Options &amp; ErrorDocument</a>
+						</li>
+						<li>
+							<a href="../recovery-guide/">Recovery</a>
+						</li>
+						<li>
+							<a href="../terms/">Terms of Use</a>
+						</li>
+						<li>
+							<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener noreferrer">
+								GitHub
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align: -0.125em; margin-left: 0.15em"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" /></svg>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main id="main-content">
+				<article class="card article">
+					<!-- イントロダクション -->
+					<section>
+					<h2>What Are Security Headers?</h2>
+
+					<p>Security headers are HTTP response headers that a server attaches to its responses to the browser. The browser reads these headers and automatically applies various security behaviors — such as restricting script execution, enforcing HTTPS communication, and blocking iframe embedding.</p>
+					<p>
+						Because they can be applied without modifying application-layer code (PHP or JavaScript), they are widely used as a server-level layer of defense through
+						<code>.htaccess</code>
+						.
+					</p>
+
+					<h3>Benefits of configuring security headers</h3>
+					<ul>
+						<li>
+							<strong>No code changes required</strong>
+							— You can defend against many attacks with server configuration alone, without touching plugin or theme code.
+						</li>
+						<li>
+							<strong>Reliably activates browser security features</strong>
+							— Modern browsers have many built-in security features, but many of them are not enabled automatically unless instructed by a header.
+						</li>
+						<li>
+							<strong>Improves security scan ratings</strong>
+							— Scores improve in assessment tools such as Mozilla Observatory and Security Headers, demonstrating the trustworthiness of your site.
+						</li>
+						<li>
+							<strong>Limits the blast radius of WordPress plugin vulnerabilities</strong>
+							— Even if a plugin with an XSS vulnerability is exploited, CSP and X-Content-Type-Options act as a second line of defense.
+						</li>
+					</ul>
+
+					<h3>Caveats and drawbacks</h3>
+					<ul>
+						<li>
+							<strong>Misconfiguration can break your site</strong>
+							— CSP in particular can block JavaScript, CSS, or images if the policy is too strict. Always test with Report-Only mode first.
+						</li>
+						<li>
+							<strong>May conflict with plugins</strong>
+							— If a WordPress plugin already outputs security headers on its own, they may duplicate with
+							<code>.htaccess</code>
+							. Disable the plugin's header output or consolidate to one source.
+						</li>
+						<li>
+							<strong>HSTS is difficult to undo once set</strong>
+							— Once cached by the browser, reverting to HTTP requires gradually reducing
+							<code>max-age</code>
+							and waiting for the cache to expire.
+						</li>
+					</ul>
+
+					<h3>Headers configurable in the generator</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Header</th>
+									<th>Primary threat defended against</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code>Strict-Transport-Security</code>
+										(HSTS)
+									</td>
+									<td>HTTP→HTTPS downgrade attacks / man-in-the-middle (MITM)</td>
+								</tr>
+								<tr>
+									<td>
+										<code>Content-Security-Policy</code>
+										(CSP)
+									</td>
+									<td>XSS / Mixed Content / clickjacking</td>
+								</tr>
+								<tr>
+									<td><code>X-Content-Type-Options</code></td>
+									<td>XSS via MIME sniffing</td>
+								</tr>
+								<tr>
+									<td><code>X-Frame-Options</code></td>
+									<td>Clickjacking</td>
+								</tr>
+								<tr>
+									<td><code>Referrer-Policy</code></td>
+									<td>Leakage of sensitive information contained in URLs</td>
+								</tr>
+								<tr>
+									<td><code>Permissions-Policy</code></td>
+									<td>Unauthorized use of device APIs (camera, microphone, etc.)</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<blockquote>
+						<p>
+							All of these headers are output through Apache's
+							<code>mod_headers</code>
+							module. Wrapping them in
+							<code>&lt;IfModule mod_headers.c&gt;</code>
+							prevents 500 errors in environments where the module is not enabled.
+						</p>
+					</blockquote>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- Header set vs Header always set -->
+					<section>
+					<h2><code>Header set</code> vs <code>Header always set</code></h2>
+
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Directive</th>
+									<th>Scope</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>Header set</code></td>
+									<td>Success responses (2xx) only</td>
+								</tr>
+								<tr>
+									<td><code>Header always set</code></td>
+									<td>Applied to error responses (403 / 404, etc.) as well</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<blockquote>
+						<p>
+							Always use
+							<code>Header always set</code>
+							for security headers. The
+							<code>always</code>
+							keyword is required so the browser receives security instructions even on error pages.
+						</p>
+					</blockquote>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- HSTS -->
+					<section>
+					<h2>HSTS (HTTP Strict Transport Security)</h2>
+
+					<pre class="article-code"><code>Header always set Strict-Transport-Security \
+  "max-age=63072000; includeSubDomains; preload" \
+  "expr=%{HTTPS} == 'on' || %{HTTP:X-Forwarded-Proto} == 'https'"</code></pre>
+
+					<h3>Role</h3>
+					<p>This header declares to the browser: "Always connect to this site over HTTPS from now on."</p>
+					<p>
+						An HTTPS redirect in
+						<code>.htaccess</code>
+						works only after the request reaches the server. HSTS upgrades the connection on the browser side before the request is even sent,
+						<strong>eliminating the risk of man-in-the-middle (MITM) attacks</strong>
+						.
+					</p>
+
+					<h3>What each parameter means</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Parameter</th>
+									<th>Meaning</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>max-age=63072000</code></td>
+									<td>How long the browser should cache the HSTS policy (in seconds). 63,072,000 s = 2 years</td>
+								</tr>
+								<tr>
+									<td><code>includeSubDomains</code></td>
+									<td>Apply HSTS to all subdomains as well</td>
+								</tr>
+								<tr>
+									<td><code>preload</code></td>
+									<td>Signal intent to be added to browser HSTS preload lists (enforces HTTPS even on the very first visit)</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h3>The role of the <code>expr=</code> condition (reverse-proxy support)</h3>
+					<p>
+						Shared hosting services such as XServer and ConoHa WING use a Nginx → Apache reverse-proxy architecture. In this setup, even when a user connects over HTTPS, Apache receives the request over plain HTTP internally, so
+						<code>%{HTTPS}</code>
+						alone cannot detect the original protocol.
+					</p>
+
+					<pre class="article-code"><code>User →(HTTPS)→ Nginx (TLS termination) →(HTTP)→ Apache</code></pre>
+
+					<p>
+						The
+						<code>expr=</code>
+						condition uses Apache's Expression evaluation engine to send the header only when either an HTTPS connection or an
+						<code>X-Forwarded-Proto: https</code>
+						header is detected. This prevents the HSTS header from being sent on plain-HTTP requests.
+					</p>
+
+					<blockquote>
+						<p>
+							Before enabling
+							<code>includeSubDomains</code>
+							, verify that every subdomain already supports HTTPS. Any subdomain that does not support HTTPS will become inaccessible.
+						</p>
+					</blockquote>
+
+					<p>
+						The generator lets you toggle
+						<code>includeSubDomains</code>
+						and
+						<code>preload</code>
+						independently. Turn off
+						<code>includeSubDomains</code>
+						if any subdomain lacks HTTPS, and turn off
+						<code>preload</code>
+						if you do not intend to register with a preload list.
+					</p>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- CSP -->
+					<section>
+					<h2>CSP (Content Security Policy)</h2>
+
+					<pre class="article-code"><code>Header always set Content-Security-Policy \
+  "upgrade-insecure-requests; \
+   script-src 'self' 'unsafe-inline' 'unsafe-eval'; \
+   style-src 'self' 'unsafe-inline'; \
+   img-src 'self' data:; \
+   frame-src https://www.youtube.com https://www.google.com; \
+   frame-ancestors 'self'"</code></pre>
+
+					<h3>The role of <code>upgrade-insecure-requests</code></h3>
+					<p>
+						This directive instructs the browser to automatically upgrade
+						<code>http://</code>
+						resources (images, CSS, JS, etc.) on the page to
+						<code>https://</code>
+						. It is used to automatically fix Mixed Content pages (pages that mix HTTP and HTTPS resources).
+					</p>
+					<p>
+						In the generator, enabling CSP always includes
+						<code>upgrade-insecure-requests</code>
+						in the output (it cannot be removed). Individual directives can then be toggled on or off independently.
+					</p>
+
+					<h3>Directives configurable in the generator</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Directive</th>
+									<th>What it restricts</th>
+									<th>Default value</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>default-src</code></td>
+									<td>Fallback for any directive not explicitly specified</td>
+									<td><code>'self'</code></td>
+								</tr>
+								<tr>
+									<td><code>script-src</code></td>
+									<td>Allowed origins for JavaScript</td>
+									<td><code>'self'</code></td>
+								</tr>
+								<tr>
+									<td><code>style-src</code></td>
+									<td>Allowed origins for CSS</td>
+									<td><code>'self'</code></td>
+								</tr>
+								<tr>
+									<td><code>img-src</code></td>
+									<td>Allowed origins for images</td>
+									<td><code>'self' data:</code></td>
+								</tr>
+								<tr>
+									<td><code>font-src</code></td>
+									<td>Allowed origins for fonts</td>
+									<td><code>'self'</code></td>
+								</tr>
+								<tr>
+									<td><code>connect-src</code></td>
+									<td>Allowed destinations for Ajax / Fetch / WebSocket</td>
+									<td><code>'self'</code></td>
+								</tr>
+								<tr>
+									<td><code>frame-src</code></td>
+									<td>External URLs that can be loaded in iframes. Shortcuts for YouTube / Google Maps available.</td>
+									<td><code>'none'</code></td>
+								</tr>
+								<tr>
+									<td><code>frame-ancestors</code></td>
+									<td>Parent URLs that are allowed to embed this page in an iframe (supersedes X-Frame-Options)</td>
+									<td><code>'self'</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h3>WordPress-specific considerations</h3>
+					<p>
+						WordPress core, the Gutenberg block editor, and admin-panel plugins rely heavily on inline scripts, inline styles, and
+						<code>eval()</code>
+						, so
+						<code>'unsafe-inline'</code>
+						/
+						<code>'unsafe-eval'</code>
+						are required in the wp-admin area.
+					</p>
+					<p>
+						When CSP is enabled, the generator automatically produces separate CSP directives for wp-admin / wp-login.php and the front end. The front end is hardened without
+						<code>unsafe-*</code>
+						, while the admin area receives a CSP that includes the necessary
+						<code>unsafe-*</code>
+						values, so both can coexist.
+					</p>
+
+					<h3>The img-src / OG image pitfall</h3>
+					<p>
+						Explicitly specifying
+						<code>img-src</code>
+						disables the
+						<code>default-src</code>
+						fallback for images. Watch out for this common mistake:
+					</p>
+
+					<pre class="article-code"><code># WRONG: forgetting 'self' blocks images on your own site
+img-src data:
+
+# CORRECT: always include 'self'
+img-src 'self' data:</code></pre>
+
+					<blockquote>
+						<p>
+							OG images (thumbnails used when sharing on social media) are also subject to this rule. Always include
+							<code>'self'</code>
+							whenever you write
+							<code>img-src</code>
+							.
+						</p>
+					</blockquote>
+
+					<h3>Admin-area CSP branching (WordPress)</h3>
+					<p>
+						When CSP is enabled in the generator, it automatically outputs different CSP directives for the front end and for wp-admin / wp-login.php. The front end excludes
+						<code>unsafe-*</code>
+						from script-src / style-src, while the admin area gets a CSP with the unsafe-inline / unsafe-eval values that WordPress requires pre-applied.
+					</p>
+
+					<pre class="article-code"><code># Front end (everything except wp-admin and wp-login.php)
+&lt;If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\.php)#"&gt;
+    Header always set Content-Security-Policy "upgrade-insecure-requests; ..."
+&lt;/If&gt;
+
+# Admin panel and login page
+&lt;If "%{REQUEST_URI} =~ m#^/wp-(admin(?:/|$)|login\.php)#"&gt;
+    Header always set Content-Security-Policy "upgrade-insecure-requests; default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'self'"
+&lt;/If&gt;</code></pre>
+
+					<p>
+						The admin-area CSP is generated dynamically based on the directives the user has selected.
+						<code>'unsafe-inline'</code>
+						and
+						<code>'unsafe-eval'</code>
+						are added automatically to
+						<code>script-src</code>
+						, and
+						<code>'unsafe-inline'</code>
+						is added to
+						<code>style-src</code>
+						, ensuring that the Gutenberg block editor and core admin screens function correctly.
+					</p>
+
+					<blockquote>
+						<p>
+							Even if
+							<code>script-src</code>
+							/
+							<code>style-src</code>
+							are not explicitly enabled, if
+							<code>default-src</code>
+							is enabled the admin-area CSP will inherit its value and add explicit
+							<code>script-src</code>
+							/
+							<code>style-src</code>
+							entries.
+						</p>
+					</blockquote>
+
+					<h3>Report-Only mode</h3>
+					<p>
+						Applying CSP directly to a production site can break it. The safe approach is to first use the
+						<code>Content-Security-Policy-Report-Only</code>
+						header to collect violation reports, verify them, and then switch to enforcing mode.
+					</p>
+
+					<pre class="article-code"><code># Test mode (reports violations without actually blocking anything)
+Header always set Content-Security-Policy-Report-Only "default-src 'self'; report-uri /csp-report"</code></pre>
+
+					<blockquote>
+						<p>
+							<code>upgrade-insecure-requests</code>
+							is ignored in Report-Only mode. Because it is an action directive (upgrading resources), not a restriction directive, it should only be included in an enforcing CSP.
+						</p>
+					</blockquote>
+
+					<h4>Checking violations in DevTools</h4>
+					<p>With the Report-Only header in place, open your site and go to the browser DevTools (F12) → Console tab. Any CSP violations will appear as errors like this:</p>
+
+					<pre class="article-code"><code>Refused to load the script 'https://www.googletagmanager.com/gtm.js'
+because it violates the following Content Security Policy directive:
+"script-src 'self'"</code></pre>
+
+					<p>
+						Review the violations in the Console, add the required origins to the appropriate directives, and then switch to Enforce mode (
+						<code>Content-Security-Policy</code>
+						).
+					</p>
+
+					<h4>Collecting violation reports (report-uri / report-to)</h4>
+					<p>
+						CSP violation reports can be sent via the traditional
+						<code>report-uri</code>
+						directive, and in CSP Level 3 also via
+						<code>report-to</code>
+						and
+						<code>Reporting-Endpoints</code>
+						(or the older
+						<code>Report-To</code>
+						header for compatibility). Since
+						<code>report-uri</code>
+						is deprecated but still widely supported, combining both is the most practical approach for collecting real-user violations that DevTools alone cannot capture.
+					</p>
+
+					<pre class="article-code"><code>Header always set Reporting-Endpoints "csp-endpoint=\"/wp-json/csp-report/v1/collect\""
+Header always set Report-To "{\"group\":\"csp-endpoint\",\"max_age\":10886400,\"endpoints\":[{\"url\":\"https://example.com/wp-json/csp-report/v1/collect\"}]}"
+Header always set Content-Security-Policy-Report-Only \
+  "default-src 'self'; report-uri /wp-json/csp-report/v1/collect; report-to csp-endpoint"</code></pre>
+
+					<blockquote>
+						<p>
+							<code>Reporting-Endpoints</code>
+							is the modern syntax, while
+							<code>Report-To</code>
+							is the older Reporting API header. Because browser support differs, include both if compatibility is important. The long-term direction is to migrate to the
+							<code>report-to</code>
+							approach, but combining it with
+							<code>report-uri</code>
+							is the safe choice for now.
+						</p>
+					</blockquote>
+
+					<p>
+						Example: implementing a
+						<code>report-uri</code>
+						receiver endpoint in the WordPress REST API:
+					</p>
+
+					<blockquote>
+						<p>
+							The
+							<code>report-to</code>
+							(Reporting API) format differs — it uses
+							<code>application/reports+json</code>
+							, an array, and a
+							<code>type: "csp-violation"</code>
+							field — and requires a separate receiver implementation. The example below is for
+							<code>report-uri</code>
+							only.
+						</p>
+					</blockquote>
+
+					<pre class="article-code"><code>add_action( 'rest_api_init', function () {
+    register_rest_route( 'csp-report/v1', '/collect', array(
+        'methods'             =&gt; 'POST',
+        'callback'            =&gt; function ( WP_REST_Request $request ) {
+            // Validate Content-Type (report-uri sends application/csp-report or application/json)
+            $content_type = (string) $request-&gt;get_header( 'Content-Type' );
+            if ( false === strpos( $content_type, 'application/csp-report' )
+                &amp;&amp; false === strpos( $content_type, 'application/json' ) ) {
+                return new WP_REST_Response( null, 415 );
+            }
+            // Enforce body size limit (4 KB)
+            $body = $request-&gt;get_body();
+            if ( strlen( $body ) &gt; 4096 ) {
+                return new WP_REST_Response( null, 413 );
+            }
+            $data   = json_decode( $body, true );
+            $report = isset( $data['csp-report'] ) ? $data['csp-report'] : array();
+            // Save only the fields needed (exclude document-uri / referrer — they may contain PII)
+            $log = array(
+                'blocked-uri'         =&gt; isset( $report['blocked-uri'] ) ? $report['blocked-uri'] : '',
+                'violated-directive'  =&gt; isset( $report['violated-directive'] ) ? $report['violated-directive'] : '',
+                'effective-directive' =&gt; isset( $report['effective-directive'] ) ? $report['effective-directive'] : '',
+            );
+            error_log( 'CSP violation: ' . wp_json_encode( $log ) );
+            return new WP_REST_Response( null, 204 );
+        },
+        'permission_callback' =&gt; '__return_true',
+    ) );
+} );</code></pre>
+
+					<blockquote>
+						<p>
+							Anyone can POST to a CSP report endpoint. Saving reports without validation can lead to log poisoning, log bloat (DoS), and recording of personally identifiable information (PII) such as URLs and Referer values. In production, avoid persisting fields that may contain PII (e.g.
+							<code>document-uri</code>
+							/
+							<code>referrer</code>
+							), and always enforce body-size limits and Content-Type validation. Delegating to an external service is also a valid option when a high volume of reports is expected.
+						</p>
+					</blockquote>
+
+					<h4>Using an external service</h4>
+					<p>Instead of hosting your own endpoint, you can delegate report collection to a SaaS service.</p>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Service</th>
+									<th>Notes</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<a href="https://report-uri.com" rel="noopener noreferrer" target="_blank">report-uri.com</a>
+									</td>
+									<td>Collects and visualizes CSP, CT, and HPKP reports. Free plan available.</td>
+								</tr>
+								<tr>
+									<td>
+										<a href="https://sentry.io" rel="noopener noreferrer" target="_blank">Sentry</a>
+									</td>
+									<td>Error-monitoring platform that also accepts CSP reports.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- X-Content-Type-Options -->
+					<section>
+					<h2>X-Content-Type-Options</h2>
+
+					<pre class="article-code"><code>Header always set X-Content-Type-Options "nosniff"</code></pre>
+
+					<h3>Role and threat model</h3>
+					<p>This header disables the browser's ability to automatically guess (sniff) the MIME type of a response.</p>
+					<p>
+						One known attack that exploits MIME sniffing involves uploading a JavaScript file disguised as an image and tricking the browser into executing it as a script (XSS). Specifying
+						<code>nosniff</code>
+						forces the browser to strictly respect the
+						<code>Content-Type</code>
+						header value returned by the server, preventing this attack.
+					</p>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- X-Frame-Options -->
+					<section>
+					<h2>X-Frame-Options</h2>
+
+					<pre class="article-code"><code>Header always set X-Frame-Options "SAMEORIGIN"</code></pre>
+
+					<h3>Role and threat model</h3>
+					<p>
+						This header restricts other sites from embedding your pages inside an
+						<code>&lt;iframe&gt;</code>
+						, protecting against clickjacking attacks.
+					</p>
+					<p>
+						Clickjacking is an attack technique where an attacker overlays your site in a transparent
+						<code>iframe</code>
+						on their own page, tricking users into clicking invisible buttons or links.
+					</p>
+
+					<h3>Directive values</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Value</th>
+									<th>Meaning</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>SAMEORIGIN</code></td>
+									<td>Allow embedding from the same origin only (recommended)</td>
+								</tr>
+								<tr>
+									<td><code>DENY</code></td>
+									<td>Block all embedding</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<p>
+						The generator lets you choose between
+						<code>SAMEORIGIN</code>
+						(default) and
+						<code>DENY</code>
+						. If your site never embeds its own pages in iframes,
+						<code>DENY</code>
+						provides stricter protection.
+					</p>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- Referrer-Policy -->
+					<section>
+					<h2>Referrer-Policy</h2>
+
+					<pre class="article-code"><code>Header always set Referrer-Policy "strict-origin-when-cross-origin"</code></pre>
+
+					<h3>Role</h3>
+					<p>
+						Controls how much information the browser includes in the
+						<code>Referer</code>
+						header when a user follows a link to another site. Because URLs may contain admin paths or personal information, this header prevents that data from leaking to external sites.
+					</p>
+
+					<h3>Available policies</h3>
+					<p>
+						The generator lets you choose from the following 8 policies. The default is
+						<code>strict-origin-when-cross-origin</code>
+						(recommended).
+					</p>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Policy</th>
+									<th>Behavior</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>no-referrer</code></td>
+									<td>Never send a referrer</td>
+								</tr>
+								<tr>
+									<td><code>no-referrer-when-downgrade</code></td>
+									<td>No referrer on HTTPS→HTTP downgrade; full URL otherwise</td>
+								</tr>
+								<tr>
+									<td><code>origin</code></td>
+									<td>Always send the origin (domain) only</td>
+								</tr>
+								<tr>
+									<td><code>origin-when-cross-origin</code></td>
+									<td>Full URL for same-origin; origin only for cross-origin</td>
+								</tr>
+								<tr>
+									<td><code>same-origin</code></td>
+									<td>Full URL for same-origin only; nothing for cross-origin</td>
+								</tr>
+								<tr>
+									<td><code>strict-origin</code></td>
+									<td>Origin only; nothing on downgrade</td>
+								</tr>
+								<tr>
+									<td><code>strict-origin-when-cross-origin</code></td>
+									<td>
+										Full URL for same-origin; origin only for cross-origin; nothing on downgrade (
+										<strong>recommended</strong>
+										)
+									</td>
+								</tr>
+								<tr>
+									<td><code>unsafe-url</code></td>
+									<td>
+										Always send the full URL (
+										<strong>not recommended</strong>
+										— path information leaks to external sites)
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h3><code>strict-origin-when-cross-origin</code> behavior details</h3>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Destination</th>
+									<th>What is sent</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Same origin (within your site)</td>
+									<td>Complete URL including path</td>
+								</tr>
+								<tr>
+									<td>External origin (https→https)</td>
+									<td>
+										Origin only (
+										<code>https://example.com</code>
+										)
+									</td>
+								</tr>
+								<tr>
+									<td>External origin (https→http)</td>
+									<td>Nothing</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- Permissions-Policy -->
+					<section>
+					<h2>Permissions-Policy</h2>
+
+					<pre class="article-code"><code>Header always set Permissions-Policy \
+  "camera=(), microphone=(), payment=(), usb=(), gyroscope=(), magnetometer=(), geolocation=()"</code></pre>
+
+					<h3>Role</h3>
+					<p>Restricts access to powerful browser APIs (camera, microphone, payment, etc.). Disabling device APIs that a typical WordPress site doesn't need prevents malware or XSS attacks from calling them without authorization.</p>
+
+					<p>
+						Empty parentheses
+						<code>()</code>
+						completely disable that feature — no origin is allowed to use it.
+					</p>
+
+					<h3>Configurable features</h3>
+					<p>
+						The generator lets you toggle each feature individually. Enabling a feature outputs
+						<code>feature=()</code>
+						to restrict it; disabling it excludes the feature from the policy (the browser default applies). The only exception is
+						<code>geolocation</code>
+						, which offers three levels instead of a simple on/off: "fully disabled / allow Google Maps / exclude from policy".
+					</p>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Feature</th>
+									<th>Description</th>
+									<th>When to disable restriction</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>camera</code></td>
+									<td>Camera API</td>
+									<td>When using video calls or QR code readers</td>
+								</tr>
+								<tr>
+									<td><code>microphone</code></td>
+									<td>Microphone API</td>
+									<td>When using voice input or calling features</td>
+								</tr>
+								<tr>
+									<td><code>payment</code></td>
+									<td>Payment Request API</td>
+									<td>E-commerce sites using Web Payment</td>
+								</tr>
+								<tr>
+									<td><code>usb</code></td>
+									<td>WebUSB API</td>
+									<td>When communication with USB devices is required</td>
+								</tr>
+								<tr>
+									<td><code>gyroscope</code></td>
+									<td>Gyroscope API</td>
+									<td>When device rotation detection is needed</td>
+								</tr>
+								<tr>
+									<td><code>magnetometer</code></td>
+									<td>Magnetometer API</td>
+									<td>When compass functionality is required</td>
+								</tr>
+								<tr>
+									<td><code>geolocation</code></td>
+									<td>Geolocation API</td>
+									<td>When displaying maps or getting current location (e.g. Google Maps)</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h3><code>geolocation</code> — 3-level setting</h3>
+					<p>
+						The generator provides three options for
+						<code>geolocation</code>
+						:
+					</p>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Option</th>
+									<th>Generated value</th>
+									<th>Use case</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Fully disabled</td>
+									<td><code>geolocation=()</code></td>
+									<td>Sites that don't use maps or current-location features (default)</td>
+								</tr>
+								<tr>
+									<td>Allow Google Maps</td>
+									<td>
+										<code>geolocation=(self "https://www.google.com")</code>
+									</td>
+									<td>Sites that use the Google Maps "show my location" feature</td>
+								</tr>
+								<tr>
+									<td>Exclude from policy</td>
+									<td>(nothing output)</td>
+									<td>Leave to browser default</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<blockquote>
+						<p>If you embed Google Maps but don't use the "show my location" button, "Fully disabled" is fine. Only choose "Allow Google Maps" when the current-location feature is actually needed.</p>
+					</blockquote>
+				</section>
+
+					<hr class="divider" />
+
+					<!-- 防御マップ -->
+					<section>
+					<h2>Defense map — coverage of each header</h2>
+
+					<pre class="article-code"><code>┌── HSTS ──────────── Enforce HTTPS at the browser level
+├── CSP ───────────── Auto-fix Mixed Content + restrict resources
+├── X-Content-Type ── Block XSS via MIME-type spoofing
+├── X-Frame-Options ─ Prevent clickjacking
+├── Referrer-Policy ─ Control URL leakage
+└── Permissions ───── Block unauthorized use of device APIs</code></pre>
+
+					<p>
+						All of these headers are output as response headers via the
+						<code>mod_headers</code>
+						module. Wrapping them in
+						<code>&lt;IfModule mod_headers.c&gt;</code>
+						prevents 500 errors in environments where the module is disabled.
+					</p>
+
+					<pre class="article-code"><code>&lt;IfModule mod_headers.c&gt;
+    Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" "expr=%{HTTPS} == 'on' || %{HTTP:X-Forwarded-Proto} == 'https'"
+    Header always set Content-Security-Policy "upgrade-insecure-requests; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com https://www.google.com; frame-ancestors 'self'"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), payment=(), usb=(), gyroscope=(), magnetometer=(), geolocation=()"
+&lt;/IfModule&gt;</code></pre>
+				</section>
+
+					<!-- 戻るリンク -->
+					<div class="article-back">
+						<a href="../../en/" class="btn btn-secondary">← Back to Generator</a>
+					</div>
+
+					<aside class="license-notice">
+						<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">
+						<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" width="88" height="31" />
+					</a>
+					<p>
+						This guide is licensed under
+						<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
+						.
+						<strong>Reproduction in paid online courses or paid educational materials is prohibited.</strong>
+						See the
+						<a href="/terms" rel="nofollow noreferrer">Terms of Use</a>
+						for details.
+					</p>
+					<p>
+						&copy; 2026 machu (
+						<a href="https://web-ya3.com" rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>
+						)
+					</p>
+					</aside>
+				</article>
+			</main>
+		</div>
+
+		<footer class="app-footer">
+			<p>
+				&copy;
+				<span id="footer-year">2026</span>
+				<a href="https://web-ya3.com" target="_blank" rel="noopener">web-ya3.com</a>
+				&nbsp;|&nbsp;
+				<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener">GitHub</a>
+				&nbsp;|&nbsp;
+				<a href="/en/terms/" rel="nofollow noreferrer">Terms of Use</a>
+			</p>
+		</footer>
+
+		<script type="module" src="../../assets/js/guide.js"></script>
+	</body>
+</html>

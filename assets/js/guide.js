@@ -1,63 +1,28 @@
 /**
  * guide.js — ガイドページ用エントリーポイント
  *
- * テーマの初期化・切り替えボタンのイベント登録・i18n 対応を行う。
+ * テーマの初期化・切り替えボタンのイベント登録を行う。
  */
 
 import { initTheme, setupThemeToggle, applyTheme, DARK_THEME } from './theme.js';
-import { initLang, getLang, setLang, t } from './i18n.js';
+import { messagesJa, messagesEn } from './i18n-messages.js';
 
-/**
- * lang-block の表示 / 非表示を現在の言語に合わせて切り替える
- */
-const applyLangBlocks = () => {
-	const lang = getLang();
-	document.querySelectorAll('.lang-block').forEach((el) => {
-		if (el.dataset.lang === lang) {
-			el.removeAttribute('hidden');
-			el.setAttribute('lang', el.dataset.lang);
-		} else {
-			el.setAttribute('hidden', '');
-			el.removeAttribute('lang');
-		}
-	});
-};
+const lang = document.documentElement.lang === 'en' ? 'en' : 'ja';
+const messages = lang === 'en' ? messagesEn : messagesJa;
+const t = (key) => messages[key] ?? key;
 
-(async () => {
+(() => {
 	initTheme();
-	await initLang();
-	applyLangBlocks();
 
-	// initTheme() は initLang() より先に実行されるため、
-	// 現在のテーマを再適用してトグルボタンの文言/aria-label を現在言語で更新する
 	const currentIsDark = document.documentElement.getAttribute('data-theme') === DARK_THEME;
 	applyTheme(currentIsDark, t);
 	setupThemeToggle(t);
-
-	// lang toggle ボタン
-	const langToggleBtn = document.querySelector('.lang-toggle-btn');
-	if (langToggleBtn) {
-		langToggleBtn.addEventListener('click', async () => {
-			const currentIsDark = document.documentElement.getAttribute('data-theme') === DARK_THEME;
-			const next = getLang() === 'ja' ? 'en' : 'ja';
-			await setLang(next);
-			applyLangBlocks();
-			applyTheme(currentIsDark, t);
-
-			// ハンバーガーの aria-label を更新
-			const hamburgerBtn = document.querySelector('.hamburger-btn');
-			if (hamburgerBtn) {
-				const isOpen = hamburgerBtn.getAttribute('aria-expanded') === 'true';
-				hamburgerBtn.setAttribute('aria-label', isOpen ? t('nav.close') : t('nav.open'));
-			}
-		});
-	}
 
 	// ハンバーガーナビ — 開閉 / Esc / 外クリックで閉じる
 	const hamburgerBtn = document.querySelector('.hamburger-btn');
 	const siteNav = document.querySelector('.site-nav');
 	if (hamburgerBtn && siteNav) {
-		// initLang() 完了後に初期 aria-label を正しい言語で設定する
+		// 初期 aria-label を正しい言語で設定する
 		const isOpen = hamburgerBtn.getAttribute('aria-expanded') === 'true';
 		hamburgerBtn.setAttribute('aria-label', isOpen ? t('nav.close') : t('nav.open'));
 
