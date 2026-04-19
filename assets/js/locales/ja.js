@@ -259,4 +259,9 @@ export default {
 	'guide.terms.description': '.htaccess Generator の利用規約。生成した .htaccess の利用条件、解説コンテンツのライセンス（CC BY-NC-SA 4.0）、禁止事項について説明します。',
 	'guide.terms.ogUrl': 'https://htaccess-generator-b46.pages.dev/terms/',
 	'guide.terms.ogLocale': 'ja_JP',
+	'guide.options-errordocument.subtitle': 'Options & ErrorDocument 解説ガイド',
+	'guide.options-errordocument.title': 'Options & ErrorDocument 解説ガイド | .htaccess Generator',
+	'guide.options-errordocument.description': 'Options ディレクティブと ErrorDocument ディレクティブの動作原理・設定方法・注意点をわかりやすく解説したガイド',
+	'guide.options-errordocument.ogUrl': 'https://htaccess-generator-b46.pages.dev/options-errordocument-guide/',
+	'guide.options-errordocument.ogLocale': 'ja_JP',
 };
