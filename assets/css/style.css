@@ -77,6 +77,23 @@ body {
   background-image: radial-gradient(ellipse 90% 70% at 10% -10%, rgba(0, 80, 180, 0.45) 0%, transparent 60%), radial-gradient(ellipse 65% 55% at 95% 110%, rgba(0, 200, 220, 0.22) 0%, transparent 55%), linear-gradient(160deg, #030c1e 0%, #041428 60%, #061a30 100%);
 }
 
+html.i18n-pending {
+  visibility: hidden;
+  -webkit-animation: i18n-fallback-show 2s forwards;
+          animation: i18n-fallback-show 2s forwards;
+}
+
+@-webkit-keyframes i18n-fallback-show {
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes i18n-fallback-show {
+  to {
+    visibility: visible;
+  }
+}
 a {
   color: var(--accent-solid);
   text-decoration: none;

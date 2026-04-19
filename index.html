@@ -29,6 +29,26 @@
 			} catch (e) {
 				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
 			}
+			try {
+				const p = new URLSearchParams(window.location.search);
+				const urlLang = p.get('lang');
+				let lang = 'ja';
+				if (urlLang === 'en' || urlLang === 'ja') {
+					lang = urlLang;
+				} else if (window.localStorage) {
+					const stored = localStorage.getItem('htaccess-lang');
+					if (stored === 'en') lang = 'en';
+				}
+				if (lang === 'en') {
+					document.documentElement.classList.add('i18n-pending');
+					const link = document.createElement('link');
+					link.rel = 'modulepreload';
+					link.href = '/assets/js/locales/en.js';
+					document.head.appendChild(link);
+				}
+			} catch (e) {
+				// language detection failed; skip i18n-pending
+			}
 		</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
