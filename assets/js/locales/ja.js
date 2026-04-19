@@ -13,7 +13,6 @@ export default {
 	'nav.securityHeaders': 'セキュリティヘッダー',
 	'nav.cache': 'キャッシュ & パフォーマンス',
 	'nav.wpProtection': 'wp-admin 保護',
-	'nav.options': 'Options & ErrorDocument',
 	'nav.recovery': 'リカバリ方法',
 	'nav.terms': '利用規約',
 
