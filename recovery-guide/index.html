@@ -1,64 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content=".htaccess の設定ミスで 500 エラーが発生した場合の FTP リカバリ手順とトラブルシューティングを解説するガイド"
-			data-i18n-content="guide.recovery.description">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content=".htaccess の設定ミスで 500 エラーが発生した場合の FTP リカバリ手順とトラブルシューティングを解説するガイド" data-i18n-content="guide.recovery.description" />
 		<!-- OGP -->
-		<meta property="og:type" content="article">
-		<meta property="og:title" content="リカバリ方法解説ガイド" data-i18n-content="guide.recovery.title">
-		<meta property="og:description" content=".htaccess の設定ミスで 500 エラーが発生した場合の FTP リカバリ手順とトラブルシューティングを解説するガイド"
-			data-i18n-content="guide.recovery.description">
-		<meta property="og:image"
-			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
-		<meta property="og:image:width" content="1200">
-		<meta property="og:image:height" content="630">
-		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/recovery-guide/"
-			data-i18n-content="guide.recovery.ogUrl">
-		<meta property="og:locale" content="ja_JP" data-i18n-content="guide.recovery.ogLocale">
-		<meta property="og:site_name" content=".htaccess Generator">
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="リカバリ方法解説ガイド" data-i18n-content="guide.recovery.title" />
+		<meta property="og:description" content=".htaccess の設定ミスで 500 エラーが発生した場合の FTP リカバリ手順とトラブルシューティングを解説するガイド" data-i18n-content="guide.recovery.description" />
+		<meta property="og:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:url" content="https://htaccess-generator-b46.pages.dev/recovery-guide/" data-i18n-content="guide.recovery.ogUrl" />
+		<meta property="og:locale" content="ja_JP" data-i18n-content="guide.recovery.ogLocale" />
+		<meta property="og:site_name" content=".htaccess Generator" />
 		<!-- Twitter Card -->
-		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:title" content="リカバリ方法解説ガイド" data-i18n-content="guide.recovery.title">
-		<meta name="twitter:description" content=".htaccess の設定ミスで 500 エラーが発生した場合の FTP リカバリ手順とトラブルシューティングを解説するガイド"
-			data-i18n-content="guide.recovery.description">
-		<meta name="twitter:image"
-			content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png">
-		<meta name="license" content="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="リカバリ方法解説ガイド" data-i18n-content="guide.recovery.title" />
+		<meta name="twitter:description" content=".htaccess の設定ミスで 500 エラーが発生した場合の FTP リカバリ手順とトラブルシューティングを解説するガイド" data-i18n-content="guide.recovery.description" />
+		<meta name="twitter:image" content="https://htaccess-generator-b46.pages.dev/assets/images/htaccess-generator-ogp.png" />
+		<meta name="license" content="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
 
-		<link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-		<link rel="alternate" hreflang="ja" href="https://htaccess-generator-b46.pages.dev/recovery-guide/">
-		<link rel="alternate" hreflang="en" href="https://htaccess-generator-b46.pages.dev/recovery-guide/?lang=en">
-		<link rel="alternate" hreflang="x-default" href="https://htaccess-generator-b46.pages.dev/recovery-guide/">
+		<link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
+		<link rel="alternate" hreflang="ja" href="https://htaccess-generator-b46.pages.dev/recovery-guide/" />
+		<link rel="alternate" hreflang="en" href="https://htaccess-generator-b46.pages.dev/recovery-guide/?lang=en" />
+		<link rel="alternate" hreflang="x-default" href="https://htaccess-generator-b46.pages.dev/recovery-guide/" />
 		<title data-i18n="guide.recovery.title">リカバリ方法解説ガイド | .htaccess Generator</title>
 		<script>
 			try {
-				if (window.localStorage && localStorage.getItem('htaccess-theme') === 'dark') {
-					document.documentElement.setAttribute('data-theme', 'dark');
+				if (window.localStorage && localStorage.getItem("htaccess-theme") === "dark") {
+					document.documentElement.setAttribute("data-theme", "dark");
 				}
 			} catch (e) {
 				// localStorage is unavailable (e.g. disabled or restricted); fall back to default theme
 			}
 		</script>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link rel="stylesheet"
-			href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap">
-		<link rel="stylesheet" href="../assets/css/style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap" />
+		<link rel="stylesheet" href="../assets/css/style.css" />
 	</head>
 
 	<body>
 		<a href="#main-content" class="skip-link" data-i18n="skip.link">メインコンテンツへスキップ</a>
 		<div class="app-wrapper">
-
 			<header class="app-header">
-				<h1><a href="../">.htaccess Generator</a><span class="h1-sub">for WordPress</span></h1>
+				<h1>
+					<a href="../">.htaccess Generator</a>
+					<span class="h1-sub">for WordPress</span>
+				</h1>
 				<p data-i18n="guide.recovery.subtitle">リカバリ方法解説ガイド</p>
 				<div class="header-actions">
-					<button type="button" class="lang-toggle-btn" aria-label="言語切り替え（Switch to English）"
-						data-i18n-aria-label="lang.btn.label">
+					<button type="button" class="lang-toggle-btn" aria-label="言語切り替え（Switch to English）" data-i18n-aria-label="lang.btn.label">
 						<span class="lang-toggle-icon" aria-hidden="true">🌐</span>
 						<span class="lang-toggle-label" data-i18n="lang.btn.text">EN</span>
 					</button>
@@ -66,8 +59,7 @@
 						<span class="theme-toggle-icon" aria-hidden="true">🌙</span>
 						<span class="theme-toggle-label">ダーク</span>
 					</button>
-					<button type="button" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false"
-						aria-controls="site-nav-menu">
+					<button type="button" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav-menu">
 						<span class="bar"></span>
 						<span class="bar"></span>
 						<span class="menu-label" aria-hidden="true">MENU</span>
@@ -78,45 +70,73 @@
 			<nav class="site-nav" id="site-nav-menu" hidden aria-label="サイトナビゲーション" data-i18n-aria-label="nav.aria">
 				<div class="site-nav-card">
 					<ul class="site-nav-list">
-						<li><a href="../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14"
-									height="14" fill="currentColor" aria-hidden="true"
-									style="vertical-align:-0.125em;margin-right:0.3em">
-									<path fill-rule="evenodd"
-										d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
-								</svg><span data-i18n="nav.generator">ジェネレーター</span></a></li>
-						<li><a href="../htaccess-basics-guide/" data-i18n="nav.basics">.htaccess 入門</a></li>
-						<li><a href="../directives-guide/" data-i18n="nav.directives">ディレクティブ解説</a></li>
-						<li><a href="../security-headers-guide/" data-i18n="nav.securityHeaders">セキュリティヘッダー</a></li>
-						<li><a href="../cache-performance-guide/" data-i18n="nav.cache">キャッシュ &amp; パフォーマンス</a></li>
-						<li><a href="../wp-protection-guide/" data-i18n="nav.wpProtection">wp-admin 保護</a></li>
-						<li><a href="../options-errordocument-guide/">Options &amp; ErrorDocument</a></li>
-						<li><a href="../recovery-guide/" aria-current="page" data-i18n="nav.recovery">リカバリ方法</a></li>
+						<li>
+							<a href="../">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align: -0.125em; margin-right: 0.3em">
+									<path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+								</svg>
+								<span data-i18n="nav.generator">ジェネレーター</span>
+							</a>
+						</li>
+						<li>
+							<a href="../htaccess-basics-guide/" data-i18n="nav.basics">.htaccess 入門</a>
+						</li>
+						<li>
+							<a href="../directives-guide/" data-i18n="nav.directives">ディレクティブ解説</a>
+						</li>
+						<li>
+							<a href="../security-headers-guide/" data-i18n="nav.securityHeaders">セキュリティヘッダー</a>
+						</li>
+						<li>
+							<a href="../cache-performance-guide/" data-i18n="nav.cache">キャッシュ &amp; パフォーマンス</a>
+						</li>
+						<li>
+							<a href="../wp-protection-guide/" data-i18n="nav.wpProtection">wp-admin 保護</a>
+						</li>
+						<li>
+							<a href="../options-errordocument-guide/">Options &amp; ErrorDocument</a>
+						</li>
+						<li>
+							<a href="../recovery-guide/" aria-current="page" data-i18n="nav.recovery">リカバリ方法</a>
+						</li>
 						<li><a href="../terms/" data-i18n="nav.terms">利用規約</a></li>
-						<li><a href="https://github.com/rocket-martue/htaccess-generator" target="_blank"
-								rel="noopener noreferrer">GitHub <svg xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"
-									style="vertical-align:-0.125em;margin-left:0.15em">
-									<path
-										d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-								</svg></a></li>
+						<li>
+							<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener noreferrer">
+								GitHub
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align: -0.125em; margin-left: 0.15em">
+									<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+								</svg>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</nav>
 			<main id="main-content">
 				<article class="card article">
-
 					<!-- はじめに -->
 					<section>
 						<div class="lang-block" data-lang="ja">
 							<h2>設定を変える前に必ずバックアップ</h2>
 
-							<p><code>.htaccess</code> の記述ミスは <strong>500 Internal Server Error（サイトダウン）</strong>
-								に直結する。編集作業の前にかならずバックアップを取ること。</p>
+							<p>
+								<code>.htaccess</code>
+								の記述ミスは
+								<strong>500 Internal Server Error（サイトダウン）</strong>
+								に直結する。編集作業の前にかならずバックアップを取ること。
+							</p>
 
 							<p>バックアップ方法の例:</p>
 							<ul>
-								<li>FTP クライアントで <code>.htaccess</code> をローカルにダウンロードして保存</li>
-								<li>サーバーのファイルマネージャーで別名コピーを作成（例: <code>.htaccess.bak</code>）</li>
+								<li>
+									FTP クライアントで
+									<code>.htaccess</code>
+									をローカルにダウンロードして保存
+								</li>
+								<li>
+									サーバーのファイルマネージャーで別名コピーを作成（例:
+									<code>.htaccess.bak</code>
+									）
+								</li>
 								<li>バックアッププラグイン（UpdraftPlus 等）でスナップショットを取得</li>
 							</ul>
 
@@ -127,26 +147,36 @@
 						<div class="lang-block" data-lang="en" hidden>
 							<h2>Back Up Before Making Changes</h2>
 
-							<p>A typo in <code>.htaccess</code> can directly cause a <strong>500 Internal Server Error
-									(site down)</strong>.
-								Always take a backup before editing.</p>
+							<p>
+								A typo in
+								<code>.htaccess</code>
+								can directly cause a
+								<strong>500 Internal Server Error (site down)</strong>
+								. Always take a backup before editing.
+							</p>
 
 							<p>Examples of backup methods:</p>
 							<ul>
-								<li>Download <code>.htaccess</code> to your local machine via an FTP client</li>
-								<li>Create a copy with a different name in the server's file manager (e.g.
-									<code>.htaccess.bak</code>)</li>
+								<li>
+									Download
+									<code>.htaccess</code>
+									to your local machine via an FTP client
+								</li>
+								<li>
+									Create a copy with a different name in the server's file manager (e.g.
+									<code>.htaccess.bak</code>
+									)
+								</li>
 								<li>Take a snapshot using a backup plugin (e.g. UpdraftPlus)</li>
 							</ul>
 
 							<blockquote>
-								<p>Even if your site breaks, a backup lets you recover in minutes. Never edit without a
-									backup.</p>
+								<p>Even if your site breaks, a backup lets you recover in minutes. Never edit without a backup.</p>
 							</blockquote>
 						</div>
 					</section>
 
-					<hr class="divider">
+					<hr class="divider" />
 
 					<!-- FTP でのリカバリ手順 -->
 					<section>
@@ -174,27 +204,54 @@
 										</tr>
 										<tr>
 											<td>2</td>
-											<td><code>public_html/</code>（または <code>www/</code>）にある
+											<td>
+												<code>public_html/</code>
+												（または
+												<code>www/</code>
+												）にある
 												<code>.htaccess</code>
-												をリネームする</td>
-											<td><code>.htaccess</code> → <code>_htaccess</code>
-												などに変更する。削除ではなくリネームすることで後で見直せる</td>
+												をリネームする
+											</td>
+											<td>
+												<code>.htaccess</code>
+												→
+												<code>_htaccess</code>
+												などに変更する。削除ではなくリネームすることで後で見直せる
+											</td>
 										</tr>
 										<tr>
 											<td>3</td>
 											<td>サイトにアクセスして復旧を確認する</td>
-											<td>サイトが表示されれば <code>.htaccess</code> が原因と確定。WordPress のパーマリンクは一時的に崩れる場合がある
+											<td>
+												サイトが表示されれば
+												<code>.htaccess</code>
+												が原因と確定。WordPress のパーマリンクは一時的に崩れる場合がある
 											</td>
 										</tr>
 										<tr>
 											<td>4</td>
-											<td>リネームした <code>_htaccess</code> を開いて問題のある記述を特定する</td>
-											<td>一行ずつコメントアウト（<code>#</code> を先頭に追加）して原因を特定する</td>
+											<td>
+												リネームした
+												<code>_htaccess</code>
+												を開いて問題のある記述を特定する
+											</td>
+											<td>
+												一行ずつコメントアウト（
+												<code>#</code>
+												を先頭に追加）して原因を特定する
+											</td>
 										</tr>
 										<tr>
 											<td>5</td>
-											<td>修正が完了したらファイルを <code>.htaccess</code> に戻す</td>
-											<td>拡張子なしのファイル名に注意。FTP クライアントによっては隠しファイル（<code>.</code> で始まるファイル）の表示設定が必要
+											<td>
+												修正が完了したらファイルを
+												<code>.htaccess</code>
+												に戻す
+											</td>
+											<td>
+												拡張子なしのファイル名に注意。FTP クライアントによっては隠しファイル（
+												<code>.</code>
+												で始まるファイル）の表示設定が必要
 											</td>
 										</tr>
 									</tbody>
@@ -202,7 +259,12 @@
 							</div>
 
 							<h3>FTP クライアントで隠しファイルを表示するには</h3>
-							<p><code>.htaccess</code> は先頭が <code>.</code> の隠しファイルのため、デフォルトで非表示になる FTP クライアントがある。</p>
+							<p>
+								<code>.htaccess</code>
+								は先頭が
+								<code>.</code>
+								の隠しファイルのため、デフォルトで非表示になる FTP クライアントがある。
+							</p>
 
 							<div class="table-wrap">
 								<table>
@@ -232,8 +294,7 @@
 						<div class="lang-block" data-lang="en" hidden>
 							<h2>Recovery Steps via FTP / File Manager</h2>
 
-							<p>Emergency recovery procedure when a .htaccess misconfiguration causes a 500 error on your
-								site.</p>
+							<p>Emergency recovery procedure when a .htaccess misconfiguration causes a 500 error on your site.</p>
 
 							<h3>Steps</h3>
 
@@ -250,34 +311,57 @@
 										<tr>
 											<td>1</td>
 											<td>Connect via an FTP client or the server's file manager</td>
-											<td>Since the WordPress admin panel is inaccessible, connect directly to the
-												server</td>
+											<td>Since the WordPress admin panel is inaccessible, connect directly to the server</td>
 										</tr>
 										<tr>
 											<td>2</td>
-											<td>Rename <code>.htaccess</code> inside <code>public_html/</code> (or
-												<code>www/</code>)</td>
-											<td>Rename to something like <code>_htaccess</code>. Renaming (not deleting)
-												lets you review it later</td>
+											<td>
+												Rename
+												<code>.htaccess</code>
+												inside
+												<code>public_html/</code>
+												(or
+												<code>www/</code>
+												)
+											</td>
+											<td>
+												Rename to something like
+												<code>_htaccess</code>
+												. Renaming (not deleting) lets you review it later
+											</td>
 										</tr>
 										<tr>
 											<td>3</td>
 											<td>Visit your site and confirm it is back up</td>
-											<td>If the site loads, <code>.htaccess</code> was the cause. WordPress
-												permalinks may temporarily break</td>
+											<td>
+												If the site loads,
+												<code>.htaccess</code>
+												was the cause. WordPress permalinks may temporarily break
+											</td>
 										</tr>
 										<tr>
 											<td>4</td>
-											<td>Open the renamed <code>_htaccess</code> and identify the problematic
-												entry</td>
-											<td>Comment out lines one by one (add <code>#</code> at the start) to
-												isolate the cause</td>
+											<td>
+												Open the renamed
+												<code>_htaccess</code>
+												and identify the problematic entry
+											</td>
+											<td>
+												Comment out lines one by one (add
+												<code>#</code>
+												at the start) to isolate the cause
+											</td>
 										</tr>
 										<tr>
 											<td>5</td>
-											<td>Once fixed, rename the file back to <code>.htaccess</code></td>
-											<td>Note that the filename has no extension. Some FTP clients require a
-												setting to display hidden files (those starting with <code>.</code>)
+											<td>
+												Once fixed, rename the file back to
+												<code>.htaccess</code>
+											</td>
+											<td>
+												Note that the filename has no extension. Some FTP clients require a setting to display hidden files (those starting with
+												<code>.</code>
+												)
 											</td>
 										</tr>
 									</tbody>
@@ -285,8 +369,13 @@
 							</div>
 
 							<h3>How to Show Hidden Files in FTP Clients</h3>
-							<p>Because <code>.htaccess</code> starts with <code>.</code>, it is a hidden file and may
-								not be visible by default in some FTP clients.</p>
+							<p>
+								Because
+								<code>.htaccess</code>
+								starts with
+								<code>.</code>
+								, it is a hidden file and may not be visible by default in some FTP clients.
+							</p>
 
 							<div class="table-wrap">
 								<table>
@@ -307,8 +396,7 @@
 										</tr>
 										<tr>
 											<td>Server File Manager</td>
-											<td>Open "File Manager" from your hosting control panel and enable the "Show
-												hidden files" option</td>
+											<td>Open "File Manager" from your hosting control panel and enable the "Show hidden files" option</td>
 										</tr>
 									</tbody>
 								</table>
@@ -316,7 +404,7 @@
 						</div>
 					</section>
 
-					<hr class="divider">
+					<hr class="divider" />
 
 					<!-- 問題のある記述の特定方法 -->
 					<section>
@@ -349,34 +437,64 @@
 									<tbody>
 										<tr>
 											<td><code>Invalid command 'Header'</code></td>
-											<td><code>mod_headers</code> が無効</td>
-											<td><code>&lt;IfModule mod_headers.c&gt;</code> でラップされているか確認。ホスティングに
-												<code>mod_headers</code> の有効化を問い合わせる
+											<td>
+												<code>mod_headers</code>
+												が無効
+											</td>
+											<td>
+												<code>&lt;IfModule mod_headers.c&gt;</code>
+												でラップされているか確認。ホスティングに
+												<code>mod_headers</code>
+												の有効化を問い合わせる
 											</td>
 										</tr>
 										<tr>
 											<td><code>Invalid command 'RewriteEngine'</code></td>
-											<td><code>mod_rewrite</code> が無効</td>
-											<td><code>&lt;IfModule mod_rewrite.c&gt;</code> でラップされているか確認</td>
+											<td>
+												<code>mod_rewrite</code>
+												が無効
+											</td>
+											<td>
+												<code>&lt;IfModule mod_rewrite.c&gt;</code>
+												でラップされているか確認
+											</td>
 										</tr>
 										<tr>
 											<td><code>Options not allowed here</code></td>
-											<td>ホスティングが <code>Options</code> ディレクティブを制限している</td>
-											<td><code>Options -MultiViews -Indexes</code> 行を削除または <code>#</code>
+											<td>
+												ホスティングが
+												<code>Options</code>
+												ディレクティブを制限している
+											</td>
+											<td>
+												<code>Options -MultiViews -Indexes</code>
+												行を削除または
+												<code>#</code>
 												でコメントアウト
 											</td>
 										</tr>
 										<tr>
 											<td><code>AuthType not set</code></td>
 											<td>Basic 認証の設定が不完全</td>
-											<td><code>AuthType</code> / <code>AuthName</code> /
+											<td>
+												<code>AuthType</code>
+												/
+												<code>AuthName</code>
+												/
 												<code>AuthUserFile</code>
-												がすべて揃っているか確認</td>
+												がすべて揃っているか確認
+											</td>
 										</tr>
 										<tr>
 											<td><code>Unable to open password file</code></td>
-											<td><code>.htpasswd</code> のパスが間違っている</td>
-											<td><code>AuthUserFile</code> に指定したフルパスが正しいか確認</td>
+											<td>
+												<code>.htpasswd</code>
+												のパスが間違っている
+											</td>
+											<td>
+												<code>AuthUserFile</code>
+												に指定したフルパスが正しいか確認
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -386,8 +504,7 @@
 							<h2>How to Identify the Problematic Entry</h2>
 
 							<h3>Binary Search Debugging</h3>
-							<p>When there is a lot of content, the most efficient approach is to comment out half the
-								file and narrow down which half contains the problem.</p>
+							<p>When there is a lot of content, the most efficient approach is to comment out half the file and narrow down which half contains the problem.</p>
 
 							<pre class="article-code"><code># Comment out the bottom half of the file to check
 # ↓ Comment out everything below this line
@@ -397,8 +514,7 @@
 # &lt;/IfModule&gt;</code></pre>
 
 							<h3>Checking the Error Log</h3>
-							<p>The cause of a 500 error is recorded in the server's error log. You may be able to access
-								it from your hosting control panel.</p>
+							<p>The cause of a 500 error is recorded in the server's error log. You may be able to access it from your hosting control panel.</p>
 
 							<p>Common error examples:</p>
 							<div class="table-wrap">
@@ -413,32 +529,65 @@
 									<tbody>
 										<tr>
 											<td><code>Invalid command 'Header'</code></td>
-											<td><code>mod_headers</code> is disabled</td>
-											<td>Check that it is wrapped in <code>&lt;IfModule mod_headers.c&gt;</code>.
-												Contact your host to enable <code>mod_headers</code></td>
+											<td>
+												<code>mod_headers</code>
+												is disabled
+											</td>
+											<td>
+												Check that it is wrapped in
+												<code>&lt;IfModule mod_headers.c&gt;</code>
+												. Contact your host to enable
+												<code>mod_headers</code>
+											</td>
 										</tr>
 										<tr>
 											<td><code>Invalid command 'RewriteEngine'</code></td>
-											<td><code>mod_rewrite</code> is disabled</td>
-											<td>Check that it is wrapped in <code>&lt;IfModule mod_rewrite.c&gt;</code>
+											<td>
+												<code>mod_rewrite</code>
+												is disabled
+											</td>
+											<td>
+												Check that it is wrapped in
+												<code>&lt;IfModule mod_rewrite.c&gt;</code>
 											</td>
 										</tr>
 										<tr>
 											<td><code>Options not allowed here</code></td>
-											<td>The hosting provider restricts the <code>Options</code> directive</td>
-											<td>Delete or comment out the <code>Options -MultiViews -Indexes</code> line
+											<td>
+												The hosting provider restricts the
+												<code>Options</code>
+												directive
+											</td>
+											<td>
+												Delete or comment out the
+												<code>Options -MultiViews -Indexes</code>
+												line
 											</td>
 										</tr>
 										<tr>
 											<td><code>AuthType not set</code></td>
 											<td>Basic Auth configuration is incomplete</td>
-											<td>Check that <code>AuthType</code>, <code>AuthName</code>, and
-												<code>AuthUserFile</code> are all present</td>
+											<td>
+												Check that
+												<code>AuthType</code>
+												,
+												<code>AuthName</code>
+												, and
+												<code>AuthUserFile</code>
+												are all present
+											</td>
 										</tr>
 										<tr>
 											<td><code>Unable to open password file</code></td>
-											<td>The path to <code>.htpasswd</code> is incorrect</td>
-											<td>Verify the full path specified in <code>AuthUserFile</code></td>
+											<td>
+												The path to
+												<code>.htpasswd</code>
+												is incorrect
+											</td>
+											<td>
+												Verify the full path specified in
+												<code>AuthUserFile</code>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -446,7 +595,7 @@
 						</div>
 					</section>
 
-					<hr class="divider">
+					<hr class="divider" />
 
 					<!-- やってはいけないこと -->
 					<section>
@@ -463,11 +612,19 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td>バックアップなしで <code>.htaccess</code> を直接編集する</td>
+											<td>
+												バックアップなしで
+												<code>.htaccess</code>
+												を直接編集する
+											</td>
 											<td>失敗した際に戻せなくなる</td>
 										</tr>
 										<tr>
-											<td><code># BEGIN WordPress</code> 〜 <code># END WordPress</code> ブロック内を編集する
+											<td>
+												<code># BEGIN WordPress</code>
+												〜
+												<code># END WordPress</code>
+												ブロック内を編集する
 											</td>
 											<td>WordPress がパーマリンク設定の保存時に自動上書きするため、変更が消える</td>
 										</tr>
@@ -480,8 +637,15 @@
 											<td>問題発生時に原因の特定が困難になる。設定は少しずつ追加してテストする</td>
 										</tr>
 										<tr>
-											<td><code>.htaccess</code> を完全に削除する</td>
-											<td>WordPress のパーマリンクが機能しなくなる。リネーム（<code>_htaccess</code> 等）で無効化するに留める</td>
+											<td>
+												<code>.htaccess</code>
+												を完全に削除する
+											</td>
+											<td>
+												WordPress のパーマリンクが機能しなくなる。リネーム（
+												<code>_htaccess</code>
+												等）で無効化するに留める
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -500,30 +664,41 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td>Edit <code>.htaccess</code> directly without a backup</td>
+											<td>
+												Edit
+												<code>.htaccess</code>
+												directly without a backup
+											</td>
 											<td>You won't be able to revert if something goes wrong</td>
 										</tr>
 										<tr>
-											<td>Edit inside the <code># BEGIN WordPress</code> —
-												<code># END WordPress</code> block</td>
-											<td>WordPress overwrites this block automatically when saving permalink
-												settings, so your changes will be lost</td>
+											<td>
+												Edit inside the
+												<code># BEGIN WordPress</code>
+												—
+												<code># END WordPress</code>
+												block
+											</td>
+											<td>WordPress overwrites this block automatically when saving permalink settings, so your changes will be lost</td>
 										</tr>
 										<tr>
-											<td>Manually edit blocks generated by plugins (Wordfence, EWWW Image
-												Optimizer, etc.)</td>
-											<td>The plugin will overwrite your changes, and its integrity check may
-												cause unexpected behavior</td>
+											<td>Manually edit blocks generated by plugins (Wordfence, EWWW Image Optimizer, etc.)</td>
+											<td>The plugin will overwrite your changes, and its integrity check may cause unexpected behavior</td>
 										</tr>
 										<tr>
 											<td>Apply a large batch of settings all at once on a production site</td>
-											<td>It becomes difficult to identify the cause when a problem occurs. Add
-												settings incrementally and test each time</td>
+											<td>It becomes difficult to identify the cause when a problem occurs. Add settings incrementally and test each time</td>
 										</tr>
 										<tr>
-											<td>Completely delete <code>.htaccess</code></td>
-											<td>WordPress permalinks will stop working. Disable it by renaming (e.g. to
-												<code>_htaccess</code>) instead</td>
+											<td>
+												Completely delete
+												<code>.htaccess</code>
+											</td>
+											<td>
+												WordPress permalinks will stop working. Disable it by renaming (e.g. to
+												<code>_htaccess</code>
+												) instead
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -531,51 +706,73 @@
 						</div>
 					</section>
 
-					<hr class="divider">
+					<hr class="divider" />
 
 					<!-- WordPress のパーマリンク再設定 -->
 					<section>
 						<div class="lang-block" data-lang="ja">
 							<h2>リカバリ後の WordPress パーマリンク再設定</h2>
 
-							<p>リカバリ手順でリネームした <code>.htaccess</code> を元に戻した後、WordPress が生成する
+							<p>
+								リカバリ手順でリネームした
+								<code>.htaccess</code>
+								を元に戻した後、WordPress が生成する
 								<code># BEGIN WordPress</code>
-								ブロックが消えている場合はパーマリンクが機能しない。</p>
+								ブロックが消えている場合はパーマリンクが機能しない。
+							</p>
 
 							<h3>対処手順</h3>
 							<ol>
 								<li>WordPress 管理画面にログインする</li>
 								<li>「設定」→「パーマリンク」を開く</li>
 								<li>変更せず「変更を保存」ボタンをクリックする</li>
-								<li>WordPress が自動的に <code># BEGIN WordPress</code> ブロックを <code>.htaccess</code> に書き込む
+								<li>
+									WordPress が自動的に
+									<code># BEGIN WordPress</code>
+									ブロックを
+									<code>.htaccess</code>
+									に書き込む
 								</li>
 							</ol>
 
 							<blockquote>
-								<p>カスタムルールは <code># BEGIN WordPress</code> ブロックの上（外）に記述する。ブロックの中に書くと WordPress
-									が自動上書きし、変更が消える。</p>
+								<p>
+									カスタムルールは
+									<code># BEGIN WordPress</code>
+									ブロックの上（外）に記述する。ブロックの中に書くと WordPress が自動上書きし、変更が消える。
+								</p>
 							</blockquote>
 						</div>
 						<div class="lang-block" data-lang="en" hidden>
 							<h2>Re-configuring WordPress Permalinks After Recovery</h2>
 
-							<p>After renaming <code>.htaccess</code> back in the recovery procedure, if the
+							<p>
+								After renaming
+								<code>.htaccess</code>
+								back in the recovery procedure, if the
 								<code># BEGIN WordPress</code>
-								block generated by WordPress is missing, permalinks will not work.</p>
+								block generated by WordPress is missing, permalinks will not work.
+							</p>
 
 							<h3>Steps to Fix</h3>
 							<ol>
 								<li>Log in to the WordPress admin panel</li>
 								<li>Go to "Settings" → "Permalinks"</li>
 								<li>Click "Save Changes" without making any changes</li>
-								<li>WordPress will automatically write the <code># BEGIN WordPress</code> block back
-									into <code>.htaccess</code></li>
+								<li>
+									WordPress will automatically write the
+									<code># BEGIN WordPress</code>
+									block back into
+									<code>.htaccess</code>
+								</li>
 							</ol>
 
 							<blockquote>
-								<p>Always place custom rules above (outside of) the <code># BEGIN WordPress</code>
-									block. Placing them inside the block will cause WordPress to overwrite and erase
-									your changes.</p>
+								<p>
+									Always place custom rules above (outside of) the
+									<code># BEGIN WordPress</code>
+									block. Placing them inside the block will cause WordPress to overwrite and erase your changes.
+								</p>
 							</blockquote>
 						</div>
 					</section>
@@ -592,59 +789,59 @@
 
 					<aside class="license-notice">
 						<div class="lang-block" data-lang="ja">
-							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja"
-								rel="nofollow noreferrer noopener" target="_blank">
-								<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"
-									alt="クリエイティブ・コモンズ 表示-非営利-継承 4.0 国際" width="88" height="31">
+							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" rel="nofollow noreferrer noopener" target="_blank">
+								<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="クリエイティブ・コモンズ 表示-非営利-継承 4.0 国際" width="88" height="31" />
 							</a>
 							<p>
 								この解説コンテンツは
-								<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja"
-									rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
+								<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
 								の下で提供されています。
-								<strong>有料オンライン講座・有料教材への転載は禁止</strong>しています。
-								詳細は<a href="/terms" rel="nofollow noreferrer">利用規約</a>をご確認ください。
+								<strong>有料オンライン講座・有料教材への転載は禁止</strong>
+								しています。 詳細は
+								<a href="/terms" rel="nofollow noreferrer">利用規約</a>
+								をご確認ください。
 							</p>
 							<p>
-								&copy; 2026 まーちゅう（<a href="https://web-ya3.com"
-									rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>）
+								&copy; 2026 まーちゅう（
+								<a href="https://web-ya3.com" rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>
+								）
 							</p>
 						</div>
 						<div class="lang-block" data-lang="en" hidden>
-							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-								rel="nofollow noreferrer noopener" target="_blank">
-								<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"
-									alt="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
-									width="88" height="31">
+							<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">
+								<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" width="88" height="31" />
 							</a>
 							<p>
 								This content is licensed under
-								<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-									rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>.
-								<strong>Reproduction in paid online courses or paid educational materials is
-									prohibited.</strong>
-								See the <a href="/terms" rel="nofollow noreferrer">Terms of Use</a> for details.
+								<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow noreferrer noopener" target="_blank">CC BY-NC-SA 4.0</a>
+								.
+								<strong>Reproduction in paid online courses or paid educational materials is prohibited.</strong>
+								See the
+								<a href="/terms" rel="nofollow noreferrer">Terms of Use</a>
+								for details.
 							</p>
 							<p>
-								&copy; 2026 Machu (<a href="https://web-ya3.com"
-									rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>)
+								&copy; 2026 Machu (
+								<a href="https://web-ya3.com" rel="nofollow noreferrer noopener" target="_blank">web-ya3.com</a>
+								)
 							</p>
 						</div>
 					</aside>
-
 				</article>
 			</main>
-
 		</div>
 		<footer class="app-footer">
-			<p>&copy; <span id="footer-year">2026</span> <a href="https://web-ya3.com" target="_blank"
-					rel="noopener">web-ya3.com</a> &nbsp;|&nbsp; <a
-					href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener">GitHub</a>
-				&nbsp;|&nbsp; <a href="/terms" rel="nofollow noreferrer">利用規約</a>
+			<p>
+				&copy;
+				<span id="footer-year">2026</span>
+				<a href="https://web-ya3.com" target="_blank" rel="noopener">web-ya3.com</a>
+				&nbsp;|&nbsp;
+				<a href="https://github.com/rocket-martue/htaccess-generator" target="_blank" rel="noopener">GitHub</a>
+				&nbsp;|&nbsp;
+				<a href="/terms" rel="nofollow noreferrer">利用規約</a>
 			</p>
 		</footer>
 
 		<script type="module" src="../assets/js/guide.js"></script>
 	</body>
-
 </html>
