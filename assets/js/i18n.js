@@ -100,5 +100,9 @@ export const initLang = async () => {
 			// localStorage 利用不可の場合はデフォルト（ja）を使用
 		}
 	}
-	await setLang(lang);
+	try {
+		await setLang(lang);
+	} finally {
+		document.documentElement.classList.remove('i18n-pending');
+	}
 };
