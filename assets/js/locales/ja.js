@@ -269,4 +269,9 @@ export default {
 	'guide.cache-performance.description': 'WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド',
 	'guide.cache-performance.ogUrl': 'https://htaccess-generator-b46.pages.dev/cache-performance-guide/',
 	'guide.cache-performance.ogLocale': 'ja_JP',
+	'guide.security-headers.subtitle': 'セキュリティヘッダー解説ガイド',
+	'guide.security-headers.title': 'セキュリティヘッダー解説ガイド | .htaccess Generator',
+	'guide.security-headers.description': 'WordPress 環境で使用するセキュリティレスポンスヘッダーの役割・防御対象・設定値の意味を解説するガイド',
+	'guide.security-headers.ogUrl': 'https://htaccess-generator-b46.pages.dev/security-headers-guide/',
+	'guide.security-headers.ogLocale': 'ja_JP',
 };
