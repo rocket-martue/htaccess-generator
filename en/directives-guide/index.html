@@ -110,7 +110,7 @@
 
 			<main id="main-content">
 				<article class="card article">
-					<!-- HTTPS リダイレクトルールの仕組み -->
+					<!-- How HTTPS Redirect Rules Work -->
 					<section>
 					<h2>How the HTTPS Redirect Rule Works</h2>
 
@@ -161,7 +161,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></pre>
 
 					<hr class="divider" />
 
-					<!-- RewriteCond（条件ディレクティブ） -->
+					<!-- RewriteCond (Conditional Directive) -->
 					<section>
 					<h2>RewriteCond (Condition Directive)</h2>
 					<p>
@@ -486,7 +486,7 @@ RewriteRule ^ - [L]</code></pre>
 
 					<hr class="divider" />
 
-					<!-- RewriteRule（書き換えルール） -->
+					<!-- RewriteRule (Rewrite Rule) -->
 					<section>
 					<h2>RewriteRule (Rewrite Rule)</h2>
 					<p>The core directive that actually rewrites URLs or issues redirects.</p>
@@ -549,7 +549,7 @@ RewriteRule ^ - [R=410,L]</code></pre>
 
 					<hr class="divider" />
 
-					<!-- IfModule（モジュール存在チェック） -->
+					<!-- IfModule (Module Existence Check) -->
 					<section>
 					<h2>IfModule (Module Existence Check)</h2>
 					<p>Executes the enclosed directives only when the specified Apache module is enabled.</p>
@@ -628,7 +628,7 @@ RewriteRule ^ - [R=410,L]</code></pre>
 
 					<hr class="divider" />
 
-					<!-- モジュールの有効化スイッチ -->
+					<!-- Module Activation Switch -->
 					<section>
 					<h2>Module Enable Switches</h2>
 					<p>
@@ -716,7 +716,7 @@ RewriteRule ^ - [R=410,L]</code></pre>
 
 					<hr class="divider" />
 
-					<!-- RewriteCondのフラグ -->
+					<!-- RewriteCond Flags -->
 					<section>
 					<h2>RewriteCond Flags</h2>
 					<div class="table-wrap">
@@ -746,7 +746,7 @@ RewriteRule ^ - [R=410,L]</code></pre>
 
 					<hr class="divider" />
 
-					<!-- RewriteRuleのフラグ -->
+					<!-- RewriteRule Flags -->
 					<section>
 					<h2>RewriteRule Flags</h2>
 
@@ -872,7 +872,7 @@ RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
 
 					<hr class="divider" />
 
-					<!-- 3つのディレクティブの関係性 -->
+					<!-- Relationship Between the Three Directives -->
 					<section>
 					<h2>Relationship Between the Three Directives</h2>
 					<pre class="article-code"><code>IfModule      → "Is this module available?"
@@ -882,7 +882,7 @@ RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
 
 					<hr class="divider" />
 
-					<!-- 参考: HTTPステータスコード -->
+					<!-- Reference: HTTP Status Codes -->
 					<section>
 					<h2>Reference: HTTP Status Codes Used in .htaccess</h2>
 					<div class="table-wrap">
@@ -929,7 +929,7 @@ RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
 					</div>
 				</section>
 
-					<!-- ジェネレーターへ戻る -->
+					<!-- Back link -->
 					<div class="article-back">
 						<a href="../../en/" class="btn btn-secondary">← Back to Generator</a>
 					</div>
