@@ -269,4 +269,9 @@ export default {
 	'guide.cache-performance.description': 'A guide explaining the role and configuration of Gzip compression, browser caching, ETag, MIME types, and Keep-Alive in a WordPress environment.',
 	'guide.cache-performance.ogUrl': 'https://htaccess-generator-b46.pages.dev/cache-performance-guide/?lang=en',
 	'guide.cache-performance.ogLocale': 'en_US',
+	'guide.security-headers.subtitle': 'Security Headers Guide',
+	'guide.security-headers.title': 'Security Headers Guide | .htaccess Generator',
+	'guide.security-headers.description': 'A guide explaining the role, threat model, and configuration values of security response headers used in WordPress environments.',
+	'guide.security-headers.ogUrl': 'https://htaccess-generator-b46.pages.dev/security-headers-guide/?lang=en',
+	'guide.security-headers.ogLocale': 'en_US',
 };
