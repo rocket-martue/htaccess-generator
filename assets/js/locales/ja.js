@@ -264,4 +264,9 @@ export default {
 	'guide.options-errordocument.description': 'Options ディレクティブと ErrorDocument ディレクティブの動作原理・設定方法・注意点をわかりやすく解説したガイド',
 	'guide.options-errordocument.ogUrl': 'https://htaccess-generator-b46.pages.dev/options-errordocument-guide/',
 	'guide.options-errordocument.ogLocale': 'ja_JP',
+	'guide.cache-performance.subtitle': 'キャッシュ & パフォーマンス解説ガイド',
+	'guide.cache-performance.title': 'キャッシュ & パフォーマンス解説ガイド | .htaccess Generator',
+	'guide.cache-performance.description': 'WordPress 環境での Gzip 圧縮・ブラウザキャッシュ・ETag・MIME タイプ・Keep-Alive の設定と役割を解説するガイド',
+	'guide.cache-performance.ogUrl': 'https://htaccess-generator-b46.pages.dev/cache-performance-guide/',
+	'guide.cache-performance.ogLocale': 'ja_JP',
 };

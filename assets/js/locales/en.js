@@ -264,4 +264,9 @@ export default {
 	'guide.options-errordocument.description': 'A guide explaining the behavior, configuration, and caveats of the Options and ErrorDocument directives.',
 	'guide.options-errordocument.ogUrl': 'https://htaccess-generator-b46.pages.dev/options-errordocument-guide/?lang=en',
 	'guide.options-errordocument.ogLocale': 'en_US',
+	'guide.cache-performance.subtitle': 'Cache & Performance Guide',
+	'guide.cache-performance.title': 'Cache & Performance Guide | .htaccess Generator',
+	'guide.cache-performance.description': 'A guide explaining the role and configuration of Gzip compression, browser caching, ETag, MIME types, and Keep-Alive in a WordPress environment.',
+	'guide.cache-performance.ogUrl': 'https://htaccess-generator-b46.pages.dev/cache-performance-guide/?lang=en',
+	'guide.cache-performance.ogLocale': 'en_US',
 };
