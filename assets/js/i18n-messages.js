@@ -9,7 +9,6 @@ export const messagesJa = {
 	// ナビゲーション（ハンバーガー aria-label）
 	'nav.open': 'メニューを開く',
 	'nav.close': 'メニューを閉じる',
-	'nav.aria': 'サイトナビゲーション',
 
 	// テーマ切り替え
 	'theme.dark': 'ダークモードに切り替え',
@@ -96,7 +95,6 @@ export const messagesEn = {
 	// Navigation (hamburger aria-label)
 	'nav.open': 'Open menu',
 	'nav.close': 'Close menu',
-	'nav.aria': 'Site navigation',
 
 	// Theme toggle
 	'theme.dark': 'Switch to dark mode',
