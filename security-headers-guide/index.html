@@ -1383,29 +1383,6 @@ Header always set Content-Security-Policy-Report-Only \
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "camera=(), microphone=(), payment=(), usb=(), gyroscope=(), magnetometer=(), geolocation=()"
 &lt;/IfModule&gt;</code></pre>
-						</divions-Policy "camera=(), microphone=(), payment=(), usb=(), gyroscope=(), magnetometer=(), geolocation=()"
-&lt;/IfModule&gt;</code></pre>
-						</div>
-						<div class="lang-block" data-lang="en" hidden>
-							<h2>Defense map — coverage of each header</h2>
-
-							<pre class="article-code"><code>┌── HSTS ──────────── Enforce HTTPS at the browser level
-├── CSP ───────────── Auto-fix Mixed Content + restrict resources
-├── X-Content-Type ── Block XSS via MIME-type spoofing
-├── X-Frame-Options ─ Prevent clickjacking
-├── Referrer-Policy ─ Control URL leakage
-└── Permissions ───── Block unauthorized use of device APIs</code></pre>
-
-							<p>All of these headers are output as response headers via the <code>mod_headers</code> module. Wrapping them in <code>&lt;IfModule mod_headers.c&gt;</code> prevents 500 errors in environments where the module is disabled.</p>
-
-							<pre class="article-code"><code>&lt;IfModule mod_headers.c&gt;
-    Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" "expr=%{HTTPS} == 'on' || %{HTTP:X-Forwarded-Proto} == 'https'"
-    Header always set Content-Security-Policy "upgrade-insecure-requests; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com https://www.google.com; frame-ancestors 'self'"
-    Header always set X-Content-Type-Options "nosniff"
-    Header always set X-Frame-Options "SAMEORIGIN"
-    Header always set Referrer-Policy "strict-origin-when-cross-origin"
-    Header always set Permissions-Policy "camera=(), microphone=(), payment=(), usb=(), gyroscope=(), magnetometer=(), geolocation=()"
-&lt;/IfModule&gt;</code></pre>
 						</div>
 					</section>
 
