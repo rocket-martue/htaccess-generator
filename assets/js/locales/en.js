@@ -259,4 +259,9 @@ export default {
 	'guide.terms.description': 'Terms of Use for .htaccess Generator. Covers conditions for using generated .htaccess files, the CC BY-NC-SA 4.0 license of the documentation content, and prohibited uses.',
 	'guide.terms.ogUrl': 'https://htaccess-generator-b46.pages.dev/terms/?lang=en',
 	'guide.terms.ogLocale': 'en_US',
+	'guide.options-errordocument.subtitle': 'Options & ErrorDocument Guide',
+	'guide.options-errordocument.title': 'Options & ErrorDocument Guide | .htaccess Generator',
+	'guide.options-errordocument.description': 'A guide explaining the behavior, configuration, and caveats of the Options and ErrorDocument directives.',
+	'guide.options-errordocument.ogUrl': 'https://htaccess-generator-b46.pages.dev/options-errordocument-guide/?lang=en',
+	'guide.options-errordocument.ogLocale': 'en_US',
 };
