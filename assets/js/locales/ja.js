@@ -7,6 +7,14 @@ export default {
 	'nav.open': 'メニューを開く',
 	'nav.close': 'メニューを閉じる',
 	'nav.aria': 'サイトナビゲーション',
+	'nav.generator': 'ジェネレーター',
+	'nav.basics': '.htaccess 入門',
+	'nav.directives': 'ディレクティブ解説',
+	'nav.securityHeaders': 'セキュリティヘッダー',
+	'nav.cache': 'キャッシュ & パフォーマンス',
+	'nav.wpProtection': 'wp-admin 保護',
+	'nav.options': 'Options & ErrorDocument',
+	'nav.recovery': 'リカバリ方法',
 	'nav.terms': '利用規約',
 
 	// ヘッダー
