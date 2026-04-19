@@ -41,6 +41,10 @@
 				}
 				if (lang === 'en') {
 					document.documentElement.classList.add('i18n-pending');
+					const link = document.createElement('link');
+					link.rel = 'modulepreload';
+					link.href = '/assets/js/locales/en.js';
+					document.head.appendChild(link);
 				}
 			} catch (e) {
 				// language detection failed; skip i18n-pending
