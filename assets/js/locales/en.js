@@ -7,6 +7,13 @@ export default {
 	'nav.open': 'Open menu',
 	'nav.close': 'Close menu',
 	'nav.aria': 'Site navigation',
+	'nav.generator': 'Generator',
+	'nav.basics': '.htaccess Basics',
+	'nav.directives': 'Directives',
+	'nav.securityHeaders': 'Security Headers',
+	'nav.cache': 'Cache & Performance',
+	'nav.wpProtection': 'wp-admin Protection',
+	'nav.recovery': 'Recovery',
 	'nav.terms': 'Terms of Use',
 
 	// Header
