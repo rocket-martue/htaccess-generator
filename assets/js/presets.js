@@ -22,7 +22,6 @@ export const DEFAULT_SETTINGS = {
 		blockDangerousExt: false,
 		blockDangerousExtList: '.inc\n.log\n.sh\n.sql',
 		wpLoginBasicAuth: false,
-		htpasswdPath: '',
 	},
 	ipBlock: {
 		enabled: false,
@@ -128,10 +127,8 @@ export const DEFAULT_SETTINGS = {
 	},
 	wpAdmin: {
 		basicAuth: false,
-		htpasswdPath: '',
 		ajaxExclude: true,
 		upgradeIpExclude: false,
-		serverIp: '',
 	},
 	uploads: {
 		blockPhp: false,
@@ -159,7 +156,6 @@ export const PRESETS = [
 				blockDangerousExt: true,
 				blockDangerousExtList: '.inc\n.log\n.sh\n.sql',
 				wpLoginBasicAuth: false,
-				htpasswdPath: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -260,10 +256,8 @@ export const PRESETS = [
 			},
 			wpAdmin: {
 				basicAuth: false,
-				htpasswdPath: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
-				serverIp: '',
 			},
 			uploads: {
 				blockPhp: true,
@@ -287,7 +281,6 @@ export const PRESETS = [
 				blockDangerousExt: true,
 				blockDangerousExtList: '.inc\n.log\n.sh\n.sql',
 				wpLoginBasicAuth: false,
-				htpasswdPath: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -388,10 +381,8 @@ export const PRESETS = [
 			},
 			wpAdmin: {
 				basicAuth: false,
-				htpasswdPath: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
-				serverIp: '',
 			},
 			uploads: {
 				blockPhp: true,
@@ -415,7 +406,6 @@ export const PRESETS = [
 				blockDangerousExt: false,
 				blockDangerousExtList: '.inc\n.log\n.sh\n.sql',
 				wpLoginBasicAuth: false,
-				htpasswdPath: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -516,10 +506,8 @@ export const PRESETS = [
 			},
 			wpAdmin: {
 				basicAuth: false,
-				htpasswdPath: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
-				serverIp: '',
 			},
 			uploads: {
 				blockPhp: false,
@@ -543,7 +531,6 @@ export const PRESETS = [
 				blockDangerousExt: false,
 				blockDangerousExtList: '.inc\n.log\n.sh\n.sql',
 				wpLoginBasicAuth: false,
-				htpasswdPath: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -644,10 +631,8 @@ export const PRESETS = [
 			},
 			wpAdmin: {
 				basicAuth: false,
-				htpasswdPath: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
-				serverIp: '',
 			},
 			uploads: {
 				blockPhp: false,
@@ -671,7 +656,6 @@ export const PRESETS = [
 				blockDangerousExt: false,
 				blockDangerousExtList: '.inc\n.log\n.sh\n.sql',
 				wpLoginBasicAuth: false,
-				htpasswdPath: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -772,10 +756,8 @@ export const PRESETS = [
 			},
 			wpAdmin: {
 				basicAuth: false,
-				htpasswdPath: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
-				serverIp: '',
 			},
 			uploads: {
 				blockPhp: false,
@@ -799,7 +781,6 @@ export const PRESETS = [
 				blockDangerousExt: true,
 				blockDangerousExtList: '.inc\n.log\n.sh\n.sql',
 				wpLoginBasicAuth: false,
-				htpasswdPath: '',
 			},
 			ipBlock: {
 				enabled: false,
@@ -900,10 +881,8 @@ export const PRESETS = [
 			},
 			wpAdmin: {
 				basicAuth: false,
-				htpasswdPath: '',
 				ajaxExclude: true,
 				upgradeIpExclude: false,
-				serverIp: '',
 			},
 			uploads: {
 				blockPhp: true,

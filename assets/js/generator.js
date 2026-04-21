@@ -46,17 +46,13 @@ const VALID_EXPIRES_VALUES = ['1 hour', '1 day', '1 week', '1 month', '3 months'
 const VALID_CC_MAX_AGE_VALUES = ['3600', '86400', '604800', '2592000', '7776000', '31536000'];
 const VALID_HSTS_MAX_AGE_VALUES = ['300', '86400', '2592000', '31536000', '63072000'];
 
-// ─── 入力バリデーション ───────────────────────────────────────────
+/** Basic 認証で出力するダミー .htpasswd パス（ユーザーが書き換える前提） */
+const HTPASSWD_PLACEHOLDER_PATH = '/path/to/your/.htpasswd';
 
-const HTPASSWD_PATH_RE = /^\/[a-zA-Z0-9/_.\-]+$/;
+/** upgrade.php IP 除外で出力するダミー サーバー内部 IP（RFC 5737 TEST-NET-1） */
+const SERVER_IP_PLACEHOLDER = '192.0.2.1';
 
-const isValidHtpasswdPath = (path) => {
-	if (typeof path !== 'string') return false;
-	const trimmed = path.trim();
-	if (trimmed.length === 0 || trimmed.length > 512) return false;
-	return HTPASSWD_PATH_RE.test(trimmed);
-};
-
+// ─── 入力バリデーション ─────────────────────────────────────────────────────
 const IPV4_RE = /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
 const IPV4_CIDR_RE = /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\/(?:[0-9]|[12]\d|3[0-2])$/;
 
@@ -206,11 +202,11 @@ const buildFileProtectionSection = (fileProtection, apacheVersion, t) => {
 	}
 
 	// wp-login.php Basic 認証
-	if (fileProtection.wpLoginBasicAuth && isValidHtpasswdPath(fileProtection.htpasswdPath)) {
-		const htpasswdPath = fileProtection.htpasswdPath.trim();
+	if (fileProtection.wpLoginBasicAuth) {
 		lines.push(t('gen.comment.wpLoginBasicAuth'));
 		lines.push('<Files wp-login.php>');
-		lines.push(`\tAuthUserFile "${htpasswdPath}"`);
+		lines.push(`\t${t('gen.comment.htpasswdPathPlaceholder')}`);
+		lines.push(`\tAuthUserFile "${HTPASSWD_PLACEHOLDER_PATH}"`);
 		lines.push('\tAuthName "Member Site"');
 		lines.push('\tAuthType BASIC');
 		lines.push('\trequire valid-user');
@@ -742,14 +738,14 @@ export const buildWpAdmin = (settings, t = (key) => key) => {
 	const admin = settings.wpAdmin;
 	const apacheVersion = settings.apacheVersion ?? 'both';
 
-	if (!admin.basicAuth || !isValidHtpasswdPath(admin.htpasswdPath)) {
+	if (!admin.basicAuth) {
 		return [];
 	}
 
-	const htpasswdPath = admin.htpasswdPath.trim();
 	const lines = [];
 	lines.push(t('gen.comment.wpAdminBasicAuth'));
-	lines.push(`AuthUserFile "${htpasswdPath}"`);
+	lines.push(t('gen.comment.htpasswdPathPlaceholder'));
+	lines.push(`AuthUserFile "${HTPASSWD_PLACEHOLDER_PATH}"`);
 	lines.push('AuthName "Member Site"');
 	lines.push('AuthType BASIC');
 	lines.push('require valid-user');
@@ -777,11 +773,12 @@ export const buildWpAdmin = (settings, t = (key) => key) => {
 	}
 
 	// upgrade.php のサーバー内部 IP 除外
-	if (admin.upgradeIpExclude && isValidIpv4OrCidr(admin.serverIp)) {
-		const serverIp = admin.serverIp.trim();
+	if (admin.upgradeIpExclude) {
+		const serverIp = SERVER_IP_PLACEHOLDER;
 		lines.push('');
 		lines.push(t('gen.comment.upgradeIpExclude'));
 		lines.push('<Files upgrade.php>');
+		lines.push(`\t${t('gen.comment.serverIpPlaceholder')}`);
 		if (apacheVersion === '2.4') {
 			lines.push('\t<RequireAny>');
 			lines.push(`\t\tRequire ip ${serverIp}`);
@@ -827,4 +824,4 @@ export const buildUploads = (settings, t = (key) => key) => {
 	];
 };
 
-export { isValidHtpasswdPath, isValidIpv4OrCidr };
+export { isValidIpv4OrCidr };

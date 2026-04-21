@@ -46,7 +46,7 @@ English version: **https://htaccess-generator-b46.pages.dev/en/**
 
 - `xmlrpc.php` / `wp-config.php` / `.htaccess` のアクセス制限
 - 危険な拡張子（`.inc` / `.log` / `.sh` / `.sql`）のブロック
-- `wp-login.php` / `wp-admin` への Basic 認証（`admin-ajax.php` 除外・`upgrade.php` をサーバー内部 IP でスキップ対応）
+- `wp-login.php` / `wp-admin` への Basic 認証（生成コードの `AuthUserFile` はダミーパス `/path/to/your/.htpasswd` で出力されるため、サーバー上の `.htpasswd` 実パスに書き換えが必要。`admin-ajax.php` 除外・`upgrade.php` をサーバー内部 IP でスキップ対応。IP 除外もダミー IP `192.0.2.1` で出力されるため実 IP への書き換え必須）
 - 悪意のあるボット・バックドア探索のブロック（攻撃ツール / 汎用クライアント / SEO クローラーをグループ別に個別 ON/OFF 可能）
 - `wp-*` ディレクトリの多重ネスト防止 / `wp-includes` 直接ブラウズ防止
 - HTTPS リダイレクト（リバースプロキシ対応）

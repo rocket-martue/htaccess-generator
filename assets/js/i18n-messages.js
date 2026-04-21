@@ -18,7 +18,6 @@ export const messagesJa = {
 
 	// プレビュー
 	'preview.placeholder': '# オプションを選択してください',
-	'preview.placeholder.wpAdmin': '# .htpasswd のフルパスを入力してください',
 	'btn.copy': 'コピー',
 	'btn.copied': 'コピー済！',
 	'btn.copyFail': 'コピー失敗',
@@ -31,11 +30,7 @@ export const messagesJa = {
 	'tab.list.aria': '生成ファイルの切り替え',
 
 	// ヒント（バリデーション文言）
-	'hint.htpasswdPath': '.htpasswd のフルパスを入力すると反映されます',
-	'hint.htpasswdPathInvalid': '.htpasswd のフルパスを正しい形式で入力してください（例: /home/username/.htpasswd）',
 	'hint.ipBlock': 'ブロックする IP アドレスを入力してください',
-	'hint.adminHtpasswdPath': '.htpasswd のフルパスを入力すると反映されます',
-	'hint.adminHtpasswdPathInvalid': '.htpasswd のフルパスを正しい形式で入力してください（例: /home/username/.htpasswd）',
 
 	// プリセット（動的生成）
 	'preset.recommended.label': 'おすすめ設定',
@@ -88,6 +83,8 @@ export const messagesJa = {
 	'gen.comment.wpAdminBasicAuth': '# wp-admin に Basic 認証を設定',
 	'gen.comment.ajaxExclude': '# admin-ajax.php へのアクセスを許可（フロントエンドの Ajax 用）',
 	'gen.comment.upgradeIpExclude': '# upgrade.php はサーバー内部 IP のみ Basic 認証をスキップ（自動更新用）',
+	'gen.comment.htpasswdPathPlaceholder': '# ↓ 要書き換え: サーバー上の .htpasswd の実際のフルパスに変更してください',
+	'gen.comment.serverIpPlaceholder': '# ↓ 要書き換え: サーバーの実際の内部 IP に変更してください（例: 127.0.0.1）',
 	'gen.comment.blockPhp': '# PHP 関連ファイルの実行を禁止',
 };
 
@@ -104,7 +101,6 @@ export const messagesEn = {
 
 	// Preview
 	'preview.placeholder': '# Select options to generate',
-	'preview.placeholder.wpAdmin': '# Enter the full path to .htpasswd',
 	'btn.copy': 'Copy',
 	'btn.copied': 'Copied!',
 	'btn.copyFail': 'Copy failed',
@@ -117,11 +113,7 @@ export const messagesEn = {
 	'tab.list.aria': 'Switch generated file',
 
 	// Hints (validation messages)
-	'hint.htpasswdPath': 'Enter the full path to .htpasswd to apply',
-	'hint.htpasswdPathInvalid': 'Enter a valid full path to .htpasswd (e.g. /home/username/.htpasswd)',
 	'hint.ipBlock': 'Enter IP addresses to block',
-	'hint.adminHtpasswdPath': 'Enter the full path to .htpasswd to apply',
-	'hint.adminHtpasswdPathInvalid': 'Enter a valid full path to .htpasswd (e.g. /home/username/.htpasswd)',
 
 	// Presets (dynamic)
 	'preset.recommended.label': 'Recommended',
@@ -174,5 +166,7 @@ export const messagesEn = {
 	'gen.comment.wpAdminBasicAuth': '# Set Basic Auth for wp-admin',
 	'gen.comment.ajaxExclude': '# Allow access to admin-ajax.php (for frontend Ajax)',
 	'gen.comment.upgradeIpExclude': '# Skip Basic Auth for upgrade.php from server internal IP (for auto-updates)',
+	'gen.comment.htpasswdPathPlaceholder': '# REPLACE THIS: Change to the actual full path to .htpasswd on your server',
+	'gen.comment.serverIpPlaceholder': '# REPLACE THIS: Change to the actual server internal IP (e.g. 127.0.0.1)',
 	'gen.comment.blockPhp': '# Disable PHP file execution',
 };
