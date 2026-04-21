@@ -5,7 +5,7 @@
  * プレビュー更新・コピー・ダウンロード処理を担う。
  */
 
-import { buildRoot, buildWpAdmin, buildUploads, isValidHtpasswdPath } from './generator.js';
+import { buildRoot, buildWpAdmin, buildUploads } from './generator.js';
 import { PRESETS, DEFAULT_SETTINGS } from './presets.js';
 import { applyTheme, initTheme, setupThemeToggle, DARK_THEME } from './theme.js';
 import { messagesJa, messagesEn } from './i18n-messages.js';
@@ -29,9 +29,6 @@ const elBlockDangerousExt = document.querySelector('[name="blockDangerousExt"]')
 const elBlockDangerousExtList = document.querySelector('[name="blockDangerousExtList"]');
 const elDangerousExtFields = document.querySelector('.dangerous-ext-fields');
 const elWpLoginBasicAuth = document.querySelector('[name="wpLoginBasicAuth"]');
-const elLoginHtpasswdPath = document.querySelector('[name="loginHtpasswdPath"]');
-const elLoginAuthFields = document.querySelector('.login-auth-fields');
-const elLoginHtpasswdHint = document.querySelector('#login-htpasswd-hint');
 
 // IP Block
 const elIpBlockEnabled = document.querySelector('[name="ipBlockEnabled"]');
@@ -138,11 +135,8 @@ const elPpSubFields = document.querySelector('.pp-sub-fields');
 
 // wp-admin
 const elWpAdminBasicAuth = document.querySelector('[name="wpAdminBasicAuth"]');
-const elAdminHtpasswdPath = document.querySelector('[name="adminHtpasswdPath"]');
-const elAdminHtpasswdHint = document.querySelector('#admin-htpasswd-hint');
 const elAjaxExclude = document.querySelector('[name="ajaxExclude"]');
 const elUpgradeIpExclude = document.querySelector('[name="upgradeIpExclude"]');
-const elServerIp = document.querySelector('[name="serverIp"]');
 const elWpAdminFields = document.querySelector('.wp-admin-fields');
 
 // Uploads
@@ -188,7 +182,6 @@ const getCurrentSettings = () => ({
 		blockDangerousExt: elBlockDangerousExt?.checked ?? false,
 		blockDangerousExtList: elBlockDangerousExtList?.value ?? DEFAULT_SETTINGS.fileProtection.blockDangerousExtList,
 		wpLoginBasicAuth: elWpLoginBasicAuth?.checked ?? false,
-		htpasswdPath: elLoginHtpasswdPath?.value.trim() ?? '',
 	},
 	ipBlock: {
 		enabled: elIpBlockEnabled?.checked ?? false,
@@ -295,10 +288,8 @@ const getCurrentSettings = () => ({
 	},
 	wpAdmin: {
 		basicAuth: elWpAdminBasicAuth?.checked ?? false,
-		htpasswdPath: elAdminHtpasswdPath?.value.trim() ?? '',
 		ajaxExclude: elAjaxExclude?.checked ?? true,
 		upgradeIpExclude: elUpgradeIpExclude?.checked ?? false,
-		serverIp: elServerIp?.value.trim() ?? '',
 	},
 	uploads: {
 		blockPhp: elBlockPhp?.checked ?? false,
@@ -340,12 +331,10 @@ const updatePreview = () => {
 
 const renderCurrentTab = () => {
 	let lines;
-	let placeholderKey = 'preview.placeholder';
 
 	switch (currentTab) {
 		case 'wp-admin':
 			lines = generatedAdmin;
-			placeholderKey = 'preview.placeholder.wpAdmin';
 			break;
 		case 'uploads':
 			lines = generatedUploads;
@@ -359,7 +348,7 @@ const renderCurrentTab = () => {
 			elPreviewCode.textContent = lines.join('\n');
 			elPreviewCode.removeAttribute('data-empty');
 		} else {
-			elPreviewCode.textContent = t(placeholderKey);
+			elPreviewCode.textContent = t('preview.placeholder');
 			elPreviewCode.setAttribute('data-empty', '');
 		}
 	}
@@ -401,7 +390,6 @@ const applySettingsToForm = (settings) => {
 	if (elBlockDangerousExt) elBlockDangerousExt.checked = settings.fileProtection.blockDangerousExt;
 	if (elBlockDangerousExtList) elBlockDangerousExtList.value = settings.fileProtection.blockDangerousExtList ?? DEFAULT_SETTINGS.fileProtection.blockDangerousExtList;
 	if (elWpLoginBasicAuth) elWpLoginBasicAuth.checked = settings.fileProtection.wpLoginBasicAuth;
-	if (elLoginHtpasswdPath) elLoginHtpasswdPath.value = settings.fileProtection.htpasswdPath;
 
 	// IP Block
 	if (elIpBlockEnabled) elIpBlockEnabled.checked = settings.ipBlock.enabled;
@@ -506,10 +494,8 @@ const applySettingsToForm = (settings) => {
 
 	// wp-admin
 	if (elWpAdminBasicAuth) elWpAdminBasicAuth.checked = settings.wpAdmin.basicAuth;
-	if (elAdminHtpasswdPath) elAdminHtpasswdPath.value = settings.wpAdmin.htpasswdPath;
 	if (elAjaxExclude) elAjaxExclude.checked = settings.wpAdmin.ajaxExclude;
 	if (elUpgradeIpExclude) elUpgradeIpExclude.checked = settings.wpAdmin.upgradeIpExclude;
-	if (elServerIp) elServerIp.value = settings.wpAdmin.serverIp;
 
 	// Uploads
 	if (elBlockPhp) elBlockPhp.checked = settings.uploads.blockPhp;
@@ -543,21 +529,6 @@ const applyPreset = (presetId) => {
 // ─── 条件付きフィールドの表示/非表示 ─────────────────────────────
 
 const updateConditionalFields = () => {
-	// wp-login.php Basic 認証フィールド
-	if (elLoginAuthFields) {
-		elLoginAuthFields.hidden = !elWpLoginBasicAuth?.checked;
-	}
-	if (elLoginHtpasswdHint) {
-		const loginPath = elLoginHtpasswdPath?.value ?? '';
-		const loginPathInvalid = elWpLoginBasicAuth?.checked && !isValidHtpasswdPath(loginPath);
-		elLoginHtpasswdHint.hidden = !loginPathInvalid;
-		if (loginPathInvalid) {
-			elLoginHtpasswdHint.textContent = loginPath.trim() === ''
-				? t('hint.htpasswdPath')
-				: t('hint.htpasswdPathInvalid');
-		}
-	}
-
 	// IP ブロックフィールド
 	if (elIpBlockFields) {
 		elIpBlockFields.hidden = !elIpBlockEnabled?.checked;
@@ -617,16 +588,6 @@ const updateConditionalFields = () => {
 	// wp-admin フィールド
 	if (elWpAdminFields) {
 		elWpAdminFields.hidden = !elWpAdminBasicAuth?.checked;
-	}
-	if (elAdminHtpasswdHint) {
-		const adminPath = elAdminHtpasswdPath?.value ?? '';
-		const adminPathInvalid = elWpAdminBasicAuth?.checked && !isValidHtpasswdPath(adminPath);
-		elAdminHtpasswdHint.hidden = !adminPathInvalid;
-		if (adminPathInvalid) {
-			elAdminHtpasswdHint.textContent = adminPath.trim() === ''
-				? t('hint.adminHtpasswdPath')
-				: t('hint.adminHtpasswdPathInvalid');
-		}
 	}
 
 	// HSTS サブオプション
