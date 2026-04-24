@@ -706,20 +706,6 @@ RewriteRule ^ - [R=410,L]</code></pre>
 								を記述する。ブロックごとに独立しているため、改めてONにする必要がある。
 							</p>
 						</blockquote>
-
-							<pre class="article-code"><code># For mod_rewrite
-&lt;IfModule mod_rewrite.c&gt;
-    RewriteEngine On        ← Switch ON
-    RewriteCond %{HTTPS} !=on [NC]
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-&lt;/IfModule&gt;
-
-# For mod_expires
-&lt;IfModule mod_expires.c&gt;
-    ExpiresActive On        ← Switch ON
-    ExpiresByType text/css "access plus 1 year"
-    ExpiresByType image/jpeg "access plus 1 month"
-&lt;/IfModule&gt;</code></pre>
 					</section>
 
 					<hr class="divider" />
