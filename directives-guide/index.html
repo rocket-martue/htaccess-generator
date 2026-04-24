@@ -479,259 +479,6 @@ RewriteRule ^ - [L]</code></pre>
 								にのみ適用される。
 							</p>
 						</blockquote>
-
-							<h4>
-								Why Use
-								<code>%{THE_REQUEST}</code>
-								and When
-							</h4>
-							<p>
-								<code>%{THE_REQUEST}</code>
-								and
-								<code>%{REQUEST_URI}</code>
-								look similar, but there is a critical difference:
-								<strong>before vs. after Apache's URL normalization</strong>
-								.
-							</p>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>Variable</th>
-											<th>Example value</th>
-											<th>Characteristic</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><code>%{REQUEST_URI}</code></td>
-											<td><code>/path/to/page</code></td>
-											<td>
-												Path after Apache normalization —
-												<code>//</code>
-												is collapsed to
-												<code>/</code>
-											</td>
-										</tr>
-										<tr>
-											<td><code>%{THE_REQUEST}</code></td>
-											<td><code>GET /path//to/page HTTP/1.1</code></td>
-											<td>Raw request line sent by the client; retains pre-normalization information</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<p>
-								<strong>Detecting double slashes</strong>
-								requires
-								<code>%{THE_REQUEST}</code>
-								. By the time
-								<code>%{REQUEST_URI}</code>
-								is available,
-								<code>//</code>
-								has already been collapsed to
-								<code>/</code>
-								and the condition will not match.
-							</p>
-							<pre class="article-code"><code># Normalize URLs containing double slashes with a 301 redirect
-# %{REQUEST_URI} is already normalized, so use %{THE_REQUEST} for detection
-RewriteCond %{THE_REQUEST} \s[^\s?]*//
-RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
-							<p>
-								Breakdown of the
-								<code>\s[^\s?]*//</code>
-								pattern:
-							</p>
-							<ul>
-								<li>
-									<code>\s</code>
-									— Whitespace between the method and the URL (immediately after
-									<code>GET&nbsp;</code>
-									)
-								</li>
-								<li>
-									<code>[^\s?]*</code>
-									— Any characters except whitespace and
-									<code>?</code>
-									(targets the path portion only)
-								</li>
-								<li>
-									<code>//</code>
-									— The double slash being detected
-								</li>
-							</ul>
-							<blockquote>
-								<p>
-									The
-									<code>RewriteRule</code>
-									pattern is applied against the normalized
-									<code>REQUEST_URI</code>
-									. Use
-									<code>%{THE_REQUEST}</code>
-									to detect double slashes in the original request line, then specify the already-normalized
-									<code>%{REQUEST_URI}</code>
-									as the redirect target. The
-									<code>NE</code>
-									flag (noescape) prevents special characters in the redirect target from being escaped. This is the same pattern used in the generator output.
-								</p>
-							</blockquote>
-
-							<h3>Pattern Syntax</h3>
-							<pre class="article-code"><code># Regex match
-RewriteCond %{HTTP_USER_AGENT} (wget|curl|nikto) [NC]
-
-# Negation match (prefix with !)
-RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
-
-# Check if a file exists
-RewriteCond %{REQUEST_FILENAME} -f
-
-# Check if a directory exists
-RewriteCond %{REQUEST_FILENAME} -d</code></pre>
-
-							<h3>Test Operators (-f, -d, etc.)</h3>
-							<p>
-								In addition to regular expressions, the pattern portion accepts
-								<strong>special test operators</strong>
-								that check file system state.
-							</p>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>Operator</th>
-											<th>Meaning</th>
-											<th>What it checks</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><code>-f</code></td>
-											<td>
-												is
-												<strong>F</strong>
-												ile
-											</td>
-											<td>A regular file exists</td>
-										</tr>
-										<tr>
-											<td><code>-d</code></td>
-											<td>
-												is
-												<strong>D</strong>
-												irectory
-											</td>
-											<td>A directory exists</td>
-										</tr>
-										<tr>
-											<td><code>-s</code></td>
-											<td>
-												is file with
-												<strong>S</strong>
-												ize
-											</td>
-											<td>File exists and has a non-zero size</td>
-										</tr>
-										<tr>
-											<td><code>-l</code></td>
-											<td>
-												is symbolic
-												<strong>L</strong>
-												ink
-											</td>
-											<td>A symbolic link exists</td>
-										</tr>
-										<tr>
-											<td><code>-F</code></td>
-											<td>
-												is existing
-												<strong>F</strong>
-												ile (via subrequest)
-											</td>
-											<td>Existence confirmed via an Apache subrequest (expensive)</td>
-										</tr>
-										<tr>
-											<td><code>-U</code></td>
-											<td>
-												is existing
-												<strong>U</strong>
-												RL (via subrequest)
-											</td>
-											<td>URL is accessible (expensive)</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<blockquote>
-								<p>
-									In practice,
-									<code>-f</code>
-									and
-									<code>-d</code>
-									are by far the most common. Prefix with
-									<code>!</code>
-									to negate (e.g.
-									<code>!-f</code>
-									= file does not exist,
-									<code>!-d</code>
-									= directory does not exist). WordPress
-									<code>.htaccess</code>
-									files frequently combine
-									<code>!-f</code>
-									and
-									<code>!-d</code>
-									.
-								</p>
-							</blockquote>
-
-							<h4>WordPress Usage Example</h4>
-							<pre class="article-code"><code>RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]</code></pre>
-							<p>This means "if the requested path corresponds to an actual file or directory, return it as-is without rewriting the URL."</p>
-							<p>
-								This is necessary to serve static files (images, CSS, JS) directly without routing them through WordPress's rewrite engine (
-								<code>index.php</code>
-								). Without it, every request to a real file such as
-								<code>/wp-content/uploads/photo.jpg</code>
-								would be forwarded to
-								<code>index.php</code>
-								, breaking images and stylesheets.
-							</p>
-
-							<h3>Combining Multiple Conditions</h3>
-							<p>
-								Multiple
-								<code>RewriteCond</code>
-								lines default to an
-								<strong>AND</strong>
-								relationship.
-							</p>
-							<pre class="article-code"><code># Condition A AND Condition B → RewriteRule fires only when both are satisfied
-RewriteCond %{HTTPS} !=on [NC]
-RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</code></pre>
-
-							<p>
-								Use the
-								<code>[OR]</code>
-								flag to create an OR relationship.
-							</p>
-							<pre class="article-code"><code># File exists OR directory exists
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]</code></pre>
-							<blockquote>
-								<p>
-									<strong>Important:</strong>
-									A
-									<code>RewriteCond</code>
-									applies only to the
-									<code>RewriteRule</code>
-									immediately following it.
-								</p>
-							</blockquote>
-						</div>
 					</section>
 
 					<hr class="divider" />
@@ -795,17 +542,6 @@ RewriteRule .* - [F,L]
 
 # 410 Goneを返す（不正なクエリ文字列対策）
 RewriteRule ^ - [R=410,L]</code></pre>
-
-							<h3>Examples</h3>
-							<pre class="article-code"><code># HTTPS redirect
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
-# Return 403 Forbidden without rewriting the URL (bot blocking)
-RewriteRule .* - [F,L]
-
-# Return 410 Gone (against malicious query strings)
-RewriteRule ^ - [R=410,L]</code></pre>
-						</div>
 					</section>
 
 					<hr class="divider" />
@@ -885,26 +621,6 @@ RewriteRule ^ - [R=410,L]</code></pre>
 								側のみ使用される。
 							</p>
 						</blockquote>
-
-							<h3>Negation (Apache 2.2 / 2.4 Compatible Pattern)</h3>
-							<pre class="article-code"><code>&lt;IfModule mod_authz_core.c&gt;
-    # Apache 2.4+ syntax
-    Require all denied
-&lt;/IfModule&gt;
-&lt;IfModule !mod_authz_core.c&gt;
-    # Apache 2.2 and earlier (fallback)
-    Order deny,allow
-    Deny from all
-&lt;/IfModule&gt;</code></pre>
-							<blockquote>
-								<p>
-									<strong>Note:</strong>
-									XServer runs Apache 2.4, so in practice only the
-									<code>mod_authz_core.c</code>
-									block is used.
-								</p>
-							</blockquote>
-						</div>
 					</section>
 
 					<hr class="divider" />
@@ -990,56 +706,6 @@ RewriteRule ^ - [R=410,L]</code></pre>
 								を記述する。ブロックごとに独立しているため、改めてONにする必要がある。
 							</p>
 						</blockquote>
-
-							<pre class="article-code"><code># For mod_rewrite
-&lt;IfModule mod_rewrite.c&gt;
-    RewriteEngine On        ← Switch ON
-    RewriteCond %{HTTPS} !=on [NC]
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-&lt;/IfModule&gt;
-
-# For mod_expires
-&lt;IfModule mod_expires.c&gt;
-    ExpiresActive On        ← Switch ON
-    ExpiresByType text/css "access plus 1 year"
-    ExpiresByType image/jpeg "access plus 1 month"
-&lt;/IfModule&gt;</code></pre>
-
-							<h3>Modules That Do Not Need a Switch</h3>
-							<p>
-								Modules such as
-								<code>mod_deflate</code>
-								and
-								<code>mod_headers</code>
-								do not require a switch — directives can be written directly inside the
-								<code>IfModule</code>
-								block. Not every module has an enable switch; it depends on the module's specification.
-							</p>
-
-							<h3>Basic Pattern</h3>
-							<pre class="article-code"><code>IfModule checks module exists → Switch ON → Write directives</code></pre>
-							<p>
-								These three steps together are the standard
-								<code>.htaccess</code>
-								boilerplate.
-							</p>
-							<blockquote>
-								<p>
-									<strong>Note:</strong>
-									You can also explicitly disable with
-									<code>RewriteEngine Off</code>
-									, which is useful for temporarily stopping all rewrite rules during debugging.
-								</p>
-								<p>
-									<strong>Note:</strong>
-									When multiple
-									<code>&lt;IfModule mod_rewrite.c&gt;</code>
-									blocks exist, each block needs its own
-									<code>RewriteEngine On</code>
-									. Each block is independent, so the switch must be repeated.
-								</p>
-							</blockquote>
-						</div>
 					</section>
 
 					<hr class="divider" />
@@ -1069,7 +735,6 @@ RewriteRule ^ - [R=410,L]</code></pre>
 									</tr>
 								</tbody>
 							</table>
-						</div>
 						</div>
 					</section>
 
@@ -1196,68 +861,6 @@ RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
 								は基本的にほぼ毎回付ける。付け忘れると後続ルールが意図せず適用される原因になる。
 							</p>
 						</blockquote>
-
-							<h3>Other Flags</h3>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>Flag</th>
-											<th>Name</th>
-											<th>Description</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><code>[QSA]</code></td>
-											<td>Query String Append</td>
-											<td>Appends the original query string to the redirect destination</td>
-										</tr>
-										<tr>
-											<td><code>[QSD]</code></td>
-											<td>Query String Discard</td>
-											<td>Discards the query string</td>
-										</tr>
-										<tr>
-											<td><code>[P]</code></td>
-											<td>Proxy</td>
-											<td>Forwards the request as a proxy instead of redirecting</td>
-										</tr>
-										<tr>
-											<td><code>[G]</code></td>
-											<td>Gone</td>
-											<td>
-												Returns 410 Gone (shorthand for
-												<code>[R=410]</code>
-												)
-											</td>
-										</tr>
-										<tr>
-											<td><code>[CO]</code></td>
-											<td>Cookie</td>
-											<td>Sets a cookie</td>
-										</tr>
-										<tr>
-											<td><code>[E]</code></td>
-											<td>Environment</td>
-											<td>Sets an environment variable</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-							<h3>Combining Flags</h3>
-							<p>Multiple flags can be combined with comma separation.</p>
-							<pre class="article-code"><code># 301 redirect + stop processing + no encoding
-RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
-							<blockquote>
-								<p>
-									Always include
-									<code>[L]</code>
-									. Omitting it can cause subsequent rules to be applied unintentionally.
-								</p>
-							</blockquote>
-						</div>
 					</section>
 
 					<hr class="divider" />
@@ -1316,7 +919,6 @@ RewriteRule ^ %{REQUEST_URI} [R=301,L,NE]</code></pre>
 									</tr>
 								</tbody>
 							</table>
-						</div>
 						</div>
 					</section>
 

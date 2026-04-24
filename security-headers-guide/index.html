@@ -116,11 +116,7 @@
 						<h2>セキュリティヘッダーとは</h2>
 
 						<p>セキュリティヘッダーは、サーバーがブラウザへのレスポンスに付与する HTTP ヘッダーのこと。ブラウザはこのヘッダーを読み取り、スクリプトの実行制限・通信の強制 HTTPS 化・iframe 埋め込みのブロックなど、様々なセキュリティ動作を自動的に行う。</p>
-						<p>
-							アプリケーション側のコード（PHP・JavaScript）を変更せずに適用できるため、
-							<code>.htaccess</code>
-							によるサーバーレベルでの防御として広く使われる。
-						</p>
+						<p>アプリケーション側のコード（PHP・JavaScript）を変更せずに適用できるため、<code>.htaccess</code>によるサーバーレベルでの防御として広く使われる。</p>
 
 						<h3>設定するメリット</h3>
 						<ul>
@@ -207,25 +203,8 @@
 						</div>
 
 						<blockquote>
-							<p>
-								これらのヘッダーはすべて Apache の
-								<code>mod_headers</code>
-								モジュールで出力する。
-								<code>&lt;IfModule mod_headers.c&gt;</code>
-								でラップすることで、モジュールが無効な環境でも 500 エラーを防げる。
-							</p>
+							<p>これらのヘッダーはすべて Apache の<code>mod_headers</code>モジュールで出力する。<code>&lt;IfModule mod_headers.c&gt;</code>でラップすることで、モジュールが無効な環境でも 500 エラーを防げる。</p>
 						</blockquote>
-
-							<blockquote>
-								<p>
-									All of these headers are output through Apache's
-									<code>mod_headers</code>
-									module. Wrapping them in
-									<code>&lt;IfModule mod_headers.c&gt;</code>
-									prevents 500 errors in environments where the module is not enabled.
-								</p>
-							</blockquote>
-						</div>
 					</section>
 
 					<hr class="divider" />
@@ -264,17 +243,6 @@
 								が必須。
 							</p>
 						</blockquote>
-
-							<blockquote>
-								<p>
-									Always use
-									<code>Header always set</code>
-									for security headers. The
-									<code>always</code>
-									keyword is required so the browser receives security instructions even on error pages.
-								</p>
-							</blockquote>
-						</div>
 					</section>
 
 					<hr class="divider" />
@@ -355,44 +323,6 @@
 							<code>preload</code>
 							を外す、といった調整が可能。
 						</p>
-
-							<h3>The role of the <code>expr=</code> condition (reverse-proxy support)</h3>
-							<p>
-								Shared hosting services such as XServer and ConoHa WING use a Nginx → Apache reverse-proxy architecture. In this setup, even when a user connects over HTTPS, Apache receives the request over plain HTTP internally, so
-								<code>%{HTTPS}</code>
-								alone cannot detect the original protocol.
-							</p>
-
-							<pre class="article-code"><code>User →(HTTPS)→ Nginx (TLS termination) →(HTTP)→ Apache</code></pre>
-
-							<p>
-								The
-								<code>expr=</code>
-								condition uses Apache's Expression evaluation engine to send the header only when either an HTTPS connection or an
-								<code>X-Forwarded-Proto: https</code>
-								header is detected. This prevents the HSTS header from being sent on plain-HTTP requests.
-							</p>
-
-							<blockquote>
-								<p>
-									Before enabling
-									<code>includeSubDomains</code>
-									, verify that every subdomain already supports HTTPS. Any subdomain that does not support HTTPS will become inaccessible.
-								</p>
-							</blockquote>
-
-							<p>
-								The generator lets you toggle
-								<code>includeSubDomains</code>
-								and
-								<code>preload</code>
-								independently. Turn off
-								<code>includeSubDomains</code>
-								if any subdomain lacks HTTPS, and turn off
-								<code>preload</code>
-								if you do not intend to register with a preload list.
-							</p>
-						</div>
 					</section>
 
 					<hr class="divider" />
@@ -711,247 +641,6 @@ Header always set Content-Security-Policy-Report-Only \
 								</tbody>
 							</table>
 						</div>
-
-							<h3>WordPress-specific considerations</h3>
-							<p>
-								WordPress core, the Gutenberg block editor, and admin-panel plugins rely heavily on inline scripts, inline styles, and
-								<code>eval()</code>
-								, so
-								<code>'unsafe-inline'</code>
-								/
-								<code>'unsafe-eval'</code>
-								are required in the wp-admin area.
-							</p>
-							<p>
-								When CSP is enabled, the generator automatically produces separate CSP directives for wp-admin / wp-login.php and the front end. The front end is hardened without
-								<code>unsafe-*</code>
-								, while the admin area receives a CSP that includes the necessary
-								<code>unsafe-*</code>
-								values, so both can coexist.
-							</p>
-
-							<h3>The img-src / OG image pitfall</h3>
-							<p>
-								Explicitly specifying
-								<code>img-src</code>
-								disables the
-								<code>default-src</code>
-								fallback for images. Watch out for this common mistake:
-							</p>
-
-							<pre class="article-code"><code># WRONG: forgetting 'self' blocks images on your own site
-img-src data:
-
-# CORRECT: always include 'self'
-img-src 'self' data:</code></pre>
-
-							<blockquote>
-								<p>
-									OG images (thumbnails used when sharing on social media) are also subject to this rule. Always include
-									<code>'self'</code>
-									whenever you write
-									<code>img-src</code>
-									.
-								</p>
-							</blockquote>
-
-							<h3>Admin-area CSP branching (WordPress)</h3>
-							<p>
-								When CSP is enabled in the generator, it automatically outputs different CSP directives for the front end and for wp-admin / wp-login.php. The front end excludes
-								<code>unsafe-*</code>
-								from script-src / style-src, while the admin area gets a CSP with the unsafe-inline / unsafe-eval values that WordPress requires pre-applied.
-							</p>
-
-							<pre class="article-code"><code># Front end (everything except wp-admin and wp-login.php)
-&lt;If "%{REQUEST_URI} !~ m#^/wp-(admin(?:/|$)|login\.php)#"&gt;
-    Header always set Content-Security-Policy "upgrade-insecure-requests; ..."
-&lt;/If&gt;
-
-# Admin panel and login page
-&lt;If "%{REQUEST_URI} =~ m#^/wp-(admin(?:/|$)|login\.php)#"&gt;
-    Header always set Content-Security-Policy "upgrade-insecure-requests; default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'self'"
-&lt;/If&gt;</code></pre>
-
-							<p>
-								The admin-area CSP is generated dynamically based on the directives the user has selected.
-								<code>'unsafe-inline'</code>
-								and
-								<code>'unsafe-eval'</code>
-								are added automatically to
-								<code>script-src</code>
-								, and
-								<code>'unsafe-inline'</code>
-								is added to
-								<code>style-src</code>
-								, ensuring that the Gutenberg block editor and core admin screens function correctly.
-							</p>
-
-							<blockquote>
-								<p>
-									Even if
-									<code>script-src</code>
-									/
-									<code>style-src</code>
-									are not explicitly enabled, if
-									<code>default-src</code>
-									is enabled the admin-area CSP will inherit its value and add explicit
-									<code>script-src</code>
-									/
-									<code>style-src</code>
-									entries.
-								</p>
-							</blockquote>
-
-							<h3>Report-Only mode</h3>
-							<p>
-								Applying CSP directly to a production site can break it. The safe approach is to first use the
-								<code>Content-Security-Policy-Report-Only</code>
-								header to collect violation reports, verify them, and then switch to enforcing mode.
-							</p>
-
-							<pre class="article-code"><code># Test mode (reports violations without actually blocking anything)
-Header always set Content-Security-Policy-Report-Only "default-src 'self'; report-uri /csp-report"</code></pre>
-
-							<blockquote>
-								<p>
-									<code>upgrade-insecure-requests</code>
-									is ignored in Report-Only mode. Because it is an action directive (upgrading resources), not a restriction directive, it should only be included in an enforcing CSP.
-								</p>
-							</blockquote>
-
-							<h4>Checking violations in DevTools</h4>
-							<p>With the Report-Only header in place, open your site and go to the browser DevTools (F12) → Console tab. Any CSP violations will appear as errors like this:</p>
-
-							<pre class="article-code"><code>Refused to load the script 'https://www.googletagmanager.com/gtm.js'
-because it violates the following Content Security Policy directive:
-"script-src 'self'"</code></pre>
-
-							<p>
-								Review the violations in the Console, add the required origins to the appropriate directives, and then switch to Enforce mode (
-								<code>Content-Security-Policy</code>
-								).
-							</p>
-
-							<h4>Collecting violation reports (report-uri / report-to)</h4>
-							<p>
-								CSP violation reports can be sent via the traditional
-								<code>report-uri</code>
-								directive, and in CSP Level 3 also via
-								<code>report-to</code>
-								and
-								<code>Reporting-Endpoints</code>
-								(or the older
-								<code>Report-To</code>
-								header for compatibility). Since
-								<code>report-uri</code>
-								is deprecated but still widely supported, combining both is the most practical approach for collecting real-user violations that DevTools alone cannot capture.
-							</p>
-
-							<pre class="article-code"><code>Header always set Reporting-Endpoints "csp-endpoint=\"/wp-json/csp-report/v1/collect\""
-Header always set Report-To "{\"group\":\"csp-endpoint\",\"max_age\":10886400,\"endpoints\":[{\"url\":\"https://example.com/wp-json/csp-report/v1/collect\"}]}"
-Header always set Content-Security-Policy-Report-Only \
-  "default-src 'self'; report-uri /wp-json/csp-report/v1/collect; report-to csp-endpoint"</code></pre>
-
-							<blockquote>
-								<p>
-									<code>Reporting-Endpoints</code>
-									is the modern syntax, while
-									<code>Report-To</code>
-									is the older Reporting API header. Because browser support differs, include both if compatibility is important. The long-term direction is to migrate to the
-									<code>report-to</code>
-									approach, but combining it with
-									<code>report-uri</code>
-									is the safe choice for now.
-								</p>
-							</blockquote>
-
-							<p>
-								Example: implementing a
-								<code>report-uri</code>
-								receiver endpoint in the WordPress REST API:
-							</p>
-
-							<blockquote>
-								<p>
-									The
-									<code>report-to</code>
-									(Reporting API) format differs — it uses
-									<code>application/reports+json</code>
-									, an array, and a
-									<code>type: "csp-violation"</code>
-									field — and requires a separate receiver implementation. The example below is for
-									<code>report-uri</code>
-									only.
-								</p>
-							</blockquote>
-
-							<pre class="article-code"><code>add_action( 'rest_api_init', function () {
-    register_rest_route( 'csp-report/v1', '/collect', array(
-        'methods'             =&gt; 'POST',
-        'callback'            =&gt; function ( WP_REST_Request $request ) {
-            // Validate Content-Type (report-uri sends application/csp-report or application/json)
-            $content_type = (string) $request-&gt;get_header( 'Content-Type' );
-            if ( false === strpos( $content_type, 'application/csp-report' )
-                &amp;&amp; false === strpos( $content_type, 'application/json' ) ) {
-                return new WP_REST_Response( null, 415 );
-            }
-            // Enforce body size limit (4 KB)
-            $body = $request-&gt;get_body();
-            if ( strlen( $body ) &gt; 4096 ) {
-                return new WP_REST_Response( null, 413 );
-            }
-            $data   = json_decode( $body, true );
-            $report = isset( $data['csp-report'] ) ? $data['csp-report'] : array();
-            // Save only the fields needed (exclude document-uri / referrer — they may contain PII)
-            $log = array(
-                'blocked-uri'         =&gt; isset( $report['blocked-uri'] ) ? $report['blocked-uri'] : '',
-                'violated-directive'  =&gt; isset( $report['violated-directive'] ) ? $report['violated-directive'] : '',
-                'effective-directive' =&gt; isset( $report['effective-directive'] ) ? $report['effective-directive'] : '',
-            );
-            error_log( 'CSP violation: ' . wp_json_encode( $log ) );
-            return new WP_REST_Response( null, 204 );
-        },
-        'permission_callback' =&gt; '__return_true',
-    ) );
-} );</code></pre>
-
-							<blockquote>
-								<p>
-									Anyone can POST to a CSP report endpoint. Saving reports without validation can lead to log poisoning, log bloat (DoS), and recording of personally identifiable information (PII) such as URLs and Referer values. In production, avoid persisting fields that may contain PII (e.g.
-									<code>document-uri</code>
-									/
-									<code>referrer</code>
-									), and always enforce body-size limits and Content-Type validation. Delegating to an external service is also a valid option when a high volume of reports is expected.
-								</p>
-							</blockquote>
-
-							<h4>Using an external service</h4>
-							<p>Instead of hosting your own endpoint, you can delegate report collection to a SaaS service.</p>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>Service</th>
-											<th>Notes</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>
-												<a href="https://report-uri.com" rel="noopener noreferrer" target="_blank">report-uri.com</a>
-											</td>
-											<td>Collects and visualizes CSP, CT, and HPKP reports. Free plan available.</td>
-										</tr>
-										<tr>
-											<td>
-												<a href="https://sentry.io" rel="noopener noreferrer" target="_blank">Sentry</a>
-											</td>
-											<td>Error-monitoring platform that also accepts CSP reports.</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
 					</section>
 
 					<hr class="divider" />
@@ -982,11 +671,8 @@ Header always set Content-Security-Policy-Report-Only \
 						<pre class="article-code"><code>Header always set X-Frame-Options "SAMEORIGIN"</code></pre>
 
 						<h3>役割と防御対象</h3>
-						<p>
-							他サイトがこのサイトのページを
-							<code>&lt;iframe&gt;</code>
-							で埋め込むことを制限するヘッダー。クリックジャッキング攻撃を防止する。
-						</p>
+						<p>他サイトがこのサイトのページを<code>&lt;iframe&gt;</code>
+							で埋め込むことを制限するヘッダー。クリックジャッキング攻撃を防止する。</p>
 						<p>
 							クリックジャッキングとは、攻撃者が自分のサイトに対象サイトを透明な
 							<code>iframe</code>
@@ -1024,17 +710,6 @@ Header always set Content-Security-Policy-Report-Only \
 							<code>DENY</code>
 							を選ぶとより厳格になる。
 						</p>
-
-							<p>
-								The generator lets you choose between
-								<code>SAMEORIGIN</code>
-								(default) and
-								<code>DENY</code>
-								. If your site never embeds its own pages in iframes,
-								<code>DENY</code>
-								provides stricter protection.
-							</p>
-						</div>
 					</section>
 
 					<hr class="divider" />
@@ -1139,37 +814,6 @@ Header always set Content-Security-Policy-Report-Only \
 									</tr>
 								</tbody>
 							</table>
-						</div>
-
-							<h3><code>strict-origin-when-cross-origin</code> behavior details</h3>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>Destination</th>
-											<th>What is sent</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Same origin (within your site)</td>
-											<td>Complete URL including path</td>
-										</tr>
-										<tr>
-											<td>External origin (https→https)</td>
-											<td>
-												Origin only (
-												<code>https://example.com</code>
-												)
-											</td>
-										</tr>
-										<tr>
-											<td>External origin (https→http)</td>
-											<td>Nothing</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
 						</div>
 					</section>
 
@@ -1287,48 +931,6 @@ Header always set Content-Security-Policy-Report-Only \
 						<blockquote>
 							<p>Google マップを埋め込んでいても「現在地を表示」ボタンを使わないサイトなら「完全無効化」のままで問題ない。「現在地を表示」が必要な場合のみ「Google マップ許可」を選ぶ。</p>
 						</blockquote>
-
-							<h3><code>geolocation</code> — 3-level setting</h3>
-							<p>
-								The generator provides three options for
-								<code>geolocation</code>
-								:
-							</p>
-							<div class="table-wrap">
-								<table>
-									<thead>
-										<tr>
-											<th>Option</th>
-											<th>Generated value</th>
-											<th>Use case</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Fully disabled</td>
-											<td><code>geolocation=()</code></td>
-											<td>Sites that don't use maps or current-location features (default)</td>
-										</tr>
-										<tr>
-											<td>Allow Google Maps</td>
-											<td>
-												<code>geolocation=(self "https://www.google.com")</code>
-											</td>
-											<td>Sites that use the Google Maps "show my location" feature</td>
-										</tr>
-										<tr>
-											<td>Exclude from policy</td>
-											<td>(nothing output)</td>
-											<td>Leave to browser default</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-							<blockquote>
-								<p>If you embed Google Maps but don't use the "show my location" button, "Fully disabled" is fine. Only choose "Allow Google Maps" when the current-location feature is actually needed.</p>
-							</blockquote>
-						</div>
 					</section>
 
 					<hr class="divider" />
